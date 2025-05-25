@@ -61,3 +61,10 @@
 
 12.在tools目录下会生成kernel.img文件，刷入测试
 
+#特别鸣谢
+[dabao1955](https://github.com/dabao1955)/[KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——提供修改内核方法
+
+[tiann](https://github.com/tiann)/[KernelSU](https://github.com/tiann/KernelSU/)——KernelSU作者
+
+
+
