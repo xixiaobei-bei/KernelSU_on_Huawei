@@ -30,7 +30,9 @@
 
 4.电脑上在ADB工具目录下输入以下命令
 
-`fastboot flash kernel <内核文件>`
+```bash
+fastboot flash kernel <内核文件>
+```
 
 若是PM内核，请解密DATA后格式化DATA分区才可开机
 
