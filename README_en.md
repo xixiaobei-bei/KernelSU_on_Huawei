@@ -20,7 +20,7 @@ Kernels with the PM suffix have permissive SELinux and can be used to boot SGSI.
 
 2.Ensure you flash the kernel matching your device's base version, otherwise the device will not boot!
 
-# Flashing
+# Flash
 
 1.Ensure the device's Bootloader is unlocked.
 
