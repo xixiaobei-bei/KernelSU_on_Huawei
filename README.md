@@ -40,16 +40,30 @@
 
 2.修改你要修改的内容
 
-3.在终端输入`sudo apt-get install libncurses5-dev libncurses-dev libssl-dev device-tree-compiler bc cpio lib32ncurses5-dev lib32z1 build-essential binutils bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev git python2`安装依赖
+3.在终端输入
+```sudo apt-get install libncurses5-dev libncurses-dev libssl-dev device-tree-compiler bc cpio lib32ncurses5-dev lib32z1 build-essential binutils bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev git python2```
+安装依赖
 
-4.运行`sudo ln -sf /usr/bin/python2.7 /usr/bin/python`命令使Pyrhon2.7作为默认值
+4.运行
+```sudo ln -sf /usr/bin/python2.7 /usr/bin/python```
+命令使Pyrhon2.7作为默认值
 
-5.x86电脑运行`git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9`命令。ARM电脑运行
-`git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 arm-linux-androideabi-4.9`命令以下载交叉编译器
+5.x86电脑运行
+```git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9```
+命令。ARM电脑运行
+```git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 arm-linux-androideabi-4.9```
+命令以下载交叉编译器
 
-6.在内核源码目录下打开终端，运行`export ARCH=arm64`命令以及`export PATH=$PATH:/media/coconutat/Files/Downloads/Github/android_kernel_huawei_ravel_KernelSU——android_kernel_huawei_ravel_KernelSU/aarch64-linux-android-4.9/bin`命令（注意将命令中的路径换成刚刚下载的交叉编译器文件夹下的bin文件夹的路径），然后运行`export CROSS_COMPILE=aarch64-linux-android-`命令
+6.在内核源码目录下打开终端，运行
+```export ARCH=arm64```命令以及
+```export PATH=$PATH:/media/coconutat/Files/Downloads/Github/android_kernel_huawei_ravel_KernelSU——android_kernel_huawei_ravel_KernelSU/aarch64-linux-android-4.9/bin```
+命令（注意将命令中的路径换成刚刚下载的交叉编译器文件夹下的bin文件夹的路径），然后运行
+```export CROSS_COMPILE=aarch64-linux-android-```
+命令
 
-7.保持终端窗口开启，在其中输入`make ARCH=arm64 O=out merge_hi3660_defconfig`和`make ARCH=arm64 O=out -j8`命令以编译（注意将数字8改成你的CPU核心数X2）
+7.保持终端窗口开启，在其中输入
+```make ARCH=arm64 O=out merge_hi3660_defconfig`和`make ARCH=arm64 O=out -j8```
+命令以编译（注意将数字8改成你的CPU核心数X2）
 
 8.等待编译完成
 
@@ -57,7 +71,9 @@
 
 10.修改pack_kernerimage_cmd.sh文件中的日期为当前时间
 
-11.在tools目录下运行`bash pack_kernerimage_cmd.sh`命令打包内核
+11.在tools目录下运行
+```bash pack_kernerimage_cmd.sh```
+命令打包内核
 
 12.在tools目录下会生成kernel.img文件，刷入测试
 
