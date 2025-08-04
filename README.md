@@ -71,7 +71,8 @@ export CROSS_COMPILE=aarch64-linux-android-
 
 7.保持终端窗口开启，在其中输入以下命令以编译（注意将数字8改成你的CPU核心数X2）
 ```bash
-make ARCH=arm64 O=out merge_hi3660_defconfig`和`make ARCH=arm64 O=out -j8
+make ARCH=arm64 O=out merge_hi3660_defconfig
+make ARCH=arm64 O=out -j8
 ```
 
 8.等待编译完成
