@@ -1,4 +1,6 @@
-### KernelSU on Huawei Mate9[简体中文](README.md) | [English](README_en.md)
+### KernelSU on Huawei Mate9
+
+[简体中文](README.md) | [English](README_en.md)
 
 适用于华为mate9的KernelSU内核！
 
