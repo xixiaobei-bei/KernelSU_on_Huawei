@@ -20,9 +20,7 @@
 
 - If you choose to flash a PM kernel, you **must decrypt the DATA partition** before the device can boot.
 
-- Always select the kernel that matches your device's base firmware version.
-
-- Flashing an incompatible kernel will result in a failure to boot!
+- Always select the kernel that matches your device's base firmware version.Flashing an incompatible kernel will result in a failure to boot!
 
 - The official KernelSU has dropped support for non-GKI kernels since version 1.0. Therefore, you must use the v9.0.5 manager. Other KernelSU branches (e.g., KernelSU-Next) are not affected by this change.
 
