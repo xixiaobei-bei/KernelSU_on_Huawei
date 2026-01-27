@@ -16,12 +16,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 使用 v3 版本并禁用缓存
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: false  # 显式禁用缓存
+         node-version: '18'
+         cache: 'npm'
+         cache-dependency-path: '**/package-lock.json'
 
       - name: Install dependencies
         run: |
