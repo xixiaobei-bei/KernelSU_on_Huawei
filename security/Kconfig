@@ -237,13 +237,5 @@ config HISI_RO_LSM_HOOKS
         help
           Protects the security huulks from further modifications, after init.
 
-source security/mdpp_selftest/Kconfig
-source security/hwselinux/Kconfig
-source security/kernel_harden/Kconfig
-source security/check_root/Kconfig
-source security/hw_root_scan/Kconfig
-source security/check_double_free/Kconfig
-source security/hkip_atkinfo/Kconfig
-source security/kernel_stp/Kconfig
 endmenu
 

@@ -286,10 +286,10 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
 	struct pid_namespace *pid_ns = task_active_pid_ns(current);
 	char buffer[256];
 	int ret = 0;
-
 #ifdef CONFIG_KSU
-   ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
+	ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
 #endif
+
 
 	/* We only trust the superuser with rebooting the system. */
 	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
