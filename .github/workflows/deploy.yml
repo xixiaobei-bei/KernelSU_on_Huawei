@@ -2,9 +2,7 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [KernelSU_on_Huawei]
-    paths:
-      - 'webside/**'
+    branches: [KernelSU_onHuawei]
 
 jobs:
   build-and-deploy:
@@ -17,26 +15,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'npm'
-          cache-dependency-path: 'webside/package-lock.json'
+          node-version: 20
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./webside
-
-      - name: Build with VitePress
-        run: npm run docs:build
-        working-directory: ./webside
+      - name: Install and Build
+        run: |
+          cd webside
+          npm install
+          npm run docs:build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -44,5 +33,4 @@ jobs:
           path: webside/.vitepress/dist
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
