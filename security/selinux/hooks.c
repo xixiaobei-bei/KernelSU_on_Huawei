@@ -2287,10 +2287,6 @@ static u32 ptrace_parent_sid(struct task_struct *task)
 	return sid;
 }
 
-#ifdef CONFIG_KSU
-extern bool is_ksu_transition(const struct task_security_struct *old_tsec,
-			     const struct task_security_struct *new_tsec);
-#endif
 static int check_nnp_nosuid(const struct linux_binprm *bprm,
 			    const struct task_security_struct *old_tsec,
 			    const struct task_security_struct *new_tsec)
@@ -2304,10 +2300,6 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
 
 	if (new_tsec->sid == old_tsec->sid)
 		return 0; /* No change in credentials */
-#ifdef CONFIG_KSU
-   if (is_ksu_transition(old_tsec, new_tsec))
-	   return 0;
-#endif
 
 	/*
 	 * The only transitions we permit under NNP or nosuid
