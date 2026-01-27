@@ -255,5 +255,4 @@ source "drivers/mmonitor/Kconfig"
 
 source "drivers/cfi/Kconfig"
 
-source "drivers/kernelsu/Kconfig"
 endmenu
