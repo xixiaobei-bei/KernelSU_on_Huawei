@@ -2,7 +2,7 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [KernelSU_onHuawei]
+    branches: [KernelSU_on_Huawei]
 
 jobs:
   build-and-deploy:
@@ -21,13 +21,12 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          # 修改这里：指向 webside 目录下的 package-lock.json
           cache-dependency-path: 'webside/package-lock.json'
 
       - name: Install dependencies
         run: |
           cd webside
-          npm ci  # 使用 npm ci 而不是 npm install，这样会严格按照 package-lock.json
+          npm ci
 
       - name: Build with VitePress
         run: |
