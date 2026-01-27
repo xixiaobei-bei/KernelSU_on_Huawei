@@ -22,7 +22,7 @@
 
 - 请选择对应底包的内核再刷入，否则会无法开机！
 
-- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用v9.0.5的管理器，其他KernelSU分支不受影响
+- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用 [v0.9.2的管理器](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk) ，其他KernelSU分支不受影响
 ## 刷入
 
 1.解锁Bootloader
@@ -49,7 +49,7 @@ fastboot flash kernel <内核文件>
 
 ## 方法1
 
-按照wiki的教程编译出自己的内核后提交新分支pr或打包发给我的邮箱
+按照[wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)的教程编译出自己的内核后提交新分支pr或打包发给我的邮箱
 
 jiaxi120516@outlook.com
 

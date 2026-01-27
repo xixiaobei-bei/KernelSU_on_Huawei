@@ -22,7 +22,7 @@
 
 - Always select the kernel that matches your device's base firmware version.Flashing an incompatible kernel will result in a failure to boot!
 
-- The official KernelSU has dropped support for non-GKI kernels since version 1.0. Therefore, you must use the v9.0.5 manager. Other KernelSU branches (e.g., KernelSU-Next) are not affected by this change.
+- The official KernelSU has dropped support for non-GKI kernels since version 1.0. Therefore, you must use the [v0.9.5 manager](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk). Other KernelSU branches (e.g., KernelSU-Next) are not affected by this change.
 
 ## Flashing Instructions
 
@@ -47,7 +47,7 @@ If using a PM kernel, you must decrypt and then format the DATA partition before
 
 ## Method 1
 
-Follow the tutorial in the wiki to compile your own kernel, then either submit a pull request with a new branch or package it and email it to me at:
+Follow the tutorial in the [wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/English) to compile your own kernel, then either submit a pull request with a new branch or package it and email it to me at:
 
 jiaxi120516@outlook.com
 
