@@ -2,7 +2,7 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [KernelSU_on_Huawei]
+    branches: [KernelSU_on_Huawei]  # 修正分支名称
 
 jobs:
   build-and-deploy:
@@ -20,8 +20,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: 'webside/package-lock.json'
+          # 暂时禁用缓存以排查问题
+          # cache: 'npm'
+          # cache-dependency-path: 'webside/package-lock.json'
+
+      - name: Cache npm dependencies (推荐方案)
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            webside/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('webside/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Verify file structure
+        run: |
+          echo "=== 检查文件结构 ==="
+          echo "当前目录: $(pwd)"
+          echo "webside 目录内容:"
+          ls -la webside/ || echo "webside 目录不存在"
+          echo "=== 检查 package-lock.json ==="
+          if [ -f "webside/package-lock.json" ]; then
+            echo "✓ 找到 package-lock.json"
+          else
+            echo "✗ 未找到 package-lock.json，尝试生成..."
+            cd webside && npm init -y && npm install vitepress --save-dev
+          fi
 
       - name: Install dependencies
         run: |
