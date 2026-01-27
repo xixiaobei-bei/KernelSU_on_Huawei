@@ -1,8 +1,7 @@
 import { defineConfig } from 'vitepress'
 
-const base = "/webside/"; 
 export default defineConfig({
-  base, 
+  base: '/KernelSU_on_Huawei/',
   title: "KernelSU on Huawei",
   description: "为你的华为设备吃上内核Root",
   themeConfig: {
