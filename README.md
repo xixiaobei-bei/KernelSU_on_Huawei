@@ -79,7 +79,7 @@ KernelSU安全模式有关：
 KernelSU模块功能：
 - `security/selinux/hooks.c` 参考 [此commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-EMUI强制内核宽容导致KernelSU不工作解决：
+EMUI强制内核宽容导致KernelSU不工作解决（已废弃，KernelSU v0.6版本已修复）：
 - `security/selinux/selinuxfs.c` 参考 [此commit](https://github.com/Coconutat/android_kernel_huawei_kirin970_EMUI9.1.0_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9)第166行
 
 ## 特别鸣谢
@@ -88,3 +88,5 @@ EMUI强制内核宽容导致KernelSU不工作解决：
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——KernelSU作者
 
 - [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——KernelSU-Next作者（好像是的）
+
+- [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的Hooks方法，非常感谢！！！

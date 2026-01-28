@@ -39,7 +39,7 @@ If using a PM kernel, you must decrypt and then format the DATA partition before
 
 # Supported Devices
 
-- [ ] Mate 9 Series (MHA)
+- [x] Mate 9 Series (MHA)
 
 ## Continuously updating...
 
@@ -77,7 +77,7 @@ Related to KernelSU Safe Mode:
 KernelSU Module Support:
 - `security/selinux/hooks.c`: Refer to [this commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5).
 
-Fix for EMUI forcing kernel permissive mode causing KernelSU to fail:
+EMUI Enforcing Kernel Mode Causing KernelSU to Malfunction - Solution (Deprecated, Fixed in KernelSU v0.6):
 - `security/selinux/selinuxfs.c`: Refer to line 166 of [this commit](https://github.com/Coconutat/android_kernel_huawei_kirin970_EMUI9.1.0_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9).
 
 # Special Thanks
@@ -86,3 +86,5 @@ Fix for EMUI forcing kernel permissive mode causing KernelSU to fail:
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——The creator of KernelSU.
 
 - [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——The team behind KernelSU-Next (presumably).
+
+- [Coconutat](https://github.com/Coconutat) and his submitted [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — providing the Hooks method for SukiSU-Ultra. Thank you very much!!!
