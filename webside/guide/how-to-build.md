@@ -516,6 +516,8 @@ diff -ruN a/security/Makefile b/security/Makefile
 +obj-y += kernelsu/
 ```
 
+:::
+
 ### 3.修改内核以启用SukiSU-Ultra
 
 在你的设备deconfig配置文件最后加入以下几行：
@@ -534,7 +536,6 @@ CONFIG_KSU_MANUAL_SU=y
 CONFIG_KSU_DEBUG=y
 ```
 
-:::
 ## 5.编译
 
 #### 1.设定默认Python2
