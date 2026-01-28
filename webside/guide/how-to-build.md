@@ -193,7 +193,7 @@ curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kern
 
 :::code-group
 
-```exec.c
+```diff[exec.c]
 diff -ruN a/fs/exec.c b/fs/exec.c
 --- a/fs/exec.c	2019-02-27 18:31:35.000000000 +0800
 +++ b/fs/exec.c	2026-01-28 17:58:55.317129000 +0800
@@ -231,7 +231,7 @@ diff -ruN a/fs/exec.c b/fs/exec.c
  
 ```
 
-```open.c
+```diff[open.c]
 diff -ruN a/fs/open.c b/fs/open.c
 --- a/fs/open.c	2019-02-27 18:31:35.000000000 +0800
 +++ b/fs/open.c	2026-01-28 17:58:55.473127000 +0800
@@ -259,7 +259,7 @@ diff -ruN a/fs/open.c b/fs/open.c
  		return -EINVAL;
 ```
 
-```read_write.c
+```diff[read_write.c]
 diff -ruN a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c	2019-02-27 18:31:35.000000000 +0800
 +++ b/fs/read_write.c	2026-01-28 17:58:55.497126000 +0800
@@ -288,7 +288,7 @@ diff -ruN a/fs/read_write.c b/fs/read_write.c
  		ret = vfs_read(f.file, buf, count, &pos);
 ```
 
-```stat.c
+```diff[stat.c]
 diff -ruN a/fs/stat.c b/fs/stat.c
 --- a/fs/stat.c	2019-02-27 18:31:35.000000000 +0800
 +++ b/fs/stat.c	2026-01-28 17:58:55.509126000 +0800
@@ -327,7 +327,7 @@ diff -ruN a/fs/stat.c b/fs/stat.c
  		return error;
 ```
 
-```input.c
+```diff[input.c]
 diff -ruN a/drivers/input/input.c b/drivers/input/input.c
 --- a/drivers/input/input.c	2019-02-27 18:31:32.000000000 +0800
 +++ b/drivers/input/input.c	2026-01-28 17:58:52.537176000 +0800
@@ -355,7 +355,7 @@ diff -ruN a/drivers/input/input.c b/drivers/input/input.c
  		spin_lock_irqsave(&dev->event_lock, flags);
 ```
 
-```hooks.c
+```diff[hooks.c]
 diff -ruN a/security/selinux/hooks.c b/security/selinux/hooks.c
 --- a/security/selinux/hooks.c	2019-02-27 18:31:35.000000000 +0800
 +++ b/security/selinux/hooks.c	2026-01-28 17:58:56.593108000 +0800
@@ -399,7 +399,7 @@ diff -ruN a/security/selinux/hooks.c b/security/selinux/hooks.c
  	 * are transitions to bounded SIDs, i.e. SIDs that are
 ```
 
-```reboot.c
+```diff[reboot.c]
 diff -ruN a/kernel/reboot.c b/kernel/reboot.c
 --- a/kernel/reboot.c	2019-02-27 18:31:34.000000000 +0800
 +++ b/kernel/reboot.c	2026-01-28 17:58:56.149115000 +0800
@@ -425,7 +425,7 @@ diff -ruN a/kernel/reboot.c b/kernel/reboot.c
  	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
 ```
 
-```sys.c
+```diff[sys.c]
 diff -ruN a/kernel/sys.c b/kernel/sys.c
 --- a/kernel/sys.c	2019-02-27 18:31:34.000000000 +0800
 +++ b/kernel/sys.c	2026-01-28 17:58:56.161115000 +0800
@@ -453,7 +453,7 @@ diff -ruN a/kernel/sys.c b/kernel/sys.c
  		return -EINVAL;
 ```
 
-```Kconfig
+```diff[Kconfig]
 diff -ruN a/security/Kconfig b/security/Kconfig
 --- a/security/Kconfig	2019-02-27 18:31:35.000000000 +0800
 +++ b/security/Kconfig	2026-01-28 17:58:56.577108000 +0800
@@ -472,7 +472,7 @@ diff -ruN a/security/Kconfig b/security/Kconfig
  endmenu
 ```
 
-```security/Makefile
+```diff[security/Makefile]
 diff -ruN a/security/Makefile b/security/Makefile
 --- a/security/Makefile	2019-02-27 18:31:35.000000000 +0800
 +++ b/security/Makefile	2026-01-28 17:58:56.577108000 +0800
@@ -505,7 +505,7 @@ diff -ruN a/security/Makefile b/security/Makefile
  include security/kernel_harden/Makefile
 ```
 
-```drivers/Makefile
+```diff[drivers/Makefile]
 --- a	2026-01-28 21:33:24.492017000 +0800
 +++ b	2026-01-28 21:34:12.088802416 +0800
 @@ -214,4 +214,4 @@
