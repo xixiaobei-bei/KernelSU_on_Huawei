@@ -520,7 +520,7 @@ diff -ruN a/security/Makefile b/security/Makefile
 
 在你的设备deconfig配置文件最后加入以下几行：
 
-```diff[deconfig]
+```deconfig
 # KernelSU
 CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
@@ -530,7 +530,7 @@ CONFIG_KSU_MANUAL_SU=y
 
 若要开启SukiSU-Ultra的调试模式，还需要加入：
 
-```diff[deconfig]
+```deconfig
 CONFIG_KSU_DEBUG=y
 ```
 
