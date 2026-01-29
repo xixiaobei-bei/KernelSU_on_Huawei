@@ -2,11 +2,10 @@
 
 感谢大佬们的辛苦奉献，我只不过是站在了巨人的肩膀上而已
 
-本教程虽然有别的型号的教程，但是我没有设备可以试一试，不保证能成功，主要面向华为
-
 deconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的deconfig结尾的文件，可能有多个，根据你的手机型号来
 
-## 1.安装依赖
+## 安装依赖
+
 :::warning
 由于Ubuntu/Debian高版本全局定义yylloc问题，所以只推荐使用Ubuntu20.04或Ubuntu18.04（Debian13以下，推荐这两个版本）
 :::
@@ -24,9 +23,11 @@ sudo apt-get install libncurses5-dev libncurses-dev libssl-dev device-tree-compi
 git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
 ```
 
-注意：华为只能用Aarch64版本
+:::tip
+华为只能用Aarch64版本
+:::
 
-## 2.获取源码
+## 获取源码
 
 [华为的官方源码](https://consumer.huawei.com/en/opensource/)
 
@@ -38,7 +39,7 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 
 #### 其他设备可寻找第三方ROM的内核源码或在互联网搜索
 
-## 3.更改内核
+## 更改内核
 
 #### 需要关闭deconfig配置文件的以下选项：
 
@@ -137,7 +138,7 @@ CONFIG_DM_VERITY_AVB=y
 ## CONFIG_DM_VERITY_AVB=y is not set 
 ```
 
-## 4.集成KernelSU/KernelSU-Next
+## 集成KernelSU/KernelSU-Next
 
 #### 1.拉取源码
 
@@ -182,6 +183,10 @@ CONFIG_KSU_DEBUG=y
 参考[此GithubCommit](https://github.com/Coconutat/android_kernel_huawei_ravel_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9)的第166行
 
 ## 集成SukiSU-Ultra
+
+:::warning
+按照顺序先拉取源码再打补丁，因为SukiSU-Ultra拉取源码时在Makefile文件中加入不适配的内容，所以后面会通过打补丁解决
+:::
 
 ### 1.拉取源码
 
@@ -536,7 +541,7 @@ CONFIG_KSU_MANUAL_SU=y
 CONFIG_KSU_DEBUG=y
 ```
 
-## 5.编译
+## 编译
 
 #### 1.设定默认Python2
 
@@ -580,7 +585,7 @@ Selinux的Permissive状态版本：
 
 ```sh
 ##!/bin/bash 
-./mkbootimg --kernel kernel --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
+./mkbootimg --Image.gz kernel --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
 ```
 
 ###### 里面的内核编译时间需要更改
