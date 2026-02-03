@@ -10,11 +10,13 @@
 
 ## 命名规则
 
-- 名字中带EMUI-xxx的内核适用于EMUI xxx版本底包的设备
+```机型代码_底包版本_KernelSU类型_Selinux状态```
 
-- 名字中带HarmonyOS-xxx的内核适用于HarmonyOS xxx版本底包的设备
+例如：
 
-- 名字中带PM后缀的内核SELinux为宽容状态，可用于启动SGSI
+```MHA_EMUI9.0_KernelSU-Next_PM.img```
+
+代表支持MHA型号EMUI9.0底包设备的KernelSU-Next的Selinux状态为宽容的内核
 
 ## 注意事项
 
@@ -22,7 +24,8 @@
 
 - 请选择对应底包的内核再刷入，否则会无法开机！
 
-- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用 [v0.9.2的管理器](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk) ，其他KernelSU分支不受影响
+- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用 [v0.9.5的管理器](https://github.com/tiann/KernelSU/releases/v0.9.5/) ，其他KernelSU分支不受影响
+
 ## 刷入
 
 1.解锁Bootloader
@@ -45,11 +48,22 @@ fastboot flash kernel <内核文件>
  
 ### 持续更新中...
 
+## 未来计划
+
+- [x] 添加官方网站
+- [x] 添加GithubAction自动编译功能
+- [x] 添加对SukiSU-Ultra的支持
+- [ ] 添加ManualHooks自动集成的支持
+- [ ] 添加对RKSU的支持
+- [ ] 添加对ReSukiSU的支持
+- [ ] 添加对SusFS的支持
+- [ ] 添加对KPM的支持
+
 # 贡献项目
 
 ## 方法1
 
-按照[wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)的教程编译出自己的内核后提交新分支pr或打包发给我的邮箱
+按照[wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)的教程编译出自己的内核后打包发给我的邮箱
 
 jiaxi120516@outlook.com
 
@@ -57,36 +71,48 @@ jiaxi120516@outlook.com
 
 ## 方法2
 
-将自己的 设备型号和系统版本（内核至少得是4.9版本） 一起发给我的邮箱
+将自己的 设备型号，安卓版本，系统版本和内核版本（内核至少得是4.9版本） 一起发给我的邮箱
 
 jiaxi120516@outlook.com
 
 我在周末将会试图制作
 
-## 若你知道如何将SukiSU移植到4.9内核，请指导我，非常感谢！
-
 # 修改内容
 
-KernelSU本体有关：
+KernelSU有关：
 - `fs/open.c` 中的 `faccessat` 方法
 - `fs/exec.c` 中的 `do_execveat_common` 方法
 - `fs/read_write.c` 中的 `vfs_read` 方法
 - `stat.c` 中的 `vfs_fstatat` 方法
 
+SukiSU-Ultra的ManualHooks有关：
+- `fs/open.c` 中的 `faccessat` 方法
+- `fs/exec.c` 中的 `do_execve` 方法
+- `fs/read_write.c` 中的 `SYSCALL_DEFINE3` 方法
+- `stat.c` 中的 `vfs_fstatat` 方法
+- `kernel/reboot.c` 中的 `SYSCALL_DEFINE4` 方法
+- `kernel/sys.c` 中的 `setuid` 方法
+- `security/selinux/hooks.c` 中的 `int check_nnp_nosuid` 方法
+
 KernelSU安全模式有关：
 - `drivers/input/input.c` 中的 `input_handle_event` 方法
 
-KernelSU模块功能：
+KernelSU模块有关：
+
 - `security/selinux/hooks.c` 参考 [此commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-EMUI强制内核宽容导致KernelSU不工作解决（已废弃，KernelSU v0.6版本已修复）：
-- `security/selinux/selinuxfs.c` 参考 [此commit](https://github.com/Coconutat/android_kernel_huawei_kirin970_EMUI9.1.0_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9)第166行
+- `fs/namespace.c` 中的path_umount方法
 
-## 特别鸣谢
-- [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——提供修改内核集成KernelSU的方法
+## 特别鸣谢（排名不分前后）
 
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——KernelSU作者
 
 - [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——KernelSU-Next作者（好像是的）
 
-- [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的Hooks方法，非常感谢！！！
+- [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra)——SukiSU-Ultra作者
+
+- [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU)——添加SukiSU-Ultra在5系内核以下的ManualHook支持
+
+- [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的ManualHooks集成思路
+
+- [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——编译KernelSU内核的基础教程

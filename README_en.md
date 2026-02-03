@@ -1,90 +1,115 @@
 # KernelSU for Huawei
 
-[[简体中文](README.md)]  [[English](README_en.md)]
+- KernelSU kernels for Huawei devices!
 
-- KernelSU kernel specifically adapted for Huawei devices!
+- Currently supports KernelSU and KernelSU-Next (SukiSU support is under investigation)
 
-- Currently supports KernelSU and KernelSU-Next (SukiSU is under research)
-
-- Thanks to all the contributors; I'm merely standing on the shoulders of giants
+- Thanks to all contributors — I'm standing on the shoulders of giants
 
 ## Naming Convention
 
-- Kernels with `EMUI-xxx` in their name are suitable for devices with EMUI xxx base firmware.
+`device_code_base_firmware_KernelSU_type_SELinux_state`
 
-- Kernels with `HarmonyOS-xxx` in their name are suitable for devices with HarmonyOS xxx base firmware.
+Example:
 
-- Kernels with the `PM` suffix have SELinux set to permissive mode and can be used to boot SGSI.
+`MHA_EMUI9.0_KernelSU-Next_PM.img`
+
+This indicates a KernelSU-Next kernel for the MHA model running EMUI 9.0, with SELinux in permissive mode (PM)
 
 ## Important Notes
 
-- If you choose to flash a PM kernel, you **must decrypt the DATA partition** before the device can boot.
+- If you flash a PM kernel, you must decrypt the DATA partition before the device can boot.
 
-- Always select the kernel that matches your device's base firmware version.Flashing an incompatible kernel will result in a failure to boot!
+- Always flash a kernel that matches the device's base firmware; flashing a mismatched kernel may prevent the device from booting!
 
-- The official KernelSU has dropped support for non-GKI kernels since version 1.0. Therefore, you must use the [v0.9.5 manager](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk). Other KernelSU branches (e.g., KernelSU-Next) are not affected by this change.
+- Official KernelSU dropped non-GKI kernels in v1.0. If your device requires a non-GKI kernel, use the [v0.9.5 manager](https://github.com/tiann/KernelSU/releases/v0.9.5/). Other KernelSU branches are unaffected.
 
-## Flashing Instructions
+## Flashing (Installation)
 
-1. Unlock the Bootloader.
-2. Download the corresponding kernel file.
+1. Unlock the bootloader.
+2. Download the corresponding kernel for your device and firmware.
 3. Boot the phone into fastboot mode and connect it to your computer.
-4. On your computer, navigate to your ADB tools directory and execute the following command:
+4. In the fastboot/ADB tools directory on your computer, run:
 
 ```bash
-fastboot flash kernel <kernel_filename>
+fastboot flash kernel <kernel-file>
 ```
 
-If using a PM kernel, you must decrypt and then format the DATA partition before the device can boot.
+If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA partition before booting.
 
 # Supported Devices
 
-- [x] Mate 9 Series (MHA)
+- [x] Mate 9 series (MHA)
 
-## Continuously updating...
+### More devices coming...
 
-# Contributing to the Project
+## Roadmap / Future Plans
+
+- [x] Add an official website
+- [x] Add GitHub Actions for automatic builds
+- [x] Add support for SukiSU-Ultra
+- [ ] Add automatic ManualHooks integration
+- [ ] Add support for RKSU
+- [ ] Add support for ReSukiSU
+- [ ] Add support for SusFS
+- [ ] Add support for KPM
+
+# Contributing
+
+If you'd like to contribute, there are two main ways:
 
 ## Method 1
 
-Follow the tutorial in the [wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/English) to compile your own kernel, then either submit a pull request with a new branch or package it and email it to me at:
+Follow the tutorial on the [wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87) to build your kernel, package it, and send it to my email:
 
 jiaxi120516@outlook.com
 
-If you have a GitHub account, please send your username as well so I can add you to the project's list of contributors.
+If you have a GitHub account, include your username and I'll add you as a project contributor.
 
 ## Method 2
 
-Send your device model and system version (the kernel must be at least version 4.9) to my email:
+Send your device model, Android version, system version, and kernel version (kernel must be at least 4.9) to:
 
 jiaxi120516@outlook.com
 
-I will attempt to work on it over the weekend.
+I'll try to build and test it on the weekend.
 
-If you know how to port SukiSU to kernel version 4.9, please guide me. Your help would be greatly appreciated!
+# Changes (What was modified)
 
-# Modifications
+KernelSU-related:
+- `fs/open.c` — `faccessat`
+- `fs/exec.c` — `do_execveat_common`
+- `fs/read_write.c` — `vfs_read`
+- `stat.c` — `vfs_fstatat`
 
-Related to KernelSU core:
-- `fs/open.c`: Modified the `faccessat` function.
-- `fs/exec.c`: Modified the `do_execveat_common` function.
-- `fs/read_write.c`: Modified the `vfs_read` function.
-- `fs/stat.c`: Modified the `vfs_fstatat` function.
+SukiSU-Ultra ManualHooks-related:
+- `fs/open.c` — `faccessat`
+- `fs/exec.c` — `do_execve`
+- `fs/read_write.c` — `SYSCALL_DEFINE3`
+- `stat.c` — `vfs_fstatat`
+- `kernel/reboot.c` — `SYSCALL_DEFINE4`
+- `kernel/sys.c` — `setuid`
+- `security/selinux/hooks.c` — `int check_nnp_nosuid`
 
-Related to KernelSU Safe Mode:
-- `drivers/input/input.c`: Modified the `input_handle_event` function.
+KernelSU Safe Mode-related:
+- `drivers/input/input.c` — `input_handle_event`
 
-KernelSU Module Support:
-- `security/selinux/hooks.c`: Refer to [this commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5).
+KernelSU modules:
 
-EMUI Enforcing Kernel Mode Causing KernelSU to Malfunction - Solution (Deprecated, Fixed in KernelSU v0.6):
-- `security/selinux/selinuxfs.c`: Refer to line 166 of [this commit](https://github.com/Coconutat/android_kernel_huawei_kirin970_EMUI9.1.0_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9).
+- `security/selinux/hooks.c` — see [this commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-# Special Thanks
-- [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——For providing the general porting guide for integrating KernelSU into kernels.
+- `fs/namespace.c` — `path_umount` method
 
-- [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——The creator of KernelSU.
+## Special Thanks (in no particular order)
 
-- [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——The team behind KernelSU-Next (presumably).
+- [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/) — KernelSU author
 
-- [Coconutat](https://github.com/Coconutat) and his submitted [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — providing the Hooks method for SukiSU-Ultra. Thank you very much!!!
+- [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) — KernelSU-Next authors
+
+- [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra) — SukiSU-Ultra author
+
+- [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU) — added ManualHook support for SukiSU-Ultra on kernels below the 5-series
+
+- [Coconutat](https://github.com/Coconutat) and their [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — provided ideas for integrating SukiSU-Ultra ManualHooks
+
+- [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide) — basic guide for building KernelSU kernels

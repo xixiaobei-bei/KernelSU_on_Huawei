@@ -2,7 +2,7 @@
 
 感谢大佬们的辛苦奉献，我只不过是站在了巨人的肩膀上而已
 
-deconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的deconfig结尾的文件，可能有多个，根据你的手机型号来
+defconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的defconfig结尾的文件，可能有多个，根据你的手机型号来
 
 ## 安装依赖
 
@@ -31,7 +31,7 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 
 [华为的官方源码](https://consumer.huawei.com/en/opensource/)
 
-在其中输入设备型号代码，下载后打开```Code_sources\kernel```文件夹，这为你的内核源码，解压出来即可
+在其中输入设备型号代码，下载后打开```Code_opensource\kernel```文件夹，这为你的内核源码，解压出来即可
 
 :::warning
 由于编码原因，只能在Linux环境下解压到非ntfs/fat分区，否则会无法编译
@@ -41,7 +41,7 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 
 ## 更改内核
 
-#### 需要关闭deconfig配置文件的以下选项：
+#### 需要关闭def-config配置文件的以下选项：
 
 ```text
 CONFIG_HISI_PMALLOC=y
@@ -75,39 +75,6 @@ CONFIG_HWAA=y
 ```text
 ## CONFIG_XXXXXX is not set
 ```
-
-一键替换命令：
-
-```bash
-sed -i \
-  -e 's/^CONFIG_HISI_PMALLOC=y/## CONFIG_HISI_PMALLOC is not set/' \
-  -e 's/^CONFIG_HIVIEW_SELINUX=y/## CONFIG_HIVIEW_SELINUX is not set/' \
-  -e 's/^CONFIG_HISI_SELINUX_EBITMAP_RO=y/## CONFIG_HISI_SELINUX_EBITMAP_RO is not set/' \
-  -e 's/^CONFIG_HISI_SELINUX_PROT=y/## CONFIG_HISI_SELINUX_PROT is not set/' \
-  -e 's/^CONFIG_HISI_RO_LSM_HOOKS=y/## CONFIG_HISI_RO_LSM_HOOKS is not set/' \
-  -e 's/^CONFIG_INTEGRITY=y/## CONFIG_INTEGRITY is not set/' \
-  -e 's/^CONFIG_INTEGRITY_AUDIT=y/## CONFIG_INTEGRITY_AUDIT is not set/' \
-  -e 's/^CONFIG_HUAWEI_CRYPTO_TEST_MDPP=y/## CONFIG_HUAWEI_CRYPTO_TEST_MDPP is not set/' \
-  -e 's/^CONFIG_HUAWEI_SELINUX_DSM=y/## CONFIG_HUAWEI_SELINUX_DSM is not set/' \
-  -e 's/^CONFIG_HUAWEI_HIDESYMS=y/## CONFIG_HUAWEI_HIDESYMS is not set/' \
-  -e 's/^CONFIG_HW_SLUB_SANITIZE=y/## CONFIG_HW_SLUB_SANITIZE is not set/' \
-  -e 's/^CONFIG_HUAWEI_PROC_CHECK_ROOT=y/## CONFIG_HUAWEI_PROC_CHECK_ROOT is not set/' \
-  -e 's/^CONFIG_HW_ROOT_SCAN=y/## CONFIG_HW_ROOT_SCAN is not set/' \
-  -e 's/^CONFIG_HUAWEI_EIMA=y/## CONFIG_HUAWEI_EIMA is not set/' \
-  -e 's/^CONFIG_HUAWEI_EIMA_ACCESS_CONTROL=y/## CONFIG_HUAWEI_EIMA_ACCESS_CONTROL is not set/' \
-  -e 's/^CONFIG_HW_DOUBLE_FREE_DYNAMIC_CHECK=y/## CONFIG_HW_DOUBLE_FREE_DYNAMIC_CHECK is not set/' \
-  -e 's/^CONFIG_HKIP_ATKINFO=y/## CONFIG_HKIP_ATKINFO is not set/' \
-  -e 's/^CONFIG_HW_KERNEL_STP=y/## CONFIG_HW_KERNEL_STP is not set/' \
-  -e 's/^CONFIG_HISI_HHEE=y/## CONFIG_HISI_HHEE is not set/' \
-  -e 's/^CONFIG_HISI_HHEE_TOKEN=y/## CONFIG_HISI_HHEE_TOKEN is not set/' \
-  -e 's/^CONFIG_HISI_DIEID=y/## CONFIG_HISI_DIEID is not set/' \
-  -e 's/^CONFIG_HISI_SUBPMU=y/## CONFIG_HISI_SUBPMU is not set/' \
-  -e 's/^CONFIG_TEE_ANTIROOT_CLIENT=y/## CONFIG_TEE_ANTIROOT_CLIENT is not set/' \
-  -e 's/^CONFIG_HWAA=y/## CONFIG_HWAA is not set/' \
-  merge_hi3660_defconfig
-```
-
-把最后一行的merge_hi3660_defconfig换成你的deconfig配置文件路径
 
 #### 可选部分： 
 
@@ -156,7 +123,7 @@ curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/ke
 
 #### 2.启用KernelSU
 
-在你的设备deconfig配置文件最后加入以下几行：
+在你的设备defconfig配置文件最后加入以下几行：
 
 ```text
 ## KernelSU
@@ -178,15 +145,7 @@ CONFIG_KSU_DEBUG=y
 #### 4.修改hooks.c以启用模块
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-####  5.针对EMUI9/9.1.0 SELinux强制状态导致KernelSU不工作（已废弃，KernelSU v0.6版本已修复次问题）
-
-参考[此GithubCommit](https://github.com/Coconutat/android_kernel_huawei_ravel_KernelSU/commit/f67307c967280d9b863058e47bae7611c8bc3db9)的第166行
-
 ## 集成SukiSU-Ultra
-
-:::warning
-按照顺序先拉取源码再打补丁，因为SukiSU-Ultra拉取源码时在Makefile文件中加入不适配的内容，所以后面会通过打补丁解决
-:::
 
 ### 1.拉取源码
 
@@ -525,7 +484,7 @@ diff -ruN a/security/Makefile b/security/Makefile
 
 ### 3.修改内核以启用SukiSU-Ultra
 
-在你的设备deconfig配置文件最后加入以下几行：
+在你的设备defconfig配置文件最后加入以下几行：
 
 ```text
 # KernelSU
@@ -562,7 +521,7 @@ export CROSS_COMPILE=aarch64-linux-android-
 在内核源码目录输入命令：
 
 ```bash
-make ARCH=arm64 O=out deconfig配置文件名字(只要名字，不要路径)  
+make ARCH=arm64 O=out defconfig配置文件名字(只要名字，不要路径)  
 make ARCH=arm64 O=out -j8
 ```
 
@@ -578,14 +537,14 @@ Selinux的Enforcing状态版本：
 
 ```sh
 ##!/bin/bash 
-./mkbootimg --kernel kernel --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=enforcing buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
+./mkbootimg --kernel Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=enforcing buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
 ```
 
 Selinux的Permissive状态版本：
 
 ```sh
 ##!/bin/bash 
-./mkbootimg --Image.gz kernel --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
+./mkbootimg --kernel Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
 ```
 
 ###### 里面的内核编译时间需要更改

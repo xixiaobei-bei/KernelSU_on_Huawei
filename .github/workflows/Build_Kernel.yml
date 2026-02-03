@@ -1,0 +1,104 @@
+﻿name: Build_Kernel
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - MHA_EMUI9.0_KernelSU
+      - MHA_EMUI9.0_KernelSU-Next
+      - MHA_EMUI9.0_SukiSU-Ultra
+      - MHA_HarmonyOS2.0_KernelSU
+      - MHA_HarmonyOS2.0_KernelSU-Next
+      - MHA_HarmonyOS2.0_SukiSU-Ultra
+  pull_request:
+    branches:
+      - MHA_EMUI9.0_KernelSU
+      - MHA_EMUI9.0_KernelSU-Next
+      - MHA_EMUI9.0_SukiSU-Ultra
+      - MHA_HarmonyOS2.0_KernelSU
+      - MHA_HarmonyOS2.0_KernelSU-Next
+      - MHA_HarmonyOS2.0_SukiSU-Ultra
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 480
+    strategy:
+      matrix:
+        branch:
+          - MHA_EMUI9.0_KernelSU
+          - MHA_EMUI9.0_KernelSU-Next
+          - MHA_EMUI9.0_SukiSU-Ultra
+          - MHA_HarmonyOS2.0_KernelSU
+          - MHA_HarmonyOS2.0_KernelSU-Next
+          - MHA_HarmonyOS2.0_SukiSU-Ultra
+        pm: [false, true]
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_MAXSIZE: "2G"
+      CCACHE_HARDLINK: "true"
+      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=out"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ matrix.branch }}
+        submodules: 'true'
+        fetch-depth: 100
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -y 
+        sudo apt install binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev adb fastboot -y
+        git clone https://github.com/Coconutat/ToolChains.git --dept=1 -b linaro_gcc_4.9
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 100
+
+    - name: Set build vars
+      run: |
+        if [ "${{ matrix.pm }}" = "true" ]; then
+          echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
+        else
+          echo "PM_SUFFIX=" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
+        fi
+
+    - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
+      run: |
+        sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+        if [ -d include/config ]; then
+          echo "Find config, will remove it"
+          rm -rf include/config
+        else
+          echo "No Config, good."
+        fi
+
+        export PATH=$(pwd)/ToolChains/bin/:$PATH
+        export ARCH=arm64
+        export SUBARCH=arm64
+        sudo chmod -R 777 $(pwd)/
+
+        if [ "${{ matrix.pm }}" = "true" ]; then
+          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' merge_hi3660_defconfig || true
+          sed -i 's/^\(CONFIG_LOCALVERSION="[^"]*\)_\([^\"]*"\)$/\1_PM_\2/' merge_hi3660_defconfig || true
+          if ! grep -q '_PM_' merge_hi3660_defconfig; then
+            sed -i 's/^CONFIG_LOCALVERSION="\(.*\)"$/CONFIG_LOCALVERSION="\1_PM"/' merge_hi3660_defconfig || true
+          fi
+        fi
+
+        make clean
+        make distclean
+        make mrproper
+        rm -rf out
+        make merge_hi3660_defconfig
+        make -j$(nproc --all)
+
+        CURRENT_DATE=$(date +'%Y-%m-%d')
+        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+
+    - name: Upload Kernel Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        path: "${{ env.ARTIFACT_NAME }}.img"

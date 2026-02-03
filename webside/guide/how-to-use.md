@@ -10,11 +10,11 @@
 
 访问项目[GithubRelease](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/releases)，随后下载对应内核映像文件，映像文件的命名规则如下：
 
-```机型代码_KernelSU类型_底包版本_Selinux状态```
+```机型代码_底包版本_KernelSU类型_Selinux状态```
 
 例如：
 
-```MHA_KernelSU-Next_EMUI9.0_PM.img```
+```MHA_EMUI9.0_KernelSU-Next_PM.img```
 
 代表支持MHA型号EMUI9.0底包设备的KernelSU-Next的Selinux状态为宽容的内核
 
@@ -45,3 +45,4 @@ fastboot reboot
 |:---:|:---:|:---:|
 |KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
 |KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
+|SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
