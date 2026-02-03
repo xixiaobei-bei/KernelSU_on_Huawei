@@ -51,9 +51,7 @@ jobs:
       run: |
         sudo apt-get update -y 
         sudo apt install binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
-        git clone https://github.com/Coconutat/ToolChains.git --depth=1 -b linaro_gcc_4.9
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 100
+        git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
 
     - name: Prepare KernelSU sources (branch-specific)
       run: |
@@ -94,9 +92,8 @@ jobs:
           echo "No Config, good."
         fi
 
-        export PATH=$(pwd)/ToolChains/bin/:$PATH
-        export ARCH=arm64
-        export SUBARCH=arm64
+        export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+        export CROSS_COMPILE=aarch64-linux-android-
         sudo chmod -R 777 $(pwd)/
 
         if [ "${{ matrix.pm }}" = "true" ]; then
@@ -111,8 +108,8 @@ jobs:
         make distclean
         make mrproper
         rm -rf out
-        make merge_hi3660_defconfig
-        make -j$(nproc --all)
+        make ARCH=arm64 O=out merge_hi3660_defconfig
+        make ARCH=arm64 O=out -j$(nproc --all)
 
         CURRENT_DATE=$(date +'%Y-%m-%d')
         tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
