@@ -47,14 +47,6 @@ jobs:
         fetch-depth: 1
         lfs: false
 
-    - name: Detect pre-fetched submodules
-      run: |
-        if [ -d KernelSU ]; then
-          echo "Found pre-fetched submodule 'KernelSU' — using as-is, not touching it."
-        else
-          echo "No pre-fetched 'KernelSU' found; skipping submodule operations."
-        fi
-
     - name: Install dependencies
       run: |
         sudo apt-get update -y 
@@ -62,6 +54,25 @@ jobs:
         git clone https://github.com/Coconutat/ToolChains.git --depth=1 -b linaro_gcc_4.9
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 100
+
+    - name: Prepare KernelSU sources (branch-specific)
+      run: |
+        BRANCH='${{ matrix.branch }}'
+        if [[ "$BRANCH" == *"KernelSU"* ]]; then
+          echo "Branch contains KernelSU: running KernelSU v0.9.5 setup"
+          rm -rf KernelSU
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+        elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+          echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
+          rm -rf KernelSU-Next
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
+        elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
+          rm -rf KernelSU
+          echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
+          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+        else
+          echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
+        fi
 
     - name: Set build vars
       run: |
