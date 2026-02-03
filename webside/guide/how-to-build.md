@@ -112,13 +112,17 @@ CONFIG_DM_VERITY_AVB=y
 :::code-group
 
 ```KernelSU
-curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
 
 ```KernelSU-Next
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
 ```
 
+:::
+
+:::tip
+KernelSU官方的v0.9.5的源码与内核代码冲突，拉取源码要用main开发版
 :::
 
 #### 2.启用KernelSU
