@@ -43,27 +43,16 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: ${{ matrix.branch }}
-        submodules: true
+        submodules: false
         fetch-depth: 1
-        lfs: true
+        lfs: false
 
-    - name: Safe submodule init
-      if: always()
+    - name: Detect pre-fetched submodules
       run: |
-        if [ -f .gitmodules ]; then
-          echo ".gitmodules found, checking entries..."
-          git config -f .gitmodules --get-regexp '^submodule\..*\.url' 2>/dev/null | awk '{print $1}' | sed 's/^submodule\.//; s/\.url$//' | while read -r path; do
-            url=$(git config -f .gitmodules --get "submodule.${path}.url" || true)
-            if [ -n "$url" ]; then
-              echo "Initializing submodule $path -> $url"
-              git submodule sync --recursive || true
-              git submodule update --init --depth=1 -- "$path" || echo "Warning: failed to init $path; continuing"
-            else
-              echo "Skipping submodule $path (no URL)"
-            fi
-          done
+        if [ -d KernelSU ]; then
+          echo "Found pre-fetched submodule 'KernelSU' — using as-is, not touching it."
         else
-          echo "No .gitmodules file present; nothing to do."
+          echo "No pre-fetched 'KernelSU' found; skipping submodule operations."
         fi
 
     - name: Install dependencies
