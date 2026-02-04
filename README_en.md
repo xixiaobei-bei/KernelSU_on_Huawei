@@ -40,6 +40,7 @@ If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA pa
 # Supported Devices
 
 - [x] Mate 9 series (MHA)
+- [x] P 9 series (EVA)
 
 ### More devices coming...
 

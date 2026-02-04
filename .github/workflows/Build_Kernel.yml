@@ -87,9 +87,35 @@ jobs:
           echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
         fi
 
+        BRANCH='${{ matrix.branch }}'
+        case "$BRANCH" in
+          MHA_EMUI9.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          MHA_EMUI9.0_KernelSU-Next)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          MHA_EMUI9.0_SukiSU-Ultra)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          MHA_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          MHA_HarmonyOS2.0_KernelSU-Next)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          MHA_HarmonyOS2.0_SukiSU-Ultra)
+            DEFCONFIG="merge_hi3660_defconfig" ;;
+          EVA_EMUI8.0_KernelSU)
+            DEFCONFIG="merge_hi3650_defconfig" ;;
+        esac
+
+        if [ -z "$DEFCONFIG" ]; then
+          echo "::error::DEFCONFIG is empty for branch $BRANCH. Please set mapping in workflow 'Set build vars' step." >&2
+          exit 1
+        fi
+
+        echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
+
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
       run: |
         sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+
         if [ -d include/config ]; then
           echo "Find config, will remove it"
           rm -rf include/config
@@ -102,10 +128,10 @@ jobs:
         sudo chmod -R 777 $(pwd)/
 
         if [ "${{ matrix.pm }}" = "true" ]; then
-          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' merge_hi3660_defconfig || true
-          sed -i 's/^\(CONFIG_LOCALVERSION="[^"]*\)_\([^\"]*"\)$/\1_PM_\2/' merge_hi3660_defconfig || true
-          if ! grep -q '_PM_' merge_hi3660_defconfig; then
-            sed -i 's/^CONFIG_LOCALVERSION="\(.*\)"$/CONFIG_LOCALVERSION="\1_PM"/' merge_hi3660_defconfig || true
+          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "$DEFCONFIG" || true
+          sed -i 's/^\(CONFIG_LOCALVERSION="[^"]*\)_\([^"]*"\)$/\1_PM_\2/' "$DEFCONFIG" || true
+          if ! grep -q '_PM_' "$DEFCONFIG"; then
+            sed -i 's/^CONFIG_LOCALVERSION="\(.*\)"$/CONFIG_LOCALVERSION="\1_PM"/' "$DEFCONFIG" || true
           fi
         fi
 
@@ -113,7 +139,7 @@ jobs:
         make distclean
         make mrproper
         rm -rf out
-        make ARCH=arm64 O=out merge_hi3660_defconfig
+        make ARCH=arm64 O=out "${DEFCONFIG}"
         make ARCH=arm64 O=out -j$(nproc --all)
 
         CURRENT_DATE=$(date +'%Y-%m-%d')
