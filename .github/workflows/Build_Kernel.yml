@@ -92,19 +92,26 @@ jobs:
         BRANCH='${{ matrix.branch }}'
         case "$BRANCH" in
           MHA_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           MHA_EMUI9.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           MHA_EMUI9.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           MHA_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           MHA_HarmonyOS2.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           MHA_HarmonyOS2.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig" ;;
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9" ;;
           EVA_EMUI8.0_KernelSU)
-            DEFCONFIG="merge_hi3650_defconfig" ;;
+            DEFCONFIG="merge_hi3650_defconfig"
+            os_version="8" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
@@ -113,6 +120,7 @@ jobs:
         fi
 
         echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
+        echo "os_version=$os_version" >> $GITHUB_ENV
 
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
       run: |
@@ -145,7 +153,12 @@ jobs:
         make ARCH=arm64 O=out -j$(nproc --all)
 
         CURRENT_DATE=$(date +'%Y-%m-%d')
+
+        if [ "$os_version" = "9" ]; then
         tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+        elif [ "$os_version" = "8" ]; then
+        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+        fi
 
     - name: Upload Kernel Artifact
       uses: actions/upload-artifact@v4
