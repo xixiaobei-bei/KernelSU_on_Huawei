@@ -1,0 +1,11 @@
+/{
+    antenna_boardid_detect:antenna_boardid_detect{
+        compatible = "huawei,antenna_boardid_detect";
+        gpio1 = <&gpio16 3 0>;
+        temp_gpio = "gpio1";
+        pinctrl-names = "default", "idle";
+        pinctrl-0 = <&gpio030_hi6402_pinctrl_func>;
+        pinctrl-1 = <&gpio030_hi6402_pinctrl_idle>;
+        status = "disabled";
+    };
+};

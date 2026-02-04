@@ -1,0 +1,11 @@
+/ {
+	amba{
+		i2c1: i2c@FFD72000{
+			bq28z610_coul: bq28z610_coul@55{
+				compatible = "huawei,bq28z610_coul";
+				reg = <0x55>;
+				status = "disabled";
+			};
+		};
+	};
+};

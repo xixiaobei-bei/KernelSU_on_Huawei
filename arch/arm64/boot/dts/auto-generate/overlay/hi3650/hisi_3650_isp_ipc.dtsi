@@ -1,0 +1,84 @@
+/*
+ * Hisilicon Ltd. HI3650 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+ /{
+	hisi_isp_ipc: ipc@e8582000 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,HiIPCV230";
+		reg = <0x0 0xe8582000 0x0 0x1000>;
+		interrupts = <0 271 4>, <0 271 4>;
+		unlock_key = <0x1ACCE551>;
+		capability = <8>;
+		status = "ok";
+
+		/*
+		 * "func"
+		 * <mbox_type, is_src_mbox, is_des_mbox>;
+		 *
+		 * "remote processor type"
+		 * <0: A53>;
+		 * <1: ISP_A7>;
+		 * <2: LPM3>;
+		 *
+		 * "used"
+		 * <1: using   0: no-use>
+		 *
+		 * "timeout"
+		 * <300> means TIMEOUT time is 300ms
+		 * timeout must be multiple of 5ms
+		 *
+		 * don't forget to increase the number of mailbox
+		 * when add or decrease a mailbox channel
+		 */
+		mailboxes = <4>;
+		isp-mailbox-0 {
+			compatible = "HiIPCV230,isp-rx-mailbox-fast";
+			func = <1 0 1>;
+			interrupts = <0 269 4>;
+			src_bit = <1>;
+			des_bit = <0>;
+			index = <100>;
+			used = <1>;
+			timeout = <300>;
+		};
+
+		isp-mailbox-1 {
+			compatible = "HiIPCV230,isp-rx-mailbox-fast";
+			func = <1 0 1>;
+			interrupts = <0 270 4>;
+			src_bit = <1>;
+			des_bit = <0>;
+			index = <101>;
+			used = <1>;
+			timeout = <300>;
+		};
+
+		isp-mailbox-2 {
+			compatible = "HiIPCV230,isp-tx-mailbox-fast";
+			func = <1 1 0>;
+			src_bit = <0>;
+			des_bit = <1>;
+			index = <102>;
+			used = <1>;
+			timeout = <300>;
+		};
+
+		isp-mailbox-3 {
+			compatible = "HiIPCV230,isp-tx-mailbox-fast";
+			func = <1 1 0>;
+			src_bit = <0>;
+			des_bit = <1>;
+			index = <103>;
+			used = <1>;
+			timeout = <300>;
+		};
+	};
+ };

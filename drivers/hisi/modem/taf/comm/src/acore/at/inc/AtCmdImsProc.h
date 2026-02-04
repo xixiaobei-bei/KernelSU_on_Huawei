@@ -1,0 +1,180 @@
+/*
+* Copyright (C) Huawei Technologies Co., Ltd. 2012-2015. All rights reserved.
+* foss@huawei.com
+*
+* If distributed as part of the Linux kernel, the following license terms
+* apply:
+*
+* * This program is free software; you can redistribute it and/or modify
+* * it under the terms of the GNU General Public License version 2 and
+* * only version 2 as published by the Free Software Foundation.
+* *
+* * This program is distributed in the hope that it will be useful,
+* * but WITHOUT ANY WARRANTY; without even the implied warranty of
+* * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* * GNU General Public License for more details.
+* *
+* * You should have received a copy of the GNU General Public License
+* * along with this program; if not, write to the Free Software
+* * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA
+*
+* Otherwise, the following license terms apply:
+*
+* * Redistribution and use in source and binary forms, with or without
+* * modification, are permitted provided that the following conditions
+* * are met:
+* * 1) Redistributions of source code must retain the above copyright
+* *    notice, this list of conditions and the following disclaimer.
+* * 2) Redistributions in binary form must reproduce the above copyright
+* *    notice, this list of conditions and the following disclaimer in the
+* *    documentation and/or other materials provided with the distribution.
+* * 3) Neither the name of Huawei nor the names of its contributors may
+* *    be used to endorse or promote products derived from this software
+* *    without specific prior written permission.
+*
+* * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+*
+*/
+
+#ifndef __ATCMDIMSPROC_H__
+#define __ATCMDIMSPROC_H__
+
+/*****************************************************************************
+  1 其他头文件包含
+*****************************************************************************/
+#include "AtCtx.h"
+#include "AtParse.h"
+#include "AtImsaInterface.h"
+
+#ifdef __cplusplus
+#if __cplusplus
+extern "C" {
+#endif
+#endif
+
+
+#pragma pack(4)
+#if (FEATURE_ON == FEATURE_IMS)
+/*****************************************************************************
+  2 宏定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  3 枚举定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  4 全局变量声明
+*****************************************************************************/
+
+
+/*****************************************************************************
+  5 消息头定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  6 消息定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  7 STRUCT定义
+*****************************************************************************/
+
+/*AT与IMSA模块间消息处理函数指针*/
+typedef VOS_UINT32 (*AT_IMSA_MSG_PROC_FUNC)(VOS_VOID *pMsg);
+
+/*****************************************************************************
+ 结构名    : AT_IMSA_MSG_PRO_FUNC_STRU
+ 结构说明  : AT与IMSA消息与对应处理函数的结构
+*****************************************************************************/
+/*lint -e958 -e959 修改人:l60609;原因:64bit*/
+typedef struct
+{
+    AT_IMSA_MSG_TYPE_ENUM_UINT32        ulMsgId;
+    AT_IMSA_MSG_PROC_FUNC               pProcMsgFunc;
+}AT_IMSA_MSG_PRO_FUNC_STRU;
+/*lint +e958 +e959 修改人:l60609;原因:64bit*/
+
+/*****************************************************************************
+  8 UNION定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  9 OTHERS定义
+*****************************************************************************/
+
+
+/*****************************************************************************
+  10 函数声明
+*****************************************************************************/
+
+VOS_VOID AT_ProcImsaMsg(AT_IMSA_MSG_STRU *pstMsg);
+
+VOS_UINT32 AT_RcvImsaCiregSetCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCiregQryCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCirepSetCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCirepQryCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaImpuSetCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCirephInd(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCirepiInd(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCireguInd(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCcwaiSetCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaVtPdpActInd(VOS_VOID * pMsg);
+VOS_UINT32 AT_RcvImsaVtPdpDeactInd(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaMtStateInd(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaImsCtrlMsg(VOS_VOID *pMsg);
+
+VOS_UINT32 AT_RcvImsaImsRegDomainQryCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaCallEncryptSetCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaRoamImsServiceQryCnf(VOS_VOID * pMsg);
+
+VOS_UINT32 AT_RcvImsaRatHandoverInd(VOS_VOID * pMsg);
+VOS_UINT32 AT_RcvSrvStatusUpdateInd(VOS_VOID * pMsg);
+
+#endif /* end of FEATURE_IMS */
+
+#if (VOS_OS_VER == VOS_WIN32)
+#pragma pack()
+#else
+#pragma pack(0)
+#endif
+
+
+
+
+#ifdef __cplusplus
+    #if __cplusplus
+        }
+    #endif
+#endif
+
+#endif /* end of AtCmdImsProc.h */
+

@@ -1,0 +1,115 @@
+/* Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/ {
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+
+drm_misc_heap:  drm-misc-mem{
+			size = <0x0 0x2000000>;
+			compatible = "hisi_ion";
+			alloc-ranges = <0x0 0x0 0x1 0x0>;
+			heap-name = "carveout_drm_misc";
+			status = "disable";
+		};
+		hisi_cma {
+			reg = <0x0 0x90000000 0x0 0x20000000>;
+			compatible = "hisi-cma-pool";
+			sec-attr = <0x0 0x20>;
+			reusable;
+			status = "disable";
+		};
+	};
+
+	hisi,ion {
+		compatible = "hisilicon,hisi-ion";
+        cluster-0-resume = <0xfff0a334>;
+        cluster-1-resume = <0xfff0a338>;
+
+		iommu_info {
+			start-addr = <0x40000>;
+			size = <0xbffc0000>;
+		};
+		linear {
+			start-addr = <0x40000>;
+			size = <0xbffc0000>;
+			page-size = <0x1000>;
+			page-align = <0x40000>;
+		};
+		heap_sys_user@0 {
+			heap-name = "sys_heap";
+			heap-id   = <0x0>;
+			heap-base = <0x0>;
+			heap-size = <0x0>;
+			heap-type = "ion_system";
+		};
+		heap_sys_contig@1 {
+			heap-name = "sys_contig";
+			heap-id   = <0x1>;
+			heap-base = <0x0>;
+			heap-size = <0x0>;
+			heap-type = "ion_system_contig";
+		};
+		heap_carveout_gralloc@2 {
+			heap-name = "carveout_gralloc";
+			heap-id   = <0x2>;
+			heap-base = <0x31000000>;
+			heap-size = <0x1C00000>;
+			heap-type = "ion_carveout";
+		};
+		heap_carveout_drm_misc@14 {
+			heap-name = <&drm_misc_heap>;
+			heap-id   = <0xe>;
+			heap-base = <0x0>;
+			heap-size = <0x0>;
+			heap-type = "ion_carveout";
+			status = "disable";
+		};
+		heap_sec_tui@17 {
+			heap-name = "heap_sec_tui";
+			heap-id   = <0x11>;
+			heap-base = <0x0>;
+			heap-size = <0x2000000>;
+			heap-type = "ion_sec";
+
+			region-nr = <0x0 0x3>;
+			protect-id = <0x0 0x1>;
+			access-attr = <0x0 0xd8>;
+			water-mark = <0x0 0x2000000>;
+			per-alloc-size = <0x0 0x2000000>;
+			per-bit-size = <0x0 0x1000000>;
+
+			status = "disable";
+		};
+
+		heap_sec_drm@20 {
+			heap-name = "heap_sec_drm";
+			heap-id   = <0x14>;
+			heap-base = <0x0>;
+			heap-size = <0x18000000>;
+			heap-type = "ion_sec";
+
+			region-nr = <0x0 0x3>;
+			protect-id = <0x0 0x0>;
+			access-attr = <0x0 0x1de>;
+			water-mark = <0x0 0x10000000>;
+			per-alloc-size = <0x0 0x4000000>;
+			per-bit-size = <0x0 0x1000000>;
+
+			status = "disable";
+		};
+
+	};
+};

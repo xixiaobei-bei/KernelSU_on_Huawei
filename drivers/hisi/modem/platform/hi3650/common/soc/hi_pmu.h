@@ -1,0 +1,9 @@
+#ifndef __HI_PMU_H__
+#define __HI_PMU_H__ 
+#define PMIC_VERSION_REG0 0x00
+#define PMIC_VERSION_REG1 0x01
+#define PMIC_VERSION_REG2 0x02
+#define PMIC_VERSION_REG3 0x03
+#define PMIC_VERSION_REG4 0x04
+#define PMIC_VERSION_REG5 0x05
+#endif

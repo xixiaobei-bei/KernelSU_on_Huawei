@@ -1,0 +1,10 @@
+menu "Hisilicon IVP vp5"
+
+config IVP_VP5
+     bool "hisilicon ivp vp5 support"
+     default n
+     depends on HISI_IVP 
+     help
+          ivp vp5 kernel driver for hi3660.
+endmenu
+

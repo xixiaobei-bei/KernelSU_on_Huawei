@@ -1,0 +1,8 @@
+#ifndef __HI_ANTEN_H__
+#define __HI_ANTEN_H__ 
+#define VIA_MDM_TUNER_LP 
+#define HI_PHONE_ANTEN 
+#define HI_BBPCOMMON_CPU_ANTPA_MODE_SEL 0xff4
+#define HI_BBPCOMMON_CPU_ABB0_CH_TX_MASK_SEL 0xff8
+#define HI_BBPCOMMON_CPU_ABB1_CH_TX_MASK_SEL 0xff8
+#endif
