@@ -124,6 +124,7 @@ jobs:
 
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
       run: |
+        echo kernel:$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi)
         sudo ln -sf /usr/bin/python2.7 /usr/bin/python
 
         if [ -d include/config ]; then
