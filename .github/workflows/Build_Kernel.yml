@@ -170,6 +170,7 @@ jobs:
           echo "No Config, good."
         fi
 
+          export ARCH=arm64
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
           export CROSS_COMPILE=aarch64-linux-android-
           sudo chmod -R 777 $(pwd)/
