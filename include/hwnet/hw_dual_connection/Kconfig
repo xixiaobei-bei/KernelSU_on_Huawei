@@ -1,0 +1,5 @@
+config HW_DC_MODULE
+	tristate "kernel huawei custom packet dual connection for wlan"
+	default n
+	help
+		This module adds support dual connection feature.

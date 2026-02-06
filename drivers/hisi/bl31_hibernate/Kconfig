@@ -1,0 +1,19 @@
+config HISI_BL31_HIBERNATE
+	bool "Hisilicon BL31 S4 Hibernate feature support"
+	default n
+	depends on HIBERNATION
+	help
+	---help---
+	  This module supports the safe configuration or saving and recovery of
+	  data for bl31 modules. Bl31 implements the saving and recovery
+	  mechanism of S4 state, which is used by bl31 module.
+	  If unsure, say N.
+config HISI_BL31_HIBERNATE_TEST
+	bool "Hisilicon BL31 S4 Hibernate test support"
+	default n
+	depends on HISI_BL31_HIBERNATE
+	help
+	---help---
+	  This module is designed to test bl31 hibernate feature.
+	  If unsure, say N.
+

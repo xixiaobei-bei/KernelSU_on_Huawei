@@ -1,0 +1,11 @@
+config HWDPS
+	bool "application authentication"
+	default n
+	help
+		Say yes here to support application authentication.
+
+config HWDPS_ENG_DEBUG
+	bool "application authentication for eng debug"
+	default n
+	help
+		Say yes here to support application authentication eng debug.

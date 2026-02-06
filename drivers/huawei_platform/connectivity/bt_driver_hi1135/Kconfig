@@ -1,0 +1,5 @@
+menuconfig BT_HCI_DRIVER_HI1135
+	bool "Bt hci driver is sdio"
+	default n
+	help
+	Say yes here to indicate bt hci driver is sdio.

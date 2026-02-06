@@ -1,0 +1,8 @@
+#sensor unification for differ platform
+menuconfig HUAWEI_ARMPC_SENSORS_INPUT_INFO
+	bool "huawei armpc sensor input info"
+	default n
+	help
+	Say yes here to support the huawei armpc sensor input information.
+
+source "drivers/huawei_armpc_platform/sensor/fingerprint/Kconfig"

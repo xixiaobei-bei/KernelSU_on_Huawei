@@ -1,0 +1,1 @@
+obj-$(CONFIG_AW32280) += aw32280.o

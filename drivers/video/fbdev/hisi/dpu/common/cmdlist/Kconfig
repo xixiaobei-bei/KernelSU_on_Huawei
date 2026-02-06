@@ -1,0 +1,7 @@
+config CMDLIST_ENABLE
+	bool "display driver support cmdlist config"
+	default n
+	depends on FB
+	depends on DMA_CMA
+	help
+	  This feature driver supports display config by cmdlist.

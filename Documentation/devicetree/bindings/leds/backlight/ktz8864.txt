@@ -1,0 +1,22 @@
+ktz8864 bindings
+
+Required properties:
+- compatible		: Must be "ktz,ktz8864"
+
+Optional properties:
+- name			: Name of backlight device. Default is 'ktz8864'.
+- ktz8864_hw_en_gpio			: GPIO to use to EN pin.
+			See Documentation/devicetree/bindings/gpio/gpio.txt
+- ktz8864_i2c_bus_id	: I2C bus index
+
+Example:
+
+	ktz,ktz8864{
+		compatible = "ktz,ktz8864";
+				ktz8864_support = <1>;
+				reg = <0x11>;
+				ktz8864_i2c_bus_id = <4>;
+				ktz8864_hw_en_gpio = <10>;
+				ktz8864_bl_en = <0x1F>;
+				status = "disabled";
+	};

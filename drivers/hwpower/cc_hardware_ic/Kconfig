@@ -1,0 +1,13 @@
+#
+# huawei hardware ic drivers
+#
+
+source "drivers/hwpower/cc_hardware_ic/buck_boost/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/charge_pump/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/load_switch/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/switch_capacitor/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/boost_5v/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/wireless_charge_ic/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/charge_adc_monitor/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/fuel_gauge/Kconfig"
+source "drivers/hwpower/cc_hardware_ic/protocol_ic/Kconfig"

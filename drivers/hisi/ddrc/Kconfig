@@ -1,0 +1,97 @@
+config HISILICON_PLATFORM_DDRC
+	bool "Hisilicon platform ddr controller support"
+	default n
+	help
+	  Say yes here to support the hisilicon platform ddr controller
+
+config HI3650_DDRC_FLUX
+	bool "Hi3650 ddr bandwith statstic "
+	default n
+
+config HI6250_DDRC_FLUX
+	bool "Hi6250 ddr bandwith statstic "
+	default n
+
+config HISI_DDR_TRACKING
+        tristate "Hisilicon DDR Tracking Function"
+        default n
+        help
+                Hisilicon DDR Tracking Function
+
+config HISI_DDRC_FLUX
+	bool "Hisi ddr bandwith statstic "
+	default n
+
+config HISI_DDRC_SEC
+	bool "hisi ddr secprotect"
+	default n
+
+config HISI_DDR_SUBREASON
+	bool "hisi ddr subreason"
+	default n
+
+config HISI_MNTN_DMSS_OPTI
+	bool "hisi dmss opti"
+	default n
+
+config HI3660_DDR_AUTO_FSGT
+       bool "hi3660 ddr autofs/autogt"
+       default n
+
+config KIRIN970_DDR_AUTO_FSGT
+       bool "kirin970 ddr autofs/autogt"
+       default n
+
+config DDR_AUTO_FSGT
+       bool "ddr autofs/autogt"
+       default n
+
+config HISI_DDR_LACERTA
+       bool "Hisi ddr lacerta platform"
+       default n
+
+config HISI_DDR_CETUS
+       bool "Hisi ddr cetus platform"
+       default n
+
+config HISI_DDR_PERSEUS
+       bool "Hisi ddr perseus platform"
+       default n
+
+config HISI_DDR_URSA
+       bool "Hisi ddr ursa platform"
+       default n
+
+config HISI_DDR_CASSIOPEIA
+       bool "Hisi ddr cassiopeia platform"
+       default n
+
+config HISI_DDR_CEPHEUS
+       bool "Hisi ddr cepheus platform"
+       default n
+
+config HISI_DDR_MONOCEROS
+       bool "Hisi ddr monoceros platform"
+       default n
+
+config HISI_DDR_DRACO
+       bool "Hisi ddr draco platform"
+       default n
+
+config HISI_DDR_TRIONES
+       bool "Hisi ddr triones platform"
+       default n
+
+config AP_CUST_2G_MEM
+       bool "Cust 2G memory support"
+       default n
+       help
+             Hisilicon 2G memory Pad, To enable this configure for Pad
+	     others disable
+
+config HISI_DDR_PERF_CTRL
+        tristate "Hisilicon DDR Performance Control Function"
+        depends on PERF_CTRL
+        default n
+        help
+	  Hisilicon DDR Performance Control Function

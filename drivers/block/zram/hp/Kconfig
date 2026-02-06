@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-2.0
+# Heterogeneous memory container backend device configuration
+
+# Selected when system need heterogeneous memory container
+config HP_CORE
+	bool "Heterogeneous memory container device support"
+	depends on ZRAM && HYPERHOLD && ZS_MALLOC_EXT
+	default n
+	---help---
+	  Say Y here if you want to use the heterogeneous memory
+	  as the backend device in ZRAM.
+	  If unsure, say N here.
+	  This module can't be compiled as a module,
+	  the module is as one part of the ZRAM driver.
+
+config HP_FILE
+	bool "Heterogeneous memory file preallocate functions"
+	depends on ZRAM && HYPERHOLD && ZS_MALLOC_EXT && HP_CORE
+	default n
+	---help---
+	  Say Y here if you want to allocate a file in /data for heterogeneous memory.
+	  If unsure, say N here.
+	  This module can't be compiled as a module,
+	  the module is as one part of the ZRAM driver.

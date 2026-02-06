@@ -1,0 +1,18 @@
+#
+# huawei hardware monitor drivers
+#
+
+source "drivers/hwpower/cc_hardware_monitor/vbus_monitor/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/lga_check/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/water_detect/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/soc_control/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/bat_heating/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/temp_control/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/acr_detect/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/btb_check/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/soc_decimal/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/cpu_buck/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/ffc_control/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/smpl/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/uscp/Kconfig"
+source "drivers/hwpower/cc_hardware_monitor/water_check/Kconfig"

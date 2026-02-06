@@ -1,0 +1,1 @@
+obj-y += tick_mark.o

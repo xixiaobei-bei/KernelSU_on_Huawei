@@ -1,0 +1,41 @@
+
+config DKMD_DPU_ENABLE
+	bool "DKMD dpu driver support"
+	default n
+	depends on DKMD_ENABLE
+	select DKMD_DKSM
+	select DKMD_CMDLIST_ENABLE
+	select DKMD_DPU_DEVICE
+	select DKMD_DPU_COMMON
+	help
+	  This feature driver supports dpu cetus driver.
+
+config DKMD_DPU_DEVICE
+	tristate "DKMD FB Framebuffer support"
+	default n
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	help
+	  This framebuffer driver supports Dkmd FB.
+
+config DKMD_DPU_COMPOSER
+	bool "DKMD driver support composer device"
+	default n
+	depends on DKMD_DPU_DEVICE
+	help
+	  This feature driver supports dpu composer device driver.
+
+config DKMD_DPU_RES_MGR
+	bool "DKMD driver support resource manager"
+	default n
+	help
+	  This feature driver supports dpu resource manager driver.
+
+config DKMD_DPU_COMMON
+	bool "DKMD driver support common utils"
+	default n
+	help
+	  This feature driver supports dpu common utils driver.

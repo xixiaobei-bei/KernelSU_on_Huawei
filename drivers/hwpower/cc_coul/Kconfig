@@ -1,0 +1,10 @@
+#
+# huawei coul drivers
+#
+
+config HUAWEI_COUL
+	bool "huawei coul"
+	default n
+	help
+	  Say Y here to enable huawei coul driver.
+	  This driver provides a unified interface to the coul.

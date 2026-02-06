@@ -1,0 +1,9 @@
+config PERFHUB
+	bool "perfhub"
+	default n
+
+config FREQ_LIMIT_COUNTER
+	bool "counts cpu/gpu freq limit"
+	default n
+	depends on IPA_THERMAL
+	depends on HISI_EAS_SCHED

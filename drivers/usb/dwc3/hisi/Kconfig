@@ -1,0 +1,96 @@
+config USB_DWC3_CHIP
+	tristate "Platforms"
+	default USB_DWC3
+	select CHIP_USB_HELPER
+	select CHIP_USB_REG_CFG
+	help
+	  Support of USB2/3 functionality in platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+if USB_DWC3_CHIP
+
+config USB_DWC3_NOV
+       tristate "Platforms NOV USB"
+       default n
+       help
+         Support of USB2 functionality in platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_OCT
+       tristate "Platforms OCT USB"
+       default n
+       help
+         Support of USB2 functionality in platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_SEP
+       tristate "Platforms SEP USB"
+       default n
+       help
+         Support of USB2 functionality in platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_AUG
+       tristate "Platforms AUG USB"
+       default n
+       help
+         Support of USB2 functionality in platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_APR
+	tristate "Platforms APR USB"
+	select CHIP_USB_XHCI_HUB_PORT_DIS
+	default n
+	select CHIP_USB_REG_CFG
+	help
+	  Support of USB2/3/3.1 functionality in platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_MAR
+	tristate "Platforms MAR USB"
+	select CHIP_USB_XHCI_HUB_PORT_DIS
+	default n
+	select CHIP_USB_REG_CFG
+	help
+	  Support of USB2/3/3.1 functionality in platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_FEB
+	tristate "Platforms FEB USB"
+	select CHIP_USB_XHCI_HUB_PORT_DIS
+	default n
+	select CHIP_USB_REG_CFG
+	help
+	  Support of USB2/3 functionality in platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_NYET_ABNORMAL
+	bool "Enable workaround for receiving NYET bug on dwc3 feb"
+	default n
+	help
+	  There is a Bug that receiving NYET in control transfer
+	  can cause controller abnormal on dwc3 feb.
+
+config CONTEXTHUB_PD
+	bool "Sensor CONTEXTHUB PD driver"
+	default n
+	help
+	  Say yes here if you want to use contexthub pd function
+
+if CONTEXTHUB_PD
+config CHIP_COMBOPHY
+	tristate "Platforms MAR USB"
+	default n
+	help
+	  Support of USB2/3/3.1 functionality in platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+endif # CONTEXTHUB_PD
+
+config CHIP_USB_NEW_FRAME
+       tristate "USB new hardware config frame for Platforms"
+       default n
+       help
+         Support for new usb phy and controller config frame for USB
+         Say 'Y' or 'M' here if you have one such device.
+
+endif # USB_DWC3_CHIP

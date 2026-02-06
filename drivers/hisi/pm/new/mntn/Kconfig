@@ -1,0 +1,28 @@
+menu "S/R maintenance options"
+
+config SR_MNTN_AP_WAKE
+	bool "SR maintenance: display ap wakeup source"
+	default n
+	help
+	   display ap wakeup source
+
+config SR_MNTN_SYS_WAKE
+	bool "SR maintenance: display soc(lpmcu) wakeup source"
+	default n
+	help
+	   display soc(lpmcu) wakeup source
+
+config SR_MNTN_TICKMARK
+	bool "SR maintenance: mark ticktime for some key points in SR fllow"
+	default n
+	help
+	   mark ticktime for some key points in SR fllow
+
+config SR_MNTN_PRECHECK
+	bool "SR maintenance: check ip(such as clock, regulator) status before enter suspend"
+	depends on SR_DEBUG
+	default n
+	help
+	   check ip(such as clock, regulator) status before enter suspend
+
+endmenu

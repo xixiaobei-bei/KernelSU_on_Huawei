@@ -1,0 +1,5 @@
+config HISI_MDFX
+	tristate "HISI multimedia dfx"
+	default n
+	help
+	  This is multimedia module dfx driver

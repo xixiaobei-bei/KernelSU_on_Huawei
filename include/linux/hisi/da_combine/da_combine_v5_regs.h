@@ -1,0 +1,6609 @@
+/*
+ * da_combine_v5_regs.h
+ *
+ * da combine v5 codec driver
+ *
+ * Copyright (c) Huawei Technologies Co., Ltd. 2018-2019. All rights reserved.
+ *
+ * This software is licensed under the terms of the GNU General Public
+ * License version 2, as published by the Free Software Foundation, and
+ * may be copied, distributed, and modified under those terms.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+
+#ifndef __DA_COMBINE_V5_REGS_H__
+#define __DA_COMBINE_V5_REGS_H__
+
+#include "da_combine_regs.h"
+
+#define IRQ_NUM 56
+
+#define BASE_ADDR_PAGE_ANA 0x7100
+#define BASE_ADDR_PAGE_EDMA   0x0000
+#define BASE_ADDR_PAGE_WDOG   0x2000
+#define BASE_ADDR_PAGE_SCTRL   0x3000
+#define BASE_ADDR_PAGE_UART   0x4000
+#define BASE_ADDR_PAGE_TIMER0   0x5000
+#define BASE_ADDR_PAGE_TIMER1   0x6000
+
+#define BASE_ADDR_PAGE_GPIO0   0x8000
+#define BASE_ADDR_PAGE_GPIO1   0x9000
+#define BASE_ADDR_PAGE_GPIO2   0xA000
+#define BASE_ADDR_PAGE_TIMER32K   0xB000
+#define BASE_ADDR_PAGE_I2C_MST   0xC000
+#define BASE_ADDR_PAGE_USB 0xD000
+#define BASE_ADDR_PAGE_PLL_TEST 0xE000
+#define BASE_ADDR_PAGE_VIRTUAL 0xF000
+#define BASE_ADDR_PAGE_DSPIF 0x10000
+
+#define CODEC_ADDR_PAGE_IO_START 0x0
+#define CODEC_ADDR_PAGE_IO_END 0x260
+#define CODEC_ADDR_PAGE_CFG_START 0x0
+#define CODEC_ADDR_PAGE_CFG_END 0xff
+
+#define ADDR_CFG_OFFSET_START    0x41
+#define ADDR_CFG_OFFSET_END      0x4c
+#define ADDR_DIG_OFFSET_START    0x0
+#define ADDR_DIG_OFFSET_END      0x43D
+
+#define ADDR_ANA_OFFSET_START    0x0
+#define ADDR_ANA_OFFSET_END      0xFF
+
+#define ADDR_EDMA_OFFSET_START 0x0
+#define ADDR_EDMA_OFFSET_END 0xC1C
+#define ADDR_WDOG_OFFSET_START 0x0
+#define ADDR_WDOG_OFFSET_END 0xC00
+
+#define ADDR_SCTRL_OFFSET_START 0x0
+#define ADDR_SCTRL_OFFSET_END 0x128
+#define ADDR_UART_OFFSET_START 0x0
+#define ADDR_UART_OFFSET_END 0xFC
+
+#define ADDR_TIMER0_OFFSET_START 0x0
+#define ADDR_TIMER0_OFFSET_END 0x38
+#define ADDR_TIMER1_OFFSET_START 0x0
+#define ADDR_TIMER1_OFFSET_END 0x38
+
+#define ADDR_GPIO0_OFFSET_START  0x0
+#define ADDR_GPIO0_OFFSET_END    0x534
+#define ADDR_GPIO1_OFFSET_START  0x0
+#define ADDR_GPIO1_OFFSET_END    0x534
+#define ADDR_GPIO2_OFFSET_START  0x0
+#define ADDR_GPIO2_OFFSET_END    0x534
+
+#define ADDR_TIMER32K_OFFSET_START  0x0
+#define ADDR_TIMER32K_OFFSET_END    0x38
+#define ADDR_I2C_MST_OFFSET_START  0x0
+#define ADDR_I2C_MST_OFFSET_END    0xFC
+#define ADDR_USB_OFFSET_START 0x0
+#define ADDR_USB_OFFSET_END 0x44
+#define ADDR_PLL_TEST_OFFSET_START 0x0
+#define ADDR_PLL_TEST_OFFSET_END 0xFF
+
+#define ADDR_DSPIF_OFFSET_START 0x0
+#define ADDR_DSPIF_OFFSET_END 0x9FFF
+
+#define ADDR_OCRAM_BASE 0x10100000
+#define ADDR_OCRAM_START 0x0
+#define ADDR_OCRAM_END 0x57fff
+
+#define ADDR_TCM_BASE 0x08000000
+#define ADDR_TCM_START 0x0
+#define ADDR_TCM_END 0x0002FFFF
+
+/* cfg subsys reg begin */
+#define VERSION_REG                        (BASE_ADDR_PAGE_CFG + 0x0)
+#define VERSION_LEN    8
+#define VERSION_OFFSET 0
+#define SW_RST_REQ_REG                     (BASE_ADDR_PAGE_CFG + 0x1)
+#define DSD_SRST_REQ_LEN    1
+#define DSD_SRST_REQ_OFFSET 7
+#define HIFI_PERI_SRST_REQ_LEN    1
+#define HIFI_PERI_SRST_REQ_OFFSET 6
+#define DSP_PD_SRST_REQ_LEN    1
+#define DSP_PD_SRST_REQ_OFFSET 5
+#define PERI_SRST_REQ_LEN    1
+#define PERI_SRST_REQ_OFFSET 4
+#define HIFI_CORE_SRST_REQ_LEN    1
+#define HIFI_CORE_SRST_REQ_OFFSET 3
+#define HIFI_SRST_REQ_LEN    1
+#define HIFI_SRST_REQ_OFFSET 2
+#define AUD_11M_SRST_REQ_LEN    1
+#define AUD_11M_SRST_REQ_OFFSET 1
+#define AUD_12M_SRST_REQ_LEN    1
+#define AUD_12M_SRST_REQ_OFFSET 0
+#define CFG_MONI_REG                       (BASE_ADDR_PAGE_CFG + 0x3)
+#define CFG_MONI_CLK_SEL_LEN    4
+#define CFG_MONI_CLK_SEL_OFFSET 4
+#define CFG_MONI_DAT_SEL_LEN    4
+#define CFG_MONI_DAT_SEL_OFFSET 0
+#define SC_DSP_CTRL0_REG                   (BASE_ADDR_PAGE_CFG + 0x4)
+#define SC_DSP_HIFI_DIV_BP_LEN    1
+#define SC_DSP_HIFI_DIV_BP_OFFSET 7
+#define SC_DSP_RUNSTALL_BP_LEN    1
+#define SC_DSP_RUNSTALL_BP_OFFSET 6
+#define SC_HIFI_ACLK_EN_LEN    1
+#define SC_HIFI_ACLK_EN_OFFSET 4
+#define SC_HIFI_CLK_EN_LEN    1
+#define SC_HIFI_CLK_EN_OFFSET 3
+#define SC_DSP_SFT_RUNSTALL_LEN    1
+#define SC_DSP_SFT_RUNSTALL_OFFSET 2
+#define SC_DSP_BP_LEN    1
+#define SC_DSP_BP_OFFSET 1
+#define SC_DSP_EN_LEN    1
+#define SC_DSP_EN_OFFSET 0
+#define SC_DSP_CTRL1_REG                   (BASE_ADDR_PAGE_CFG + 0x5)
+#define SC_DSP_WAIT_TIME_LEN    4
+#define SC_DSP_WAIT_TIME_OFFSET 0
+#define SC_EP_CTRL0_REG                    (BASE_ADDR_PAGE_CFG + 0x6)
+#define SC_EP_IBIAS_BP_LEN    1
+#define SC_EP_IBIAS_BP_OFFSET 5
+#define SC_EP_ONCE_EN_LEN    1
+#define SC_EP_ONCE_EN_OFFSET 4
+#define SC_EP_CMP_BP_LEN    1
+#define SC_EP_CMP_BP_OFFSET 3
+#define SC_EP_MICBIAS_BP_LEN    1
+#define SC_EP_MICBIAS_BP_OFFSET 2
+#define SC_EP_BP_LEN    1
+#define SC_EP_BP_OFFSET 1
+#define SC_EP_EN_LEN    1
+#define SC_EP_EN_OFFSET 0
+#define SC_EP_CTRL1_REG                    (BASE_ADDR_PAGE_CFG + 0x7)
+#define SC_EP_SRC_BP_LEN    8
+#define SC_EP_SRC_BP_OFFSET 0
+#define SC_EP_CTRL2_REG                    (BASE_ADDR_PAGE_CFG + 0x8)
+#define SC_EP_WAIT_TIME2_LEN    4
+#define SC_EP_WAIT_TIME2_OFFSET 4
+#define SC_EP_WAIT_TIME1_LEN    4
+#define SC_EP_WAIT_TIME1_OFFSET 0
+#define SC_EP_CTRL3_REG                    (BASE_ADDR_PAGE_CFG + 0x9)
+#define SC_EP_SP_NUM_LEN    3
+#define SC_EP_SP_NUM_OFFSET 0
+#define SC_EP_STATUS_REG                   (BASE_ADDR_PAGE_CFG + 0xA)
+#define SC_EP_SAR_ERR_LEN    1
+#define SC_EP_SAR_ERR_OFFSET 5
+#define SC_EP_SAR_DOING_LEN    1
+#define SC_EP_SAR_DOING_OFFSET 4
+#define SC_EP_SP_CNT_LEN    4
+#define SC_EP_SP_CNT_OFFSET 0
+#define SC_EP_DATA0_LOW_REG                (BASE_ADDR_PAGE_CFG + 0xB)
+#define SC_EP_DATA0_LOW_LEN    8
+#define SC_EP_DATA0_LOW_OFFSET 0
+#define SC_EP_DATA1_LOW_REG                (BASE_ADDR_PAGE_CFG + 0xC)
+#define SC_EP_DATA1_LOW_LEN    8
+#define SC_EP_DATA1_LOW_OFFSET 0
+#define SC_EP_DATA2_LOW_REG                (BASE_ADDR_PAGE_CFG + 0xD)
+#define SC_EP_DATA2_LOW_LEN    8
+#define SC_EP_DATA2_LOW_OFFSET 0
+#define SC_EP_DATA3_LOW_REG                (BASE_ADDR_PAGE_CFG + 0xE)
+#define SC_EP_DATA3_LOW_LEN    8
+#define SC_EP_DATA3_LOW_OFFSET 0
+#define SC_EP_DATA4_LOW_REG                (BASE_ADDR_PAGE_CFG + 0xF)
+#define SC_EP_DATA4_LOW_LEN    8
+#define SC_EP_DATA4_LOW_OFFSET 0
+#define SC_EP_DATA5_LOW_REG                (BASE_ADDR_PAGE_CFG + 0x10)
+#define SC_EP_DATA5_LOW_LEN    8
+#define SC_EP_DATA5_LOW_OFFSET 0
+#define SC_EP_DATA6_LOW_REG                (BASE_ADDR_PAGE_CFG + 0x11)
+#define SC_EP_DATA6_LOW_LEN    8
+#define SC_EP_DATA6_LOW_OFFSET 0
+#define SC_EP_DATA7_LOW_REG                (BASE_ADDR_PAGE_CFG + 0x12)
+#define SC_EP_DATA7_LOW_LEN    8
+#define SC_EP_DATA7_LOW_OFFSET 0
+#define SC_MAD_CTRL0_REG                   (BASE_ADDR_PAGE_CFG + 0x13)
+#define MAD_CFG_REG_CG_EN_LEN    1
+#define MAD_CFG_REG_CG_EN_OFFSET 6
+#define SC_MAD_AUD_CLK_EN_BP_LEN    1
+#define SC_MAD_AUD_CLK_EN_BP_OFFSET 5
+#define SC_MAD_PGA_BP_LEN    1
+#define SC_MAD_PGA_BP_OFFSET 4
+#define SC_MAD_MIC_BP_LEN    1
+#define SC_MAD_MIC_BP_OFFSET 3
+#define SC_MAD_PLL_BP_LEN    1
+#define SC_MAD_PLL_BP_OFFSET 2
+#define SC_MAD_ANA_BP_LEN    1
+#define SC_MAD_ANA_BP_OFFSET 1
+#define SC_MAD_CG_EN_LEN    1
+#define SC_MAD_CG_EN_OFFSET 0
+#define IRQ_DEB_REG0_REG                   (BASE_ADDR_PAGE_CFG + 0x1A)
+#define BYPASS_DEB_HS_DET_IRQ_LEN    1
+#define BYPASS_DEB_HS_DET_IRQ_OFFSET 5
+#define DEB_CNT_HS_DET_IRQ_LEN    5
+#define DEB_CNT_HS_DET_IRQ_OFFSET 0
+#define IRQ_DEB_REG1_REG                   (BASE_ADDR_PAGE_CFG + 0x1B)
+#define BYPASS_DEB_PLL_TRK_UNLOCK_LEN    1
+#define BYPASS_DEB_PLL_TRK_UNLOCK_OFFSET 7
+#define BYPASS_DEB_PLL_UNLOCK_LEN    1
+#define BYPASS_DEB_PLL_UNLOCK_OFFSET 6
+#define BYPASS_DEB_HS_MIC_IRQ_LEN    1
+#define BYPASS_DEB_HS_MIC_IRQ_OFFSET 5
+#define DEB_CNT_HS_MIC_IRQ_LEN    5
+#define DEB_CNT_HS_MIC_IRQ_OFFSET 0
+#define CODEC_ANA_IRQ_SRC_STAT_REG               (BASE_ADDR_PAGE_CFG + 0x1C)
+#define PLL_MAD_UNLOCK_F_STAT_LEN    1
+#define PLL_MAD_UNLOCK_F_STAT_OFFSET 7
+#define PLL_44P1K_UNLOCK_F_STAT_LEN    1
+#define PLL_44P1K_UNLOCK_F_STAT_OFFSET 6
+#define IRQ_ANA_LEN    6
+#define IRQ_ANA_OFFSET 0
+#define IRQ_SRC_STAT_REG0_REG              (BASE_ADDR_PAGE_CFG + 0x1D)
+#define AP_GPIO3_STAT_LEN    1
+#define AP_GPIO3_STAT_OFFSET 7
+#define AP_GPIO2_STAT_LEN    1
+#define AP_GPIO2_STAT_OFFSET 6
+#define AP_GPIO1_STAT_LEN    1
+#define AP_GPIO1_STAT_OFFSET 5
+#define AP_GPIO0_STAT_LEN    1
+#define AP_GPIO0_STAT_OFFSET 4
+#define SMART_MIC_INT_STAT_LEN    1
+#define SMART_MIC_INT_STAT_OFFSET 3
+#define PLL_48K_F_UNLOCK_STAT_LEN    1
+#define PLL_48K_F_UNLOCK_STAT_OFFSET 2
+#define EP_CMPLT_STAT_LEN    1
+#define EP_CMPLT_STAT_OFFSET 1
+#define MAD_INTR_STAT_LEN    1
+#define MAD_INTR_STAT_OFFSET 0
+#define DW_AXI_STAT0_REG                   (BASE_ADDR_PAGE_CFG + 0x1E)
+#define DW_AXI_DLOCK_SLV_LEN    3
+#define DW_AXI_DLOCK_SLV_OFFSET 5
+#define DW_AXI_DLOCK_MST_LEN    2
+#define DW_AXI_DLOCK_MST_OFFSET 0
+#define DW_AXI_STAT1_REG                   (BASE_ADDR_PAGE_CFG + 0x1F)
+#define DW_AXI_DLOCK_WR_LEN    1
+#define DW_AXI_DLOCK_WR_OFFSET 4
+#define DW_AXI_DLOCK_ID_LEN    4
+#define DW_AXI_DLOCK_ID_OFFSET 0
+#define RAM2AXI_CTRL_REG                   (BASE_ADDR_PAGE_CFG + 0x20)
+#define REG_DLOCK_EN_LEN    1
+#define REG_DLOCK_EN_OFFSET 2
+#define RAM2AXI_CLK_EN_LEN    1
+#define RAM2AXI_CLK_EN_OFFSET 0
+#define RAM2AXI_WR_STATUS_REG              (BASE_ADDR_PAGE_CFG + 0x21)
+#define WR_BUSY_32_LEN    1
+#define WR_BUSY_32_OFFSET 4
+#define BRESP_ERR_LEN    1
+#define BRESP_ERR_OFFSET 3
+#define BRESP_BUSY_LEN    1
+#define BRESP_BUSY_OFFSET 2
+#define BRESP_RES_LEN    2
+#define BRESP_RES_OFFSET 0
+#define RAM2AXI_RD_STATUS_REG              (BASE_ADDR_PAGE_CFG + 0x22)
+#define RD_BUSY_32_LEN    1
+#define RD_BUSY_32_OFFSET 4
+#define RRESP_ERR_LEN    1
+#define RRESP_ERR_OFFSET 3
+#define RRESP_BUSY_LEN    1
+#define RRESP_BUSY_OFFSET 2
+#define RRESP_RES_LEN    2
+#define RRESP_RES_OFFSET 0
+#define RAM2AXI_RD_DATA0_REG               (BASE_ADDR_PAGE_CFG + 0x23)
+#define AXI_RDATA0_LEN    8
+#define AXI_RDATA0_OFFSET 0
+#define RAM2AXI_RD_DATA1_REG               (BASE_ADDR_PAGE_CFG + 0x24)
+#define AXI_RDATA1_LEN    8
+#define AXI_RDATA1_OFFSET 0
+#define RAM2AXI_RD_DATA2_REG               (BASE_ADDR_PAGE_CFG + 0x25)
+#define AXI_RDATA2_LEN    8
+#define AXI_RDATA2_OFFSET 0
+#define RAM2AXI_RD_DATA3_REG               (BASE_ADDR_PAGE_CFG + 0x26)
+#define AXI_RDATA3_LEN    8
+#define AXI_RDATA3_OFFSET 0
+#define AP_GPIO0_SEL_REG                   (BASE_ADDR_PAGE_CFG + 0x27)
+#define AP_GPIO0_SEL_LEN    5
+#define AP_GPIO0_SEL_OFFSET 0
+#define AP_GPIO1_SEL_REG                   (BASE_ADDR_PAGE_CFG + 0x28)
+#define AP_GPIO1_SEL_LEN    5
+#define AP_GPIO1_SEL_OFFSET 0
+#define AP_GPIO2_SEL_REG                   (BASE_ADDR_PAGE_CFG + 0x29)
+#define AP_GPIO2_SEL_LEN    5
+#define AP_GPIO2_SEL_OFFSET 0
+#define AP_GPIO3_SEL_REG                   (BASE_ADDR_PAGE_CFG + 0x2A)
+#define AP_GPIO3_SEL_LEN    5
+#define AP_GPIO3_SEL_OFFSET 0
+#define IRQ_DEB_REG2_REG                   (BASE_ADDR_PAGE_CFG + 0x2B)
+#define DEB_AP_GPIO1_BP_LEN    1
+#define DEB_AP_GPIO1_BP_OFFSET 6
+#define DEB_AP_GPIO0_BP_LEN    1
+#define DEB_AP_GPIO0_BP_OFFSET 5
+#define DEB_CNT_AP_GPIO_LEN    5
+#define DEB_CNT_AP_GPIO_OFFSET 0
+#define CFG_CLK_CTRL_REG                   (BASE_ADDR_PAGE_CFG + 0x2F)
+#define EFUSE_CLK_EN_LEN    1
+#define EFUSE_CLK_EN_OFFSET 4
+#define INTF_I2C_CLK_EN_LEN    1
+#define INTF_I2C_CLK_EN_OFFSET 3
+#define INTF_SOUNDWIRE_CLK_EN_LEN    1
+#define INTF_SOUNDWIRE_CLK_EN_OFFSET 2
+#define INTF_SLIM_CLK_EN_LEN    1
+#define INTF_SLIM_CLK_EN_OFFSET 1
+#define INTF_SSI_CLK_EN_LEN    1
+#define INTF_SSI_CLK_EN_OFFSET 0
+#define SLIM_CTRL0_REG                     (BASE_ADDR_PAGE_CFG + 0x30)
+#define SLIM_SWIRE_DIV_NUM_LEN    7
+#define SLIM_SWIRE_DIV_NUM_OFFSET 0
+#define SLIM_CTRL1_REG                     (BASE_ADDR_PAGE_CFG + 0x31)
+#define SWIRE_CLK_EN_LEN    1
+#define SWIRE_CLK_EN_OFFSET 6
+#define SLIM_CLK_EN_LEN    1
+#define SLIM_CLK_EN_OFFSET 5
+#define SLIM_SWIRE_DIV_EN_LEN    1
+#define SLIM_SWIRE_DIV_EN_OFFSET 4
+#define SLIM_BURST_WR_INTV_LEN    2
+#define SLIM_BURST_WR_INTV_OFFSET 2
+#define SLIM_FIFO_HFULL_TH_LEN    2
+#define SLIM_FIFO_HFULL_TH_OFFSET 0
+#define SLIM_CTRL2_REG                     (BASE_ADDR_PAGE_CFG + 0x32)
+#define SLIM_GPIO_SEL_LEN    5
+#define SLIM_GPIO_SEL_OFFSET 1
+#define FR_CLK_PAUSE_BP_LEN    1
+#define FR_CLK_PAUSE_BP_OFFSET 0
+#define SLIM_CTRL3_REG                     (BASE_ADDR_PAGE_CFG + 0x33)
+#define SLIM_DPORT6_DPORT7_ACK_OFFSET 3
+#define SLIM_DPORT_I_LR_LEN    8
+#define SLIM_DPORT_I_LR_OFFSET 0
+#define SLIM_STATUS0_REG                   (BASE_ADDR_PAGE_CFG + 0x34)
+#define SLIM_DPORT_OVERFLOW0_LEN    8
+#define SLIM_DPORT_OVERFLOW0_OFFSET 0
+#define SLIM_STATUS1_REG                   (BASE_ADDR_PAGE_CFG + 0x35)
+#define SLIM_DPORT_OVERFLOW1_LEN    8
+#define SLIM_DPORT_OVERFLOW1_OFFSET 0
+#define SLIM_STATUS2_REG                   (BASE_ADDR_PAGE_CFG + 0x36)
+#define SLIM_DPORT_UNDERRUN0_LEN    8
+#define SLIM_DPORT_UNDERRUN0_OFFSET 0
+#define SLIM_STATUS3_REG                   (BASE_ADDR_PAGE_CFG + 0x37)
+#define SLIM_DPORT_UNDERRUN1_LEN    8
+#define SLIM_DPORT_UNDERRUN1_OFFSET 0
+#define I2C_TO_CTRL0_REG                   (BASE_ADDR_PAGE_CFG + 0x3A)
+#define I2C_TIME1_LEN    6
+#define I2C_TIME1_OFFSET 2
+#define I2C_SDA_TO_EN_LEN    1
+#define I2C_SDA_TO_EN_OFFSET 1
+#define I2C_SCL_TO_EN_LEN    1
+#define I2C_SCL_TO_EN_OFFSET 0
+#define I2C_TO_CTRL1_REG                   (BASE_ADDR_PAGE_CFG + 0x3B)
+#define UART_DIV_EN_LEN    1
+#define UART_DIV_EN_OFFSET 7
+#define UART_DIV_3_LEN    3
+#define UART_DIV_3_OFFSET 4
+#define UART_SCLK_SW_LEN    1
+#define UART_SCLK_SW_OFFSET 3
+#define SDA_ST_CLR_LEN    1
+#define SDA_ST_CLR_OFFSET 1
+#define SCL_ST_CLR_LEN    1
+#define SCL_ST_CLR_OFFSET 0
+#define I2C_TO_STATUS_REG                  (BASE_ADDR_PAGE_CFG + 0x3C)
+#define SDA_ST_TIMEOUT_LEN    1
+#define SDA_ST_TIMEOUT_OFFSET 1
+#define SCL_ST_TIMEOUT_LEN    1
+#define SCL_ST_TIMEOUT_OFFSET 0
+#define UART_DIV_0_REG                     (BASE_ADDR_PAGE_CFG + 0x3D)
+#define UART_DIV_0_LEN    8
+#define UART_DIV_0_OFFSET 0
+#define UART_DIV_1_REG                     (BASE_ADDR_PAGE_CFG + 0x3E)
+#define UART_DIV_1_LEN    8
+#define UART_DIV_1_OFFSET 0
+#define UART_DIV_2_REG                     (BASE_ADDR_PAGE_CFG + 0x3F)
+#define UART_DIV_2_LEN    8
+#define UART_DIV_2_OFFSET 0
+#define AUD_CLK_EN_REG                     (BASE_ADDR_PAGE_CFG + 0x40)
+#define AUD_44P1K_SEL2_LEN    1
+#define AUD_44P1K_SEL2_OFFSET 6
+#define AUD_44P1K_SEL1_LEN    1
+#define AUD_44P1K_SEL1_OFFSET 5
+#define AUD_44P1K_SEL0_LEN    1
+#define AUD_44P1K_SEL0_OFFSET 4
+#define AUD_56448K_CLK_EN_LEN    1
+#define AUD_56448K_CLK_EN_OFFSET 3
+#define AUD_11M_CLK_EN_LEN    1
+#define AUD_11M_CLK_EN_OFFSET 2
+#define AUD_6144K_CLK_EN_LEN    1
+#define AUD_6144K_CLK_EN_OFFSET 1
+#define AUD_12M_CLK_EN_LEN    1
+#define AUD_12M_CLK_EN_OFFSET 0
+#define CLK_SOURCE_SW_REG                  (BASE_ADDR_PAGE_CFG + 0x4D)
+#define MAIN_PLL_SW_LEN    1
+#define MAIN_PLL_SW_OFFSET 2
+#define CLK_12288_SW_LEN    1
+#define CLK_12288_SW_OFFSET 1
+#define DSP_CLK_SW_LEN    1
+#define DSP_CLK_SW_OFFSET 0
+#define MAD_CLK_SW_STAT_REG                (BASE_ADDR_PAGE_CFG + 0x4E)
+#define OCRAM16K_FIFO_SWITCH_LEN    1
+#define OCRAM16K_FIFO_SWITCH_OFFSET 0
+#define SLIM_CTRL4_REG                     (BASE_ADDR_PAGE_CFG + 0x4F)
+#define SFT_RST_CONF_LEN    1
+#define SFT_RST_CONF_OFFSET 6
+#define SFT_RST_EN_LEN    1
+#define SFT_RST_EN_OFFSET 5
+#define DSP_LP_CTRL0_REG                   (BASE_ADDR_PAGE_CFG + 0x50)
+#define AXI_CSYSREQ_LEN    1
+#define AXI_CSYSREQ_OFFSET 6
+#define USB_SUSPEND_ACK_ISO_CTRL_LEN    1
+#define USB_SUSPEND_ACK_ISO_CTRL_OFFSET 5
+#define USB_SUSPEND_ISO_CTRL_LEN    1
+#define USB_SUSPEND_ISO_CTRL_OFFSET 4
+#define DSP_TOP_ACK_ISO_CTRL_LEN    1
+#define DSP_TOP_ACK_ISO_CTRL_OFFSET 2
+#define DSP_TOP_ISO_CTRL_LEN    1
+#define DSP_TOP_ISO_CTRL_OFFSET 1
+#define DSP_TOP_MTCMOS_CTRL_LEN    1
+#define DSP_TOP_MTCMOS_CTRL_OFFSET 0
+#define DSP_LP_STATUS0_REG                 (BASE_ADDR_PAGE_CFG + 0x51)
+#define AXI_CSYSACK_LEN    1
+#define AXI_CSYSACK_OFFSET 5
+#define AXI_CACTIVE_LEN    1
+#define AXI_CACTIVE_OFFSET 4
+#define DSP_MTCMOS_RDY_LEN    1
+#define DSP_MTCMOS_RDY_OFFSET 0
+#define DSP_CLK_CFG_REG                    (BASE_ADDR_PAGE_CFG + 0x52)
+#define HIFI_DIV_CLK_EN_LEN    1
+#define HIFI_DIV_CLK_EN_OFFSET 6
+#define HIFI_ADIV_NUM_LEN    2
+#define HIFI_ADIV_NUM_OFFSET 4
+#define HIFI_DIV_NUM_LEN    4
+#define HIFI_DIV_NUM_OFFSET 0
+#define APB_CLK_CFG_REG                    (BASE_ADDR_PAGE_CFG + 0x53)
+#define PERI_CLK_SEL_LEN    1
+#define PERI_CLK_SEL_OFFSET 7
+#define APB_PD_PCLK_EN_LEN    1
+#define APB_PD_PCLK_EN_OFFSET 6
+#define APB2RAM_PCLK_EN_LEN    1
+#define APB2RAM_PCLK_EN_OFFSET 5
+#define GPIO_PCLK_EN_LEN    1
+#define GPIO_PCLK_EN_OFFSET 4
+#define WD_PCLK_EN_LEN    1
+#define WD_PCLK_EN_OFFSET 3
+#define TIMER1_PCLK_EN_LEN    1
+#define TIMER1_PCLK_EN_OFFSET 2
+#define TIMER0_PCLK_EN_LEN    1
+#define TIMER0_PCLK_EN_OFFSET 1
+#define APB_CLK_EN_LEN    1
+#define APB_CLK_EN_OFFSET 0
+#define DSP_CTRL6_DMAC_REG                 (BASE_ADDR_PAGE_CFG + 0x54)
+#define PERI_DW_AXI_X2P_CG_EN_LEN    1
+#define PERI_DW_AXI_X2P_CG_EN_OFFSET 7
+#define HIFI_PERI_CLK_EN_LEN    1
+#define HIFI_PERI_CLK_EN_OFFSET 6
+#define UART_CG_EN_LEN    1
+#define UART_CG_EN_OFFSET 5
+#define DW_X2X_CG_EN_LEN    1
+#define DW_X2X_CG_EN_OFFSET 4
+#define DMAC_ACLK1_CG_EN_LEN    1
+#define DMAC_ACLK1_CG_EN_OFFSET 3
+#define DMAC_ACLK0_CG_EN_LEN    1
+#define DMAC_ACLK0_CG_EN_OFFSET 2
+#define DW_P2P_ASYNC_CG_EN_LEN    1
+#define DW_P2P_ASYNC_CG_EN_OFFSET 1
+#define DW_AXI_X2P_CG_EN_LEN    1
+#define DW_AXI_X2P_CG_EN_OFFSET 0
+#define DSP_PERI_CLKEN0_REG                (BASE_ADDR_PAGE_CFG + 0x55)
+#define TIMER1_1_DIV_LEN    2
+#define TIMER1_1_DIV_OFFSET 6
+#define TIMER1_0_DIV_LEN    2
+#define TIMER1_0_DIV_OFFSET 4
+#define TIMER0_1_DIV_LEN    2
+#define TIMER0_1_DIV_OFFSET 2
+#define TIMER0_0_DIV_LEN    2
+#define TIMER0_0_DIV_OFFSET 0
+#define DSP_PERI_CLKEN1_REG                (BASE_ADDR_PAGE_CFG + 0x56)
+#define USB_HCLK_EN_LEN    1
+#define USB_HCLK_EN_OFFSET 7
+#define ROM_CLK_EN_LEN    1
+#define ROM_CLK_EN_OFFSET 6
+#define USB_PHY_CLK_EN_LEN    1
+#define USB_PHY_CLK_EN_OFFSET 5
+#define TIMER_32K_EN_LEN    1
+#define TIMER_32K_EN_OFFSET 4
+#define UART_CLK_EN_LEN    1
+#define UART_CLK_EN_OFFSET 3
+#define I2C_MST_CLK_EN_LEN    1
+#define I2C_MST_CLK_EN_OFFSET 2
+#define WATCHDOG_DIV_LEN    2
+#define WATCHDOG_DIV_OFFSET 0
+#define DSP_AXI_CLKEN1_REG                 (BASE_ADDR_PAGE_CFG + 0x57)
+#define USB_SOFT_CTRL_IN_LEN    2
+#define USB_SOFT_CTRL_IN_OFFSET 5
+#define USB_PHY_RST_EN_LEN    1
+#define USB_PHY_RST_EN_OFFSET 4
+#define USB_HRST_EN_LEN    1
+#define USB_HRST_EN_OFFSET 3
+#define USB_HMST_CG_EN_LEN    1
+#define USB_HMST_CG_EN_OFFSET 2
+#define IOS_CG_EN_LEN    1
+#define IOS_CG_EN_OFFSET 1
+#define DW_AXI_GLB_CG_EN_LEN    1
+#define DW_AXI_GLB_CG_EN_OFFSET 0
+#define SOUNDWIRE_CTRL0_REG                (BASE_ADDR_PAGE_CFG + 0x58)
+#define USB_PRST_EN_LEN    1
+#define USB_PRST_EN_OFFSET 7
+#define USB_PCLK_EN_LEN    1
+#define USB_PCLK_EN_OFFSET 6
+#define SOUNDWIRE_TEST_PROC_SEL_BYPASS_LEN    1
+#define SOUNDWIRE_TEST_PROC_SEL_BYPASS_OFFSET 1
+#define SOUNDWIRE_SOFT_RST_N_LEN    1
+#define SOUNDWIRE_SOFT_RST_N_OFFSET 0
+#define SOUNDWIRE_CTRL1_REG                (BASE_ADDR_PAGE_CFG + 0x59)
+#define SOUNDWRIE_TEST_PROC_SEL_LEN    8
+#define SOUNDWRIE_TEST_PROC_SEL_OFFSET 0
+#define DSP_CTRL0_REG                      (BASE_ADDR_PAGE_CFG + 0x5C)
+#define HIFI_STATVECTORSEL_LEN    1
+#define HIFI_STATVECTORSEL_OFFSET 0
+#define DSP_CTRL1_REG                      (BASE_ADDR_PAGE_CFG + 0x5D)
+#define HIFI_OCDHALTONRESET_N_LEN    1
+#define HIFI_OCDHALTONRESET_N_OFFSET 0
+#define DSP_CTRL2_REG                      (BASE_ADDR_PAGE_CFG + 0x5E)
+#define HIFI_DEBUGRST_N_LEN    1
+#define HIFI_DEBUGRST_N_OFFSET 0
+#define DSP_CG_CTRL0_REG                   (BASE_ADDR_PAGE_CFG + 0x5F)
+#define HIFI_CG_EN_0_LEN    8
+#define HIFI_CG_EN_0_OFFSET 0
+#define DSP_CG_CTRL1_REG                   (BASE_ADDR_PAGE_CFG + 0x60)
+#define HIFI_CG_EN_1_LEN    1
+#define HIFI_CG_EN_1_OFFSET 0
+#define DSP_CTRL4_PRIORITY0_REG            (BASE_ADDR_PAGE_CFG + 0x64)
+#define H2X_MST_PRIORITY_LEN    2
+#define H2X_MST_PRIORITY_OFFSET 6
+#define X2X_MST_PRIORITY_LEN    2
+#define X2X_MST_PRIORITY_OFFSET 4
+#define DMA_MST_PRIORITY_LEN    2
+#define DMA_MST_PRIORITY_OFFSET 2
+#define HIFI_MST_PRIORITY_LEN    2
+#define HIFI_MST_PRIORITY_OFFSET 0
+#define DSP_CTRL4_PRIORITY1_REG            (BASE_ADDR_PAGE_CFG + 0x65)
+#define OCR0_SLV_PRIORITY_LEN    3
+#define OCR0_SLV_PRIORITY_OFFSET 4
+#define HIFI_SLV_PRIORITY_LEN    3
+#define HIFI_SLV_PRIORITY_OFFSET 0
+#define DSP_CTRL4_PRIORITY2_REG            (BASE_ADDR_PAGE_CFG + 0x66)
+#define OCR1_SLV_PRIORITY_LEN    3
+#define OCR1_SLV_PRIORITY_OFFSET 0
+#define DSP_CTRL4_PRIORITY3_REG            (BASE_ADDR_PAGE_CFG + 0x67)
+#define DSP_IF_SLV_PRIORITY_LEN    3
+#define DSP_IF_SLV_PRIORITY_OFFSET 4
+#define MISC_SLV_PRIORITY_LEN    3
+#define MISC_SLV_PRIORITY_OFFSET 0
+#define DSP_CTRL4_PRIORITY4_REG            (BASE_ADDR_PAGE_CFG + 0x68)
+#define X2ROM_SLV_PRIORITY_LEN    3
+#define X2ROM_SLV_PRIORITY_OFFSET 4
+#define X2H_SLV_PRIORITY_LEN    3
+#define X2H_SLV_PRIORITY_OFFSET 0
+#define LOCK_STATE_REG                     (BASE_ADDR_PAGE_CFG + 0x69)
+#define USB_AHB_REG_DLOCK_LEN    1
+#define USB_AHB_REG_DLOCK_OFFSET 7
+#define USB_APB_REG_DLOCK_LEN    1
+#define USB_APB_REG_DLOCK_OFFSET 6
+#define DSPOFF_PERI_REG_DLOCK_LEN    1
+#define DSPOFF_PERI_REG_DLOCK_OFFSET 5
+#define DSPON_PERI_REG_DLOCK_LEN    1
+#define DSPON_PERI_REG_DLOCK_OFFSET 4
+#define DSP_INNER_PERI_REG_DLOCK_LEN    1
+#define DSP_INNER_PERI_REG_DLOCK_OFFSET 3
+#define DSP_OCRAM16K_DLOCK_LEN    1
+#define DSP_OCRAM16K_DLOCK_OFFSET 2
+#define DSP_CORE_MEM_REG_DLOCK_LEN    1
+#define DSP_CORE_MEM_REG_DLOCK_OFFSET 1
+#define AUD_REG_DLOCK_LEN    1
+#define AUD_REG_DLOCK_OFFSET 0
+#define FUNC_MODE_MONITOR_REG              (BASE_ADDR_PAGE_CFG + 0x6A)
+#define ROM_REG_DLOCK_LEN    1
+#define ROM_REG_DLOCK_OFFSET 7
+#define DSP_OCRAM336K_DLOCK_LEN    1
+#define DSP_OCRAM336K_DLOCK_OFFSET 6
+#define FUNC_MODE_LEN    1
+#define FUNC_MODE_OFFSET 0
+#define DSP_CTRL5_DLOCK_REG                (BASE_ADDR_PAGE_CFG + 0x6C)
+#define DLOCK_AVOID_7_LEN    1
+#define DLOCK_AVOID_7_OFFSET 7
+#define DLOCK_AVOID_6_LEN    1
+#define DLOCK_AVOID_6_OFFSET 6
+#define DLOCK_AVOID_5_LEN    1
+#define DLOCK_AVOID_5_OFFSET 5
+#define DLOCK_AVOID_4_LEN    1
+#define DLOCK_AVOID_4_OFFSET 4
+#define DLOCK_AVOID_3_LEN    1
+#define DLOCK_AVOID_3_OFFSET 3
+#define DLOCK_AVOID_2_LEN    1
+#define DLOCK_AVOID_2_OFFSET 2
+#define DLOCK_AVOID_1_LEN    1
+#define DLOCK_AVOID_1_OFFSET 1
+#define DLOCK_AVOID_0_LEN    1
+#define DLOCK_AVOID_0_OFFSET 0
+#define DSP_NMI_REG                        (BASE_ADDR_PAGE_CFG + 0x6D)
+#define DLOCK_AVOID_8_LEN    1
+#define DLOCK_AVOID_8_OFFSET 4
+#define HIFI_IRQ_REQ_LEN    2
+#define HIFI_IRQ_REQ_OFFSET 2
+#define HIFI_NMI_LEN    2
+#define HIFI_NMI_OFFSET 0
+#define DSP_STATUS0_REG                    (BASE_ADDR_PAGE_CFG + 0x6E)
+#define PSLVERR_NUM_LEN    4
+#define PSLVERR_NUM_OFFSET 4
+#define HIFI_PSLVERR_FLG_LEN    1
+#define HIFI_PSLVERR_FLG_OFFSET 3
+#define PSLVERR_FLG_LEN    1
+#define PSLVERR_FLG_OFFSET 2
+#define HIFI_XOCDMODE_LEN    1
+#define HIFI_XOCDMODE_OFFSET 1
+#define HIFI_PWAITMODE_LEN    1
+#define HIFI_PWAITMODE_OFFSET 0
+#define DSP_CTRL6_REG                      (BASE_ADDR_PAGE_CFG + 0x6F)
+#define HIFI_PSLVERR_CLR_LEN    1
+#define HIFI_PSLVERR_CLR_OFFSET 1
+#define PSLVERR_CLR_LEN    1
+#define PSLVERR_CLR_OFFSET 0
+#define SLIMBUS_STATUS_REG                 (BASE_ADDR_PAGE_CFG + 0x72)
+#define SFT_RST_STATE_LEN    1
+#define SFT_RST_STATE_OFFSET 0
+#define USB_PHY_CLK_STATUS_REG             (BASE_ADDR_PAGE_CFG + 0x73)
+#define PLL_CLK_RDY_LEN    1
+#define PLL_CLK_RDY_OFFSET 0
+#define ANC_CLK_CFG_REG                    (BASE_ADDR_PAGE_CFG + 0x74)
+#define ANC_DIV_NUM_LEN    4
+#define ANC_DIV_NUM_OFFSET 1
+#define ANC_DIV_EN_LEN    1
+#define ANC_DIV_EN_OFFSET 0
+#define DSP_MEM_CLK_EN_REG                 (BASE_ADDR_PAGE_CFG + 0x75)
+#define SC_DSP_OCRAM_SFT_CLK_EN_LEN    1
+#define SC_DSP_OCRAM_SFT_CLK_EN_OFFSET 1
+#define SC_HIFI_MEM_SFT_CLK_EN_LEN    1
+#define SC_HIFI_MEM_SFT_CLK_EN_OFFSET 0
+#define DSP_MEM_SRST_REQ_REG               (BASE_ADDR_PAGE_CFG + 0x76)
+#define SC_DSP_OCRAM_SRST_REQ_LEN    1
+#define SC_DSP_OCRAM_SRST_REQ_OFFSET 0
+#define DSP_LP_CFG_REG                     (BASE_ADDR_PAGE_CFG + 0x77)
+#define SC_PD_WAIT_TIME_LEN    4
+#define SC_PD_WAIT_TIME_OFFSET 4
+#define SC_PD_HD_BP_LEN    1
+#define SC_PD_HD_BP_OFFSET 2
+#define SC_PD1_PWRUP_EN_LEN    1
+#define SC_PD1_PWRUP_EN_OFFSET 1
+#define SC_PD1_PWRDN_EN_LEN    1
+#define SC_PD1_PWRDN_EN_OFFSET 0
+#define DSP_CMD_STATUS0_REG                (BASE_ADDR_PAGE_CFG + 0x78)
+#define HIFI_CMD_STAT_VLD_LEN    1
+#define HIFI_CMD_STAT_VLD_OFFSET 0
+#define DSP_CMD_STATUS1_REG                (BASE_ADDR_PAGE_CFG + 0x79)
+#define HIFI_CMD_STATUS_LEN    8
+#define HIFI_CMD_STATUS_OFFSET 0
+#define DSP_STATUS1_REG                    (BASE_ADDR_PAGE_CFG + 0x80)
+#define HIFI_PSLVERR_NUM_LEN    4
+#define HIFI_PSLVERR_NUM_OFFSET 4
+#define TEST_PROC_SEL_REG                  (BASE_ADDR_PAGE_CFG + 0x81)
+#define TEST_PROC_SEL_LEN    2
+#define TEST_PROC_SEL_OFFSET 0
+#define DSP_LP_STATUS1_REG                 (BASE_ADDR_PAGE_CFG + 0x83)
+#define SC_PWRDN_DONE_LEN    1
+#define SC_PWRDN_DONE_OFFSET 5
+#define SC_PWRUP_DONE_LEN    1
+#define SC_PWRUP_DONE_OFFSET 4
+#define SC_DSP_CS_LEN    3
+#define SC_DSP_CS_OFFSET 1
+#define IRQ5_INTR_BP_CNT1_REG              (BASE_ADDR_PAGE_CFG + 0x86)
+#define DEB_CNT_REG2_LEN    5
+#define DEB_CNT_REG2_OFFSET 1
+#define BYPASS_PMU_INTR_DEB_LEN    1
+#define BYPASS_PMU_INTR_DEB_OFFSET 0
+#define IRQ5_STAT_REG                      (BASE_ADDR_PAGE_CFG + 0x87)
+#define PMU_LDON_OCP_IRQ_STAT_LEN    1
+#define PMU_LDON_OCP_IRQ_STAT_OFFSET 6
+#define PMU_LDOP_OCP_IRQ_STAT_LEN    1
+#define PMU_LDOP_OCP_IRQ_STAT_OFFSET 5
+#define PMU_LDO_AVDD18_OCP_IRQ_STAT_LEN    1
+#define PMU_LDO_AVDD18_OCP_IRQ_STAT_OFFSET 4
+#define PMU_CP2_SHORT_IRQ_STAT_LEN    1
+#define PMU_CP2_SHORT_IRQ_STAT_OFFSET 3
+#define PMU_CP1_SHORT_IRQ_STAT_LEN    1
+#define PMU_CP1_SHORT_IRQ_STAT_OFFSET 2
+#define PMU_BUCK1_SCP_IRQ_STAT_LEN    1
+#define PMU_BUCK1_SCP_IRQ_STAT_OFFSET 1
+#define PMU_BUCK1_OCP_IRQ_STAT_LEN    1
+#define PMU_BUCK1_OCP_IRQ_STAT_OFFSET 0
+#define IRQ5_INTR_BP_CNT2_REG              (BASE_ADDR_PAGE_CFG + 0x88)
+#define DEB_CNT_REG3_LEN    5
+#define DEB_CNT_REG3_OFFSET 1
+#define BYPASS_IRQ_IN_USB_INTR_DEB_LEN    1
+#define BYPASS_IRQ_IN_USB_INTR_DEB_OFFSET 0
+#define RAM_MCTRL9_REG                     (BASE_ADDR_PAGE_CFG + 0x89)
+#define RAM_MCTRL10_REG                    (BASE_ADDR_PAGE_CFG + 0x8A)
+#define DSP_SPRAM_MCTRL_LOW_RAS_LEN    8
+#define DSP_SPRAM_MCTRL_LOW_RAS_OFFSET 0
+#define RAM_MCTRL11_REG                    (BASE_ADDR_PAGE_CFG + 0x8B)
+#define DSP_SPRAM_MCTRL_HIGH_RAS_LEN    8
+#define DSP_SPRAM_MCTRL_HIGH_RAS_OFFSET 0
+#define RAM_MCTRL12_REG                    (BASE_ADDR_PAGE_CFG + 0x8C)
+#define DSP_SPRAM_MCTRL_LOW_RFS_LEN    8
+#define DSP_SPRAM_MCTRL_LOW_RFS_OFFSET 0
+#define RAM_MCTRL13_REG                    (BASE_ADDR_PAGE_CFG + 0x8D)
+#define DSP_SPRAM_MCTRL_HIGH_RFS_LEN    8
+#define DSP_SPRAM_MCTRL_HIGH_RFS_OFFSET 0
+#define RAM_MCTRL14_REG                    (BASE_ADDR_PAGE_CFG + 0x8E)
+#define DSP_TPRAM_MCTRL_LOW_LEN    8
+#define DSP_TPRAM_MCTRL_LOW_OFFSET 0
+#define RAM_MCTRL15_REG                    (BASE_ADDR_PAGE_CFG + 0x8F)
+#define DSP_TPRAM_MCTRL_HIGH_LEN    8
+#define DSP_TPRAM_MCTRL_HIGH_OFFSET 0
+#define IRQM_HIFI_REG0_REG                 (BASE_ADDR_PAGE_CFG + 0x90)
+#define IRQM_HIFI_REG0_LEN    8
+#define IRQM_HIFI_REG0_OFFSET 0
+#define IRQM_HIFI_REG1_REG                 (BASE_ADDR_PAGE_CFG + 0x91)
+#define IRQM_HIFI_REG1_LEN    3
+#define IRQM_HIFI_REG1_OFFSET 0
+#define CHIP_ID_REG0_REG                   (BASE_ADDR_PAGE_CFG + 0x92)
+#define CHIP_ID_REG0_LEN    8
+#define CHIP_ID_REG0_OFFSET 0
+#define CHIP_ID_REG1_REG                   (BASE_ADDR_PAGE_CFG + 0x93)
+#define CHIP_ID_REG1_LEN    8
+#define CHIP_ID_REG1_OFFSET 0
+#define CHIP_ID_REG2_REG                   (BASE_ADDR_PAGE_CFG + 0x94)
+#define CHIP_ID_REG2_LEN    8
+#define CHIP_ID_REG2_OFFSET 0
+#define CHIP_ID_REG3_REG                   (BASE_ADDR_PAGE_CFG + 0x95)
+#define CHIP_ID_REG3_LEN    8
+#define CHIP_ID_REG3_OFFSET 0
+#define DSD_CTRL0_REG                      (BASE_ADDR_PAGE_CFG + 0x96)
+#define DSD_PAD_CLK_DIV_NUM_LEN    2
+#define DSD_PAD_CLK_DIV_NUM_OFFSET 6
+#define CLK_DSD_PAD_DIV_EN_LEN    1
+#define CLK_DSD_PAD_DIV_EN_OFFSET 1
+#define DSD_PAD_CLK_EN_LEN    1
+#define DSD_PAD_CLK_EN_OFFSET 0
+#define DSD_CTRL1_REG                      (BASE_ADDR_PAGE_CFG + 0x97)
+#define DSD_CLK_DIV_NUM_LEN    4
+#define DSD_CLK_DIV_NUM_OFFSET 4
+#define CLK_DSD_DIV_EN_LEN    1
+#define CLK_DSD_DIV_EN_OFFSET 1
+#define DSD_CLK_EN_LEN    1
+#define DSD_CLK_EN_OFFSET 0
+#define EC_REG_DSP0_REG                    (BASE_ADDR_PAGE_CFG + 0x9C)
+#define DSP_TEST_SEL_LEN    8
+#define DSP_TEST_SEL_OFFSET 0
+#define EC_REG_DSP1_REG                    (BASE_ADDR_PAGE_CFG + 0x9D)
+#define DSP_OCRAM_SFT_RET1N_LEN    8
+#define DSP_OCRAM_SFT_RET1N_OFFSET 0
+#define PLL_TRK_SB_SW_SEL_REG              (BASE_ADDR_PAGE_CFG + 0x9F)
+#define SLIM_SWIRE_TRK_DIV_LEN    3
+#define SLIM_SWIRE_TRK_DIV_OFFSET 2
+#define PLL_TRK_SLIM_SWIRE_SEL_LEN    1
+#define PLL_TRK_SLIM_SWIRE_SEL_OFFSET 1
+#define PLL_TRK_SLIM_SWIRE_CLKEN_LEN    1
+#define PLL_TRK_SLIM_SWIRE_CLKEN_OFFSET 0
+#define PLL_CTRL0_REG                      (BASE_ADDR_PAGE_CFG + 0xA0)
+#define PLL_48K_TRK_SEL_LEN    4
+#define PLL_48K_TRK_SEL_OFFSET 4
+#define ADC_AUTO_SW_CFG_REG                (BASE_ADDR_PAGE_CFG + 0xA1)
+#define ADC_SWI_EN_LEN    1
+#define ADC_SWI_EN_OFFSET 0
+#define IRQ_ANA_0_REG                      (BASE_ADDR_PAGE_CFG + 0xA2)
+#define IRQ_ANA_0_LEN    8
+#define IRQ_ANA_0_OFFSET 0
+#define IRQ_ANA_1_REG                      (BASE_ADDR_PAGE_CFG + 0xA3)
+#define IRQ_ANA_1_LEN    8
+#define IRQ_ANA_1_OFFSET 0
+#define IRQ_ANA_2_REG                      (BASE_ADDR_PAGE_CFG + 0xA4)
+#define MAD_PLL_LOCK_P_LEN    1
+#define MAD_PLL_LOCK_P_OFFSET 7
+#define MAD_PLL_LOCK_F_LEN    1
+#define MAD_PLL_LOCK_F_OFFSET 6
+#define MAIN2_PLL_LOCK_TRK_LEN  1
+#define MAIN2_PLL_LOCK_TRK_OFFSET 5
+#define MAIN2_PLL_LOCK_P_LEN    1
+#define MAIN2_PLL_LOCK_P_OFFSET 4
+#define MAIN2_PLL_LOCK_F_LEN    1
+#define MAIN2_PLL_LOCK_F_OFFSET 3
+#define MAIN1_PLL_LOCK_TRK_LEN  1
+#define MAIN1_PLL_LOCK_TRK_OFFSET 2
+#define MAIN1_PLL_LOCK_P_LEN    1
+#define MAIN1_PLL_LOCK_P_OFFSET 1
+#define MAIN1_PLL_LOCK_F_LEN    1
+#define MAIN1_PLL_LOCK_F_OFFSET 0
+#define IRQ_ANA_3_REG                      (BASE_ADDR_PAGE_CFG + 0xA5)
+#define IRQ_ANA_3_LEN    8
+#define IRQ_ANA_3_OFFSET 0
+#define EP_LP_MODE_CFG_REG                 (BASE_ADDR_PAGE_CFG + 0xA6)
+#define DSPLP_PD_EN_LEN    1
+#define DSPLP_PD_EN_OFFSET 5
+#define DSPLP_CLK_OFF_EN_LEN    1
+#define DSPLP_CLK_OFF_EN_OFFSET 4
+#define EP_DSP_CORE_RST_EN_LEN    1
+#define EP_DSP_CORE_RST_EN_OFFSET 2
+#define DSPCLKSW_CLK_SEL_REG_LEN    1
+#define DSPCLKSW_CLK_SEL_REG_OFFSET 1
+#define DSP_CLK_SW_EN_LEN    1
+#define DSP_CLK_SW_EN_OFFSET 0
+#define EP_DEBUG_CFG_REG                   (BASE_ADDR_PAGE_CFG + 0xA7)
+#define EP_DEBUG_HIFI_CORE_RST_REQ_LEN    1
+#define EP_DEBUG_HIFI_CORE_RST_REQ_OFFSET 4
+#define EP_DEBUG_XTAL_ON_EN_LEN    1
+#define EP_DEBUG_XTAL_ON_EN_OFFSET 3
+#define EP_DEBUG_DSP_PD_RST_REQ_LEN    1
+#define EP_DEBUG_DSP_PD_RST_REQ_OFFSET 2
+#define EP_DEBUG_DSP_CLK_EN_LEN    1
+#define EP_DEBUG_DSP_CLK_EN_OFFSET 1
+#define EP_DEBUG_MODE_LEN    1
+#define EP_DEBUG_MODE_OFFSET 0
+#define EP_DEBUG_MONI0_REG                 (BASE_ADDR_PAGE_CFG + 0xA8)
+#define BOOT_MODE_LATCH_LEN    2
+#define BOOT_MODE_LATCH_OFFSET 6
+#define DSPCLKSW_CS_LEN    2
+#define DSPCLKSW_CS_OFFSET 4
+#define DSPLP_CLKON_DONE_LEN    1
+#define DSPLP_CLKON_DONE_OFFSET 3
+#define DSPLP_CLKOFF_DONE_LEN    1
+#define DSPLP_CLKOFF_DONE_OFFSET 2
+#define DSPLP_PWRUP_DONE_LEN    1
+#define DSPLP_PWRUP_DONE_OFFSET 1
+#define DSPLP_PWRDN_DONE_LEN    1
+#define DSPLP_PWRDN_DONE_OFFSET 0
+#define EP_DEBUG_MONI1_REG                 (BASE_ADDR_PAGE_CFG + 0xA9)
+#define STARTUP_CS_LEN    3
+#define STARTUP_CS_OFFSET 5
+#define DSP_LP_CS_LEN    5
+#define DSP_LP_CS_OFFSET 0
+#define RAM_MCTRL18_REG                    (BASE_ADDR_PAGE_CFG + 0xAA)
+#define USB_MEM_CTRL_LOW_LEN    8
+#define USB_MEM_CTRL_LOW_OFFSET 0
+#define RAM_MCTRL19_REG                    (BASE_ADDR_PAGE_CFG + 0xAB)
+#define USB_MEM_CTRL_HIGH_LEN    8
+#define USB_MEM_CTRL_HIGH_OFFSET 0
+#define RAM_MCTRL20_REG                    (BASE_ADDR_PAGE_CFG + 0xAC)
+#define ROM_MCTRL_LOW_LEN    8
+#define ROM_MCTRL_LOW_OFFSET 0
+#define RAM_MCTRL21_REG                    (BASE_ADDR_PAGE_CFG + 0xAD)
+#define ROM_MCTRL_HIGH_LEN    8
+#define ROM_MCTRL_HIGH_OFFSET 0
+#define RAM_MCTRL22_REG                    (BASE_ADDR_PAGE_CFG + 0xAE)
+#define PLL_FIFO_MEM_CTRL_LOW_LEN    8
+#define PLL_FIFO_MEM_CTRL_LOW_OFFSET 0
+#define RAM_MCTRL23_REG                    (BASE_ADDR_PAGE_CFG + 0xAF)
+#define PLL_FIFO_MEM_CTRL_HIGH_LEN    8
+#define PLL_FIFO_MEM_CTRL_HIGH_OFFSET 0
+#define PLL_TEST_CTRL1_REG                 (BASE_ADDR_PAGE_CFG + 0xB0)
+#define PLL_FIFO_CLR_LEN    1
+#define PLL_FIFO_CLR_OFFSET 1
+#define PLL_FIFO_CLK_EN_LEN    1
+#define PLL_FIFO_CLK_EN_OFFSET 0
+#define PLL_TEST_CTRL2_REG                 (BASE_ADDR_PAGE_CFG + 0xB1)
+#define DSPRSTCTRL_CS_LEN    2
+#define DSPRSTCTRL_CS_OFFSET 6
+#define PLL_FIFO_RERROR_LEN    1
+#define PLL_FIFO_RERROR_OFFSET 3
+#define PLL_FIFO_WERROR_LEN    1
+#define PLL_FIFO_WERROR_OFFSET 2
+#define PLL_FIFO_EMPTY_LEN    1
+#define PLL_FIFO_EMPTY_OFFSET 1
+#define PLL_FIFO_FULL_LEN    1
+#define PLL_FIFO_FULL_OFFSET 0
+#define IRQ6_STAT_REG                      (BASE_ADDR_PAGE_CFG + 0xB4)
+#define PLL_MAD_UNLOCK_P_STAT_LEN    1
+#define PLL_MAD_UNLOCK_P_STAT_OFFSET 4
+#define PLL_44P1K_UNLOCK_P_STAT_LEN    1
+#define PLL_44P1K_UNLOCK_P_STAT_OFFSET 3
+#define PLL_48K_UNLOCK_P_STAT_LEN    1
+#define PLL_48K_UNLOCK_P_STAT_OFFSET 2
+#define USB_SUSPEND_INT_IRQ_STAT_LEN    1
+#define USB_SUSPEND_INT_IRQ_STAT_OFFSET 1
+#define IRQ_N_IN_INT_IRQ_STAT_LEN    1
+#define IRQ_N_IN_INT_IRQ_STAT_OFFSET 0
+#define PLL_DCO_DIV_CFG1_REG               (BASE_ADDR_PAGE_CFG + 0xB5)
+#define MAIN2_PLL_DIG_CLK_SEL_LEN    1
+#define MAIN2_PLL_DIG_CLK_SEL_OFFSET 3
+#define MAIN1_PLL_DIG_CLK_SEL_LEN    1
+#define MAIN1_PLL_DIG_CLK_SEL_OFFSET 2
+#define MAIN2_PLL_DCO_DIV_EN_LEN    1
+#define MAIN2_PLL_DCO_DIV_EN_OFFSET 1
+#define MAIN1_PLL_DCO_DIV_EN_LEN    1
+#define MAIN1_PLL_DCO_DIV_EN_OFFSET 0
+#define MAIN1_PLL_DIG_NUM_REG              (BASE_ADDR_PAGE_CFG + 0xB6)
+#define MAIN1_PLL_DCO_CLK_DIV_NUM_LEN    8
+#define MAIN1_PLL_DCO_CLK_DIV_NUM_OFFSET 0
+#define MAIN2_PLL_DIG_NUM_REG              (BASE_ADDR_PAGE_CFG + 0xB7)
+#define MAIN2_PLL_DCO_CLK_DIV_NUM_LEN    8
+#define MAIN2_PLL_DCO_CLK_DIV_NUM_OFFSET 0
+#define SC_EP_DATA0_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xD5)
+#define SC_EP_DATA0_HIGH_LEN    8
+#define SC_EP_DATA0_HIGH_OFFSET 0
+#define SC_EP_DATA1_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xD6)
+#define SC_EP_DATA1_HIGH_LEN    8
+#define SC_EP_DATA1_HIGH_OFFSET 0
+#define SC_EP_DATA2_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xD7)
+#define SC_EP_DATA2_HIGH_LEN    8
+#define SC_EP_DATA2_HIGH_OFFSET 0
+#define SC_EP_DATA3_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xD8)
+#define SC_EP_DATA3_HIGH_LEN    8
+#define SC_EP_DATA3_HIGH_OFFSET 0
+#define SC_EP_DATA4_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xD9)
+#define SC_EP_DATA4_HIGH_LEN    8
+#define SC_EP_DATA4_HIGH_OFFSET 0
+#define SC_EP_DATA5_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xDA)
+#define SC_EP_DATA5_HIGH_LEN    8
+#define SC_EP_DATA5_HIGH_OFFSET 0
+#define SC_EP_DATA6_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xDB)
+#define SC_EP_DATA6_HIGH_LEN    8
+#define SC_EP_DATA6_HIGH_OFFSET 0
+#define SC_EP_DATA7_HIGH_REG               (BASE_ADDR_PAGE_CFG + 0xDC)
+#define SC_EP_DATA7_HIGH_LEN    8
+#define SC_EP_DATA7_HIGH_OFFSET 0
+#define DIE_ID_CFG1_REG                    (BASE_ADDR_PAGE_CFG + 0xDD)
+#define EFUSE_READ_ADJUST_LEN    2
+#define EFUSE_READ_ADJUST_OFFSET 3
+#define EFUSE_MODE_SEL_LEN    1
+#define EFUSE_MODE_SEL_OFFSET 2
+#define EFUSE_READ_EN_LEN    1
+#define EFUSE_READ_EN_OFFSET 1
+#define EFUSE_BURN_EN_LEN    1
+#define EFUSE_BURN_EN_OFFSET 0
+#define DIE_ID_CFG2_REG                    (BASE_ADDR_PAGE_CFG + 0xDE)
+#define EFUSE_PGM_OFFSET_LEN    5
+#define EFUSE_PGM_OFFSET_OFFSET 0
+#define DIE_ID_IN_DATA0_REG                (BASE_ADDR_PAGE_CFG + 0xDF)
+#define EFUSE_IN_7_0_LEN    8
+#define EFUSE_IN_7_0_OFFSET 0
+#define DIE_ID_IN_DATA1_REG                (BASE_ADDR_PAGE_CFG + 0xE0)
+#define EFUSE_IN_15_8_LEN    8
+#define EFUSE_IN_15_8_OFFSET 0
+#define DIE_ID_IN_DATA2_REG                (BASE_ADDR_PAGE_CFG + 0xE1)
+#define EFUSE_IN_23_16_LEN    8
+#define EFUSE_IN_23_16_OFFSET 0
+#define DIE_ID_IN_DATA3_REG                (BASE_ADDR_PAGE_CFG + 0xE2)
+#define EFUSE_IN_31_24_LEN    8
+#define EFUSE_IN_31_24_OFFSET 0
+#define DIE_ID_IN_DATA4_REG                (BASE_ADDR_PAGE_CFG + 0xE3)
+#define EFUSE_IN_39_32_LEN    8
+#define EFUSE_IN_39_32_OFFSET 0
+#define DIE_ID_IN_DATA5_REG                (BASE_ADDR_PAGE_CFG + 0xE4)
+#define EFUSE_IN_47_40_LEN    8
+#define EFUSE_IN_47_40_OFFSET 0
+#define DIE_ID_IN_DATA6_REG                (BASE_ADDR_PAGE_CFG + 0xE5)
+#define EFUSE_IN_55_48_LEN    8
+#define EFUSE_IN_55_48_OFFSET 0
+#define DIE_ID_IN_DATA7_REG                (BASE_ADDR_PAGE_CFG + 0xE6)
+#define EFUSE_IN_63_56_LEN    8
+#define EFUSE_IN_63_56_OFFSET 0
+#define DIE_ID_IN_DATA8_REG                (BASE_ADDR_PAGE_CFG + 0xE7)
+#define EFUSE_IN_71_64_LEN    8
+#define EFUSE_IN_71_64_OFFSET 0
+#define DIE_ID_IN_DATA9_REG                (BASE_ADDR_PAGE_CFG + 0xE8)
+#define EFUSE_IN_79_72_LEN    8
+#define EFUSE_IN_79_72_OFFSET 0
+#define DIE_ID_IN_DATA10_REG               (BASE_ADDR_PAGE_CFG + 0xE9)
+#define EFUSE_IN_87_80_LEN    8
+#define EFUSE_IN_87_80_OFFSET 0
+#define DIE_ID_IN_DATA11_REG               (BASE_ADDR_PAGE_CFG + 0xEA)
+#define EFUSE_IN_95_88_LEN    8
+#define EFUSE_IN_95_88_OFFSET 0
+#define DIE_ID_IN_DATA12_REG               (BASE_ADDR_PAGE_CFG + 0xEB)
+#define EFUSE_IN_103_96_LEN    8
+#define EFUSE_IN_103_96_OFFSET 0
+#define DIE_ID_IN_DATA13_REG               (BASE_ADDR_PAGE_CFG + 0xEC)
+#define EFUSE_IN_111_104_LEN    8
+#define EFUSE_IN_111_104_OFFSET 0
+#define DIE_ID_IN_DATA14_REG               (BASE_ADDR_PAGE_CFG + 0xED)
+#define EFUSE_IN_119_112_LEN    8
+#define EFUSE_IN_119_112_OFFSET 0
+#define DIE_ID_IN_DATA15_REG               (BASE_ADDR_PAGE_CFG + 0xEE)
+#define EFUSE_IN_127_120_LEN    8
+#define EFUSE_IN_127_120_OFFSET 0
+#define DIE_ID_OUT_DATA0_REG               (BASE_ADDR_PAGE_CFG + 0xEF)
+#define EFUSE_OUT_7_0_LEN    8
+#define EFUSE_OUT_7_0_OFFSET 0
+#define DIE_ID_OUT_DATA1_REG               (BASE_ADDR_PAGE_CFG + 0xF0)
+#define EFUSE_OUT_15_8_LEN    8
+#define EFUSE_OUT_15_8_OFFSET 0
+#define DIE_ID_OUT_DATA2_REG               (BASE_ADDR_PAGE_CFG + 0xF1)
+#define EFUSE_OUT_23_16_LEN    8
+#define EFUSE_OUT_23_16_OFFSET 0
+#define DIE_ID_OUT_DATA3_REG               (BASE_ADDR_PAGE_CFG + 0xF2)
+#define EFUSE_OUT_31_24_LEN    8
+#define EFUSE_OUT_31_24_OFFSET 0
+#define DIE_ID_OUT_DATA4_REG               (BASE_ADDR_PAGE_CFG + 0xF3)
+#define EFUSE_OUT_39_32_LEN    8
+#define EFUSE_OUT_39_32_OFFSET 0
+#define DIE_ID_OUT_DATA5_REG               (BASE_ADDR_PAGE_CFG + 0xF4)
+#define EFUSE_OUT_47_40_LEN    8
+#define EFUSE_OUT_47_40_OFFSET 0
+#define DIE_ID_OUT_DATA6_REG               (BASE_ADDR_PAGE_CFG + 0xF5)
+#define EFUSE_OUT_55_48_LEN    8
+#define EFUSE_OUT_55_48_OFFSET 0
+#define DIE_ID_OUT_DATA7_REG               (BASE_ADDR_PAGE_CFG + 0xF6)
+#define EFUSE_OUT_63_56_LEN    8
+#define EFUSE_OUT_63_56_OFFSET 0
+#define DIE_ID_OUT_DATA8_REG               (BASE_ADDR_PAGE_CFG + 0xF7)
+#define EFUSE_OUT_71_64_LEN    8
+#define EFUSE_OUT_71_64_OFFSET 0
+#define DIE_ID_OUT_DATA9_REG               (BASE_ADDR_PAGE_CFG + 0xF8)
+#define EFUSE_OUT_79_72_LEN    8
+#define EFUSE_OUT_79_72_OFFSET 0
+#define DIE_ID_OUT_DATA10_REG              (BASE_ADDR_PAGE_CFG + 0xF9)
+#define EFUSE_OUT_87_80_LEN    8
+#define EFUSE_OUT_87_80_OFFSET 0
+#define DIE_ID_OUT_DATA11_REG              (BASE_ADDR_PAGE_CFG + 0xFA)
+#define EFUSE_OUT_95_88_LEN    8
+#define EFUSE_OUT_95_88_OFFSET 0
+#define DIE_ID_OUT_DATA12_REG              (BASE_ADDR_PAGE_CFG + 0xFB)
+#define EFUSE_OUT_103_96_LEN    8
+#define EFUSE_OUT_103_96_OFFSET 0
+#define DIE_ID_OUT_DATA13_REG              (BASE_ADDR_PAGE_CFG + 0xFC)
+#define EFUSE_OUT_111_104_LEN    8
+#define EFUSE_OUT_111_104_OFFSET 0
+#define DIE_ID_OUT_DATA14_REG              (BASE_ADDR_PAGE_CFG + 0xFD)
+#define EFUSE_OUT_119_112_LEN    8
+#define EFUSE_OUT_119_112_OFFSET 0
+#define DIE_ID_OUT_DATA15_REG              (BASE_ADDR_PAGE_CFG + 0xFE)
+#define EFUSE_OUT_127_120_LEN    8
+#define EFUSE_OUT_127_120_OFFSET 0
+#define DIE_ID_STATUS_REG                  (BASE_ADDR_PAGE_CFG + 0xFF)
+#define BURN_FSM_STAT_LEN    3
+#define BURN_FSM_STAT_OFFSET 3
+#define READ_FSM_STAT_LEN    3
+#define READ_FSM_STAT_OFFSET 0
+
+/* irq begin, hi_cdcctrl will use this addr,so it should be full addr */
+#define IRQ_REG0_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x14)
+#define HS_DET_IRQ_NEG_LEN    1
+#define HS_DET_IRQ_NEG_OFFSET 7
+#define HS_DET_IRQ_POS_LEN    1
+#define HS_DET_IRQ_POS_OFFSET 6
+#define HS_MIC_ECO_IRQ_NEG_LEN    1
+#define HS_MIC_ECO_IRQ_NEG_OFFSET 5
+#define HS_MIC_ECO_IRQ_POS_LEN    1
+#define HS_MIC_ECO_IRQ_POS_OFFSET 4
+#define HS_MIC_H_IRQ_NEG_LEN    1
+#define HS_MIC_H_IRQ_NEG_OFFSET 3
+#define HS_MIC_H_IRQ_POS_LEN    1
+#define HS_MIC_H_IRQ_POS_OFFSET 2
+#define HS_MIC_L_IRQ_NEG_LEN    1
+#define HS_MIC_L_IRQ_NEG_OFFSET 1
+#define HS_MIC_L_IRQ_POS_LEN    1
+#define HS_MIC_L_IRQ_POS_OFFSET 0
+#define IRQ_REG1_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x15)
+#define EP_CMPLT_IRQ_LEN    1
+#define EP_CMPLT_IRQ_OFFSET 7
+#define MAD_IRQ_LEN    1
+#define MAD_IRQ_OFFSET 6
+#define WD_IRQ_LEN    1
+#define WD_IRQ_OFFSET 5
+#define VAD_IRQ_LEN    1
+#define VAD_IRQ_OFFSET 4
+#define RAM2AXI_IRQ_LEN    1
+#define RAM2AXI_IRQ_OFFSET 3
+#define GPIO_2_IRQ_LEN    1
+#define GPIO_2_IRQ_OFFSET 2
+#define GPIO_1_IRQ_LEN    1
+#define GPIO_1_IRQ_OFFSET 1
+#define GPIO_0_IRQ_LEN    1
+#define GPIO_0_IRQ_OFFSET 0
+#define IRQ_REG2_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x16)
+#define PLL_48K_TRK_UNLOCK_IRQ_LEN    1
+#define PLL_48K_TRK_UNLOCK_IRQ_OFFSET 5
+#define PLL_48K_UNLOCK_F_IRQ_LEN    1
+#define PLL_48K_UNLOCK_F_IRQ_OFFSET 4
+#define OTP_CHIP_IRQ_LEN    1
+#define OTP_CHIP_IRQ_OFFSET 3
+#define SAR_STAT_IRQ_LEN    1
+#define SAR_STAT_IRQ_OFFSET 2
+#define AXI_DLOCK_IRQ_LEN    1
+#define AXI_DLOCK_IRQ_OFFSET 1
+#define CMD_STAT_VLD_IRQ_LEN    1
+#define CMD_STAT_VLD_IRQ_OFFSET 0
+#define IRQM_REG0_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x17)
+#define HS_DET_IRQ_NEG_MASK_LEN    1
+#define HS_DET_IRQ_NEG_MASK_OFFSET 7
+#define HS_DET_IRQ_POS_MASK_LEN    1
+#define HS_DET_IRQ_POS_MASK_OFFSET 6
+#define HS_MIC_ECO_IRQ_NEG_MASK_LEN    1
+#define HS_MIC_ECO_IRQ_NEG_MASK_OFFSET 5
+#define HS_MIC_ECO_IRQ_POS_MASK_LEN    1
+#define HS_MIC_ECO_IRQ_POS_MASK_OFFSET 4
+#define HS_MIC_H_IRQ_NEG_MASK_LEN    1
+#define HS_MIC_H_IRQ_NEG_MASK_OFFSET 3
+#define HS_MIC_H_IRQ_POS_MASK_LEN    1
+#define HS_MIC_H_IRQ_POS_MASK_OFFSET 2
+#define HS_MIC_L_IRQ_NEG_MASK_LEN    1
+#define HS_MIC_L_IRQ_NEG_MASK_OFFSET 1
+#define HS_MIC_L_IRQ_POS_MASK_LEN    1
+#define HS_MIC_L_IRQ_POS_MASK_OFFSET 0
+#define IRQM_REG1_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x18)
+#define EP_CMPLT_IRQ_MASK_LEN    1
+#define EP_CMPLT_IRQ_MASK_OFFSET 7
+#define MAD_IRQ_MASK_LEN    1
+#define MAD_IRQ_MASK_OFFSET 6
+#define WD_IRQ_MASK_LEN    1
+#define WD_IRQ_MASK_OFFSET 5
+#define VAD_IRQ_MASK_LEN    1
+#define VAD_IRQ_MASK_OFFSET 4
+#define RAM2AXI_IRQ_MASK_LEN    1
+#define RAM2AXI_IRQ_MASK_OFFSET 3
+#define GPIO_2_IRQ_MASK_LEN    1
+#define GPIO_2_IRQ_MASK_OFFSET 2
+#define GPIO_1_IRQ_MASK_LEN    1
+#define GPIO_1_IRQ_MASK_OFFSET 1
+#define GPIO_0_IRQ_MASK_LEN    1
+#define GPIO_0_IRQ_MASK_OFFSET 0
+#define IRQM_REG2_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x19)
+#define PLL_48K_TRK_UNLOCK_IRQ_MASK_LEN    1
+#define PLL_48K_TRK_UNLOCK_IRQ_MASK_OFFSET 5
+#define PLL_48K_UNLOCK_F_IRQ_MASK_LEN    1
+#define PLL_48K_UNLOCK_F_IRQ_MASK_OFFSET 4
+#define OTP_CHIP_IRQ_MASK_LEN    1
+#define OTP_CHIP_IRQ_MASK_OFFSET 3
+#define SAR_STAT_IRQ_MASK_LEN    1
+#define SAR_STAT_IRQ_MASK_OFFSET 2
+#define AXI_DLOCK_IRQ_MASK_LEN    1
+#define AXI_DLOCK_IRQ_MASK_OFFSET 1
+#define CMD_STAT_VLD_IRQ_MASK_LEN    1
+#define CMD_STAT_VLD_IRQ_MASK_OFFSET 0
+#define IRQM_REG3_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x2C)
+#define AP_GPIO3_NEG_IRQ_MASK_LEN    1
+#define AP_GPIO3_NEG_IRQ_MASK_OFFSET 7
+#define AP_GPIO3_POS_IRQ_MASK_LEN    1
+#define AP_GPIO3_POS_IRQ_MASK_OFFSET 6
+#define AP_GPIO2_NEG_IRQ_MASK_LEN    1
+#define AP_GPIO2_NEG_IRQ_MASK_OFFSET 5
+#define AP_GPIO2_POS_IRQ_MASK_LEN    1
+#define AP_GPIO2_POS_IRQ_MASK_OFFSET 4
+#define AP_GPIO1_NEG_IRQ_MASK_LEN    1
+#define AP_GPIO1_NEG_IRQ_MASK_OFFSET 3
+#define AP_GPIO1_POS_IRQ_MASK_LEN    1
+#define AP_GPIO1_POS_IRQ_MASK_OFFSET 2
+#define AP_GPIO0_NEG_IRQ_MASK_LEN    1
+#define AP_GPIO0_NEG_IRQ_MASK_OFFSET 1
+#define AP_GPIO0_POS_IRQ_MASK_LEN    1
+#define AP_GPIO0_POS_IRQ_MASK_OFFSET 0
+#define IRQ_REG3_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x2D)
+#define AP_GPIO3_NEG_IRQ_LEN    1
+#define AP_GPIO3_NEG_IRQ_OFFSET 7
+#define AP_GPIO3_POS_IRQ_LEN    1
+#define AP_GPIO3_POS_IRQ_OFFSET 6
+#define AP_GPIO2_NEG_IRQ_LEN    1
+#define AP_GPIO2_NEG_IRQ_OFFSET 5
+#define AP_GPIO2_POS_IRQ_LEN    1
+#define AP_GPIO2_POS_IRQ_OFFSET 4
+#define AP_GPIO1_NEG_IRQ_LEN    1
+#define AP_GPIO1_NEG_IRQ_OFFSET 3
+#define AP_GPIO1_POS_IRQ_LEN    1
+#define AP_GPIO1_POS_IRQ_OFFSET 2
+#define AP_GPIO0_NEG_IRQ_LEN    1
+#define AP_GPIO0_NEG_IRQ_OFFSET 1
+#define AP_GPIO0_POS_IRQ_LEN    1
+#define AP_GPIO0_POS_IRQ_OFFSET 0
+#define IRQM_REG4_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x70)
+#define WDOG_RES_IRQ_MASK_LEN    1
+#define WDOG_RES_IRQ_MASK_OFFSET 7
+#define DSP_CLK_SW_INT_IRQ_MASK_LEN    1
+#define DSP_CLK_SW_INT_IRQ_MASK_OFFSET 6
+#define DSP_WAKEUP_INT_IRQ_MASK_LEN    1
+#define DSP_WAKEUP_INT_IRQ_MASK_OFFSET 5
+#define PLL_MAD_UNLOCK_F_IRQ_MASK_LEN    1
+#define PLL_MAD_UNLOCK_F_IRQ_MASK_OFFSET 4
+#define PLL_44P1K_TRK_UNLOCK_IRQ_MASK_LEN    1
+#define PLL_44P1K_TRK_UNLOCK_IRQ_MASK_OFFSET 3
+#define PLL_44P1K_UNLOCK_F_IRQ_MASK_LEN    1
+#define PLL_44P1K_UNLOCK_F_IRQ_MASK_OFFSET 2
+#define SMART_MIC_IRQ_MASK_LEN    1
+#define SMART_MIC_IRQ_MASK_OFFSET 1
+#define I2C_MST_IRQ_MASK_LEN    1
+#define I2C_MST_IRQ_MASK_OFFSET 0
+#define IRQ_REG4_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x71)
+#define WDOG_RES_IRQ_LEN    1
+#define WDOG_RES_IRQ_OFFSET 7
+#define DSP_CLK_SW_INT_IRQ_LEN    1
+#define DSP_CLK_SW_INT_IRQ_OFFSET 6
+#define DSP_WAKEUP_INT_IRQ_LEN    1
+#define DSP_WAKEUP_INT_IRQ_OFFSET 5
+#define PLL_MAD_UNLOCK_F_IRQ_LEN    1
+#define PLL_MAD_UNLOCK_F_IRQ_OFFSET 4
+#define PLL_44P1K_TRK_UNLOCK_IRQ_LEN    1
+#define PLL_44P1K_TRK_UNLOCK_IRQ_OFFSET 3
+#define PLL_44P1K_UNLOCK_F_IRQ_LEN    1
+#define PLL_44P1K_UNLOCK_F_IRQ_OFFSET 2
+#define SMART_MIC_IRQ_LEN    1
+#define SMART_MIC_IRQ_OFFSET 1
+#define I2C_MST_IRQ_LEN    1
+#define I2C_MST_IRQ_OFFSET 0
+#define IRQM_REG5_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x84)
+#define PMU_LDON_OCP_MASK_LEN    1
+#define PMU_LDON_OCP_MASK_OFFSET 6
+#define PMU_LDOP_OCP_MASK_LEN    1
+#define PMU_LDOP_OCP_MASK_OFFSET 5
+#define PMU_LDO_AVDD18_OCP_MASK_LEN    1
+#define PMU_LDO_AVDD18_OCP_MASK_OFFSET 4
+#define PMU_CP2_SHORT_MASK_LEN    1
+#define PMU_CP2_SHORT_MASK_OFFSET 3
+#define PMU_CP1_SHORT_MASK_LEN    1
+#define PMU_CP1_SHORT_MASK_OFFSET 2
+#define PMU_BUNK1_SCP_MASK_LEN    1
+#define PMU_BUNK1_SCP_MASK_OFFSET 1
+#define PMU_BUNK1_OCP_MASK_LEN    1
+#define PMU_BUNK1_OCP_MASK_OFFSET 0
+#define IRQ_REG5_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0x85)
+#define PMU_LDON_OCP_IRQ_LEN    1
+#define PMU_LDON_OCP_IRQ_OFFSET 6
+#define PMU_LDOP_OCP_IRQ_LEN    1
+#define PMU_LDOP_OCP_IRQ_OFFSET 5
+#define PMU_LDO_AVDD18_OCP_IRQ_LEN    1
+#define PMU_LDO_AVDD18_OCP_IRQ_OFFSET 4
+#define PMU_CP2_SHORT_IRQ_LEN    1
+#define PMU_CP2_SHORT_IRQ_OFFSET 3
+#define PMU_CP1_SHORT_IRQ_LEN    1
+#define PMU_CP1_SHORT_IRQ_OFFSET 2
+#define PMU_BUNK1_SCP_IRQ_LEN    1
+#define PMU_BUNK1_SCP_IRQ_OFFSET 1
+#define PMU_BUNK1_OCP_IRQ_LEN    1
+#define PMU_BUNK1_OCP_IRQ_OFFSET 0
+#define IRQM_REG6_REG                      (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0xB2)
+#define DSPRSTCTRL_INT_IRQ_MASK_LEN    1
+#define DSPRSTCTRL_INT_IRQ_MASK_OFFSET 5
+#define PLL_MAD_UNLOCK_P_IRQ_MASK_LEN    1
+#define PLL_MAD_UNLOCK_P_IRQ_MASK_OFFSET 4
+#define PLL_44P1K_UNLOCK_P_IRQ_MASK_LEN    1
+#define PLL_44P1K_UNLOCK_P_IRQ_MASK_OFFSET 3
+#define PLL_48K_UNLOCK_P_IRQ_MASK_LEN    1
+#define PLL_48K_UNLOCK_P_IRQ_MASK_OFFSET 2
+#define USB_SUSPEND_INT_IRQ_MASK_LEN    1
+#define USB_SUSPEND_INT_IRQ_MASK_OFFSET 1
+#define IRQ_N_IN_INT_IRQ_MASK_LEN    1
+#define IRQ_N_IN_INT_IRQ_MASK_OFFSET 0
+#define IRQ_REG6_REG                       (CODEC_BASE_ADDR + BASE_ADDR_PAGE_CFG + 0xB3)
+#define DSPRSTCTRL_INT_IRQ_LEN    1
+#define DSPRSTCTRL_INT_IRQ_OFFSET 5
+#define PLL_MAD_UNLOCK_P_IRQ_LEN    1
+#define PLL_MAD_UNLOCK_P_IRQ_OFFSET 4
+#define PLL_44P1K_UNLOCK_P_IRQ_LEN    1
+#define PLL_44P1K_UNLOCK_P_IRQ_OFFSET 3
+#define PLL_48K_UNLOCK_P_IRQ_LEN    1
+#define PLL_48K_UNLOCK_P_IRQ_OFFSET 2
+#define USB_SUSPEND_INT_IRQ_LEN    1
+#define USB_SUSPEND_INT_IRQ_OFFSET 1
+#define IRQ_N_IN_INT_IRQ_LEN    1
+#define IRQ_N_IN_INT_IRQ_OFFSET 0
+/* irq end */
+
+/* cfg subsys reg end */
+
+/* clk en reg begin */
+#define S1_DP_CLK_EN_REG                   (BASE_ADDR_PAGE_CFG + 0x41)
+#define S1_MIC4_SRC_CLK_EN_LEN    1
+#define S1_MIC4_SRC_CLK_EN_OFFSET 7
+#define S1_MIC3_SRC_CLK_EN_LEN    1
+#define S1_MIC3_SRC_CLK_EN_OFFSET 6
+#define S1_MIC2_SRC_CLK_EN_LEN    1
+#define S1_MIC2_SRC_CLK_EN_OFFSET 5
+#define S1_MIC1_SRC_CLK_EN_LEN    1
+#define S1_MIC1_SRC_CLK_EN_OFFSET 4
+#define S1_IR_SRC_CLK_EN_LEN    1
+#define S1_IR_SRC_CLK_EN_OFFSET 3
+#define S1_IL_SRC_CLK_EN_LEN    1
+#define S1_IL_SRC_CLK_EN_OFFSET 2
+#define S1_IR_PGA_CLK_EN_LEN    1
+#define S1_IR_PGA_CLK_EN_OFFSET 1
+#define S1_IL_PGA_CLK_EN_LEN    1
+#define S1_IL_PGA_CLK_EN_OFFSET 0
+#define S2_DP_CLK_EN_REG                   (BASE_ADDR_PAGE_CFG + 0x42)
+#define S2_OR_SRC_CLK_EN_LEN    1
+#define S2_OR_SRC_CLK_EN_OFFSET 7
+#define S2_OL_SRC_CLK_EN_LEN    1
+#define S2_OL_SRC_CLK_EN_OFFSET 6
+#define S2_OR_PGA_CLK_EN_LEN    1
+#define S2_OR_PGA_CLK_EN_OFFSET 5
+#define S2_OL_PGA_CLK_EN_LEN    1
+#define S2_OL_PGA_CLK_EN_OFFSET 4
+#define S2_IR_SRC_CLK_EN_LEN    1
+#define S2_IR_SRC_CLK_EN_OFFSET 3
+#define S2_IL_SRC_CLK_EN_LEN    1
+#define S2_IL_SRC_CLK_EN_OFFSET 2
+#define S2_IR_PGA_CLK_EN_LEN    1
+#define S2_IR_PGA_CLK_EN_OFFSET 1
+#define S2_IL_PGA_CLK_EN_LEN    1
+#define S2_IL_PGA_CLK_EN_OFFSET 0
+#define S3_DP_CLK_EN_REG                   (BASE_ADDR_PAGE_CFG + 0x43)
+#define S3_OR_SRC_CLK_EN_LEN    1
+#define S3_OR_SRC_CLK_EN_OFFSET 7
+#define S3_OL_SRC_CLK_EN_LEN    1
+#define S3_OL_SRC_CLK_EN_OFFSET 6
+#define DSPIF3_TDM_TRANS_CLK_EN_LEN    1
+#define DSPIF3_TDM_TRANS_CLK_EN_OFFSET 5
+#define DSPIF2_TDM_TRANS_CLK_EN_LEN    1
+#define DSPIF2_TDM_TRANS_CLK_EN_OFFSET 4
+#define S3_IR_SRC_CLK_EN_LEN    1
+#define S3_IR_SRC_CLK_EN_OFFSET 3
+#define S3_IL_SRC_CLK_EN_LEN    1
+#define S3_IL_SRC_CLK_EN_OFFSET 2
+#define S3_IR_PGA_CLK_EN_LEN    1
+#define S3_IR_PGA_CLK_EN_OFFSET 1
+#define S3_IL_PGA_CLK_EN_LEN    1
+#define S3_IL_PGA_CLK_EN_OFFSET 0
+#define S4_DP_CLK_EN_REG                   (BASE_ADDR_PAGE_CFG + 0x44)
+#define S4_OR_SRC_CLK_EN_LEN    1
+#define S4_OR_SRC_CLK_EN_OFFSET 7
+#define S4_OL_SRC_CLK_EN_LEN    1
+#define S4_OL_SRC_CLK_EN_OFFSET 6
+#define S4_SPA_R_SRC_CLK_EN_LEN    1
+#define S4_SPA_R_SRC_CLK_EN_OFFSET 5
+#define S4_SPA_L_SRC_CLK_EN_LEN    1
+#define S4_SPA_L_SRC_CLK_EN_OFFSET 4
+#define S1_MIC5_SRC_CLK_EN_LEN    1
+#define S1_MIC5_SRC_CLK_EN_OFFSET 3
+#define S1_MAD_SRC_CLK_EN_LEN    1
+#define S1_MAD_SRC_CLK_EN_OFFSET 2
+#define CLK_ANC_R_EN_LEN    1
+#define CLK_ANC_R_EN_OFFSET 1
+#define CLK_ANC_L_EN_LEN    1
+#define CLK_ANC_L_EN_OFFSET 0
+#define I2S_DSPIF_CLK_EN_REG               (BASE_ADDR_PAGE_CFG + 0x45)
+#define RST_ANC_3SRC_IRQ_LEN    1
+#define RST_ANC_3SRC_IRQ_OFFSET 7
+#define MAD_BUF_CLK_EN_LEN    1
+#define MAD_BUF_CLK_EN_OFFSET 6
+#define CLK_IMP_DET_EN_LEN    1
+#define CLK_IMP_DET_EN_OFFSET 5
+#define CLK_CLASSH_EN_LEN    1
+#define CLK_CLASSH_EN_OFFSET 4
+#define CLK_ADC2L_EN_LEN    1
+#define CLK_ADC2L_EN_OFFSET 3
+#define MAD_CLK1_DIV_NUM_LEN    3
+#define MAD_CLK1_DIV_NUM_OFFSET 0
+#define S1_MIXER_EQ_CLK_EN_REG             (BASE_ADDR_PAGE_CFG + 0x46)
+#define ADC0R_PGA_CLK_EN_LEN    1
+#define ADC0R_PGA_CLK_EN_OFFSET 7
+#define ADC0L_PGA_CLK_EN_LEN    1
+#define ADC0L_PGA_CLK_EN_OFFSET 6
+#define CLK_DACL_S_UP16_EN_LEN    1
+#define CLK_DACL_S_UP16_EN_OFFSET 4
+#define RST_5MIC_S3_ACCESS_IRQ_LEN    1
+#define RST_5MIC_S3_ACCESS_IRQ_OFFSET 3
+#define RST_5MIC_S1_ACCESS_IRQ_LEN    1
+#define RST_5MIC_S1_ACCESS_IRQ_OFFSET 2
+#define CLK_DACR_UP16_EN_LEN    1
+#define CLK_DACR_UP16_EN_OFFSET 1
+#define CLK_DACL_UP16_EN_LEN    1
+#define CLK_DACL_UP16_EN_OFFSET 0
+#define DAC_DP_CLK_EN_1_REG                (BASE_ADDR_PAGE_CFG + 0x47)
+#define ADC1R_PGA_CLK_EN_LEN    1
+#define ADC1R_PGA_CLK_EN_OFFSET 7
+#define ADC1L_PGA_CLK_EN_LEN    1
+#define ADC1L_PGA_CLK_EN_OFFSET 6
+#define DACR_SRC_CLK_EN_LEN    1
+#define DACR_SRC_CLK_EN_OFFSET 5
+#define DACL_SRC_CLK_EN_LEN    1
+#define DACL_SRC_CLK_EN_OFFSET 4
+#define DACR_S_MIXER4_CLK_EN_LEN    1
+#define DACR_S_MIXER4_CLK_EN_OFFSET 3
+#define DACL_S_MIXER4_CLK_EN_LEN    1
+#define DACL_S_MIXER4_CLK_EN_OFFSET 2
+#define DACR_MIXER4_CLK_EN_LEN    1
+#define DACR_MIXER4_CLK_EN_OFFSET 1
+#define DACL_MIXER4_CLK_EN_LEN    1
+#define DACL_MIXER4_CLK_EN_OFFSET 0
+#define DAC_DP_CLK_EN_2_REG                (BASE_ADDR_PAGE_CFG + 0x48)
+#define ADC2L_PGA_CLK_EN_LEN    1
+#define ADC2L_PGA_CLK_EN_OFFSET 7
+#define SIDE_SRC_CLK_EN_LEN    1
+#define SIDE_SRC_CLK_EN_OFFSET 6
+#define EP_ICELL_CALIB_CLK_EN_LEN    1
+#define EP_ICELL_CALIB_CLK_EN_OFFSET 5
+#define HP_ICELL_CALIB_CLK_EN_LEN    1
+#define HP_ICELL_CALIB_CLK_EN_OFFSET 4
+#define HP_SDM_L_CLK_EN_LEN    1
+#define HP_SDM_L_CLK_EN_OFFSET 3
+#define HP_SDM_R_CLK_EN_LEN    1
+#define HP_SDM_R_CLK_EN_OFFSET 2
+#define EP_SDM_L_CLK_EN_LEN    1
+#define EP_SDM_L_CLK_EN_OFFSET 1
+#define ADC_DAC_CLK_EN_REG                 (BASE_ADDR_PAGE_CFG + 0x49)
+#define CLK_DACSL_EN_LEN    1
+#define CLK_DACSL_EN_OFFSET 6
+#define CLK_DACR_EN_LEN    1
+#define CLK_DACR_EN_OFFSET 5
+#define CLK_DACL_EN_LEN    1
+#define CLK_DACL_EN_OFFSET 4
+#define CLK_ADC1R_EN_LEN    1
+#define CLK_ADC1R_EN_OFFSET 3
+#define CLK_ADC1L_EN_LEN    1
+#define CLK_ADC1L_EN_OFFSET 2
+#define CLK_ADC0R_EN_LEN    1
+#define CLK_ADC0R_EN_OFFSET 1
+#define CLK_ADC0L_EN_LEN    1
+#define CLK_ADC0L_EN_OFFSET 0
+#define MISC_CLK_EN_REG                    (BASE_ADDR_PAGE_CFG + 0x4A)
+#define DACR_POST_PGA_CLK_EN_LEN    1
+#define DACR_POST_PGA_CLK_EN_OFFSET 7
+#define DACL_POST_PGA_CLK_EN_LEN    1
+#define DACL_POST_PGA_CLK_EN_OFFSET 6
+#define DACR_PRE_PGA_CLK_EN_LEN    1
+#define DACR_PRE_PGA_CLK_EN_OFFSET 5
+#define DACL_PRE_PGA_CLK_EN_LEN    1
+#define DACL_PRE_PGA_CLK_EN_OFFSET 4
+#define DACSR_MIXER4_PGA_CLK_EN_LEN    1
+#define DACSR_MIXER4_PGA_CLK_EN_OFFSET 3
+#define DACSL_MIXER4_PGA_CLK_EN_LEN    1
+#define DACSL_MIXER4_PGA_CLK_EN_OFFSET 2
+#define DACR_HIRES_CLK_EN_LEN    1
+#define DACR_HIRES_CLK_EN_OFFSET 1
+#define DACL_HIRES_CLK_EN_LEN    1
+#define DACL_HIRES_CLK_EN_OFFSET 0
+#define DMIC_CLK_EN_REG                    (BASE_ADDR_PAGE_CFG + 0x4B)
+#define DACL_S_PGA_CLK_EN_LEN    1
+#define DACL_S_PGA_CLK_EN_OFFSET 7
+#define FS_DMIC0_LEN    3
+#define FS_DMIC0_OFFSET 4
+#define DSPIF7_TDM_TRANS_CLK_EN_LEN    1
+#define DSPIF7_TDM_TRANS_CLK_EN_OFFSET 3
+#define DSPIF6_TDM_TRANS_CLK_EN_LEN    1
+#define DSPIF6_TDM_TRANS_CLK_EN_OFFSET 2
+#define DMIC1_CLK_EN_LEN    1
+#define DMIC1_CLK_EN_OFFSET 1
+#define DMIC0_CLK_EN_LEN    1
+#define DMIC0_CLK_EN_OFFSET 0
+#define DAC_MIXER_CLK_EN_REG               (BASE_ADDR_PAGE_CFG + 0x4C)
+#define SIDE_PGA_CLK_EN_LEN    1
+#define SIDE_PGA_CLK_EN_OFFSET 7
+#define FS_DMIC1_LEN    3
+#define FS_DMIC1_OFFSET 4
+#define DACR_POST_MIXER2_CLK_EN_LEN    1
+#define DACR_POST_MIXER2_CLK_EN_OFFSET 3
+#define DACL_POST_MIXER2_CLK_EN_LEN    1
+#define DACL_POST_MIXER2_CLK_EN_OFFSET 2
+#define DACR_PRE_MIXER2_CLK_EN_LEN    1
+#define DACR_PRE_MIXER2_CLK_EN_OFFSET 1
+#define DACL_PRE_MIXER2_CLK_EN_LEN    1
+#define DACL_PRE_MIXER2_CLK_EN_OFFSET 0
+/* clk en reg end */
+
+/* io share reg begin */
+#define IOS_MF_CTRL0_REG                   (BASE_ADDR_PAGE_IO + 0x0)
+#define IOS_MF_CTRL0_LEN    5
+#define IOS_MF_CTRL0_OFFSET 0
+#define IOS_MF_CTRL1_REG                   (BASE_ADDR_PAGE_IO + 0x4)
+#define IOS_MF_CTRL1_LEN    5
+#define IOS_MF_CTRL1_OFFSET 0
+#define IOS_MF_CTRL2_REG                   (BASE_ADDR_PAGE_IO + 0x8)
+#define IOS_MF_CTRL2_LEN    5
+#define IOS_MF_CTRL2_OFFSET 0
+#define IOS_MF_CTRL3_REG                   (BASE_ADDR_PAGE_IO + 0xC)
+#define IOS_MF_CTRL3_LEN    5
+#define IOS_MF_CTRL3_OFFSET 0
+#define IOS_MF_CTRL4_REG                   (BASE_ADDR_PAGE_IO + 0x10)
+#define IOS_MF_CTRL4_LEN    5
+#define IOS_MF_CTRL4_OFFSET 0
+#define IOS_MF_CTRL5_REG                   (BASE_ADDR_PAGE_IO + 0x14)
+#define IOS_MF_CTRL5_LEN    5
+#define IOS_MF_CTRL5_OFFSET 0
+#define IOS_MF_CTRL6_REG                   (BASE_ADDR_PAGE_IO + 0x18)
+#define IOS_MF_CTRL6_LEN    5
+#define IOS_MF_CTRL6_OFFSET 0
+#define IOS_MF_CTRL7_REG                   (BASE_ADDR_PAGE_IO + 0x1C)
+#define IOS_MF_CTRL7_LEN    5
+#define IOS_MF_CTRL7_OFFSET 0
+#define IOS_MF_CTRL8_REG                   (BASE_ADDR_PAGE_IO + 0x20)
+#define IOS_MF_CTRL8_LEN    5
+#define IOS_MF_CTRL8_OFFSET 0
+#define IOS_MF_CTRL9_REG                   (BASE_ADDR_PAGE_IO + 0x24)
+#define IOS_MF_CTRL9_LEN    5
+#define IOS_MF_CTRL9_OFFSET 0
+#define IOS_MF_CTRL10_REG                  (BASE_ADDR_PAGE_IO + 0x28)
+#define IOS_MF_CTRL10_LEN    5
+#define IOS_MF_CTRL10_OFFSET 0
+#define IOS_MF_CTRL11_REG                  (BASE_ADDR_PAGE_IO + 0x2C)
+#define IOS_MF_CTRL11_LEN    5
+#define IOS_MF_CTRL11_OFFSET 0
+#define IOS_MF_CTRL12_REG                  (BASE_ADDR_PAGE_IO + 0x30)
+#define IOS_MF_CTRL12_LEN    5
+#define IOS_MF_CTRL12_OFFSET 0
+#define IOS_MF_CTRL13_REG                  (BASE_ADDR_PAGE_IO + 0x34)
+#define IOS_MF_CTRL13_LEN    5
+#define IOS_MF_CTRL13_OFFSET 0
+#define IOS_MF_CTRL14_REG                  (BASE_ADDR_PAGE_IO + 0x38)
+#define IOS_MF_CTRL14_LEN    5
+#define IOS_MF_CTRL14_OFFSET 0
+#define IOS_MF_CTRL15_REG                  (BASE_ADDR_PAGE_IO + 0x3C)
+#define IOS_MF_CTRL15_CFG    8
+#define IOS_MF_CTRL15_LEN    5
+#define IOS_MF_CTRL15_OFFSET 0
+#define IOS_MF_CTRL16_REG                  (BASE_ADDR_PAGE_IO + 0x40)
+#define IOS_MF_CTRL16_LEN    5
+#define IOS_MF_CTRL16_OFFSET 0
+#define IOS_MF_CTRL17_REG                  (BASE_ADDR_PAGE_IO + 0x44)
+#define IOS_MF_CTRL17_LEN    5
+#define IOS_MF_CTRL17_OFFSET 0
+#define IOS_MF_CTRL18_REG                  (BASE_ADDR_PAGE_IO + 0x48)
+#define IOS_MF_CTRL18_CFG    8
+#define IOS_MF_CTRL18_LEN    5
+#define IOS_MF_CTRL18_OFFSET 0
+#define IOS_MF_CTRL19_REG                  (BASE_ADDR_PAGE_IO + 0x4C)
+#define IOS_MF_CTRL19_CFG    8
+#define IOS_MF_CTRL19_LEN    5
+#define IOS_MF_CTRL19_OFFSET 0
+#define IOS_IOM_CTRL0_REG                  (BASE_ADDR_PAGE_IO + 0x200)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL1_REG                  (BASE_ADDR_PAGE_IO + 0x204)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL2_REG                  (BASE_ADDR_PAGE_IO + 0x208)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL3_REG                  (BASE_ADDR_PAGE_IO + 0x20C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL4_REG                  (BASE_ADDR_PAGE_IO + 0x210)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL5_REG                  (BASE_ADDR_PAGE_IO + 0x214)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL6_REG                  (BASE_ADDR_PAGE_IO + 0x218)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL7_REG                  (BASE_ADDR_PAGE_IO + 0x21C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL8_REG                  (BASE_ADDR_PAGE_IO + 0x220)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL9_REG                  (BASE_ADDR_PAGE_IO + 0x224)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL10_REG                 (BASE_ADDR_PAGE_IO + 0x228)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL11_REG                 (BASE_ADDR_PAGE_IO + 0x22C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL12_REG                 (BASE_ADDR_PAGE_IO + 0x230)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL13_REG                 (BASE_ADDR_PAGE_IO + 0x234)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL14_REG                 (BASE_ADDR_PAGE_IO + 0x238)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL15_REG                 (BASE_ADDR_PAGE_IO + 0x23C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL16_REG                 (BASE_ADDR_PAGE_IO + 0x240)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL17_REG                 (BASE_ADDR_PAGE_IO + 0x244)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL18_REG                 (BASE_ADDR_PAGE_IO + 0x248)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL19_REG                 (BASE_ADDR_PAGE_IO + 0x24C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL20_REG                 (BASE_ADDR_PAGE_IO + 0x250)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL21_REG                 (BASE_ADDR_PAGE_IO + 0x254)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL22_REG                 (BASE_ADDR_PAGE_IO + 0x258)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL23_REG                 (BASE_ADDR_PAGE_IO + 0x25C)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_CFG    2
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+#define IOS_IOM_CTRL24_REG                 (BASE_ADDR_PAGE_IO + 0x260)
+#define IE_LEN    1
+#define IE_OFFSET 8
+#define OE_LEN    1
+#define OE_OFFSET 7
+#define PD_LEN    1
+#define PD_OFFSET 6
+#define PU_LEN    1
+#define PU_OFFSET 5
+#define DS_LEN    3
+#define DS_OFFSET 2
+#define SL_LEN    1
+#define SL_OFFSET 1
+#define ST_LEN    1
+#define ST_OFFSET 0
+/* io share reg end */
+
+/* dig reg begin */
+#define SC_S1_IF_L_REG                     (BASE_ADDR_PAGE_DIG + 0x0)
+#define S1_FUNC_MODE_LEN    3
+#define S1_FUNC_MODE_OFFSET 5
+#define S1_DIRECT_LOOP_LEN    2
+#define S1_DIRECT_LOOP_OFFSET 3
+#define S1_MST_SLV_LEN    1
+#define S1_MST_SLV_OFFSET 2
+#define S1_IF_RX_ENA_LEN    1
+#define S1_IF_RX_ENA_OFFSET 1
+#define S1_IF_TX_ENA_LEN    1
+#define S1_IF_TX_ENA_OFFSET 0
+#define SC_S1_IF_H_REG                     (BASE_ADDR_PAGE_DIG + 0x1)
+#define S1_RX_CLK_SEL_LEN    1
+#define S1_RX_CLK_SEL_OFFSET 7
+#define S1_TX_CLK_SEL_LEN    1
+#define S1_TX_CLK_SEL_OFFSET 6
+#define S1_CODEC_IO_WORDLENGTH_LEN    2
+#define S1_CODEC_IO_WORDLENGTH_OFFSET 4
+#define S1_CODEC_DATA_FORMAT_LEN    1
+#define S1_CODEC_DATA_FORMAT_OFFSET 3
+#define S1_CHNNL_MODE_LEN    1
+#define S1_CHNNL_MODE_OFFSET 2
+#define S1_LRCLK_MODE_LEN    1
+#define S1_LRCLK_MODE_OFFSET 1
+#define S1_FRAME_MODE_LEN    1
+#define S1_FRAME_MODE_OFFSET 0
+#define SC_S1_MEM_ICG_CTRL_REG             (BASE_ADDR_PAGE_DIG + 0x2)
+#define S1_FIFO_CLR_LEN    1
+#define S1_FIFO_CLR_OFFSET 1
+#define S1_MEM_ICG_BP_EN_LEN    1
+#define S1_MEM_ICG_BP_EN_OFFSET 0
+#define SC_S2_IF_L_REG                     (BASE_ADDR_PAGE_DIG + 0x3)
+#define S2_FUNC_MODE_LEN    3
+#define S2_FUNC_MODE_OFFSET 5
+#define S2_DIRECT_LOOP_LEN    2
+#define S2_DIRECT_LOOP_OFFSET 3
+#define S2_MST_SLV_LEN    1
+#define S2_MST_SLV_OFFSET 2
+#define S2_IF_RX_ENA_LEN    1
+#define S2_IF_RX_ENA_OFFSET 1
+#define S2_IF_TX_ENA_LEN    1
+#define S2_IF_TX_ENA_OFFSET 0
+#define SC_S2_IF_H_REG                     (BASE_ADDR_PAGE_DIG + 0x4)
+#define S2_RX_CLK_SEL_LEN    1
+#define S2_RX_CLK_SEL_OFFSET 7
+#define S2_TX_CLK_SEL_LEN    1
+#define S2_TX_CLK_SEL_OFFSET 6
+#define S2_CODEC_IO_WORDLENGTH_LEN    2
+#define S2_CODEC_IO_WORDLENGTH_OFFSET 4
+#define S2_CODEC_DATA_FORMAT_LEN    1
+#define S2_CODEC_DATA_FORMAT_OFFSET 3
+#define S2_CHNNL_MODE_LEN    1
+#define S2_CHNNL_MODE_OFFSET 2
+#define S2_LRCLK_MODE_LEN    1
+#define S2_LRCLK_MODE_OFFSET 1
+#define S2_FRAME_MODE_LEN    1
+#define S2_FRAME_MODE_OFFSET 0
+#define S2_TDM_CTRL0_REG                   (BASE_ADDR_PAGE_DIG + 0x5)
+#define S2_TDM_IF_EN_LEN    1
+#define S2_TDM_IF_EN_OFFSET 7
+#define S2_TDM_DIRECT_LOOP_LEN    2
+#define S2_TDM_DIRECT_LOOP_OFFSET 5
+#define S2_TDM_FRAME_MODE_LEN    3
+#define S2_TDM_FRAME_MODE_OFFSET 2
+#define S2_MEM_ICG_BP_EN_LEN    1
+#define S2_MEM_ICG_BP_EN_OFFSET 1
+#define S2_FIFO_CLR_LEN    1
+#define S2_FIFO_CLR_OFFSET 0
+#define S2_TDM_CTRL1_REG                   (BASE_ADDR_PAGE_DIG + 0x6)
+#define S2_TDM_TX_CH0_SEL_LEN    2
+#define S2_TDM_TX_CH0_SEL_OFFSET 6
+#define S2_TDM_TX_CH1_SEL_LEN    2
+#define S2_TDM_TX_CH1_SEL_OFFSET 4
+#define S2_TDM_TX_CH2_SEL_LEN    2
+#define S2_TDM_TX_CH2_SEL_OFFSET 2
+#define S2_TDM_TX_CH3_SEL_LEN    2
+#define S2_TDM_TX_CH3_SEL_OFFSET 0
+#define S2_TDM_CTRL2_REG                   (BASE_ADDR_PAGE_DIG + 0x7)
+#define S2_TDM_RX_CLK_SEL_LEN    1
+#define S2_TDM_RX_CLK_SEL_OFFSET 7
+#define S2_TDM_TX_CLK_SEL_LEN    1
+#define S2_TDM_TX_CLK_SEL_OFFSET 6
+#define S2_TDM_RX_SLOT_SEL_I0_LEN    3
+#define S2_TDM_RX_SLOT_SEL_I0_OFFSET 3
+#define S2_TDM_RX_SLOT_SEL_V0_LEN    3
+#define S2_TDM_RX_SLOT_SEL_V0_OFFSET 0
+#define S2_TDM_CTRL3_REG                   (BASE_ADDR_PAGE_DIG + 0x8)
+#define S2_TDM_RX_SLOT_SEL_I1_LEN    3
+#define S2_TDM_RX_SLOT_SEL_I1_OFFSET 3
+#define S2_TDM_RX_SLOT_SEL_V1_LEN    3
+#define S2_TDM_RX_SLOT_SEL_V1_OFFSET 0
+#define S2_TDM_CTRL4_REG                   (BASE_ADDR_PAGE_DIG + 0x9)
+#define S2_TDM_RX_SLOT_SEL_I2_LEN    3
+#define S2_TDM_RX_SLOT_SEL_I2_OFFSET 3
+#define S2_TDM_RX_SLOT_SEL_V2_LEN    3
+#define S2_TDM_RX_SLOT_SEL_V2_OFFSET 0
+#define S2_TDM_CTRL5_REG                   (BASE_ADDR_PAGE_DIG + 0xA)
+#define S2_TDM_RX_SLOT_SEL_I3_LEN    3
+#define S2_TDM_RX_SLOT_SEL_I3_OFFSET 3
+#define S2_TDM_RX_SLOT_SEL_V3_LEN    3
+#define S2_TDM_RX_SLOT_SEL_V3_OFFSET 0
+#define S2_TDM_CTRL6_REG                   (BASE_ADDR_PAGE_DIG + 0xB)
+#define S2_I2S_TDM_MODE_LEN    1
+#define S2_I2S_TDM_MODE_OFFSET 1
+#define S2_TDM_MST_SLV_LEN    1
+#define S2_TDM_MST_SLV_OFFSET 0
+#define S2_TDM_STATE_REG                   (BASE_ADDR_PAGE_DIG + 0xC)
+#define S2_TDM_ERR_STAT_LEN    2
+#define S2_TDM_ERR_STAT_OFFSET 0
+#define SC_S4_IF_L_REG                     (BASE_ADDR_PAGE_DIG + 0xD)
+#define S4_FUNC_MODE_LEN    3
+#define S4_FUNC_MODE_OFFSET 5
+#define S4_DIRECT_LOOP_LEN    2
+#define S4_DIRECT_LOOP_OFFSET 3
+#define S4_MST_SLV_LEN    1
+#define S4_MST_SLV_OFFSET 2
+#define S4_IF_RX_ENA_LEN    1
+#define S4_IF_RX_ENA_OFFSET 1
+#define S4_IF_TX_ENA_LEN    1
+#define S4_IF_TX_ENA_OFFSET 0
+#define SC_S4_IF_H_REG                     (BASE_ADDR_PAGE_DIG + 0xE)
+#define S4_RX_CLK_SEL_LEN    1
+#define S4_RX_CLK_SEL_OFFSET 7
+#define S4_TX_CLK_SEL_LEN    1
+#define S4_TX_CLK_SEL_OFFSET 6
+#define S4_CODEC_IO_WORDLENGTH_LEN    2
+#define S4_CODEC_IO_WORDLENGTH_OFFSET 4
+#define S4_CODEC_DATA_FORMAT_LEN    1
+#define S4_CODEC_DATA_FORMAT_OFFSET 3
+#define S4_CHNNL_MODE_LEN    1
+#define S4_CHNNL_MODE_OFFSET 2
+#define S4_LRCLK_MODE_LEN    1
+#define S4_LRCLK_MODE_OFFSET 1
+#define S4_FRAME_MODE_LEN    1
+#define S4_FRAME_MODE_OFFSET 0
+#define S4_TDM_CTRL0_REG                   (BASE_ADDR_PAGE_DIG + 0xF)
+#define S4_TDM_IF_EN_LEN    1
+#define S4_TDM_IF_EN_OFFSET 7
+#define S4_TDM_DIRECT_LOOP_LEN    2
+#define S4_TDM_DIRECT_LOOP_OFFSET 5
+#define S4_TDM_FRAME_MODE_LEN    3
+#define S4_TDM_FRAME_MODE_OFFSET 2
+#define S4_MEM_ICG_BP_EN_LEN    1
+#define S4_MEM_ICG_BP_EN_OFFSET 1
+#define S4_FIFO_CLR_LEN    1
+#define S4_FIFO_CLR_OFFSET 0
+#define S4_TDM_CTRL1_REG                   (BASE_ADDR_PAGE_DIG + 0x10)
+#define S4_TDM_TX_CH0_SEL_LEN    2
+#define S4_TDM_TX_CH0_SEL_OFFSET 6
+#define S4_TDM_TX_CH1_SEL_LEN    2
+#define S4_TDM_TX_CH1_SEL_OFFSET 4
+#define S4_TDM_TX_CH2_SEL_LEN    2
+#define S4_TDM_TX_CH2_SEL_OFFSET 2
+#define S4_TDM_TX_CH3_SEL_LEN    2
+#define S4_TDM_TX_CH3_SEL_OFFSET 0
+#define S4_TDM_CTRL2_REG                   (BASE_ADDR_PAGE_DIG + 0x11)
+#define S4_TDM_RX_CLK_SEL_LEN    1
+#define S4_TDM_RX_CLK_SEL_OFFSET 7
+#define S4_TDM_TX_CLK_SEL_LEN    1
+#define S4_TDM_TX_CLK_SEL_OFFSET 6
+#define S4_TDM_RX_SLOT_SEL_I0_LEN    3
+#define S4_TDM_RX_SLOT_SEL_I0_OFFSET 3
+#define S4_TDM_RX_SLOT_SEL_V0_LEN    3
+#define S4_TDM_RX_SLOT_SEL_V0_OFFSET 0
+#define S4_TDM_CTRL3_REG                   (BASE_ADDR_PAGE_DIG + 0x12)
+#define S4_TDM_RX_SLOT_SEL_I1_LEN    3
+#define S4_TDM_RX_SLOT_SEL_I1_OFFSET 3
+#define S4_TDM_RX_SLOT_SEL_V1_LEN    3
+#define S4_TDM_RX_SLOT_SEL_V1_OFFSET 0
+#define S4_TDM_CTRL4_REG                   (BASE_ADDR_PAGE_DIG + 0x13)
+#define S4_TDM_RX_SLOT_SEL_I2_LEN    3
+#define S4_TDM_RX_SLOT_SEL_I2_OFFSET 3
+#define S4_TDM_RX_SLOT_SEL_V2_LEN    3
+#define S4_TDM_RX_SLOT_SEL_V2_OFFSET 0
+#define S4_TDM_CTRL5_REG                   (BASE_ADDR_PAGE_DIG + 0x14)
+#define S4_TDM_RX_SLOT_SEL_I3_LEN    3
+#define S4_TDM_RX_SLOT_SEL_I3_OFFSET 3
+#define S4_TDM_RX_SLOT_SEL_V3_LEN    3
+#define S4_TDM_RX_SLOT_SEL_V3_OFFSET 0
+#define S4_TDM_CTRL6_REG                   (BASE_ADDR_PAGE_DIG + 0x15)
+#define S4_I2S_TDM_MODE_LEN    1
+#define S4_I2S_TDM_MODE_OFFSET 1
+#define S4_TDM_MST_SLV_LEN    1
+#define S4_TDM_MST_SLV_OFFSET 0
+#define S4_TDM_STATE_REG                   (BASE_ADDR_PAGE_DIG + 0x16)
+#define S4_TDM_ERR_STAT_LEN    2
+#define S4_TDM_ERR_STAT_OFFSET 0
+#define S1_IL_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x17)
+#define S1_IL_PGA_BYPASS_LEN    1
+#define S1_IL_PGA_BYPASS_OFFSET 7
+#define S1_IL_PGA_NOISE_EN_LEN    1
+#define S1_IL_PGA_NOISE_EN_OFFSET 6
+#define S1_I_PGA_THRE_ID_LEN    2
+#define S1_I_PGA_THRE_ID_OFFSET 4
+#define S1_IL_PGA_CFG_LEN    3
+#define S1_IL_PGA_CFG_OFFSET 1
+#define S1_IL_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x18)
+#define S1_IL_PGA_GAIN_LEN    8
+#define S1_IL_PGA_GAIN_OFFSET 0
+#define S1_IL_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x19)
+#define S1_IL_PGA_FADE_IN_LEN    5
+#define S1_IL_PGA_FADE_IN_OFFSET 0
+#define S1_IL_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x1A)
+#define S1_IL_PGA_FADE_OUT_LEN    5
+#define S1_IL_PGA_FADE_OUT_OFFSET 0
+#define S1_I_PGA_ZERO_CROSS_REG            (BASE_ADDR_PAGE_DIG + 0x1B)
+#define S1_I_PGA_ZERO_NUM_LEN    5
+#define S1_I_PGA_ZERO_NUM_OFFSET 0
+#define S1_I_PGA_GAIN_OFFSET_REG           (BASE_ADDR_PAGE_DIG + 0x1C)
+#define S1_I_PGA_GAIN_OFFSET_LEN    8
+#define S1_I_PGA_GAIN_OFFSET_OFFSET 0
+#define S1_IR_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x1E)
+#define S1_IR_PGA_BYPASS_LEN    1
+#define S1_IR_PGA_BYPASS_OFFSET 7
+#define S1_IR_PGA_NOISE_EN_LEN    1
+#define S1_IR_PGA_NOISE_EN_OFFSET 6
+#define S1_IR_PGA_CFG_LEN    3
+#define S1_IR_PGA_CFG_OFFSET 1
+#define S1_IR_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x1F)
+#define S1_IR_PGA_GAIN_LEN    8
+#define S1_IR_PGA_GAIN_OFFSET 0
+#define S1_IR_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x20)
+#define S1_IR_PGA_FADE_IN_LEN    5
+#define S1_IR_PGA_FADE_IN_OFFSET 0
+#define S1_IR_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x21)
+#define S1_IR_PGA_FADE_OUT_LEN    5
+#define S1_IR_PGA_FADE_OUT_OFFSET 0
+#define S2_IL_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x23)
+#define S2_IL_PGA_BYPASS_LEN    1
+#define S2_IL_PGA_BYPASS_OFFSET 7
+#define S2_IL_PGA_NOISE_EN_LEN    1
+#define S2_IL_PGA_NOISE_EN_OFFSET 6
+#define S2_I_PGA_THRE_ID_LEN    2
+#define S2_I_PGA_THRE_ID_OFFSET 4
+#define S2_IL_PGA_FADE_EN_OFFSET 1
+#define S2_IL_PGA_CFG_LEN    3
+#define S2_IL_PGA_CFG_OFFSET 1
+#define S2_IL_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x24)
+#define S2_IL_PGA_GAIN_LEN    8
+#define S2_IL_PGA_GAIN_OFFSET 0
+#define S2_IL_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x25)
+#define S2_IL_PGA_FADE_IN_LEN    5
+#define S2_IL_PGA_FADE_IN_OFFSET 0
+#define S2_IL_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x26)
+#define S2_IL_PGA_FADE_OUT_LEN    5
+#define S2_IL_PGA_FADE_OUT_OFFSET 0
+#define S2_I_PGA_ZERO_CROSS_REG            (BASE_ADDR_PAGE_DIG + 0x27)
+#define S2_I_PGA_ZERO_NUM_LEN    5
+#define S2_I_PGA_ZERO_NUM_OFFSET 0
+#define S2_I_PGA_GAIN_OFFSET_REG           (BASE_ADDR_PAGE_DIG + 0x28)
+#define S2_I_PGA_GAIN_OFFSET_LEN    8
+#define S2_I_PGA_GAIN_OFFSET_OFFSET 0
+#define S2_IR_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x2A)
+#define S2_IR_PGA_BYPASS_LEN    1
+#define S2_IR_PGA_BYPASS_OFFSET 7
+#define S2_IR_PGA_NOISE_EN_LEN    1
+#define S2_IR_PGA_NOISE_EN_OFFSET 6
+#define S2_IR_PGA_CFG_LEN    3
+#define S2_IR_PGA_CFG_OFFSET 1
+#define S2_IR_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x2B)
+#define S2_IR_PGA_GAIN_LEN    8
+#define S2_IR_PGA_GAIN_OFFSET 0
+#define S2_IR_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x2C)
+#define S2_IR_PGA_FADE_IN_LEN    5
+#define S2_IR_PGA_FADE_IN_OFFSET 0
+#define S2_IR_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x2D)
+#define S2_IR_PGA_FADE_OUT_LEN    5
+#define S2_IR_PGA_FADE_OUT_OFFSET 0
+#define S2_OL_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x2F)
+#define S2_OL_PGA_BYPASS_LEN    1
+#define S2_OL_PGA_BYPASS_OFFSET 7
+#define S2_OL_PGA_NOISE_EN_LEN    1
+#define S2_OL_PGA_NOISE_EN_OFFSET 6
+#define S2_O_PGA_THRE_ID_LEN    2
+#define S2_O_PGA_THRE_ID_OFFSET 4
+#define S2_OL_PGA_CFG_LEN    3
+#define S2_OL_PGA_CFG_OFFSET 1
+#define S2_OL_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x30)
+#define S2_OL_PGA_GAIN_LEN    8
+#define S2_OL_PGA_GAIN_OFFSET 0
+#define S2_OL_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x31)
+#define S2_OL_PGA_FADE_IN_LEN    5
+#define S2_OL_PGA_FADE_IN_OFFSET 0
+#define S2_OL_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x32)
+#define S2_OL_PGA_FADE_OUT_LEN    5
+#define S2_OL_PGA_FADE_OUT_OFFSET 0
+#define S2_O_PGA_ZERO_CROSS_REG            (BASE_ADDR_PAGE_DIG + 0x33)
+#define S2_O_PGA_ZERO_NUM_LEN    5
+#define S2_O_PGA_ZERO_NUM_OFFSET 0
+#define S2_O_PGA_GAIN_OFFSET_REG           (BASE_ADDR_PAGE_DIG + 0x34)
+#define S2_O_PGA_GAIN_OFFSET_LEN    8
+#define S2_O_PGA_GAIN_OFFSET_OFFSET 0
+#define S2_OR_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x36)
+#define S2_OR_PGA_BYPASS_LEN    1
+#define S2_OR_PGA_BYPASS_OFFSET 7
+#define S2_OR_PGA_NOISE_EN_LEN    1
+#define S2_OR_PGA_NOISE_EN_OFFSET 6
+#define S2_OR_PGA_CFG_LEN    3
+#define S2_OR_PGA_CFG_OFFSET 1
+#define S2_OR_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x37)
+#define S2_OR_PGA_GAIN_LEN    8
+#define S2_OR_PGA_GAIN_OFFSET 0
+#define S2_OR_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x38)
+#define S2_OR_PGA_FADE_IN_LEN    5
+#define S2_OR_PGA_FADE_IN_OFFSET 0
+#define S2_OR_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x39)
+#define S2_OR_PGA_FADE_OUT_LEN    5
+#define S2_OR_PGA_FADE_OUT_OFFSET 0
+#define S3_IL_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x3B)
+#define S3_IL_PGA_BYPASS_LEN    1
+#define S3_IL_PGA_BYPASS_OFFSET 7
+#define S3_IL_PGA_NOISE_EN_LEN    1
+#define S3_IL_PGA_NOISE_EN_OFFSET 6
+#define S3_I_PGA_THRE_ID_LEN    2
+#define S3_I_PGA_THRE_ID_OFFSET 4
+#define S3_IL_PGA_CFG_LEN    3
+#define S3_IL_PGA_CFG_OFFSET 1
+#define S3_IL_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x3C)
+#define S3_IL_PGA_GAIN_LEN    8
+#define S3_IL_PGA_GAIN_OFFSET 0
+#define S3_IL_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x3D)
+#define S3_IL_PGA_FADE_IN_LEN    5
+#define S3_IL_PGA_FADE_IN_OFFSET 0
+#define S3_IL_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x3E)
+#define S3_IL_PGA_FADE_OUT_LEN    5
+#define S3_IL_PGA_FADE_OUT_OFFSET 0
+#define S3_I_PGA_ZERO_CROSS_REG            (BASE_ADDR_PAGE_DIG + 0x3F)
+#define S3_I_PGA_ZERO_NUM_LEN    5
+#define S3_I_PGA_ZERO_NUM_OFFSET 0
+#define S3_I_PGA_GAIN_OFFSET_REG           (BASE_ADDR_PAGE_DIG + 0x40)
+#define S3_I_PGA_GAIN_OFFSET_LEN    8
+#define S3_I_PGA_GAIN_OFFSET_OFFSET 0
+#define S3_IR_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x42)
+#define S3_IR_PGA_BYPASS_LEN    1
+#define S3_IR_PGA_BYPASS_OFFSET 7
+#define S3_IR_PGA_NOISE_EN_LEN    1
+#define S3_IR_PGA_NOISE_EN_OFFSET 6
+#define S3_IR_PGA_CFG_LEN    3
+#define S3_IR_PGA_CFG_OFFSET 1
+#define S3_IR_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x43)
+#define S3_IR_PGA_GAIN_LEN    8
+#define S3_IR_PGA_GAIN_OFFSET 0
+#define S3_IR_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x44)
+#define S3_IR_PGA_FADE_IN_LEN    5
+#define S3_IR_PGA_FADE_IN_OFFSET 0
+#define S3_IR_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x45)
+#define S3_IR_PGA_FADE_OUT_LEN    5
+#define S3_IR_PGA_FADE_OUT_OFFSET 0
+#define SIDE_PGA_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x47)
+#define SIDE_PGA_BYPASS_LEN    1
+#define SIDE_PGA_BYPASS_OFFSET 7
+#define SIDE_PGA_NOISE_EN_LEN    1
+#define SIDE_PGA_NOISE_EN_OFFSET 6
+#define SIDE_PGA_THRE_ID_LEN    2
+#define SIDE_PGA_THRE_ID_OFFSET 4
+#define SIDE_PGA_CFG_LEN    3
+#define SIDE_PGA_CFG_OFFSET 1
+#define SIDE_PGA_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x48)
+#define SIDE_PGA_GAIN_LEN    8
+#define SIDE_PGA_GAIN_OFFSET 0
+#define SIDE_PGA_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x49)
+#define SIDE_PGA_FADE_IN_LEN    5
+#define SIDE_PGA_FADE_IN_OFFSET 0
+#define SIDE_PGA_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x4A)
+#define SIDE_PGA_FADE_OUT_LEN    5
+#define SIDE_PGA_FADE_OUT_OFFSET 0
+#define SIDE_PGA_ZERO_CROSS_REG            (BASE_ADDR_PAGE_DIG + 0x4B)
+#define SIDE_PGA_ZERO_NUM_LEN    5
+#define SIDE_PGA_ZERO_NUM_OFFSET 0
+#define SIDE_PGA_GAIN_OFFSET_REG           (BASE_ADDR_PAGE_DIG + 0x4C)
+#define SIDE_PGA_GAIN_OFFSET_LEN    8
+#define SIDE_PGA_GAIN_OFFSET_OFFSET 0
+#define DACL_PRE_PGA_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0x4E)
+#define DACL_PRE_PGA_BYPASS_LEN    1
+#define DACL_PRE_PGA_BYPASS_OFFSET 7
+#define DACL_PRE_PGA_NOISE_EN_LEN    1
+#define DACL_PRE_PGA_NOISE_EN_OFFSET 6
+#define DACL_PRE_PGA_THRE_ID_LEN    2
+#define DACL_PRE_PGA_THRE_ID_OFFSET 4
+#define DACL_PRE_PGA_CFG_LEN    3
+#define DACL_PRE_PGA_CFG_OFFSET 1
+#define DACL_PRE_PGA_LINEAR_SEL_LEN    1
+#define DACL_PRE_PGA_LINEAR_SEL_OFFSET 0
+#define DACL_PRE_PGA_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0x4F)
+#define DACL_PRE_PGA_GAIN_LEN    8
+#define DACL_PRE_PGA_GAIN_OFFSET 0
+#define DACL_PRE_PGA_CTRL2_REG             (BASE_ADDR_PAGE_DIG + 0x50)
+#define DACL_PRE_PGA_FADE_IN_LEN    5
+#define DACL_PRE_PGA_FADE_IN_OFFSET 0
+#define DACL_PRE_PGA_CTRL3_REG             (BASE_ADDR_PAGE_DIG + 0x51)
+#define DACL_PRE_PGA_FADE_OUT_LEN    5
+#define DACL_PRE_PGA_FADE_OUT_OFFSET 0
+#define DAC_PRE_PGA_ZERO_CROSS_REG         (BASE_ADDR_PAGE_DIG + 0x52)
+#define DAC_PRE_PGA_ZERO_NUM_LEN    5
+#define DAC_PRE_PGA_ZERO_NUM_OFFSET 0
+#define DAC_PRE_PGA_GAIN_OFFSET_REG        (BASE_ADDR_PAGE_DIG + 0x53)
+#define DAC_PRE_PGA_GAIN_OFFSET_LEN    8
+#define DAC_PRE_PGA_GAIN_OFFSET_OFFSET 0
+#define DACR_PRE_PGA_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0x55)
+#define DACR_PRE_PGA_BYPASS_LEN    1
+#define DACR_PRE_PGA_BYPASS_OFFSET 7
+#define DACR_PRE_PGA_NOISE_EN_LEN    1
+#define DACR_PRE_PGA_NOISE_EN_OFFSET 6
+#define DACR_PRE_PGA_THRE_ID_LEN    2
+#define DACR_PRE_PGA_THRE_ID_OFFSET 4
+#define DACR_PRE_PGA_CFG_LEN    3
+#define DACR_PRE_PGA_CFG_OFFSET 1
+#define DACR_PRE_PGA_LINEAR_SEL_LEN    1
+#define DACR_PRE_PGA_LINEAR_SEL_OFFSET 0
+#define DACR_PRE_PGA_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0x56)
+#define DACR_PRE_PGA_GAIN_LEN    8
+#define DACR_PRE_PGA_GAIN_OFFSET 0
+#define DACR_PRE_PGA_CTRL2_REG             (BASE_ADDR_PAGE_DIG + 0x57)
+#define DACR_PRE_PGA_FADE_IN_LEN    5
+#define DACR_PRE_PGA_FADE_IN_OFFSET 0
+#define DACR_PRE_PGA_CTRL3_REG             (BASE_ADDR_PAGE_DIG + 0x58)
+#define DACR_PRE_PGA_FADE_OUT_LEN    5
+#define DACR_PRE_PGA_FADE_OUT_OFFSET 0
+#define DACL_POST_PGA_CTRL0_REG            (BASE_ADDR_PAGE_DIG + 0x5A)
+#define DACL_POST_PGA_BYPASS_LEN    1
+#define DACL_POST_PGA_BYPASS_OFFSET 7
+#define DACL_POST_PGA_NOISE_EN_LEN    1
+#define DACL_POST_PGA_NOISE_EN_OFFSET 6
+#define DACL_POST_PGA_THRE_ID_LEN    2
+#define DACL_POST_PGA_THRE_ID_OFFSET 4
+#define DACL_POST_PGA_CFG_LEN    3
+#define DACL_POST_PGA_CFG_OFFSET 1
+#define DACL_POST_PGA_LINEAR_SEL_LEN    1
+#define DACL_POST_PGA_LINEAR_SEL_OFFSET 0
+#define DACL_POST_PGA_CTRL1_REG            (BASE_ADDR_PAGE_DIG + 0x5B)
+#define DACL_POST_PGA_GAIN_LEN    8
+#define DACL_POST_PGA_GAIN_OFFSET 0
+#define DACL_POST_PGA_CTRL2_REG            (BASE_ADDR_PAGE_DIG + 0x5C)
+#define DACL_POST_PGA_FADE_IN_LEN    5
+#define DACL_POST_PGA_FADE_IN_OFFSET 0
+#define DACL_POST_PGA_CTRL3_REG            (BASE_ADDR_PAGE_DIG + 0x5D)
+#define DACL_POST_PGA_FADE_OUT_LEN    5
+#define DACL_POST_PGA_FADE_OUT_OFFSET 0
+#define DAC_POST_PGA_ZERO_CROSS_REG        (BASE_ADDR_PAGE_DIG + 0x5E)
+#define DAC_POST_PGA_ZERO_NUM_LEN    5
+#define DAC_POST_PGA_ZERO_NUM_OFFSET 0
+#define DAC_POST_PGA_GAIN_OFFSET_REG       (BASE_ADDR_PAGE_DIG + 0x5F)
+#define DAC_POST_PGA_GAIN_OFFSET_LEN    8
+#define DAC_POST_PGA_GAIN_OFFSET_OFFSET 0
+#define DACR_POST_PGA_CTRL0_REG            (BASE_ADDR_PAGE_DIG + 0x61)
+#define DACR_POST_PGA_BYPASS_LEN    1
+#define DACR_POST_PGA_BYPASS_OFFSET 7
+#define DACR_POST_PGA_NOISE_EN_LEN    1
+#define DACR_POST_PGA_NOISE_EN_OFFSET 6
+#define DACR_POST_PGA_THRE_ID_LEN    2
+#define DACR_POST_PGA_THRE_ID_OFFSET 4
+#define DACR_POST_PGA_CFG_LEN    3
+#define DACR_POST_PGA_CFG_OFFSET 1
+#define DACR_POST_PGA_LINEAR_SEL_LEN    1
+#define DACR_POST_PGA_LINEAR_SEL_OFFSET 0
+#define DACR_POST_PGA_CTRL1_REG            (BASE_ADDR_PAGE_DIG + 0x62)
+#define DACR_POST_PGA_GAIN_LEN    8
+#define DACR_POST_PGA_GAIN_OFFSET 0
+#define DACR_POST_PGA_CTRL2_REG            (BASE_ADDR_PAGE_DIG + 0x63)
+#define DACR_POST_PGA_FADE_IN_LEN    5
+#define DACR_POST_PGA_FADE_IN_OFFSET 0
+#define DACR_POST_PGA_CTRL3_REG            (BASE_ADDR_PAGE_DIG + 0x64)
+#define DACR_POST_PGA_FADE_OUT_LEN    5
+#define DACR_POST_PGA_FADE_OUT_OFFSET 0
+#define DACSL_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x66)
+#define DACSL_PGA_BYPASS_LEN    1
+#define DACSL_PGA_BYPASS_OFFSET 7
+#define DACSL_PGA_NOISE_EN_LEN    1
+#define DACSL_PGA_NOISE_EN_OFFSET 6
+#define DACSL_PGA_THRE_ID_LEN    2
+#define DACSL_PGA_THRE_ID_OFFSET 4
+#define DACSL_PGA_CFG_LEN    3
+#define DACSL_PGA_CFG_OFFSET 1
+#define DACSL_PGA_LINEAR_SEL_LEN    1
+#define DACSL_PGA_LINEAR_SEL_OFFSET 0
+#define DACSL_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x67)
+#define DACSL_PGA_GAIN_LEN    8
+#define DACSL_PGA_GAIN_OFFSET 0
+#define DACSL_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x68)
+#define DACSL_PGA_FADE_IN_LEN    5
+#define DACSL_PGA_FADE_IN_OFFSET 0
+#define DACSL_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x69)
+#define DACSL_PGA_FADE_OUT_LEN    5
+#define DACSL_PGA_FADE_OUT_OFFSET 0
+#define DACSL_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x6A)
+#define DACSL_PGA_ZERO_NUM_LEN    5
+#define DACSL_PGA_ZERO_NUM_OFFSET 0
+#define DACSL_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x6B)
+#define DACSL_PGA_GAIN_OFFSET_LEN    8
+#define DACSL_PGA_GAIN_OFFSET_OFFSET 0
+#define ADC0L_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x6D)
+#define ADC0L_PGA_BYPASS_LEN    1
+#define ADC0L_PGA_BYPASS_OFFSET 7
+#define ADC0L_PGA_NOISE_EN_LEN    1
+#define ADC0L_PGA_NOISE_EN_OFFSET 6
+#define ADC0L_PGA_THRE_ID_LEN    2
+#define ADC0L_PGA_THRE_ID_OFFSET 4
+#define ADC0L_PGA_CFG_LEN    3
+#define ADC0L_PGA_CFG_OFFSET 1
+#define ADC0L_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x6E)
+#define ADC0L_PGA_GAIN_LEN    8
+#define ADC0L_PGA_GAIN_OFFSET 0
+#define ADC0L_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x6F)
+#define ADC0L_PGA_FADE_IN_LEN    5
+#define ADC0L_PGA_FADE_IN_OFFSET 0
+#define ADC0L_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x70)
+#define ADC0L_PGA_FADE_OUT_LEN    5
+#define ADC0L_PGA_FADE_OUT_OFFSET 0
+#define ADC0L_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x71)
+#define ADC0L_PGA_ZERO_NUM_LEN    5
+#define ADC0L_PGA_ZERO_NUM_OFFSET 0
+#define ADC0L_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x72)
+#define ADC0L_PGA_GAIN_OFFSET_LEN    8
+#define ADC0L_PGA_GAIN_OFFSET_OFFSET 0
+#define ADC0R_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x74)
+#define ADC0R_PGA_BYPASS_LEN    1
+#define ADC0R_PGA_BYPASS_OFFSET 7
+#define ADC0R_PGA_NOISE_EN_LEN    1
+#define ADC0R_PGA_NOISE_EN_OFFSET 6
+#define ADC0R_PGA_THRE_ID_LEN    2
+#define ADC0R_PGA_THRE_ID_OFFSET 4
+#define ADC0R_PGA_CFG_LEN    3
+#define ADC0R_PGA_CFG_OFFSET 1
+#define ADC0R_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x75)
+#define ADC0R_PGA_GAIN_LEN    8
+#define ADC0R_PGA_GAIN_OFFSET 0
+#define ADC0R_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x76)
+#define ADC0R_PGA_FADE_IN_LEN    5
+#define ADC0R_PGA_FADE_IN_OFFSET 0
+#define ADC0R_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x77)
+#define ADC0R_PGA_FADE_OUT_LEN    5
+#define ADC0R_PGA_FADE_OUT_OFFSET 0
+#define ADC0R_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x78)
+#define ADC0R_PGA_ZERO_NUM_LEN    5
+#define ADC0R_PGA_ZERO_NUM_OFFSET 0
+#define ADC0R_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x79)
+#define ADC0R_PGA_GAIN_OFFSET_LEN    8
+#define ADC0R_PGA_GAIN_OFFSET_OFFSET 0
+#define ADC1L_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x7B)
+#define ADC1L_PGA_BYPASS_LEN    1
+#define ADC1L_PGA_BYPASS_OFFSET 7
+#define ADC1L_PGA_NOISE_EN_LEN    1
+#define ADC1L_PGA_NOISE_EN_OFFSET 6
+#define ADC1L_PGA_THRE_ID_LEN    2
+#define ADC1L_PGA_THRE_ID_OFFSET 4
+#define ADC1L_PGA_CFG_LEN    3
+#define ADC1L_PGA_CFG_OFFSET 1
+#define ADC1L_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x7C)
+#define ADC1L_PGA_GAIN_LEN    8
+#define ADC1L_PGA_GAIN_OFFSET 0
+#define ADC1L_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x7D)
+#define ADC1L_PGA_FADE_IN_LEN    5
+#define ADC1L_PGA_FADE_IN_OFFSET 0
+#define ADC1L_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x7E)
+#define ADC1L_PGA_FADE_OUT_LEN    5
+#define ADC1L_PGA_FADE_OUT_OFFSET 0
+#define ADC1L_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x7F)
+#define ADC1L_PGA_ZERO_NUM_LEN    5
+#define ADC1L_PGA_ZERO_NUM_OFFSET 0
+#define ADC1L_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x80)
+#define ADC1L_PGA_GAIN_OFFSET_LEN    8
+#define ADC1L_PGA_GAIN_OFFSET_OFFSET 0
+#define ADC1R_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x82)
+#define ADC1R_PGA_BYPASS_LEN    1
+#define ADC1R_PGA_BYPASS_OFFSET 7
+#define ADC1R_PGA_NOISE_EN_LEN    1
+#define ADC1R_PGA_NOISE_EN_OFFSET 6
+#define ADC1R_PGA_THRE_ID_LEN    2
+#define ADC1R_PGA_THRE_ID_OFFSET 4
+#define ADC1R_PGA_CFG_LEN    3
+#define ADC1R_PGA_CFG_OFFSET 1
+#define ADC1R_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x83)
+#define ADC1R_PGA_GAIN_LEN    8
+#define ADC1R_PGA_GAIN_OFFSET 0
+#define ADC1R_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x84)
+#define ADC1R_PGA_FADE_IN_LEN    5
+#define ADC1R_PGA_FADE_IN_OFFSET 0
+#define ADC1R_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x85)
+#define ADC1R_PGA_FADE_OUT_LEN    5
+#define ADC1R_PGA_FADE_OUT_OFFSET 0
+#define ADC1R_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x86)
+#define ADC1R_PGA_ZERO_NUM_LEN    5
+#define ADC1R_PGA_ZERO_NUM_OFFSET 0
+#define ADC1R_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x87)
+#define ADC1R_PGA_GAIN_OFFSET_LEN    8
+#define ADC1R_PGA_GAIN_OFFSET_OFFSET 0
+#define ADC2L_PGA_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x89)
+#define ADC2L_PGA_BYPASS_LEN    1
+#define ADC2L_PGA_BYPASS_OFFSET 7
+#define ADC2L_PGA_NOISE_EN_LEN    1
+#define ADC2L_PGA_NOISE_EN_OFFSET 6
+#define ADC2L_PGA_THRE_ID_LEN    2
+#define ADC2L_PGA_THRE_ID_OFFSET 4
+#define ADC2L_PGA_CFG_LEN    3
+#define ADC2L_PGA_CFG_OFFSET 1
+#define ADC2L_PGA_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x8A)
+#define ADC2L_PGA_GAIN_LEN    8
+#define ADC2L_PGA_GAIN_OFFSET 0
+#define ADC2L_PGA_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x8B)
+#define ADC2L_PGA_FADE_IN_LEN    5
+#define ADC2L_PGA_FADE_IN_OFFSET 0
+#define ADC2L_PGA_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x8C)
+#define ADC2L_PGA_FADE_OUT_LEN    5
+#define ADC2L_PGA_FADE_OUT_OFFSET 0
+#define ADC2L_PGA_ZERO_CROSS_REG           (BASE_ADDR_PAGE_DIG + 0x8D)
+#define ADC2L_PGA_ZERO_NUM_LEN    5
+#define ADC2L_PGA_ZERO_NUM_OFFSET 0
+#define ADC2L_PGA_GAIN_OFFSET_REG          (BASE_ADDR_PAGE_DIG + 0x8E)
+#define ADC2L_PGA_GAIN_OFFSET_LEN    8
+#define ADC2L_PGA_GAIN_OFFSET_OFFSET 0
+#define S1_IL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0x90)
+#define S1_IL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S1_IL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S1_IL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0x91)
+#define S1_IL_SRC_RDY_LEN    1
+#define S1_IL_SRC_RDY_OFFSET 0
+#define S1_IR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0x93)
+#define S1_IR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S1_IR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S1_IR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0x94)
+#define S1_IR_SRC_RDY_LEN    1
+#define S1_IR_SRC_RDY_OFFSET 0
+#define MIC1_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0x96)
+#define MIC1_SRC_MODE_LEN    3
+#define MIC1_SRC_MODE_OFFSET 2
+#define MIC1_SRC_FIFO_CLR_LEN    1
+#define MIC1_SRC_FIFO_CLR_OFFSET 1
+#define MIC1_SRC_MEM_ICG_BP_EN_LEN    1
+#define MIC1_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MIC1_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0x97)
+#define MIC1_SRC_RDY_LEN    1
+#define MIC1_SRC_RDY_OFFSET 0
+#define MIC2_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0x99)
+#define MIC2_SRC_MODE_LEN    3
+#define MIC2_SRC_MODE_OFFSET 2
+#define MIC2_SRC_FIFO_CLR_LEN    1
+#define MIC2_SRC_FIFO_CLR_OFFSET 1
+#define MIC2_SRC_MEM_ICG_BP_EN_LEN    1
+#define MIC2_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MIC2_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0x9A)
+#define MIC2_SRC_RDY_LEN    1
+#define MIC2_SRC_RDY_OFFSET 0
+#define MIC3_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0x9C)
+#define MIC3_SRC_MODE_LEN    3
+#define MIC3_SRC_MODE_OFFSET 2
+#define MIC3_SRC_FIFO_CLR_LEN    1
+#define MIC3_SRC_FIFO_CLR_OFFSET 1
+#define MIC3_SRC_MEM_ICG_BP_EN_LEN    1
+#define MIC3_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MIC3_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0x9D)
+#define MIC3_SRC_RDY_LEN    1
+#define MIC3_SRC_RDY_OFFSET 0
+#define MIC4_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0x9F)
+#define MIC4_SRC_MODE_LEN    3
+#define MIC4_SRC_MODE_OFFSET 2
+#define MIC4_SRC_FIFO_CLR_LEN    1
+#define MIC4_SRC_FIFO_CLR_OFFSET 1
+#define MIC4_SRC_MEM_ICG_BP_EN_LEN    1
+#define MIC4_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MIC4_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0xA0)
+#define MIC4_SRC_RDY_LEN    1
+#define MIC4_SRC_RDY_OFFSET 0
+#define MIC5_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0xA2)
+#define MIC5_SRC_MODE_LEN    3
+#define MIC5_SRC_MODE_OFFSET 2
+#define MIC5_SRC_FIFO_CLR_LEN    1
+#define MIC5_SRC_FIFO_CLR_OFFSET 1
+#define MIC5_SRC_MEM_ICG_BP_EN_LEN    1
+#define MIC5_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MIC5_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0xA3)
+#define MIC5_SRC_RDY_LEN    1
+#define MIC5_SRC_RDY_OFFSET 0
+#define S2_IL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xA5)
+#define S2_IL_SRC_MODE_LEN    3
+#define S2_IL_SRC_MODE_OFFSET 2
+#define S2_IL_SRC_FIFO_CLR_LEN    1
+#define S2_IL_SRC_FIFO_CLR_OFFSET 1
+#define S2_IL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S2_IL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S2_IL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xA6)
+#define S2_IL_SRC_RDY_LEN    1
+#define S2_IL_SRC_RDY_OFFSET 0
+#define S2_IR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xA8)
+#define S2_IR_SRC_MODE_LEN    3
+#define S2_IR_SRC_MODE_OFFSET 2
+#define S2_IR_SRC_FIFO_CLR_LEN    1
+#define S2_IR_SRC_FIFO_CLR_OFFSET 1
+#define S2_IR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S2_IR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S2_IR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xA9)
+#define S2_IR_SRC_RDY_LEN    1
+#define S2_IR_SRC_RDY_OFFSET 0
+#define S2_OL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xAB)
+#define S2_OL_SRC_MODE_LEN    3
+#define S2_OL_SRC_MODE_OFFSET 2
+#define S2_OL_SRC_FIFO_CLR_LEN    1
+#define S2_OL_SRC_FIFO_CLR_OFFSET 1
+#define S2_OL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S2_OL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S2_OL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xAC)
+#define S2_OL_SRC_RDY_LEN    1
+#define S2_OL_SRC_RDY_OFFSET 0
+#define S2_OR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xAE)
+#define S2_OR_SRC_MODE_LEN    3
+#define S2_OR_SRC_MODE_OFFSET 2
+#define S2_OR_SRC_FIFO_CLR_LEN    1
+#define S2_OR_SRC_FIFO_CLR_OFFSET 1
+#define S2_OR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S2_OR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S2_OR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xAF)
+#define S2_OR_SRC_RDY_LEN    1
+#define S2_OR_SRC_RDY_OFFSET 0
+#define S3_IL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xB1)
+#define S3_IL_SRC_MODE_LEN    3
+#define S3_IL_SRC_MODE_OFFSET 2
+#define S3_IL_SRC_FIFO_CLR_LEN    1
+#define S3_IL_SRC_FIFO_CLR_OFFSET 1
+#define S3_IL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S3_IL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S3_IL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xB2)
+#define S3_IL_SRC_RDY_LEN    1
+#define S3_IL_SRC_RDY_OFFSET 0
+#define S3_IR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xB4)
+#define S3_IR_SRC_MODE_LEN    3
+#define S3_IR_SRC_MODE_OFFSET 2
+#define S3_IR_SRC_FIFO_CLR_LEN    1
+#define S3_IR_SRC_FIFO_CLR_OFFSET 1
+#define S3_IR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S3_IR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S3_IR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xB5)
+#define S3_IR_SRC_RDY_LEN    1
+#define S3_IR_SRC_RDY_OFFSET 0
+#define S3_OL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xB7)
+#define S3_OL_SRC_MODE_LEN    3
+#define S3_OL_SRC_MODE_OFFSET 2
+#define S3_OL_SRC_FIFO_CLR_LEN    1
+#define S3_OL_SRC_FIFO_CLR_OFFSET 1
+#define S3_OL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S3_OL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S3_OL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xB8)
+#define S3_OL_SRC_RDY_LEN    1
+#define S3_OL_SRC_RDY_OFFSET 0
+#define S3_OR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xBA)
+#define S3_OR_SRC_MODE_LEN    3
+#define S3_OR_SRC_MODE_OFFSET 2
+#define S3_OR_SRC_FIFO_CLR_LEN    1
+#define S3_OR_SRC_FIFO_CLR_OFFSET 1
+#define S3_OR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S3_OR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S3_OR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xBB)
+#define S3_OR_SRC_RDY_LEN    1
+#define S3_OR_SRC_RDY_OFFSET 0
+#define S4_OL_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xBD)
+#define S4_OL_SRC_FIFO_CLR_LEN    1
+#define S4_OL_SRC_FIFO_CLR_OFFSET 1
+#define S4_OL_SRC_MEM_ICG_BP_EN_LEN    1
+#define S4_OL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S4_OL_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xBE)
+#define S4_OL_SRC_RDY_LEN    1
+#define S4_OL_SRC_RDY_OFFSET 0
+#define S4_OR_SRC_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xC0)
+#define S4_OR_SRC_FIFO_CLR_LEN    1
+#define S4_OR_SRC_FIFO_CLR_OFFSET 1
+#define S4_OR_SRC_MEM_ICG_BP_EN_LEN    1
+#define S4_OR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define S4_OR_SRC_STATE_REG                (BASE_ADDR_PAGE_DIG + 0xC1)
+#define S4_OR_SRC_RDY_LEN    1
+#define S4_OR_SRC_RDY_OFFSET 0
+#define SPA_OL_SRC_CTRL_REG                (BASE_ADDR_PAGE_DIG + 0xC3)
+#define SPA_OL_SRC_MODE_LEN    3
+#define SPA_OL_SRC_MODE_OFFSET 2
+#define SPA_OL_SRC_FIFO_CLR_LEN    1
+#define SPA_OL_SRC_FIFO_CLR_OFFSET 1
+#define SPA_OL_SRC_MEM_ICG_BP_EN_LEN    1
+#define SPA_OL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define SPA_OL_SRC_STATE_REG               (BASE_ADDR_PAGE_DIG + 0xC4)
+#define SPA_OL_SRC_RDY_LEN    1
+#define SPA_OL_SRC_RDY_OFFSET 0
+#define SPA_OR_SRC_CTRL_REG                (BASE_ADDR_PAGE_DIG + 0xC6)
+#define SPA_OR_SRC_MODE_LEN    3
+#define SPA_OR_SRC_MODE_OFFSET 2
+#define SPA_OR_SRC_FIFO_CLR_LEN    1
+#define SPA_OR_SRC_FIFO_CLR_OFFSET 1
+#define SPA_OR_SRC_MEM_ICG_BP_EN_LEN    1
+#define SPA_OR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define SPA_OR_SRC_STATE_REG               (BASE_ADDR_PAGE_DIG + 0xC7)
+#define SPA_OR_SRC_RDY_LEN    1
+#define SPA_OR_SRC_RDY_OFFSET 0
+#define SIDE_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0xC9)
+#define SIDE_SRC_FIFO_CLR_LEN    1
+#define SIDE_SRC_FIFO_CLR_OFFSET 1
+#define SIDE_SRC_MEM_ICG_BP_EN_LEN    1
+#define SIDE_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define SIDE_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0xCA)
+#define SIDE_SRC_RDY_LEN    1
+#define SIDE_SRC_RDY_OFFSET 0
+#define DACL_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0xCB)
+#define DACL_HIRES_FSM_ST_LEN    4
+#define DACL_HIRES_FSM_ST_OFFSET 2
+#define DACL_HIRES_RDY_LEN    1
+#define DACL_HIRES_RDY_OFFSET 1
+#define DACL_SRC_RDY_LEN    1
+#define DACL_SRC_RDY_OFFSET 0
+#define DACL_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0xCC)
+#define DACL_SRC_MEM_ICG_BP_EN_LEN    1
+#define DACL_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define DACR_SRC_STATE_REG                 (BASE_ADDR_PAGE_DIG + 0xCD)
+#define DACR_HIRES_FSM_ST_LEN    4
+#define DACR_HIRES_FSM_ST_OFFSET 2
+#define DACR_HIRES_RDY_LEN    1
+#define DACR_HIRES_RDY_OFFSET 1
+#define DACR_SRC_RDY_LEN    1
+#define DACR_SRC_RDY_OFFSET 0
+#define DACR_SRC_CTRL_REG                  (BASE_ADDR_PAGE_DIG + 0xCE)
+#define DACR_SRC_MEM_ICG_BP_EN_LEN    1
+#define DACR_SRC_MEM_ICG_BP_EN_OFFSET 0
+#define MAD_SRCDN_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0xD0)
+#define MAD_DIN_SEL_LEN    1
+#define MAD_DIN_SEL_OFFSET 2
+#define MAD_SRCDN_SFT_CFG_LEN    2
+#define MAD_SRCDN_SFT_CFG_OFFSET 0
+#define DACL_PRE_MIXER2_CTRL0_REG          (BASE_ADDR_PAGE_DIG + 0xD1)
+#define DACL_PRE_MIXER2_IN1_ID_LEN    2
+#define DACL_PRE_MIXER2_IN1_ID_OFFSET 4
+#define DACL_PRE_MIXER2_IN2_ID_LEN    2
+#define DACL_PRE_MIXER2_IN2_ID_OFFSET 2
+#define DACL_PRE_MIXER2_IN1_MUTE_LEN    1
+#define DACL_PRE_MIXER2_IN1_MUTE_OFFSET 1
+#define DACL_PRE_MIXER2_IN2_MUTE_LEN    1
+#define DACL_PRE_MIXER2_IN2_MUTE_OFFSET 0
+#define DACL_PRE_MIXER2_CTRL1_REG          (BASE_ADDR_PAGE_DIG + 0xD2)
+#define DACL_PRE_MIXER2_GAIN1_LEN    2
+#define DACL_PRE_MIXER2_GAIN1_OFFSET 3
+#define DACL_PRE_MIXER2_GAIN2_LEN    2
+#define DACL_PRE_MIXER2_GAIN2_OFFSET 1
+#define DACL_PRE_MIXER2_FADE_EN_LEN    1
+#define DACL_PRE_MIXER2_FADE_EN_OFFSET 0
+#define DACL_PRE_MIXER2_CTRL2_REG          (BASE_ADDR_PAGE_DIG + 0xD3)
+#define DACL_PRE_MIXER2_FADE_IN_LEN    5
+#define DACL_PRE_MIXER2_FADE_IN_OFFSET 0
+#define DACL_PRE_MIXER2_CTRL3_REG          (BASE_ADDR_PAGE_DIG + 0xD4)
+#define DACL_PRE_MIXER2_FADE_OUT_LEN    5
+#define DACL_PRE_MIXER2_FADE_OUT_OFFSET 0
+#define DAC_PRE_MIXER2_CTRL4_REG           (BASE_ADDR_PAGE_DIG + 0xD5)
+#define DAC_PRE_MIXER2_ZERO_NUM_LEN    5
+#define DAC_PRE_MIXER2_ZERO_NUM_OFFSET 0
+#define DACR_PRE_MIXER2_CTRL0_REG          (BASE_ADDR_PAGE_DIG + 0xD6)
+#define DACR_PRE_MIXER2_IN1_ID_LEN    2
+#define DACR_PRE_MIXER2_IN1_ID_OFFSET 4
+#define DACR_PRE_MIXER2_IN2_ID_LEN    2
+#define DACR_PRE_MIXER2_IN2_ID_OFFSET 2
+#define DACR_PRE_MIXER2_IN1_MUTE_LEN    1
+#define DACR_PRE_MIXER2_IN1_MUTE_OFFSET 1
+#define DACR_PRE_MIXER2_IN2_MUTE_LEN    1
+#define DACR_PRE_MIXER2_IN2_MUTE_OFFSET 0
+#define DACR_PRE_MIXER2_CTRL1_REG          (BASE_ADDR_PAGE_DIG + 0xD7)
+#define DACR_PRE_MIXER2_GAIN1_LEN    2
+#define DACR_PRE_MIXER2_GAIN1_OFFSET 3
+#define DACR_PRE_MIXER2_GAIN2_LEN    2
+#define DACR_PRE_MIXER2_GAIN2_OFFSET 1
+#define DACR_PRE_MIXER2_FADE_EN_LEN    1
+#define DACR_PRE_MIXER2_FADE_EN_OFFSET 0
+#define DACR_PRE_MIXER2_CTRL2_REG          (BASE_ADDR_PAGE_DIG + 0xD8)
+#define DACR_PRE_MIXER2_FADE_IN_LEN    5
+#define DACR_PRE_MIXER2_FADE_IN_OFFSET 0
+#define DACR_PRE_MIXER2_CTRL3_REG          (BASE_ADDR_PAGE_DIG + 0xD9)
+#define DACR_PRE_MIXER2_FADE_OUT_LEN    5
+#define DACR_PRE_MIXER2_FADE_OUT_OFFSET 0
+#define DACL_POST_MIXER2_CTRL0_REG         (BASE_ADDR_PAGE_DIG + 0xDA)
+#define DACL_POST_MIXER2_IN1_ID_LEN    2
+#define DACL_POST_MIXER2_IN1_ID_OFFSET 4
+#define DACL_POST_MIXER2_IN2_ID_LEN    2
+#define DACL_POST_MIXER2_IN2_ID_OFFSET 2
+#define DACL_POST_MIXER2_IN1_MUTE_LEN    1
+#define DACL_POST_MIXER2_IN1_MUTE_OFFSET 1
+#define DACL_POST_MIXER2_IN2_MUTE_LEN    1
+#define DACL_POST_MIXER2_IN2_MUTE_OFFSET 0
+#define DACL_POST_MIXER2_CTRL1_REG         (BASE_ADDR_PAGE_DIG + 0xDB)
+#define DACL_POST_MIXER2_GAIN1_LEN    2
+#define DACL_POST_MIXER2_GAIN1_OFFSET 3
+#define DACL_POST_MIXER2_GAIN2_LEN    2
+#define DACL_POST_MIXER2_GAIN2_OFFSET 1
+#define DACL_POST_MIXER2_FADE_EN_LEN    1
+#define DACL_POST_MIXER2_FADE_EN_OFFSET 0
+#define DACL_POST_MIXER2_CTRL2_REG         (BASE_ADDR_PAGE_DIG + 0xDC)
+#define DACL_POST_MIXER2_FADE_IN_LEN    5
+#define DACL_POST_MIXER2_FADE_IN_OFFSET 0
+#define DACL_POST_MIXER2_CTRL3_REG         (BASE_ADDR_PAGE_DIG + 0xDD)
+#define DACL_POST_MIXER2_FADE_OUT_LEN    5
+#define DACL_POST_MIXER2_FADE_OUT_OFFSET 0
+#define DAC_POST_MIXER2_CTRL4_REG          (BASE_ADDR_PAGE_DIG + 0xDE)
+#define DAC_POST_MIXER2_ZERO_NUM_LEN    5
+#define DAC_POST_MIXER2_ZERO_NUM_OFFSET 0
+#define DACR_POST_MIXER2_CTRL0_REG         (BASE_ADDR_PAGE_DIG + 0xDF)
+#define DACR_POST_MIXER2_IN1_ID_LEN    2
+#define DACR_POST_MIXER2_IN1_ID_OFFSET 4
+#define DACR_POST_MIXER2_IN2_ID_LEN    2
+#define DACR_POST_MIXER2_IN2_ID_OFFSET 2
+#define DACR_POST_MIXER2_IN1_MUTE_LEN    1
+#define DACR_POST_MIXER2_IN1_MUTE_OFFSET 1
+#define DACR_POST_MIXER2_IN2_MUTE_LEN    1
+#define DACR_POST_MIXER2_IN2_MUTE_OFFSET 0
+#define DACR_POST_MIXER2_CTRL1_REG         (BASE_ADDR_PAGE_DIG + 0xE0)
+#define DACR_POST_MIXER2_GAIN1_LEN    2
+#define DACR_POST_MIXER2_GAIN1_OFFSET 3
+#define DACR_POST_MIXER2_GAIN2_LEN    2
+#define DACR_POST_MIXER2_GAIN2_OFFSET 1
+#define DACR_POST_MIXER2_FADE_EN_LEN    1
+#define DACR_POST_MIXER2_FADE_EN_OFFSET 0
+#define DACR_POST_MIXER2_CTRL2_REG         (BASE_ADDR_PAGE_DIG + 0xE1)
+#define DACR_POST_MIXER2_FADE_IN_LEN    5
+#define DACR_POST_MIXER2_FADE_IN_OFFSET 0
+#define DACR_POST_MIXER2_CTRL3_REG         (BASE_ADDR_PAGE_DIG + 0xE2)
+#define DACR_POST_MIXER2_FADE_OUT_LEN    5
+#define DACR_POST_MIXER2_FADE_OUT_OFFSET 0
+#define DACL_MIXER4_CTRL0_REG              (BASE_ADDR_PAGE_DIG + 0xE3)
+#define DACL_MIXER4_IN4_ID_LEN    2
+#define DACL_MIXER4_IN4_ID_OFFSET 6
+#define DACL_MIXER4_IN3_ID_LEN    2
+#define DACL_MIXER4_IN3_ID_OFFSET 4
+#define DACL_MIXER4_IN2_ID_LEN    2
+#define DACL_MIXER4_IN2_ID_OFFSET 2
+#define DACL_MIXER4_IN1_ID_LEN    2
+#define DACL_MIXER4_IN1_ID_OFFSET 0
+#define DACL_MIXER4_CTRL1_REG              (BASE_ADDR_PAGE_DIG + 0xE4)
+#define DACL_MIXER4_FADE_EN_LEN    1
+#define DACL_MIXER4_FADE_EN_OFFSET 4
+#define DACL_MIXER4_IN4_MUTE_LEN    1
+#define DACL_MIXER4_IN4_MUTE_OFFSET 3
+#define DACL_MIXER4_IN3_MUTE_LEN    1
+#define DACL_MIXER4_IN3_MUTE_OFFSET 2
+#define DACL_MIXER4_IN2_MUTE_LEN    1
+#define DACL_MIXER4_IN2_MUTE_OFFSET 1
+#define DACL_MIXER4_IN1_MUTE_LEN    1
+#define DACL_MIXER4_IN1_MUTE_OFFSET 0
+#define DACL_MIXER4_CTRL2_REG              (BASE_ADDR_PAGE_DIG + 0xE5)
+#define DACL_MIXER4_GAIN4_LEN    2
+#define DACL_MIXER4_GAIN4_OFFSET 6
+#define DACL_MIXER4_GAIN3_LEN    2
+#define DACL_MIXER4_GAIN3_OFFSET 4
+#define DACL_MIXER4_GAIN2_LEN    2
+#define DACL_MIXER4_GAIN2_OFFSET 2
+#define DACL_MIXER4_GAIN1_LEN    2
+#define DACL_MIXER4_GAIN1_OFFSET 0
+#define DACL_MIXER4_CTRL3_REG              (BASE_ADDR_PAGE_DIG + 0xE6)
+#define DACL_MIXER4_FADE_IN_LEN    5
+#define DACL_MIXER4_FADE_IN_OFFSET 0
+#define DACL_MIXER4_CTRL4_REG              (BASE_ADDR_PAGE_DIG + 0xE7)
+#define DACL_MIXER4_FADE_OUT_LEN    5
+#define DACL_MIXER4_FADE_OUT_OFFSET 0
+#define DACL_MIXER4_CTRL5_REG              (BASE_ADDR_PAGE_DIG + 0xE8)
+#define DAC_MIXER4_ZERO_NUM_LEN    5
+#define DAC_MIXER4_ZERO_NUM_OFFSET 0
+#define DACR_MIXER4_CTRL0_REG              (BASE_ADDR_PAGE_DIG + 0xE9)
+#define DACR_MIXER4_IN4_ID_LEN    2
+#define DACR_MIXER4_IN4_ID_OFFSET 6
+#define DACR_MIXER4_IN3_ID_LEN    2
+#define DACR_MIXER4_IN3_ID_OFFSET 4
+#define DACR_MIXER4_IN2_ID_LEN    2
+#define DACR_MIXER4_IN2_ID_OFFSET 2
+#define DACR_MIXER4_IN1_ID_LEN    2
+#define DACR_MIXER4_IN1_ID_OFFSET 0
+#define DACR_MIXER4_CTRL1_REG              (BASE_ADDR_PAGE_DIG + 0xEA)
+#define DACR_MIXER4_FADE_EN_LEN    1
+#define DACR_MIXER4_FADE_EN_OFFSET 4
+#define DACR_MIXER4_IN4_MUTE_LEN    1
+#define DACR_MIXER4_IN4_MUTE_OFFSET 3
+#define DACR_MIXER4_IN3_MUTE_LEN    1
+#define DACR_MIXER4_IN3_MUTE_OFFSET 2
+#define DACR_MIXER4_IN2_MUTE_LEN    1
+#define DACR_MIXER4_IN2_MUTE_OFFSET 1
+#define DACR_MIXER4_IN1_MUTE_LEN    1
+#define DACR_MIXER4_IN1_MUTE_OFFSET 0
+#define DACR_MIXER4_CTRL2_REG              (BASE_ADDR_PAGE_DIG + 0xEB)
+#define DACR_MIXER4_GAIN4_LEN    2
+#define DACR_MIXER4_GAIN4_OFFSET 6
+#define DACR_MIXER4_GAIN3_LEN    2
+#define DACR_MIXER4_GAIN3_OFFSET 4
+#define DACR_MIXER4_GAIN2_LEN    2
+#define DACR_MIXER4_GAIN2_OFFSET 2
+#define DACR_MIXER4_GAIN1_LEN    2
+#define DACR_MIXER4_GAIN1_OFFSET 0
+#define DACR_MIXER4_CTRL3_REG              (BASE_ADDR_PAGE_DIG + 0xEC)
+#define DACR_MIXER4_FADE_IN_LEN    5
+#define DACR_MIXER4_FADE_IN_OFFSET 0
+#define DACR_MIXER4_CTRL4_REG              (BASE_ADDR_PAGE_DIG + 0xED)
+#define DACR_MIXER4_FADE_OUT_LEN    5
+#define DACR_MIXER4_FADE_OUT_OFFSET 0
+#define DACSL_MIXER4_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0xEE)
+#define DACSL_MIXER4_IN4_ID_LEN    2
+#define DACSL_MIXER4_IN4_ID_OFFSET 6
+#define DACSL_MIXER4_IN3_ID_LEN    2
+#define DACSL_MIXER4_IN3_ID_OFFSET 4
+#define DACSL_MIXER4_IN2_ID_LEN    2
+#define DACSL_MIXER4_IN2_ID_OFFSET 2
+#define DACSL_MIXER4_IN1_ID_LEN    2
+#define DACSL_MIXER4_IN1_ID_OFFSET 0
+#define DACSL_MIXER4_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0xEF)
+#define DACSL_MIXER4_FADE_EN_LEN    1
+#define DACSL_MIXER4_FADE_EN_OFFSET 4
+#define DACSL_MIXER4_IN4_MUTE_LEN    1
+#define DACSL_MIXER4_IN4_MUTE_OFFSET 3
+#define DACSL_MIXER4_IN3_MUTE_LEN    1
+#define DACSL_MIXER4_IN3_MUTE_OFFSET 2
+#define DACSL_MIXER4_IN2_MUTE_LEN    1
+#define DACSL_MIXER4_IN2_MUTE_OFFSET 1
+#define DACSL_MIXER4_IN1_MUTE_LEN    1
+#define DACSL_MIXER4_IN1_MUTE_OFFSET 0
+#define DACSL_MIXER4_CTRL2_REG             (BASE_ADDR_PAGE_DIG + 0xF0)
+#define DACSL_MIXER4_GAIN4_LEN    2
+#define DACSL_MIXER4_GAIN4_OFFSET 6
+#define DACSL_MIXER4_GAIN3_LEN    2
+#define DACSL_MIXER4_GAIN3_OFFSET 4
+#define DACSL_MIXER4_GAIN2_LEN    2
+#define DACSL_MIXER4_GAIN2_OFFSET 2
+#define DACSL_MIXER4_GAIN1_LEN    2
+#define DACSL_MIXER4_GAIN1_OFFSET 0
+#define DACSL_MIXER4_CTRL3_REG             (BASE_ADDR_PAGE_DIG + 0xF1)
+#define DACSL_MIXER4_FADE_IN_LEN    5
+#define DACSL_MIXER4_FADE_IN_OFFSET 0
+#define DACSL_MIXER4_CTRL4_REG             (BASE_ADDR_PAGE_DIG + 0xF2)
+#define DACSL_MIXER4_FADE_OUT_LEN    5
+#define DACSL_MIXER4_FADE_OUT_OFFSET 0
+#define DACSL_MIXER4_CTRL5_REG             (BASE_ADDR_PAGE_DIG + 0xF3)
+#define DACS_MIXER4_ZERO_NUM_LEN    5
+#define DACS_MIXER4_ZERO_NUM_OFFSET 0
+#define DACSR_MIXER4_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0xF4)
+#define DACSR_MIXER4_IN4_ID_LEN    2
+#define DACSR_MIXER4_IN4_ID_OFFSET 6
+#define DACSR_MIXER4_IN3_ID_LEN    2
+#define DACSR_MIXER4_IN3_ID_OFFSET 4
+#define DACSR_MIXER4_IN2_ID_LEN    2
+#define DACSR_MIXER4_IN2_ID_OFFSET 2
+#define DACSR_MIXER4_IN1_ID_LEN    2
+#define DACSR_MIXER4_IN1_ID_OFFSET 0
+#define DACSR_MIXER4_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0xF5)
+#define DACSR_MIXER4_FADE_EN_LEN    1
+#define DACSR_MIXER4_FADE_EN_OFFSET 4
+#define DACSR_MIXER4_IN4_MUTE_LEN    1
+#define DACSR_MIXER4_IN4_MUTE_OFFSET 3
+#define DACSR_MIXER4_IN3_MUTE_LEN    1
+#define DACSR_MIXER4_IN3_MUTE_OFFSET 2
+#define DACSR_MIXER4_IN2_MUTE_LEN    1
+#define DACSR_MIXER4_IN2_MUTE_OFFSET 1
+#define DACSR_MIXER4_IN1_MUTE_LEN    1
+#define DACSR_MIXER4_IN1_MUTE_OFFSET 0
+#define DACSR_MIXER4_CTRL2_REG             (BASE_ADDR_PAGE_DIG + 0xF6)
+#define DACSR_MIXER4_GAIN4_LEN    2
+#define DACSR_MIXER4_GAIN4_OFFSET 6
+#define DACSR_MIXER4_GAIN3_LEN    2
+#define DACSR_MIXER4_GAIN3_OFFSET 4
+#define DACSR_MIXER4_GAIN2_LEN    2
+#define DACSR_MIXER4_GAIN2_OFFSET 2
+#define DACSR_MIXER4_GAIN1_LEN    2
+#define DACSR_MIXER4_GAIN1_OFFSET 0
+#define DACSR_MIXER4_CTRL3_REG             (BASE_ADDR_PAGE_DIG + 0xF7)
+#define DACSR_MIXER4_FADE_IN_LEN    5
+#define DACSR_MIXER4_FADE_IN_OFFSET 0
+#define DACSR_MIXER4_CTRL4_REG             (BASE_ADDR_PAGE_DIG + 0xF8)
+#define DACSR_MIXER4_FADE_OUT_LEN    5
+#define DACSR_MIXER4_FADE_OUT_OFFSET 0
+#define MAD_CTRL_REG                       (BASE_ADDR_PAGE_DIG + 0xF9)
+#define MAD_VAD_AO_LEN    1
+#define MAD_VAD_AO_OFFSET 6
+#define MAD_INT_EN_LEN    1
+#define MAD_INT_EN_OFFSET 5
+#define MAD_WIND_SEL_LEN    3
+#define MAD_WIND_SEL_OFFSET 1
+#define MAD_EN_LEN    1
+#define MAD_EN_OFFSET 0
+#define MAD_AUTO_ACT_TIME_REG              (BASE_ADDR_PAGE_DIG + 0xFA)
+#define MAD_AUTO_ACT_TIME_LEN    5
+#define MAD_AUTO_ACT_TIME_OFFSET 0
+#define MAD_ANA_TIME_H_REG                 (BASE_ADDR_PAGE_DIG + 0xFB)
+#define MAD_ANA_TIME_H_LEN    8
+#define MAD_ANA_TIME_H_OFFSET 0
+#define MAD_ANA_TIME_L_REG                 (BASE_ADDR_PAGE_DIG + 0xFC)
+#define MAD_ANA_TIME_L_LEN    4
+#define MAD_ANA_TIME_L_OFFSET 0
+#define MAD_PLL_TIME_H_REG                 (BASE_ADDR_PAGE_DIG + 0xFD)
+#define MAD_PLL_TIME_H_LEN    8
+#define MAD_PLL_TIME_H_OFFSET 0
+#define MAD_PLL_TIME_L_REG                 (BASE_ADDR_PAGE_DIG + 0xFE)
+#define MAD_PLL_TIME_L_LEN    4
+#define MAD_PLL_TIME_L_OFFSET 0
+#define MAD_ADC_TIME_H_REG                 (BASE_ADDR_PAGE_DIG + 0xFF)
+#define MAD_ADC_TIME_H_LEN    8
+#define MAD_ADC_TIME_H_OFFSET 0
+#define MAD_ADC_TIME_L_REG                 (BASE_ADDR_PAGE_DIG + 0x100)
+#define MAD_ADC_TIME_L_LEN    4
+#define MAD_ADC_TIME_L_OFFSET 0
+#define MAD_OMIT_SAMP_REG                  (BASE_ADDR_PAGE_DIG + 0x101)
+#define MAD_OMIT_SAMP_LEN    8
+#define MAD_OMIT_SAMP_OFFSET 0
+#define MAD_VAD_NUM_REG                    (BASE_ADDR_PAGE_DIG + 0x102)
+#define MAD_VAD_NUM_LEN    8
+#define MAD_VAD_NUM_OFFSET 0
+#define MAD_VAD_TIME_H_REG                 (BASE_ADDR_PAGE_DIG + 0x103)
+#define MAD_VAD_TIME_H_LEN    8
+#define MAD_VAD_TIME_H_OFFSET 0
+#define MAD_VAD_TIME_L_REG                 (BASE_ADDR_PAGE_DIG + 0x104)
+#define MAD_VAD_TIME_L_LEN    8
+#define MAD_VAD_TIME_L_OFFSET 0
+#define MAD_SLEEP_TIME_H_REG               (BASE_ADDR_PAGE_DIG + 0x105)
+#define MAD_SLEEP_TIME_H_LEN    6
+#define MAD_SLEEP_TIME_H_OFFSET 0
+#define MAD_SLEEP_TIME_L_REG               (BASE_ADDR_PAGE_DIG + 0x106)
+#define MAD_SLEEP_TIME_L_LEN    8
+#define MAD_SLEEP_TIME_L_OFFSET 0
+#define MAD_ANA_EN_BPCLTRL_REG             (BASE_ADDR_PAGE_DIG + 0x107)
+#define MAD_ANA_EN_BPCTRL_LEN    8
+#define MAD_ANA_EN_BPCTRL_OFFSET 0
+#define MAD_ALPHA_PREP_REG                 (BASE_ADDR_PAGE_DIG + 0x108)
+#define MAD_ALPHA_PREP_LEN    5
+#define MAD_ALPHA_PREP_OFFSET 0
+#define MAD_ALPHA1_H_REG                   (BASE_ADDR_PAGE_DIG + 0x109)
+#define MAD_ALPHA1_H_LEN    8
+#define MAD_ALPHA1_H_OFFSET 0
+#define MAD_ALPHA1_L_REG                   (BASE_ADDR_PAGE_DIG + 0x10A)
+#define MAD_ALPHA1_L_LEN    4
+#define MAD_ALPHA1_L_OFFSET 0
+#define MAD_ALPHA2_H_REG                   (BASE_ADDR_PAGE_DIG + 0x10B)
+#define MAD_ALPHA2_H_LEN    8
+#define MAD_ALPHA2_H_OFFSET 0
+#define MAD_ALPHA2_L_REG                   (BASE_ADDR_PAGE_DIG + 0x10C)
+#define MAD_ALPHA2_L_LEN    4
+#define MAD_ALPHA2_L_OFFSET 0
+#define MAD_ALPHA3_H_REG                   (BASE_ADDR_PAGE_DIG + 0x10D)
+#define MAD_ALPHA3_H_LEN    8
+#define MAD_ALPHA3_H_OFFSET 0
+#define MAD_ALPHA3_L_REG                   (BASE_ADDR_PAGE_DIG + 0x10E)
+#define MAD_ALPHA3_L_LEN    4
+#define MAD_ALPHA3_L_OFFSET 0
+#define MAD_MIN_CHAN_ENG_REG               (BASE_ADDR_PAGE_DIG + 0x10F)
+#define MAD_MIN_CHAN_ENG_LEN    8
+#define MAD_MIN_CHAN_ENG_OFFSET 0
+#define MAD_IFRAME_REG                     (BASE_ADDR_PAGE_DIG + 0x110)
+#define MAD_LFRAME_LEN    3
+#define MAD_LFRAME_OFFSET 0
+#define MAD_INE_REG                        (BASE_ADDR_PAGE_DIG + 0x111)
+#define MAD_INE_LEN    8
+#define MAD_INE_OFFSET 0
+#define MAD_SNR_THRE_REG                   (BASE_ADDR_PAGE_DIG + 0x112)
+#define MAD_SNR_THRE_LEN    6
+#define MAD_SNR_THRE_OFFSET 0
+#define MAD_BAND_THRE_REG                  (BASE_ADDR_PAGE_DIG + 0x113)
+#define MAD_BAND_THRE_LEN    4
+#define MAD_BAND_THRE_OFFSET 0
+#define MAD_SNR_THRE_SUM_REG               (BASE_ADDR_PAGE_DIG + 0x114)
+#define MAD_SNR_THRE_SUM_LEN    8
+#define MAD_SNR_THRE_SUM_OFFSET 0
+#define MAD_SNR_MIN_REG                    (BASE_ADDR_PAGE_DIG + 0x115)
+#define MAD_SNR_MIN_LEN    5
+#define MAD_SNR_MIN_OFFSET 0
+#define MAD_SCALE_REG                      (BASE_ADDR_PAGE_DIG + 0x116)
+#define MAD_SCALE_LEN    3
+#define MAD_SCALE_OFFSET 0
+#define MAD_CNT_THRE_REG                   (BASE_ADDR_PAGE_DIG + 0x117)
+#define MAD_CNT_THRE_LEN    6
+#define MAD_CNT_THRE_OFFSET 0
+#define MAD_ALPHA_EN1_REG                  (BASE_ADDR_PAGE_DIG + 0x118)
+#define MAD_ALPHA_EN1_LEN    4
+#define MAD_ALPHA_EN1_OFFSET 0
+#define MAD_SI_CTRL0_REG                   (BASE_ADDR_PAGE_DIG + 0x119)
+#define MAD_SI_BYPASS_LEN    1
+#define MAD_SI_BYPASS_OFFSET 0
+#define MAD_SI_CTRL1_REG                   (BASE_ADDR_PAGE_DIG + 0x11A)
+#define MAD_SI_FRAME_LEN    4
+#define MAD_SI_FRAME_OFFSET 4
+#define MAD_SI_ALPHA_LEN    4
+#define MAD_SI_ALPHA_OFFSET 0
+#define MAD_SI_CTRL2_REG                   (BASE_ADDR_PAGE_DIG + 0x11B)
+#define MAD_SI_THRE_H_LEN    8
+#define MAD_SI_THRE_H_OFFSET 0
+#define MAD_SI_CTRL3_REG                   (BASE_ADDR_PAGE_DIG + 0x11C)
+#define MAD_SI_THRE_L_LEN    8
+#define MAD_SI_THRE_L_OFFSET 0
+#define MAD_TH_SIFRAME_REG                 (BASE_ADDR_PAGE_DIG + 0x11D)
+#define MAD_SI_THRE_SUM_LEN    8
+#define MAD_SI_THRE_SUM_OFFSET 0
+#define MAD_LP_CTRL_REG                    (BASE_ADDR_PAGE_DIG + 0x11E)
+#define MAD_LP_MODE_LEN    2
+#define MAD_LP_MODE_OFFSET 0
+#define MAD_DEBUG0_REG                     (BASE_ADDR_PAGE_DIG + 0x11F)
+#define MAD_DEBUG0_LEN    8
+#define MAD_DEBUG0_OFFSET 0
+#define MAD_DEBUG1_REG                     (BASE_ADDR_PAGE_DIG + 0x120)
+#define MAD_DEBUG1_LEN    8
+#define MAD_DEBUG1_OFFSET 0
+#define MAD_DEBUG2_REG                     (BASE_ADDR_PAGE_DIG + 0x121)
+#define MAD_DEBUG2_LEN    8
+#define MAD_DEBUG2_OFFSET 0
+#define MAD_DEBUG3_REG                     (BASE_ADDR_PAGE_DIG + 0x122)
+#define MAD_DEBUG3_LEN    8
+#define MAD_DEBUG3_OFFSET 0
+#define MAD_BUFFER_CTRL0_REG               (BASE_ADDR_PAGE_DIG + 0x127)
+#define MAD_BUF_FIFO_THRE_H_LEN    8
+#define MAD_BUF_FIFO_THRE_H_OFFSET 0
+#define MAD_BUFFER_CTRL1_REG               (BASE_ADDR_PAGE_DIG + 0x128)
+#define MAD_BUF_EN_LEN    1
+#define MAD_BUF_EN_OFFSET 5
+#define MAD_BUF_FIFO_THRE_L_LEN    5
+#define MAD_BUF_FIFO_THRE_L_OFFSET 0
+#define DSDL_CTRL0_REG                     (BASE_ADDR_PAGE_DIG + 0x129)
+#define DSDL_IIR_BYPASS_EN_LEN    1
+#define DSDL_IIR_BYPASS_EN_OFFSET 7
+#define DSDL_PGA_BYPASS_LEN    1
+#define DSDL_PGA_BYPASS_OFFSET 6
+#define DSDL_PGA_NOISE_EN_LEN    1
+#define DSDL_PGA_NOISE_EN_OFFSET 5
+#define DSDL_PGA_THRE_ID_LEN    2
+#define DSDL_PGA_THRE_ID_OFFSET 3
+#define DSDL_PGA_CFG_LEN    3
+#define DSDL_PGA_CFG_OFFSET 0
+#define DSDL_CTRL1_REG                     (BASE_ADDR_PAGE_DIG + 0x12A)
+#define DSDL_PGA_GAIN_LEN    8
+#define DSDL_PGA_GAIN_OFFSET 0
+#define DSDL_CTRL2_REG                     (BASE_ADDR_PAGE_DIG + 0x12B)
+#define DSD_CLK_SEL_LEN    1
+#define DSD_CLK_SEL_OFFSET 6
+#define DSDL_LINEAR_SEL_LEN    1
+#define DSDL_LINEAR_SEL_OFFSET 5
+#define DSDL_PGA_FADE_IN_LEN    5
+#define DSDL_PGA_FADE_IN_OFFSET 0
+#define DSDL_CTRL3_REG                     (BASE_ADDR_PAGE_DIG + 0x12C)
+#define DSDL_PGA_FADE_OUT_LEN    5
+#define DSDL_PGA_FADE_OUT_OFFSET 0
+#define DSD_PGA_ZERO_CROSS_REG             (BASE_ADDR_PAGE_DIG + 0x12D)
+#define DSD_PGA_ZERO_NUM_LEN    5
+#define DSD_PGA_ZERO_NUM_OFFSET 0
+#define DSD_PGA_GAIN_OFFSET_REG            (BASE_ADDR_PAGE_DIG + 0x12E)
+#define DSD_GAIN_OFFSET_LEN    8
+#define DSD_GAIN_OFFSET_OFFSET 0
+#define DSDL_MIXER2_CTRL0_REG              (BASE_ADDR_PAGE_DIG + 0x12F)
+#define DSDL_MIXER2_IN2_ID_LEN    2
+#define DSDL_MIXER2_IN2_ID_OFFSET 6
+#define DSDL_MIXER2_IN1_ID_LEN    2
+#define DSDL_MIXER2_IN1_ID_OFFSET 4
+#define DSDL_MIXER2_GAIN2_LEN    2
+#define DSDL_MIXER2_GAIN2_OFFSET 2
+#define DSDL_MIXER2_GAIN1_LEN    2
+#define DSDL_MIXER2_GAIN1_OFFSET 0
+#define DSDL_MIXER2_CTRL1_REG              (BASE_ADDR_PAGE_DIG + 0x130)
+#define DSDL_MIXER2_IN2_MUTE_LEN    1
+#define DSDL_MIXER2_IN2_MUTE_OFFSET 6
+#define DSDL_MIXER2_IN1_MUTE_LEN    1
+#define DSDL_MIXER2_IN1_MUTE_OFFSET 5
+#define DSDL_MIXER2_FADE_IN_LEN    5
+#define DSDL_MIXER2_FADE_IN_OFFSET 0
+#define DSDL_MIXER2_CTRL2_REG              (BASE_ADDR_PAGE_DIG + 0x131)
+#define DSDL_MIXER2_FADE_EN_LEN    1
+#define DSDL_MIXER2_FADE_EN_OFFSET 6
+#define DSDL_MIXER2_FADE_OUT_LEN    5
+#define DSDL_MIXER2_FADE_OUT_OFFSET 0
+#define DSD_MIXER2_ZERO_CROSS_REG          (BASE_ADDR_PAGE_DIG + 0x132)
+#define DSD_MIXER2_ZERO_NUM_LEN    5
+#define DSD_MIXER2_ZERO_NUM_OFFSET 0
+#define DSDR_CTRL0_REG                     (BASE_ADDR_PAGE_DIG + 0x135)
+#define DSDR_IIR_BYPASS_EN_LEN    1
+#define DSDR_IIR_BYPASS_EN_OFFSET 7
+#define DSDR_PGA_BYPASS_LEN    1
+#define DSDR_PGA_BYPASS_OFFSET 6
+#define DSDR_PGA_NOISE_EN_LEN    1
+#define DSDR_PGA_NOISE_EN_OFFSET 5
+#define DSDR_PGA_THRE_ID_LEN    2
+#define DSDR_PGA_THRE_ID_OFFSET 3
+#define DSDR_PGA_CFG_LEN    3
+#define DSDR_PGA_CFG_OFFSET 0
+#define DSDR_CTRL1_REG                     (BASE_ADDR_PAGE_DIG + 0x136)
+#define DSDR_PGA_GAIN_LEN    8
+#define DSDR_PGA_GAIN_OFFSET 0
+#define DSDR_CTRL2_REG                     (BASE_ADDR_PAGE_DIG + 0x137)
+#define DSDR_LINEAR_SEL_LEN    1
+#define DSDR_LINEAR_SEL_OFFSET 5
+#define DSDR_PGA_FADE_IN_LEN    5
+#define DSDR_PGA_FADE_IN_OFFSET 0
+#define DSDR_CTRL3_REG                     (BASE_ADDR_PAGE_DIG + 0x138)
+#define DSDR_PGA_FADE_OUT_LEN    5
+#define DSDR_PGA_FADE_OUT_OFFSET 0
+#define DSDR_MIXER2_CTRL0_REG              (BASE_ADDR_PAGE_DIG + 0x139)
+#define DSDR_MIXER2_IN2_ID_LEN    2
+#define DSDR_MIXER2_IN2_ID_OFFSET 6
+#define DSDR_MIXER2_IN1_ID_LEN    2
+#define DSDR_MIXER2_IN1_ID_OFFSET 4
+#define DSDR_MIXER2_GAIN2_LEN    2
+#define DSDR_MIXER2_GAIN2_OFFSET 2
+#define DSDR_MIXER2_GAIN1_LEN    2
+#define DSDR_MIXER2_GAIN1_OFFSET 0
+#define DSDR_MIXER2_CTRL1_REG              (BASE_ADDR_PAGE_DIG + 0x13A)
+#define DSDR_MIXER2_IN2_MUTE_LEN    1
+#define DSDR_MIXER2_IN2_MUTE_OFFSET 6
+#define DSDR_MIXER2_IN1_MUTE_LEN    1
+#define DSDR_MIXER2_IN1_MUTE_OFFSET 5
+#define DSDR_MIXER2_FADE_IN_LEN    5
+#define DSDR_MIXER2_FADE_IN_OFFSET 0
+#define DSDR_MIXER2_CTRL2_REG              (BASE_ADDR_PAGE_DIG + 0x13B)
+#define DSDR_MIXER2_FADE_EN_LEN    1
+#define DSDR_MIXER2_FADE_EN_OFFSET 6
+#define DSDR_MIXER2_FADE_OUT_LEN    5
+#define DSDR_MIXER2_FADE_OUT_OFFSET 0
+#define CLASSH_CTRL0_REG                   (BASE_ADDR_PAGE_DIG + 0x13E)
+#define CLASSH_VOL_EN_LEN    1
+#define CLASSH_VOL_EN_OFFSET 7
+#define CLASSH_DYM_EN_LEN    1
+#define CLASSH_DYM_EN_OFFSET 6
+#define CLASSH_AGAIN_EP_LEN    6
+#define CLASSH_AGAIN_EP_OFFSET 0
+#define CLASSH_CTRL1_REG                   (BASE_ADDR_PAGE_DIG + 0x13F)
+#define CLASSH_AGAIN_HP_LEN    6
+#define CLASSH_AGAIN_HP_OFFSET 2
+#define CLASSH_EP_EN_LEN    1
+#define CLASSH_EP_EN_OFFSET 1
+#define CLASSH_HP_EN_LEN    1
+#define CLASSH_HP_EN_OFFSET 0
+#define CLASSH_CTRL2_REG                   (BASE_ADDR_PAGE_DIG + 0x140)
+#define CLASSH_VOL_EP_LEN    8
+#define CLASSH_VOL_EP_OFFSET 0
+#define CLASSH_CTRL3_REG                   (BASE_ADDR_PAGE_DIG + 0x141)
+#define CLASSH_VOL_HP_LEN    8
+#define CLASSH_VOL_HP_OFFSET 0
+#define CLASSH_CTRL4_REG                   (BASE_ADDR_PAGE_DIG + 0x142)
+#define CLASSH_DGAIN_EP_LEN    8
+#define CLASSH_DGAIN_EP_OFFSET 0
+#define CLASSH_CTRL5_REG                   (BASE_ADDR_PAGE_DIG + 0x143)
+#define CLASSH_DGAIN_HP_LEN    8
+#define CLASSH_DGAIN_HP_OFFSET 0
+#define CLASSH_CTRL6_REG                   (BASE_ADDR_PAGE_DIG + 0x144)
+#define CLASSH_REG_VCTRL1_LEN    6
+#define CLASSH_REG_VCTRL1_OFFSET 2
+#define CLASSH_EN_LEN    1
+#define CLASSH_EN_OFFSET 0
+#define CLASSH_CTRL7_REG                   (BASE_ADDR_PAGE_DIG + 0x145)
+#define CLASSH_ANC_HP_ANTINOISE_EN_LEN    1
+#define CLASSH_ANC_HP_ANTINOISE_EN_OFFSET 1
+#define CLASSH_ANC_EP_ANTINOISE_EN_LEN    1
+#define CLASSH_ANC_EP_ANTINOISE_EN_OFFSET 0
+#define CLASSH_CTRL8_REG                   (BASE_ADDR_PAGE_DIG + 0x146)
+#define CLASSH_HP_DLYLINE_BYPASS_LEN    1
+#define CLASSH_HP_DLYLINE_BYPASS_OFFSET 5
+#define CLASSH_EP_DLYLINE_BYPASS_LEN    1
+#define CLASSH_EP_DLYLINE_BYPASS_OFFSET 4
+#define CLASSH_FALL_DELAY_EN_LEN    1
+#define CLASSH_FALL_DELAY_EN_OFFSET 3
+#define CLASSH_DNG_CFG_LEN    2
+#define CLASSH_DNG_CFG_OFFSET 1
+#define CLASSH_NG_EN_LEN    1
+#define CLASSH_NG_EN_OFFSET 0
+#define CLASSH_CTRL9_REG                   (BASE_ADDR_PAGE_DIG + 0x147)
+#define CLASSH_VTH_NG_CFG_72DB 0xb
+#define CLASSH_VTH_NG_CFG_LEN    4
+#define CLASSH_VTH_NG_CFG_OFFSET 4
+#define CLASSH_DF_CFG_16384 0x9
+#define CLASSH_DF_CFG_LEN    4
+#define CLASSH_DF_CFG_OFFSET 0
+#define CLASSH_CTRL10_REG                  (BASE_ADDR_PAGE_DIG + 0x148)
+#define CLASSH_DO_CFG_LEN    3
+#define CLASSH_DO_CFG_OFFSET 5
+#define CLASSH_DN_CFG_LEN    2
+#define CLASSH_DN_CFG_OFFSET 3
+#define CLASSH_FALL_STEP1_LEN    3
+#define CLASSH_FALL_STEP1_OFFSET 0
+#define CLASSH_LUT1_REG0_REG               (BASE_ADDR_PAGE_DIG + 0x149)
+#define CLASSH_LUT1_REG0_LEN    6
+#define CLASSH_LUT1_REG0_OFFSET 0
+#define CLASSH_LUT1_REG1_REG               (BASE_ADDR_PAGE_DIG + 0x14A)
+#define CLASSH_LUT1_REG1_LEN    6
+#define CLASSH_LUT1_REG1_OFFSET 0
+#define CLASSH_LUT1_REG2_REG               (BASE_ADDR_PAGE_DIG + 0x14B)
+#define CLASSH_LUT1_REG2_LEN    6
+#define CLASSH_LUT1_REG2_OFFSET 0
+#define CLASSH_LUT1_REG3_REG               (BASE_ADDR_PAGE_DIG + 0x14C)
+#define CLASSH_LUT1_REG3_LEN    6
+#define CLASSH_LUT1_REG3_OFFSET 0
+#define CLASSH_LUT1_REG4_REG               (BASE_ADDR_PAGE_DIG + 0x14D)
+#define CLASSH_LUT1_REG4_LEN    6
+#define CLASSH_LUT1_REG4_OFFSET 0
+#define CLASSH_LUT1_REG5_REG               (BASE_ADDR_PAGE_DIG + 0x14E)
+#define CLASSH_LUT1_REG5_LEN    6
+#define CLASSH_LUT1_REG5_OFFSET 0
+#define CLASSH_LUT1_REG6_REG               (BASE_ADDR_PAGE_DIG + 0x14F)
+#define CLASSH_LUT1_REG6_LEN    6
+#define CLASSH_LUT1_REG6_OFFSET 0
+#define CLASSH_LUT1_REG7_REG               (BASE_ADDR_PAGE_DIG + 0x150)
+#define CLASSH_LUT1_REG7_LEN    6
+#define CLASSH_LUT1_REG7_OFFSET 0
+#define CLASSH_LUT1_REG8_REG               (BASE_ADDR_PAGE_DIG + 0x151)
+#define CLASSH_LUT1_REG8_LEN    6
+#define CLASSH_LUT1_REG8_OFFSET 0
+#define CLASSH_LUT1_REG9_REG               (BASE_ADDR_PAGE_DIG + 0x152)
+#define CLASSH_LUT1_REG9_LEN    6
+#define CLASSH_LUT1_REG9_OFFSET 0
+#define CLASSH_LUT1_REG10_REG              (BASE_ADDR_PAGE_DIG + 0x153)
+#define CLASSH_LUT1_REG10_LEN    6
+#define CLASSH_LUT1_REG10_OFFSET 0
+#define CLASSH_LUT1_REG11_REG              (BASE_ADDR_PAGE_DIG + 0x154)
+#define CLASSH_LUT1_REG11_LEN    6
+#define CLASSH_LUT1_REG11_OFFSET 0
+#define CLASSH_LUT1_REG12_REG              (BASE_ADDR_PAGE_DIG + 0x155)
+#define CLASSH_LUT1_REG12_LEN    6
+#define CLASSH_LUT1_REG12_OFFSET 0
+#define CLASSH_LUT1_REG13_REG              (BASE_ADDR_PAGE_DIG + 0x156)
+#define CLASSH_LUT1_REG13_LEN    6
+#define CLASSH_LUT1_REG13_OFFSET 0
+#define CLASSH_LUT1_REG14_REG              (BASE_ADDR_PAGE_DIG + 0x157)
+#define CLASSH_LUT1_REG14_LEN    6
+#define CLASSH_LUT1_REG14_OFFSET 0
+#define CLASSH_LUT1_REG15_REG              (BASE_ADDR_PAGE_DIG + 0x158)
+#define CLASSH_LUT1_REG15_LEN    6
+#define CLASSH_LUT1_REG15_OFFSET 0
+#define CLASSH_LUT1_REG16_REG              (BASE_ADDR_PAGE_DIG + 0x159)
+#define CLASSH_LUT1_REG16_LEN    6
+#define CLASSH_LUT1_REG16_OFFSET 0
+#define CLASSH_LUT1_REG17_REG              (BASE_ADDR_PAGE_DIG + 0x15A)
+#define CLASSH_LUT1_REG17_LEN    6
+#define CLASSH_LUT1_REG17_OFFSET 0
+#define CLASSH_LUT1_REG18_REG              (BASE_ADDR_PAGE_DIG + 0x15B)
+#define CLASSH_LUT1_REG18_LEN    6
+#define CLASSH_LUT1_REG18_OFFSET 0
+#define CLASSH_LUT1_REG19_REG              (BASE_ADDR_PAGE_DIG + 0x15C)
+#define CLASSH_LUT1_REG19_LEN    6
+#define CLASSH_LUT1_REG19_OFFSET 0
+#define CLASSH_LUT1_REG20_REG              (BASE_ADDR_PAGE_DIG + 0x15D)
+#define CLASSH_LUT1_REG20_LEN    6
+#define CLASSH_LUT1_REG20_OFFSET 0
+#define CLASSH_LUT1_REG21_REG              (BASE_ADDR_PAGE_DIG + 0x15E)
+#define CLASSH_LUT1_REG21_LEN    6
+#define CLASSH_LUT1_REG21_OFFSET 0
+#define CLASSH_LUT1_REG22_REG              (BASE_ADDR_PAGE_DIG + 0x15F)
+#define CLASSH_LUT1_REG22_LEN    6
+#define CLASSH_LUT1_REG22_OFFSET 0
+#define CLASSH_LUT1_REG23_REG              (BASE_ADDR_PAGE_DIG + 0x160)
+#define CLASSH_LUT1_REG23_LEN    6
+#define CLASSH_LUT1_REG23_OFFSET 0
+#define CLASSH_LUT1_REG24_REG              (BASE_ADDR_PAGE_DIG + 0x161)
+#define CLASSH_LUT1_REG24_LEN    6
+#define CLASSH_LUT1_REG24_OFFSET 0
+#define CLASSH_LUT1_REG25_REG              (BASE_ADDR_PAGE_DIG + 0x162)
+#define CLASSH_LUT1_REG25_LEN    6
+#define CLASSH_LUT1_REG25_OFFSET 0
+#define CLASSH_LUT1_REG26_REG              (BASE_ADDR_PAGE_DIG + 0x163)
+#define CLASSH_LUT1_REG26_LEN    6
+#define CLASSH_LUT1_REG26_OFFSET 0
+#define CLASSH_LUT1_REG27_REG              (BASE_ADDR_PAGE_DIG + 0x164)
+#define CLASSH_LUT1_REG27_LEN    6
+#define CLASSH_LUT1_REG27_OFFSET 0
+#define CLASSH_LUT1_REG28_REG              (BASE_ADDR_PAGE_DIG + 0x165)
+#define CLASSH_LUT1_REG28_LEN    6
+#define CLASSH_LUT1_REG28_OFFSET 0
+#define CLASSH_LUT1_REG29_REG              (BASE_ADDR_PAGE_DIG + 0x166)
+#define CLASSH_LUT1_REG29_LEN    6
+#define CLASSH_LUT1_REG29_OFFSET 0
+#define CLASSH_LUT1_REG30_REG              (BASE_ADDR_PAGE_DIG + 0x167)
+#define CLASSH_LUT1_REG30_LEN    6
+#define CLASSH_LUT1_REG30_OFFSET 0
+#define CLASSH_LUT1_REG31_REG              (BASE_ADDR_PAGE_DIG + 0x168)
+#define CLASSH_LUT1_REG31_LEN    6
+#define CLASSH_LUT1_REG31_OFFSET 0
+#define CLASSH_LUT1_REG32_REG              (BASE_ADDR_PAGE_DIG + 0x169)
+#define CLASSH_LUT1_REG32_LEN    6
+#define CLASSH_LUT1_REG32_OFFSET 0
+#define CLASSH_LUT1_REG33_REG              (BASE_ADDR_PAGE_DIG + 0x16A)
+#define CLASSH_LUT1_REG33_LEN    6
+#define CLASSH_LUT1_REG33_OFFSET 0
+#define CLASSH_LUT1_REG34_REG              (BASE_ADDR_PAGE_DIG + 0x16B)
+#define CLASSH_LUT1_REG34_LEN    6
+#define CLASSH_LUT1_REG34_OFFSET 0
+#define CLASSH_LUT1_REG35_REG              (BASE_ADDR_PAGE_DIG + 0x16C)
+#define CLASSH_LUT1_REG35_LEN    6
+#define CLASSH_LUT1_REG35_OFFSET 0
+#define CLASSH_LUT1_REG36_REG              (BASE_ADDR_PAGE_DIG + 0x16D)
+#define CLASSH_LUT1_REG36_LEN    6
+#define CLASSH_LUT1_REG36_OFFSET 0
+#define CLASSH_LUT1_REG37_REG              (BASE_ADDR_PAGE_DIG + 0x16E)
+#define CLASSH_LUT1_REG37_LEN    6
+#define CLASSH_LUT1_REG37_OFFSET 0
+#define CLASSH_LUT1_REG38_REG              (BASE_ADDR_PAGE_DIG + 0x16F)
+#define CLASSH_LUT1_REG38_LEN    6
+#define CLASSH_LUT1_REG38_OFFSET 0
+#define CLASSH_LUT1_REG39_REG              (BASE_ADDR_PAGE_DIG + 0x170)
+#define CLASSH_LUT1_REG39_LEN    6
+#define CLASSH_LUT1_REG39_OFFSET 0
+#define CLASSH_LUT1_REG40_REG              (BASE_ADDR_PAGE_DIG + 0x171)
+#define CLASSH_LUT1_REG40_LEN    6
+#define CLASSH_LUT1_REG40_OFFSET 0
+#define CLASSH_LUT1_REG41_REG              (BASE_ADDR_PAGE_DIG + 0x172)
+#define CLASSH_LUT1_REG41_LEN    6
+#define CLASSH_LUT1_REG41_OFFSET 0
+#define CLASSH_LUT1_REG42_REG              (BASE_ADDR_PAGE_DIG + 0x173)
+#define CLASSH_LUT1_REG42_LEN    6
+#define CLASSH_LUT1_REG42_OFFSET 0
+#define CLASSH_LUT1_REG43_REG              (BASE_ADDR_PAGE_DIG + 0x174)
+#define CLASSH_LUT1_REG43_LEN    6
+#define CLASSH_LUT1_REG43_OFFSET 0
+#define CLASSH_LUT1_REG44_REG              (BASE_ADDR_PAGE_DIG + 0x175)
+#define CLASSH_LUT1_REG44_LEN    6
+#define CLASSH_LUT1_REG44_OFFSET 0
+#define CLASSH_LUT1_REG45_REG              (BASE_ADDR_PAGE_DIG + 0x176)
+#define CLASSH_LUT1_REG45_LEN    6
+#define CLASSH_LUT1_REG45_OFFSET 0
+#define CLASSH_LUT1_REG46_REG              (BASE_ADDR_PAGE_DIG + 0x177)
+#define CLASSH_LUT1_REG46_LEN    6
+#define CLASSH_LUT1_REG46_OFFSET 0
+#define CLASSH_LUT1_REG47_REG              (BASE_ADDR_PAGE_DIG + 0x178)
+#define CLASSH_LUT1_REG47_LEN    6
+#define CLASSH_LUT1_REG47_OFFSET 0
+#define CLASSH_LUT1_REG48_REG              (BASE_ADDR_PAGE_DIG + 0x179)
+#define CLASSH_LUT1_REG48_LEN    6
+#define CLASSH_LUT1_REG48_OFFSET 0
+#define CLASSH_LUT1_REG49_REG              (BASE_ADDR_PAGE_DIG + 0x17A)
+#define CLASSH_LUT1_REG49_LEN    6
+#define CLASSH_LUT1_REG49_OFFSET 0
+#define CLASSH_LUT1_REG50_REG              (BASE_ADDR_PAGE_DIG + 0x17B)
+#define CLASSH_LUT1_REG50_LEN    6
+#define CLASSH_LUT1_REG50_OFFSET 0
+#define CLASSH_LUT1_REG51_REG              (BASE_ADDR_PAGE_DIG + 0x17C)
+#define CLASSH_LUT1_REG51_LEN    6
+#define CLASSH_LUT1_REG51_OFFSET 0
+#define CLASSH_LUT1_REG52_REG              (BASE_ADDR_PAGE_DIG + 0x17D)
+#define CLASSH_LUT1_REG52_LEN    6
+#define CLASSH_LUT1_REG52_OFFSET 0
+#define CLASSH_LUT1_REG53_REG              (BASE_ADDR_PAGE_DIG + 0x17E)
+#define CLASSH_LUT1_REG53_LEN    6
+#define CLASSH_LUT1_REG53_OFFSET 0
+#define CLASSH_LUT1_REG54_REG              (BASE_ADDR_PAGE_DIG + 0x17F)
+#define CLASSH_LUT1_REG54_LEN    6
+#define CLASSH_LUT1_REG54_OFFSET 0
+#define CLASSH_LUT1_REG55_REG              (BASE_ADDR_PAGE_DIG + 0x180)
+#define CLASSH_LUT1_REG55_LEN    6
+#define CLASSH_LUT1_REG55_OFFSET 0
+#define CLASSH_LUT1_REG56_REG              (BASE_ADDR_PAGE_DIG + 0x181)
+#define CLASSH_LUT1_REG56_LEN    6
+#define CLASSH_LUT1_REG56_OFFSET 0
+#define CLASSH_LUT1_REG57_REG              (BASE_ADDR_PAGE_DIG + 0x182)
+#define CLASSH_LUT1_REG57_LEN    6
+#define CLASSH_LUT1_REG57_OFFSET 0
+#define CLASSH_LUT1_REG58_REG              (BASE_ADDR_PAGE_DIG + 0x183)
+#define CLASSH_LUT1_REG58_LEN    6
+#define CLASSH_LUT1_REG58_OFFSET 0
+#define CLASSH_LUT1_REG59_REG              (BASE_ADDR_PAGE_DIG + 0x184)
+#define CLASSH_LUT1_REG59_LEN    6
+#define CLASSH_LUT1_REG59_OFFSET 0
+#define CLASSH_LUT1_REG60_REG              (BASE_ADDR_PAGE_DIG + 0x185)
+#define CLASSH_LUT1_REG60_LEN    6
+#define CLASSH_LUT1_REG60_OFFSET 0
+#define CLASSH_LUT1_REG61_REG              (BASE_ADDR_PAGE_DIG + 0x186)
+#define CLASSH_LUT1_REG61_LEN    6
+#define CLASSH_LUT1_REG61_OFFSET 0
+#define CLASSH_LUT1_REG62_REG              (BASE_ADDR_PAGE_DIG + 0x187)
+#define CLASSH_LUT1_REG62_LEN    6
+#define CLASSH_LUT1_REG62_OFFSET 0
+#define CLASSH_LUT1_REG63_REG              (BASE_ADDR_PAGE_DIG + 0x188)
+#define CLASSH_LUT1_REG63_LEN    6
+#define CLASSH_LUT1_REG63_OFFSET 0
+#define CLASSH_LUT1_REG64_REG              (BASE_ADDR_PAGE_DIG + 0x189)
+#define CLASSH_LUT1_REG64_LEN    6
+#define CLASSH_LUT1_REG64_OFFSET 0
+#define CLASSH_LUT1_REG65_REG              (BASE_ADDR_PAGE_DIG + 0x18A)
+#define CLASSH_LUT1_REG65_LEN    6
+#define CLASSH_LUT1_REG65_OFFSET 0
+#define CLASSH_LUT1_REG66_REG              (BASE_ADDR_PAGE_DIG + 0x18B)
+#define CLASSH_LUT1_REG66_LEN    6
+#define CLASSH_LUT1_REG66_OFFSET 0
+#define CLASSH_LUT1_REG67_REG              (BASE_ADDR_PAGE_DIG + 0x18C)
+#define CLASSH_LUT1_REG67_LEN    6
+#define CLASSH_LUT1_REG67_OFFSET 0
+#define CLASSH_LUT1B_REG0_REG              (BASE_ADDR_PAGE_DIG + 0x18D)
+#define CLASSH_LUT1B_REG0_LEN    6
+#define CLASSH_LUT1B_REG0_OFFSET 0
+#define CLASSH_LUT1B_REG1_REG              (BASE_ADDR_PAGE_DIG + 0x18E)
+#define CLASSH_LUT1B_REG1_LEN    6
+#define CLASSH_LUT1B_REG1_OFFSET 0
+#define CLASSH_LUT1B_REG2_REG              (BASE_ADDR_PAGE_DIG + 0x18F)
+#define CLASSH_LUT1B_REG2_LEN    6
+#define CLASSH_LUT1B_REG2_OFFSET 0
+#define CLASSH_LUT1B_REG3_REG              (BASE_ADDR_PAGE_DIG + 0x190)
+#define CLASSH_LUT1B_REG3_LEN    6
+#define CLASSH_LUT1B_REG3_OFFSET 0
+#define CLASSH_LUT1B_REG4_REG              (BASE_ADDR_PAGE_DIG + 0x191)
+#define CLASSH_LUT1B_REG4_LEN    6
+#define CLASSH_LUT1B_REG4_OFFSET 0
+#define CLASSH_LUT1B_REG5_REG              (BASE_ADDR_PAGE_DIG + 0x192)
+#define CLASSH_LUT1B_REG5_LEN    6
+#define CLASSH_LUT1B_REG5_OFFSET 0
+#define CLASSH_LUT1B_REG6_REG              (BASE_ADDR_PAGE_DIG + 0x193)
+#define CLASSH_LUT1B_REG6_LEN    6
+#define CLASSH_LUT1B_REG6_OFFSET 0
+#define CLASSH_LUT1B_REG7_REG              (BASE_ADDR_PAGE_DIG + 0x194)
+#define CLASSH_LUT1B_REG7_LEN    6
+#define CLASSH_LUT1B_REG7_OFFSET 0
+#define CLASSH_LUT1B_REG8_REG              (BASE_ADDR_PAGE_DIG + 0x195)
+#define CLASSH_LUT1B_REG8_LEN    6
+#define CLASSH_LUT1B_REG8_OFFSET 0
+#define CLASSH_LUT1B_REG9_REG              (BASE_ADDR_PAGE_DIG + 0x196)
+#define CLASSH_LUT1B_REG9_LEN    6
+#define CLASSH_LUT1B_REG9_OFFSET 0
+#define CLASSH_LUT1B_REG10_REG             (BASE_ADDR_PAGE_DIG + 0x197)
+#define CLASSH_LUT1B_REG10_LEN    6
+#define CLASSH_LUT1B_REG10_OFFSET 0
+#define CLASSH_LUT1B_REG11_REG             (BASE_ADDR_PAGE_DIG + 0x198)
+#define CLASSH_LUT1B_REG11_LEN    6
+#define CLASSH_LUT1B_REG11_OFFSET 0
+#define CLASSH_LUT1B_REG12_REG             (BASE_ADDR_PAGE_DIG + 0x199)
+#define CLASSH_LUT1B_REG12_LEN    6
+#define CLASSH_LUT1B_REG12_OFFSET 0
+#define CLASSH_LUT1B_REG13_REG             (BASE_ADDR_PAGE_DIG + 0x19A)
+#define CLASSH_LUT1B_REG13_LEN    6
+#define CLASSH_LUT1B_REG13_OFFSET 0
+#define CLASSH_LUT1B_REG14_REG             (BASE_ADDR_PAGE_DIG + 0x19B)
+#define CLASSH_LUT1B_REG14_LEN    6
+#define CLASSH_LUT1B_REG14_OFFSET 0
+#define CLASSH_LUT1B_REG15_REG             (BASE_ADDR_PAGE_DIG + 0x19C)
+#define CLASSH_LUT1B_REG15_LEN    6
+#define CLASSH_LUT1B_REG15_OFFSET 0
+#define CLASSH_LUT1B_REG16_REG             (BASE_ADDR_PAGE_DIG + 0x19D)
+#define CLASSH_LUT1B_REG16_LEN    6
+#define CLASSH_LUT1B_REG16_OFFSET 0
+#define CLASSH_LUT1B_REG17_REG             (BASE_ADDR_PAGE_DIG + 0x19E)
+#define CLASSH_LUT1B_REG17_LEN    6
+#define CLASSH_LUT1B_REG17_OFFSET 0
+#define CLASSH_LUT1B_REG18_REG             (BASE_ADDR_PAGE_DIG + 0x19F)
+#define CLASSH_LUT1B_REG18_LEN    6
+#define CLASSH_LUT1B_REG18_OFFSET 0
+#define CLASSH_LUT1B_REG19_REG             (BASE_ADDR_PAGE_DIG + 0x1A0)
+#define CLASSH_LUT1B_REG19_LEN    6
+#define CLASSH_LUT1B_REG19_OFFSET 0
+#define CLASSH_LUT1B_REG20_REG             (BASE_ADDR_PAGE_DIG + 0x1A1)
+#define CLASSH_LUT1B_REG20_LEN    6
+#define CLASSH_LUT1B_REG20_OFFSET 0
+#define CLASSH_LUT1B_REG21_REG             (BASE_ADDR_PAGE_DIG + 0x1A2)
+#define CLASSH_LUT1B_REG21_LEN    6
+#define CLASSH_LUT1B_REG21_OFFSET 0
+#define CLASSH_LUT1B_REG22_REG             (BASE_ADDR_PAGE_DIG + 0x1A3)
+#define CLASSH_LUT1B_REG22_LEN    6
+#define CLASSH_LUT1B_REG22_OFFSET 0
+#define CLASSH_LUT1B_REG23_REG             (BASE_ADDR_PAGE_DIG + 0x1A4)
+#define CLASSH_LUT1B_REG23_LEN    6
+#define CLASSH_LUT1B_REG23_OFFSET 0
+#define CLASSH_LUT1B_REG24_REG             (BASE_ADDR_PAGE_DIG + 0x1A5)
+#define CLASSH_LUT1B_REG24_LEN    6
+#define CLASSH_LUT1B_REG24_OFFSET 0
+#define CLASSH_LUT1B_REG25_REG             (BASE_ADDR_PAGE_DIG + 0x1A6)
+#define CLASSH_LUT1B_REG25_LEN    6
+#define CLASSH_LUT1B_REG25_OFFSET 0
+#define CLASSH_LUT1B_REG26_REG             (BASE_ADDR_PAGE_DIG + 0x1A7)
+#define CLASSH_LUT1B_REG26_LEN    6
+#define CLASSH_LUT1B_REG26_OFFSET 0
+#define CLASSH_LUT1B_REG27_REG             (BASE_ADDR_PAGE_DIG + 0x1A8)
+#define CLASSH_LUT1B_REG27_LEN    6
+#define CLASSH_LUT1B_REG27_OFFSET 0
+#define CLASSH_LUT1B_REG28_REG             (BASE_ADDR_PAGE_DIG + 0x1A9)
+#define CLASSH_LUT1B_REG28_LEN    6
+#define CLASSH_LUT1B_REG28_OFFSET 0
+#define CLASSH_LUT1B_REG29_REG             (BASE_ADDR_PAGE_DIG + 0x1AA)
+#define CLASSH_LUT1B_REG29_LEN    6
+#define CLASSH_LUT1B_REG29_OFFSET 0
+#define CLASSH_LUT1B_REG30_REG             (BASE_ADDR_PAGE_DIG + 0x1AB)
+#define CLASSH_LUT1B_REG30_LEN    6
+#define CLASSH_LUT1B_REG30_OFFSET 0
+#define EP_SDM_L_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x1AE)
+#define EP_SDM_L_CALIBHI_EN_LEN    1
+#define EP_SDM_L_CALIBHI_EN_OFFSET 6
+#define EP_SDM_L_CALIBMD_EN_LEN    1
+#define EP_SDM_L_CALIBMD_EN_OFFSET 5
+#define EP_SDM_L_DITHER_LEN    3
+#define EP_SDM_L_DITHER_OFFSET 2
+#define EP_SDM_L_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x1AF)
+#define EP_SDM_L_DEMHI_SEL_BDWA    1
+#define EP_SDM_L_DEMHI_SEL_CAL    2
+#define EP_SDM_L_DEMHI_SEL_DEFAULT    EP_SDM_L_DEMHI_SEL_BDWA
+#define EP_SDM_L_DEMHI_SEL_LEN    2
+#define EP_SDM_L_DEMHI_SEL_OFFSET 5
+#define EP_SDM_L_DEMHI_CLA_STEP_5 4
+#define EP_SDM_L_DEMHI_CLA_STEP_LEN    3
+#define EP_SDM_L_DEMHI_CLA_STEP_OFFSET 2
+#define EP_SDM_L_DEMMD_SEL_BDWA    1
+#define EP_SDM_L_DEMMD_SEL_CAL    2
+#define EP_SDM_L_DEMMD_SEL_DEFAULT    EP_SDM_L_DEMMD_SEL_BDWA
+#define EP_SDM_L_DEMMD_SEL_LEN    2
+#define EP_SDM_L_DEMMD_SEL_OFFSET 0
+#define EP_SDM_L_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x1B0)
+#define EP_SDM_L_DEMMD_CLA_STEP_LEN    3
+#define EP_SDM_L_DEMMD_CLA_STEP_OFFSET 5
+#define EP_SDM_L_DEMHO_SEL_DEM_DIS    0
+#define EP_SDM_L_DEMHO_SEL_BDWA       1
+#define EP_SDM_L_DEMHO_SEL_CAL        2
+#define EP_SDM_L_DEMHO_SEL_DEFAULT    EP_SDM_L_DEMHO_SEL_BDWA
+#define EP_SDM_L_DEMLO_SEL_LEN        2
+#define EP_SDM_L_DEMLO_SEL_OFFSET     3
+#define EP_SDM_L_DEMLO_CLA_STEP_LEN    3
+#define EP_SDM_L_DEMLO_CLA_STEP_OFFSET 0
+#define EP_SDM_L_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x1B1)
+#define EP_SDM_L_CALT_VLD_LEN    1
+#define EP_SDM_L_CALT_VLD_OFFSET 0
+#define HP_SDM_L_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x1B8)
+#define HP_SDM_L_DEM_DSEN_LEN    1
+#define HP_SDM_L_DEM_DSEN_OFFSET 5
+#define HP_SDM_L_DGSTA_MUX_LEN    1
+#define HP_SDM_L_DGSTA_MUX_OFFSET 4
+#define HP_SDM_L_FDELAY_EN_LEN    1
+#define HP_SDM_L_FDELAY_EN_OFFSET 3
+#define HP_SDM_L_DGSTA_REGA_LEN    3
+#define HP_SDM_L_DGSTA_REGA_OFFSET 0
+#define HP_SDM_L_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x1B9)
+#define HP_SDM_L_MAX_DEM_VTHC3_LEN    6
+#define HP_SDM_L_MAX_DEM_VTHC3_OFFSET 0
+#define HP_SDM_L_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x1BA)
+#define HP_SDM_L_MAX_DEM_VTHC2_LEN    6
+#define HP_SDM_L_MAX_DEM_VTHC2_OFFSET 0
+#define HP_SDM_L_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x1BB)
+#define HP_SDM_L_MAX_DEM_VTHC1_LEN    6
+#define HP_SDM_L_MAX_DEM_VTHC1_OFFSET 0
+#define HP_SDM_L_CTRL4_REG                 (BASE_ADDR_PAGE_DIG + 0x1BC)
+#define HP_SDM_L_FDELAY_VTH1_LEN    6
+#define HP_SDM_L_FDELAY_VTH1_OFFSET 0
+#define HP_SDM_L_CTRL5_REG                 (BASE_ADDR_PAGE_DIG + 0x1BD)
+#define HP_SDM_L_FDELAY_VTH2_LEN    6
+#define HP_SDM_L_FDELAY_VTH2_OFFSET 0
+#define HP_SDM_L_CTRL6_REG                 (BASE_ADDR_PAGE_DIG + 0x1BE)
+#define HP_SDM_L_FDELAY_VTH3_LEN    6
+#define HP_SDM_L_FDELAY_VTH3_OFFSET 0
+#define HP_SDM_L_CTRL7_REG                 (BASE_ADDR_PAGE_DIG + 0x1BF)
+#define HP_SDM_L_UP16_DELAY_MASK    0xff
+#define HP_SDM_L_UP16_DELAY_VAULE   0xf2
+#define HP_SDM_L_FDELAY_CTH_LEN    3
+#define HP_SDM_L_FDELAY_CTH_OFFSET 5
+#define HP_SDM_L_MAXDEM_OFFSW_LEN    1
+#define HP_SDM_L_MAXDEM_OFFSW_OFFSET 4
+#define HP_SDM_L_UP16_DELAY_LEN    4
+#define HP_SDM_L_UP16_DELAY_OFFSET 0
+#define HP_SDM_L_CTRL8_REG                 (BASE_ADDR_PAGE_DIG + 0x1C0)
+#define HP_SDM_L_DELAY_MASK   0xff
+#define HP_SDM_L_DELAY_VALUE  0x28
+#define HP_SDM_L_TVB_DELAY_LEN    4
+#define HP_SDM_L_TVB_DELAY_OFFSET 4
+#define HP_SDM_L_TZC_DELAY_LEN    4
+#define HP_SDM_L_TZC_DELAY_OFFSET 0
+#define HP_SDM_L_CTRL9_REG                 (BASE_ADDR_PAGE_DIG + 0x1C1)
+#define HP_SDM_L_CALIBHI_EN_LEN    1
+#define HP_SDM_L_CALIBHI_EN_OFFSET 6
+#define HP_SDM_L_CALIBMD_EN_LEN    1
+#define HP_SDM_L_CALIBMD_EN_OFFSET 5
+#define HP_SDM_L_DITHER_LEN    3
+#define HP_SDM_L_DITHER_OFFSET 2
+#define HP_SDM_L_CELLSEL_MODE_2      2
+#define HP_SDM_L_CELLSEL_MODE_LEN    2
+#define HP_SDM_L_CELLSEL_MODE_OFFSET 0
+#define HP_SDM_L_CTRL10_REG                (BASE_ADDR_PAGE_DIG + 0x1C2)
+#define HP_SDM_L_DEMHI_SEL_LEN    2
+#define HP_SDM_L_DEMHI_SEL_OFFSET 5
+#define HP_SDM_L_DEMHI_CLA_STEP_LEN    3
+#define HP_SDM_L_DEMHI_CLA_STEP_OFFSET 2
+#define HP_SDM_L_DEMMD_SEL_LEN    2
+#define HP_SDM_L_DEMMD_SEL_OFFSET 0
+#define HP_SDM_L_CTRL11_REG                (BASE_ADDR_PAGE_DIG + 0x1C3)
+#define HP_SDM_L_DEMMD_CLA_STEP_LEN    3
+#define HP_SDM_L_DEMMD_CLA_STEP_OFFSET 5
+#define HP_SDM_L_DEMLO_SEL_LEN    2
+#define HP_SDM_L_DEMLO_SEL_OFFSET 3
+#define HP_SDM_L_DEMLO_CLA_STEP_LEN    3
+#define HP_SDM_L_DEMLO_CLA_STEP_OFFSET 0
+#define HP_SDM_L_CTRL12_REG                (BASE_ADDR_PAGE_DIG + 0x1C4)
+#define HP_SDM_L_FDELAY_VTH0_LEN    6
+#define HP_SDM_L_FDELAY_VTH0_OFFSET 1
+#define HP_SDM_L_CALT_VLD_LEN    1
+#define HP_SDM_L_CALT_VLD_OFFSET 0
+#define HP_SDM_R_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x1C7)
+#define HP_SDM_R_DEM_DSEN_LEN    1
+#define HP_SDM_R_DEM_DSEN_OFFSET 5
+#define HP_SDM_R_DGSTA_MUX_LEN    1
+#define HP_SDM_R_DGSTA_MUX_OFFSET 4
+#define HP_SDM_R_FDELAY_EN_LEN    1
+#define HP_SDM_R_FDELAY_EN_OFFSET 3
+#define HP_SDM_R_DGSTA_REGA_LEN    3
+#define HP_SDM_R_DGSTA_REGA_OFFSET 0
+#define HP_SDM_R_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x1C8)
+#define HP_SDM_R_MAX_DEM_VTHC3_LEN    6
+#define HP_SDM_R_MAX_DEM_VTHC3_OFFSET 0
+#define HP_SDM_R_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x1C9)
+#define HP_SDM_R_MAX_DEM_VTHC2_LEN    6
+#define HP_SDM_R_MAX_DEM_VTHC2_OFFSET 0
+#define HP_SDM_R_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x1CA)
+#define HP_SDM_R_MAX_DEM_VTHC1_LEN    6
+#define HP_SDM_R_MAX_DEM_VTHC1_OFFSET 0
+#define HP_SDM_R_CTRL4_REG                 (BASE_ADDR_PAGE_DIG + 0x1CB)
+#define HP_SDM_R_FDELAY_VTH1_LEN    6
+#define HP_SDM_R_FDELAY_VTH1_OFFSET 0
+#define HP_SDM_R_CTRL5_REG                 (BASE_ADDR_PAGE_DIG + 0x1CC)
+#define HP_SDM_R_FDELAY_VTH2_LEN    6
+#define HP_SDM_R_FDELAY_VTH2_OFFSET 0
+#define HP_SDM_R_CTRL6_REG                 (BASE_ADDR_PAGE_DIG + 0x1CD)
+#define HP_SDM_R_FDELAY_VTH3_LEN    6
+#define HP_SDM_R_FDELAY_VTH3_OFFSET 0
+#define HP_SDM_R_CTRL7_REG                 (BASE_ADDR_PAGE_DIG + 0x1CE)
+#define HP_SDM_R_UP16_DELAY_MASK    0xff
+#define HP_SDM_R_UP16_DELAY_VAULE   0xf2
+#define HP_SDM_R_FDELAY_CTH_LEN    3
+#define HP_SDM_R_FDELAY_CTH_OFFSET 5
+#define HP_SDM_R_MAXDEM_OFFSW_LEN    1
+#define HP_SDM_R_MAXDEM_OFFSW_OFFSET 4
+#define HP_SDM_R_UP16_DELAY_LEN    4
+#define HP_SDM_R_UP16_DELAY_OFFSET 0
+#define HP_SDM_R_CTRL8_REG                 (BASE_ADDR_PAGE_DIG + 0x1CF)
+#define HP_SDM_R_DELAY_MASK   0xff
+#define HP_SDM_R_DELAY_VALUE  0x28
+#define HP_SDM_R_TVB_DELAY_LEN    4
+#define HP_SDM_R_TVB_DELAY_OFFSET 4
+#define HP_SDM_R_TZC_DELAY_LEN    4
+#define HP_SDM_R_TZC_DELAY_OFFSET 0
+#define HP_SDM_R_CTRL9_REG                 (BASE_ADDR_PAGE_DIG + 0x1D0)
+#define HP_SDM_R_CALIBHI_EN_LEN    1
+#define HP_SDM_R_CALIBHI_EN_OFFSET 6
+#define HP_SDM_R_CALIBMD_EN_LEN    1
+#define HP_SDM_R_CALIBMD_EN_OFFSET 5
+#define HP_SDM_R_DITHER_LEN    3
+#define HP_SDM_R_DITHER_OFFSET 2
+#define HP_SDM_R_CELLSEL_MODE_2      2
+#define HP_SDM_R_CELLSEL_MODE_LEN    2
+#define HP_SDM_R_CELLSEL_MODE_OFFSET 0
+#define HP_SDM_R_CTRL10_REG                (BASE_ADDR_PAGE_DIG + 0x1D1)
+#define HP_SDM_R_DEMHI_SEL_LEN    2
+#define HP_SDM_R_DEMHI_SEL_OFFSET 5
+#define HP_SDM_R_DEMHI_CLA_STEP_LEN    3
+#define HP_SDM_R_DEMHI_CLA_STEP_OFFSET 2
+#define HP_SDM_R_DEMMD_SEL_LEN    2
+#define HP_SDM_R_DEMMD_SEL_OFFSET 0
+#define HP_SDM_R_CTRL11_REG                (BASE_ADDR_PAGE_DIG + 0x1D2)
+#define HP_SDM_R_DEMMD_CLA_STEP_LEN    3
+#define HP_SDM_R_DEMMD_CLA_STEP_OFFSET 5
+#define HP_SDM_R_DEMLO_SEL_LEN    2
+#define HP_SDM_R_DEMLO_SEL_OFFSET 3
+#define HP_SDM_R_DEMLO_CLA_STEP_LEN    3
+#define HP_SDM_R_DEMLO_CLA_STEP_OFFSET 0
+#define HP_SDM_R_CTRL12_REG                (BASE_ADDR_PAGE_DIG + 0x1D3)
+#define HP_SDM_R_FDELAY_VTH0_LEN    6
+#define HP_SDM_R_FDELAY_VTH0_OFFSET 1
+#define HP_SDM_R_CALT_VLD_LEN    1
+#define HP_SDM_R_CALT_VLD_OFFSET 0
+#define CODEC_DP_CLKEN_REG                 (BASE_ADDR_PAGE_DIG + 0x1D6)
+#define CODEC_DP_CLKEN_LEN    1
+#define CODEC_DP_CLKEN_OFFSET 0
+#define HP_CALIB_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x1DE)
+#define HP_CALIB_ICELL_FLAG_LEN    1
+#define HP_CALIB_ICELL_FLAG_OFFSET 0
+#define HP_CALIB_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x1DF)
+#define HP_CALIB_WAIT_TIME_LEN    8
+#define HP_CALIB_WAIT_TIME_OFFSET 0
+#define HP_CALIB_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x1E0)
+#define HP_CALIB_AVERAGE_NUM_LEN    8
+#define HP_CALIB_AVERAGE_NUM_OFFSET 0
+#define HP_CALIB_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x1E1)
+#define HPR_CALIBMD_EN_LEN    1
+#define HPR_CALIBMD_EN_OFFSET 3
+#define HPR_CALIBHI_EN_LEN    1
+#define HPR_CALIBHI_EN_OFFSET 2
+#define HPL_CALIBMD_EN_LEN    1
+#define HPL_CALIBMD_EN_OFFSET 1
+#define HPL_CALIBHI_EN_LEN    1
+#define HPL_CALIBHI_EN_OFFSET 0
+#define HP_CALIB_STAT_REG                  (BASE_ADDR_PAGE_DIG + 0x1E2)
+#define HP_CALIB_READY_LEN    1
+#define HP_CALIB_READY_OFFSET 0
+#define EP_CALIB_CTRL0_REG                 (BASE_ADDR_PAGE_DIG + 0x1E4)
+#define EP_CALIB_ICELL_FLAG_LEN    1
+#define EP_CALIB_ICELL_FLAG_OFFSET 0
+#define EP_CALIB_CTRL1_REG                 (BASE_ADDR_PAGE_DIG + 0x1E5)
+#define EP_CALIB_WAIT_TIME_LEN    8
+#define EP_CALIB_WAIT_TIME_OFFSET 0
+#define EP_CALIB_CTRL2_REG                 (BASE_ADDR_PAGE_DIG + 0x1E6)
+#define EP_CALIB_AVERAGE_NUM_LEN    8
+#define EP_CALIB_AVERAGE_NUM_OFFSET 0
+#define EP_CALIB_CTRL3_REG                 (BASE_ADDR_PAGE_DIG + 0x1E7)
+#define EPR_CALIBMD_EN_LEN    1
+#define EPR_CALIBMD_EN_OFFSET 3
+#define EPR_CALIBHI_EN_LEN    1
+#define EPR_CALIBHI_EN_OFFSET 2
+#define EPL_CALIBMD_EN_LEN    1
+#define EPL_CALIBMD_EN_OFFSET 1
+#define EPL_CALIBHI_EN_LEN    1
+#define EPL_CALIBHI_EN_OFFSET 0
+#define EP_CALIB_STAT_REG                  (BASE_ADDR_PAGE_DIG + 0x1E8)
+#define EP_CALIB_READY_LEN    1
+#define EP_CALIB_READY_OFFSET 0
+#define HP_SDM_L_STATE1_0_REG              (BASE_ADDR_PAGE_DIG + 0x1EA)
+#define HP_SDM_L_CALIB_HI_ERR_0_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_0_OFFSET 0
+#define HP_SDM_L_STATE1_1_REG              (BASE_ADDR_PAGE_DIG + 0x1EB)
+#define HP_SDM_L_CALIB_HI_ERR_1_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_1_OFFSET 0
+#define HP_SDM_L_STATE1_2_REG              (BASE_ADDR_PAGE_DIG + 0x1EC)
+#define HP_SDM_L_CALIB_HI_ERR_2_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_2_OFFSET 0
+#define HP_SDM_L_STATE1_3_REG              (BASE_ADDR_PAGE_DIG + 0x1ED)
+#define HP_SDM_L_CALIB_HI_ERR_3_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_3_OFFSET 0
+#define HP_SDM_L_STATE1_4_REG              (BASE_ADDR_PAGE_DIG + 0x1EE)
+#define HP_SDM_L_CALIB_HI_ERR_4_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_4_OFFSET 0
+#define HP_SDM_L_STATE1_5_REG              (BASE_ADDR_PAGE_DIG + 0x1EF)
+#define HP_SDM_L_CALIB_HI_ERR_5_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_5_OFFSET 0
+#define HP_SDM_L_STATE1_6_REG              (BASE_ADDR_PAGE_DIG + 0x1F0)
+#define HP_SDM_L_CALIB_HI_ERR_6_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_6_OFFSET 0
+#define HP_SDM_L_STATE1_7_REG              (BASE_ADDR_PAGE_DIG + 0x1F1)
+#define HP_SDM_L_CALIB_HI_ERR_7_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_7_OFFSET 0
+#define HP_SDM_L_STATE1_8_REG              (BASE_ADDR_PAGE_DIG + 0x1F2)
+#define HP_SDM_L_CALIB_HI_ERR_8_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_8_OFFSET 0
+#define HP_SDM_L_STATE1_9_REG              (BASE_ADDR_PAGE_DIG + 0x1F3)
+#define HP_SDM_L_CALIB_HI_ERR_9_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_9_OFFSET 0
+#define HP_SDM_L_STATE1_10_REG             (BASE_ADDR_PAGE_DIG + 0x1F4)
+#define HP_SDM_L_CALIB_HI_ERR_10_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_10_OFFSET 0
+#define HP_SDM_L_STATE1_11_REG             (BASE_ADDR_PAGE_DIG + 0x1F5)
+#define HP_SDM_L_CALIB_HI_ERR_11_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_11_OFFSET 0
+#define HP_SDM_L_STATE1_12_REG             (BASE_ADDR_PAGE_DIG + 0x1F6)
+#define HP_SDM_L_CALIB_HI_ERR_12_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_12_OFFSET 0
+#define HP_SDM_L_STATE1_13_REG             (BASE_ADDR_PAGE_DIG + 0x1F7)
+#define HP_SDM_L_CALIB_HI_ERR_13_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_13_OFFSET 0
+#define HP_SDM_L_STATE1_14_REG             (BASE_ADDR_PAGE_DIG + 0x1F8)
+#define HP_SDM_L_CALIB_HI_ERR_14_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_14_OFFSET 0
+#define HP_SDM_L_STATE1_15_REG             (BASE_ADDR_PAGE_DIG + 0x1F9)
+#define HP_SDM_L_CALIB_HI_ERR_15_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_15_OFFSET 0
+#define HP_SDM_L_STATE1_16_REG             (BASE_ADDR_PAGE_DIG + 0x1FA)
+#define HP_SDM_L_CALIB_HI_ERR_16_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_16_OFFSET 0
+#define HP_SDM_L_STATE1_17_REG             (BASE_ADDR_PAGE_DIG + 0x1FB)
+#define HP_SDM_L_CALIB_HI_ERR_17_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_17_OFFSET 0
+#define HP_SDM_L_STATE1_18_REG             (BASE_ADDR_PAGE_DIG + 0x1FC)
+#define HP_SDM_L_CALIB_HI_ERR_18_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_18_OFFSET 0
+#define HP_SDM_L_STATE1_19_REG             (BASE_ADDR_PAGE_DIG + 0x1FD)
+#define HP_SDM_L_CALIB_HI_ERR_19_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_19_OFFSET 0
+#define HP_SDM_L_STATE1_20_REG             (BASE_ADDR_PAGE_DIG + 0x1FE)
+#define HP_SDM_L_CALIB_HI_ERR_20_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_20_OFFSET 0
+#define HP_SDM_L_STATE1_21_REG             (BASE_ADDR_PAGE_DIG + 0x1FF)
+#define HP_SDM_L_CALIB_HI_ERR_21_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_21_OFFSET 0
+#define HP_SDM_L_STATE1_22_REG             (BASE_ADDR_PAGE_DIG + 0x200)
+#define HP_SDM_L_CALIB_HI_ERR_22_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_22_OFFSET 0
+#define HP_SDM_L_STATE1_23_REG             (BASE_ADDR_PAGE_DIG + 0x201)
+#define HP_SDM_L_CALIB_HI_ERR_23_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_23_OFFSET 0
+#define HP_SDM_L_STATE1_24_REG             (BASE_ADDR_PAGE_DIG + 0x202)
+#define HP_SDM_L_CALIB_HI_ERR_24_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_24_OFFSET 0
+#define HP_SDM_L_STATE1_25_REG             (BASE_ADDR_PAGE_DIG + 0x203)
+#define HP_SDM_L_CALIB_HI_ERR_25_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_25_OFFSET 0
+#define HP_SDM_L_STATE1_26_REG             (BASE_ADDR_PAGE_DIG + 0x204)
+#define HP_SDM_L_CALIB_HI_ERR_26_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_26_OFFSET 0
+#define HP_SDM_L_STATE1_27_REG             (BASE_ADDR_PAGE_DIG + 0x205)
+#define HP_SDM_L_CALIB_HI_ERR_27_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_27_OFFSET 0
+#define HP_SDM_L_STATE1_28_REG             (BASE_ADDR_PAGE_DIG + 0x206)
+#define HP_SDM_L_CALIB_HI_ERR_28_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_28_OFFSET 0
+#define HP_SDM_L_STATE1_29_REG             (BASE_ADDR_PAGE_DIG + 0x207)
+#define HP_SDM_L_CALIB_HI_ERR_29_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_29_OFFSET 0
+#define HP_SDM_L_STATE1_30_REG             (BASE_ADDR_PAGE_DIG + 0x208)
+#define HP_SDM_L_CALIB_HI_ERR_30_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_30_OFFSET 0
+#define HP_SDM_L_STATE1_31_REG             (BASE_ADDR_PAGE_DIG + 0x209)
+#define HP_SDM_L_CALIB_HI_ERR_31_LEN    8
+#define HP_SDM_L_CALIB_HI_ERR_31_OFFSET 0
+#define IMP_DET_CTRL0_REG                  (BASE_ADDR_PAGE_DIG + 0x210)
+#define IMP_DET_EN_LEN    1
+#define IMP_DET_EN_OFFSET 0
+#define IMP_DET_CTRL1_REG                  (BASE_ADDR_PAGE_DIG + 0x211)
+#define IMP_DET_SAMP_NUM_LEN    8
+#define IMP_DET_SAMP_NUM_OFFSET 0
+#define IMP_DET_STATE_REG                  (BASE_ADDR_PAGE_DIG + 0x212)
+#define IMP_DET_DOUT_RDY_LEN    1
+#define IMP_DET_DOUT_RDY_OFFSET 0
+#define DMIC0_CTRL_REG                     (BASE_ADDR_PAGE_DIG + 0x213)
+#define DMIC0_REVERSE_LEN    1
+#define DMIC0_REVERSE_OFFSET 1
+#define DMIC0_SW_DMIC_MODE_LEN    1
+#define DMIC0_SW_DMIC_MODE_OFFSET 0
+#define DMIC1_CTRL_REG                     (BASE_ADDR_PAGE_DIG + 0x214)
+#define DMIC1_REVERSE_LEN    1
+#define DMIC1_REVERSE_OFFSET 1
+#define DMIC1_SW_DMIC_MODE_LEN    1
+#define DMIC1_SW_DMIC_MODE_OFFSET 0
+#define DACL_CTRL_REG                      (BASE_ADDR_PAGE_DIG + 0x215)
+#define DACL_HIRES_MEM_ICG_BP_EN_LEN    1
+#define DACL_HIRES_MEM_ICG_BP_EN_OFFSET 4
+#define DACL_FILTER1_SEL_LEN    1
+#define DACL_FILTER1_SEL_OFFSET 3
+#define DACL_HIRES_BYPASS_EN_LEN    1
+#define DACL_HIRES_BYPASS_EN_OFFSET 2
+#define DACL_COMP2I_BYPASS_EN_LEN    1
+#define DACL_COMP2I_BYPASS_EN_OFFSET 1
+#define DACL_IR2I_BYPASS_EN_LEN    1
+#define DACL_IR2I_BYPASS_EN_OFFSET 0
+#define DACR_CTRL_REG                      (BASE_ADDR_PAGE_DIG + 0x216)
+#define DACR_HIRES_MEM_ICG_BP_EN_LEN    1
+#define DACR_HIRES_MEM_ICG_BP_EN_OFFSET 4
+#define DACR_FILTER1_SEL_LEN    1
+#define DACR_FILTER1_SEL_OFFSET 3
+#define DACR_HIRES_BYPASS_EN_LEN    1
+#define DACR_HIRES_BYPASS_EN_OFFSET 2
+#define DACR_COMP2I_BYPASS_EN_LEN    1
+#define DACR_COMP2I_BYPASS_EN_OFFSET 1
+#define DACR_IR2I_BYPASS_EN_LEN    1
+#define DACR_IR2I_BYPASS_EN_OFFSET 0
+#define DACSL_CTRL_REG                     (BASE_ADDR_PAGE_DIG + 0x217)
+#define DACSL_COMPI_BYPASS_EN_LEN    1
+#define DACSL_COMPI_BYPASS_EN_OFFSET 2
+#define DACSL_HBF2I_BYPASS_EN_LEN    1
+#define DACSL_HBF2I_BYPASS_EN_OFFSET 1
+#define DACSL_HBF1I_BYPASS_EN_LEN    1
+#define DACSL_HBF1I_BYPASS_EN_OFFSET 0
+#define ADC0L_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x219)
+#define ADC0L_COMPD_BYPASS_EN_LEN    1
+#define ADC0L_COMPD_BYPASS_EN_OFFSET 3
+#define ADC0L_IR2D_BYPASS_EN_LEN    1
+#define ADC0L_IR2D_BYPASS_EN_OFFSET 2
+#define ADC0L_HPF_BYPASS_EN_LEN    1
+#define ADC0L_HPF_BYPASS_EN_OFFSET 1
+#define ADC0L_COMP2D_DIN_SEL_LEN    1
+#define ADC0L_COMP2D_DIN_SEL_OFFSET 0
+#define ADC0L_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x21A)
+#define ADC0L_CIC_GAIN_LEN    6
+#define ADC0L_CIC_GAIN_OFFSET 0
+#define ADC_DC_H_REG                       (BASE_ADDR_PAGE_DIG + 0x21B)
+#define ADC_DC_H_LEN    8
+#define ADC_DC_H_OFFSET 0
+#define ADC_DC_M_REG                       (BASE_ADDR_PAGE_DIG + 0x21C)
+#define ADC_DC_M_LEN    8
+#define ADC_DC_M_OFFSET 0
+#define ADC_DC_L_REG                       (BASE_ADDR_PAGE_DIG + 0x21D)
+#define ADC_DC_L_LEN    8
+#define ADC_DC_L_OFFSET 0
+#define ADC0R_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x21E)
+#define ADC0R_COMPD_BYPASS_EN_LEN    1
+#define ADC0R_COMPD_BYPASS_EN_OFFSET 3
+#define ADC0R_IR2D_BYPASS_EN_LEN    1
+#define ADC0R_IR2D_BYPASS_EN_OFFSET 2
+#define ADC0R_HPF_BYPASS_EN_LEN    1
+#define ADC0R_HPF_BYPASS_EN_OFFSET 1
+#define ADC0R_COMP2D_DIN_SEL_LEN    1
+#define ADC0R_COMP2D_DIN_SEL_OFFSET 0
+#define ADC0R_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x21F)
+#define ADC0R_CIC_GAIN_LEN    6
+#define ADC0R_CIC_GAIN_OFFSET 0
+#define ADC1L_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x220)
+#define ADC1L_COMPD_BYPASS_EN_LEN    1
+#define ADC1L_COMPD_BYPASS_EN_OFFSET 3
+#define ADC1L_IR2D_BYPASS_EN_LEN    1
+#define ADC1L_IR2D_BYPASS_EN_OFFSET 2
+#define ADC1L_HPF_BYPASS_EN_LEN    1
+#define ADC1L_HPF_BYPASS_EN_OFFSET 1
+#define ADC1L_COMP2D_DIN_SEL_LEN    1
+#define ADC1L_COMP2D_DIN_SEL_OFFSET 0
+#define ADC1L_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x221)
+#define ADC1L_CIC_GAIN_LEN    6
+#define ADC1L_CIC_GAIN_OFFSET 0
+#define ADC1R_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x222)
+#define ADC1R_COMPD_BYPASS_EN_LEN    1
+#define ADC1R_COMPD_BYPASS_EN_OFFSET 3
+#define ADC1R_IR2D_BYPASS_EN_LEN    1
+#define ADC1R_IR2D_BYPASS_EN_OFFSET 2
+#define ADC1R_HPF_BYPASS_EN_LEN    1
+#define ADC1R_HPF_BYPASS_EN_OFFSET 1
+#define ADC1R_COMP2D_DIN_SEL_LEN    1
+#define ADC1R_COMP2D_DIN_SEL_OFFSET 0
+#define ADC1R_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x223)
+#define ADC1R_CIC_GAIN_LEN    6
+#define ADC1R_CIC_GAIN_OFFSET 0
+#define ADC2L_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x224)
+#define ADC2L_COMPD_BYPASS_EN_LEN    1
+#define ADC2L_COMPD_BYPASS_EN_OFFSET 3
+#define ADC2L_IR2D_BYPASS_EN_LEN    1
+#define ADC2L_IR2D_BYPASS_EN_OFFSET 2
+#define ADC2L_HPF_BYPASS_EN_LEN    1
+#define ADC2L_HPF_BYPASS_EN_OFFSET 1
+#define ADC2L_COMP2D_DIN_SEL_LEN    1
+#define ADC2L_COMP2D_DIN_SEL_OFFSET 0
+#define ADC2L_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x225)
+#define ADC2L_CIC_GAIN_LEN    6
+#define ADC2L_CIC_GAIN_OFFSET 0
+#define ANC_L_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x226)
+#define ANC_L_PREPROC0_EN_LEN    1
+#define ANC_L_PREPROC0_EN_OFFSET 6
+#define ANC_L_PREPROC1_EN_LEN    1
+#define ANC_L_PREPROC1_EN_OFFSET 5
+#define ANC_L_FF_EN_LEN    1
+#define ANC_L_FF_EN_OFFSET 4
+#define ANC_L_FB_EN_LEN    1
+#define ANC_L_FB_EN_OFFSET 3
+#define ANC_L_ERRSIGPROC_EN_LEN    1
+#define ANC_L_ERRSIGPROC_EN_OFFSET 2
+#define ANC_L_BPFADD_EN_LEN    1
+#define ANC_L_BPFADD_EN_OFFSET 1
+#define ANC_L_SRC32_EN_LEN    1
+#define ANC_L_SRC32_EN_OFFSET 0
+#define ANC_L_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x227)
+#define ANC_L_MEM_EN_LEN    1
+#define ANC_L_MEM_EN_OFFSET 7
+#define ANC_L_PREPROC0_DCR_CFG_EN_LEN    1
+#define ANC_L_PREPROC0_DCR_CFG_EN_OFFSET 6
+#define ANC_L_PREPROC1_DCR_CFG_EN_LEN    1
+#define ANC_L_PREPROC1_DCR_CFG_EN_OFFSET 5
+#define ANC_L_PREPROC0_DCR_BYP_LEN    1
+#define ANC_L_PREPROC0_DCR_BYP_OFFSET 4
+#define ANC_L_PREPROC0_IIR0_BYP_LEN    1
+#define ANC_L_PREPROC0_IIR0_BYP_OFFSET 3
+#define ANC_L_PREPROC0_IIR1_BYP_LEN    1
+#define ANC_L_PREPROC0_IIR1_BYP_OFFSET 2
+#define ANC_L_PREPROC0_CIC_BYP_LEN    1
+#define ANC_L_PREPROC0_CIC_BYP_OFFSET 1
+#define ANC_L_PREPROC1_DCR_BYP_LEN    1
+#define ANC_L_PREPROC1_DCR_BYP_OFFSET 0
+#define ANC_L_CTRL2_REG                    (BASE_ADDR_PAGE_DIG + 0x228)
+#define ANC_L_PREPROC1_IIR0_BYP_LEN    1
+#define ANC_L_PREPROC1_IIR0_BYP_OFFSET 7
+#define ANC_L_PREPROC1_IIR1_BYP_LEN    1
+#define ANC_L_PREPROC1_IIR1_BYP_OFFSET 6
+#define ANC_L_PREPROC1_CIC_BYP_LEN    1
+#define ANC_L_PREPROC1_CIC_BYP_OFFSET 5
+#define ANC_L_SRC32ANC_CIC_BYP_LEN    1
+#define ANC_L_SRC32ANC_CIC_BYP_OFFSET 4
+#define ANC_L_BPFADD_FAREND_IIR0_BYP_LEN    1
+#define ANC_L_BPFADD_FAREND_IIR0_BYP_OFFSET 3
+#define ANC_L_BPFADD_FAREND_IIR1_BYP_LEN    1
+#define ANC_L_BPFADD_FAREND_IIR1_BYP_OFFSET 2
+#define ANC_L_BPFADD_ANTINOISE_IIR0_BYP_LEN    1
+#define ANC_L_BPFADD_ANTINOISE_IIR0_BYP_OFFSET 1
+#define ANC_L_BPFADD_ANTINOISE_IIR1_BYP_LEN    1
+#define ANC_L_BPFADD_ANTINOISE_IIR1_BYP_OFFSET 0
+#define ANC_L_CTRL4_REG                    (BASE_ADDR_PAGE_DIG + 0x22A)
+#define ANC_L_DSPIF_TEST_SEL_LEN    8
+#define ANC_L_DSPIF_TEST_SEL_OFFSET 0
+#define ANC_L_CTRL5_REG                    (BASE_ADDR_PAGE_DIG + 0x22B)
+#define ANC_L_PREPROC0_CIC_GAIN_LEN    8
+#define ANC_L_PREPROC0_CIC_GAIN_OFFSET 0
+#define ANC_L_CTRL6_REG                    (BASE_ADDR_PAGE_DIG + 0x22C)
+#define ANC_L_PREPROC0_DCR_GAIN_H_LEN    4
+#define ANC_L_PREPROC0_DCR_GAIN_H_OFFSET 0
+#define ANC_L_CTRL7_REG                    (BASE_ADDR_PAGE_DIG + 0x22D)
+#define ANC_L_PREPROC0_DCR_GAIN_L_LEN    8
+#define ANC_L_PREPROC0_DCR_GAIN_L_OFFSET 0
+#define ANC_L_CTRL8_REG                    (BASE_ADDR_PAGE_DIG + 0x22E)
+#define ANC_L_PREPROC0_DCR_UPDATA_PERIOD_LEN    2
+#define ANC_L_PREPROC0_DCR_UPDATA_PERIOD_OFFSET 6
+#define ANC_L_PREPROC0_IIR_SFT_PRE_LEN    2
+#define ANC_L_PREPROC0_IIR_SFT_PRE_OFFSET 4
+#define ANC_L_PREPROC0_IIR0_SFT_INNER_LEN    2
+#define ANC_L_PREPROC0_IIR0_SFT_INNER_OFFSET 2
+#define ANC_L_PREPROC0_IIR1_SFT_INNER_LEN    2
+#define ANC_L_PREPROC0_IIR1_SFT_INNER_OFFSET 0
+#define ANC_L_CTRL9_REG                    (BASE_ADDR_PAGE_DIG + 0x22F)
+#define ANC_L_IR3_ANC_EN_LEN    1
+#define ANC_L_IR3_ANC_EN_OFFSET 7
+#define ANC_L_PREPROC0_AGC_ALPHA_LEN    7
+#define ANC_L_PREPROC0_AGC_ALPHA_OFFSET 0
+#define ANC_L_CTRL11_REG                   (BASE_ADDR_PAGE_DIG + 0x230)
+#define ANC_L_PREPROC0_DCR_CFG_H_LEN    8
+#define ANC_L_PREPROC0_DCR_CFG_H_OFFSET 0
+#define ANC_L_CTRL12_REG                   (BASE_ADDR_PAGE_DIG + 0x231)
+#define ANC_L_PREPROC0_DCR_CFG_L_LEN    8
+#define ANC_L_PREPROC0_DCR_CFG_L_OFFSET 0
+#define ANC_L_CTRL13_REG                   (BASE_ADDR_PAGE_DIG + 0x232)
+#define ANC_L_PREPROC0_DCR_SFT_LEN    5
+#define ANC_L_PREPROC0_DCR_SFT_OFFSET 3
+#define ANC_L_PREPROC0_CIC_SFT_LEN    2
+#define ANC_L_PREPROC0_CIC_SFT_OFFSET 1
+#define ANC_L_CTRL14_REG                   (BASE_ADDR_PAGE_DIG + 0x233)
+#define ANC_L_PREPROC1_CIC_GAIN_LEN    8
+#define ANC_L_PREPROC1_CIC_GAIN_OFFSET 0
+#define ANC_L_DCR_GAIN_H_REG               (BASE_ADDR_PAGE_DIG + 0x234)
+#define ANC_L_PREPROC1_DCR_GAIN_H_LEN    4
+#define ANC_L_PREPROC1_DCR_GAIN_H_OFFSET 0
+#define ANC_L_DCR_GAIN_L_REG               (BASE_ADDR_PAGE_DIG + 0x235)
+#define ANC_L_PREPROC1_DCR_GAIN_L_LEN    8
+#define ANC_L_PREPROC1_DCR_GAIN_L_OFFSET 0
+#define ANC_L_CTRL16_REG                   (BASE_ADDR_PAGE_DIG + 0x236)
+#define ANC_L_PREPROC1_AGC_ALPHA_LEN    7
+#define ANC_L_PREPROC1_AGC_ALPHA_OFFSET 0
+#define ANC_L_CTRL18_REG                   (BASE_ADDR_PAGE_DIG + 0x237)
+#define ANC_L_PREPROC1_DCR_UPDATA_PERIOD_LEN    2
+#define ANC_L_PREPROC1_DCR_UPDATA_PERIOD_OFFSET 6
+#define ANC_L_PREPROC1_IIR_SFT_PRE_LEN    2
+#define ANC_L_PREPROC1_IIR_SFT_PRE_OFFSET 4
+#define ANC_L_PREPROC1_IIR0_SFT_INNER_LEN    2
+#define ANC_L_PREPROC1_IIR0_SFT_INNER_OFFSET 2
+#define ANC_L_PREPROC1_IIR1_SFT_INNER_LEN    2
+#define ANC_L_PREPROC1_IIR1_SFT_INNER_OFFSET 0
+#define ANC_L_CTRL19_REG                   (BASE_ADDR_PAGE_DIG + 0x238)
+#define ANC_L_PREPROC1_DCR_CFG_H_LEN    8
+#define ANC_L_PREPROC1_DCR_CFG_H_OFFSET 0
+#define ANC_L_CTRL20_REG                   (BASE_ADDR_PAGE_DIG + 0x239)
+#define ANC_L_PREPROC1_DCR_CFG_L_LEN    8
+#define ANC_L_PREPROC1_DCR_CFG_L_OFFSET 0
+#define ANC_L_CTRL21_REG                   (BASE_ADDR_PAGE_DIG + 0x23A)
+#define ANC_L_PREPROC1_DCR_SFT_LEN    5
+#define ANC_L_PREPROC1_DCR_SFT_OFFSET 3
+#define ANC_L_PREPROC1_CIC_SFT_LEN    2
+#define ANC_L_PREPROC1_CIC_SFT_OFFSET 1
+#define ANC_L_CTRL22_REG                   (BASE_ADDR_PAGE_DIG + 0x23B)
+#define ANC_L_PREPROC0_IIR0_COEF0_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF0_H_OFFSET 0
+#define ANC_L_CTRL23_REG                   (BASE_ADDR_PAGE_DIG + 0x23C)
+#define ANC_L_PREPROC0_IIR0_COEF0_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF0_M_OFFSET 0
+#define ANC_L_CTRL24_REG                   (BASE_ADDR_PAGE_DIG + 0x23D)
+#define ANC_L_PREPROC0_IIR0_COEF0_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF0_L_OFFSET 0
+#define ANC_L_CTRL25_REG                   (BASE_ADDR_PAGE_DIG + 0x23E)
+#define ANC_L_PREPROC0_IIR0_COEF1_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF1_H_OFFSET 0
+#define ANC_L_CTRL26_REG                   (BASE_ADDR_PAGE_DIG + 0x23F)
+#define ANC_L_PREPROC0_IIR0_COEF1_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF1_M_OFFSET 0
+#define ANC_L_CTRL27_REG                   (BASE_ADDR_PAGE_DIG + 0x240)
+#define ANC_L_PREPROC0_IIR0_COEF1_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF1_L_OFFSET 0
+#define ANC_L_CTRL28_REG                   (BASE_ADDR_PAGE_DIG + 0x241)
+#define ANC_L_PREPROC0_IIR0_COEF2_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF2_H_OFFSET 0
+#define ANC_L_CTRL29_REG                   (BASE_ADDR_PAGE_DIG + 0x242)
+#define ANC_L_PREPROC0_IIR0_COEF2_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF2_M_OFFSET 0
+#define ANC_L_CTRL30_REG                   (BASE_ADDR_PAGE_DIG + 0x243)
+#define ANC_L_PREPROC0_IIR0_COEF2_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF2_L_OFFSET 0
+#define ANC_L_CTRL31_REG                   (BASE_ADDR_PAGE_DIG + 0x244)
+#define ANC_L_PREPROC0_IIR0_COEF3_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF3_H_OFFSET 0
+#define ANC_L_CTRL32_REG                   (BASE_ADDR_PAGE_DIG + 0x245)
+#define ANC_L_PREPROC0_IIR0_COEF3_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF3_M_OFFSET 0
+#define ANC_L_CTRL33_REG                   (BASE_ADDR_PAGE_DIG + 0x246)
+#define ANC_L_PREPROC0_IIR0_COEF3_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF3_L_OFFSET 0
+#define ANC_L_CTRL34_REG                   (BASE_ADDR_PAGE_DIG + 0x247)
+#define ANC_L_PREPROC0_IIR0_COEF4_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF4_H_OFFSET 0
+#define ANC_L_CTRL35_REG                   (BASE_ADDR_PAGE_DIG + 0x248)
+#define ANC_L_PREPROC0_IIR0_COEF4_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF4_M_OFFSET 0
+#define ANC_L_CTRL36_REG                   (BASE_ADDR_PAGE_DIG + 0x249)
+#define ANC_L_PREPROC0_IIR0_COEF4_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF4_L_OFFSET 0
+#define ANC_L_CTRL37_REG                   (BASE_ADDR_PAGE_DIG + 0x24A)
+#define ANC_L_PREPROC0_IIR0_COEF5_H_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF5_H_OFFSET 0
+#define ANC_L_CTRL38_REG                   (BASE_ADDR_PAGE_DIG + 0x24B)
+#define ANC_L_PREPROC0_IIR0_COEF5_M_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF5_M_OFFSET 0
+#define ANC_L_CTRL39_REG                   (BASE_ADDR_PAGE_DIG + 0x24C)
+#define ANC_L_PREPROC0_IIR0_COEF5_L_LEN    8
+#define ANC_L_PREPROC0_IIR0_COEF5_L_OFFSET 0
+#define ANC_L_CTRL40_REG                   (BASE_ADDR_PAGE_DIG + 0x24D)
+#define ANC_L_PREPROC0_IIR1_COEF0_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF0_H_OFFSET 0
+#define ANC_L_CTRL41_REG                   (BASE_ADDR_PAGE_DIG + 0x24E)
+#define ANC_L_PREPROC0_IIR1_COEF0_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF0_M_OFFSET 0
+#define ANC_L_CTRL42_REG                   (BASE_ADDR_PAGE_DIG + 0x24F)
+#define ANC_L_PREPROC0_IIR1_COEF0_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF0_L_OFFSET 0
+#define ANC_L_CTRL43_REG                   (BASE_ADDR_PAGE_DIG + 0x250)
+#define ANC_L_PREPROC0_IIR1_COEF1_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF1_H_OFFSET 0
+#define ANC_L_CTRL44_REG                   (BASE_ADDR_PAGE_DIG + 0x251)
+#define ANC_L_PREPROC0_IIR1_COEF1_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF1_M_OFFSET 0
+#define ANC_L_CTRL45_REG                   (BASE_ADDR_PAGE_DIG + 0x252)
+#define ANC_L_PREPROC0_IIR1_COEF1_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF1_L_OFFSET 0
+#define ANC_L_CTRL46_REG                   (BASE_ADDR_PAGE_DIG + 0x253)
+#define ANC_L_PREPROC0_IIR1_COEF2_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF2_H_OFFSET 0
+#define ANC_L_CTRL47_REG                   (BASE_ADDR_PAGE_DIG + 0x254)
+#define ANC_L_PREPROC0_IIR1_COEF2_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF2_M_OFFSET 0
+#define ANC_L_CTRL48_REG                   (BASE_ADDR_PAGE_DIG + 0x255)
+#define ANC_L_PREPROC0_IIR1_COEF2_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF2_L_OFFSET 0
+#define ANC_L_CTRL49_REG                   (BASE_ADDR_PAGE_DIG + 0x256)
+#define ANC_L_PREPROC0_IIR1_COEF3_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF3_H_OFFSET 0
+#define ANC_L_CTRL50_REG                   (BASE_ADDR_PAGE_DIG + 0x257)
+#define ANC_L_PREPROC0_IIR1_COEF3_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF3_M_OFFSET 0
+#define ANC_L_CTRL51_REG                   (BASE_ADDR_PAGE_DIG + 0x258)
+#define ANC_L_PREPROC0_IIR1_COEF3_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF3_L_OFFSET 0
+#define ANC_L_CTRL52_REG                   (BASE_ADDR_PAGE_DIG + 0x259)
+#define ANC_L_PREPROC0_IIR1_COEF4_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF4_H_OFFSET 0
+#define ANC_L_CTRL53_REG                   (BASE_ADDR_PAGE_DIG + 0x25A)
+#define ANC_L_PREPROC0_IIR1_COEF4_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF4_M_OFFSET 0
+#define ANC_L_CTRL54_REG                   (BASE_ADDR_PAGE_DIG + 0x25B)
+#define ANC_L_PREPROC0_IIR1_COEF4_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF4_L_OFFSET 0
+#define ANC_L_CTRL55_REG                   (BASE_ADDR_PAGE_DIG + 0x25C)
+#define ANC_L_PREPROC0_IIR1_COEF5_H_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF5_H_OFFSET 0
+#define ANC_L_CTRL56_REG                   (BASE_ADDR_PAGE_DIG + 0x25D)
+#define ANC_L_PREPROC0_IIR1_COEF5_M_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF5_M_OFFSET 0
+#define ANC_L_CTRL57_REG                   (BASE_ADDR_PAGE_DIG + 0x25E)
+#define ANC_L_PREPROC0_IIR1_COEF5_L_LEN    8
+#define ANC_L_PREPROC0_IIR1_COEF5_L_OFFSET 0
+#define ANC_L_CTRL58_REG                   (BASE_ADDR_PAGE_DIG + 0x25F)
+#define ANC_L_PREPROC1_IIR0_COEF0_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF0_H_OFFSET 0
+#define ANC_L_CTRL59_REG                   (BASE_ADDR_PAGE_DIG + 0x260)
+#define ANC_L_PREPROC1_IIR0_COEF0_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF0_M_OFFSET 0
+#define ANC_L_CTRL60_REG                   (BASE_ADDR_PAGE_DIG + 0x261)
+#define ANC_L_PREPROC1_IIR0_COEF0_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF0_L_OFFSET 0
+#define ANC_L_CTRL61_REG                   (BASE_ADDR_PAGE_DIG + 0x262)
+#define ANC_L_PREPROC1_IIR0_COEF1_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF1_H_OFFSET 0
+#define ANC_L_CTRL62_REG                   (BASE_ADDR_PAGE_DIG + 0x263)
+#define ANC_L_PREPROC1_IIR0_COEF1_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF1_M_OFFSET 0
+#define ANC_L_CTRL63_REG                   (BASE_ADDR_PAGE_DIG + 0x264)
+#define ANC_L_PREPROC1_IIR0_COEF1_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF1_L_OFFSET 0
+#define ANC_L_CTRL64_REG                   (BASE_ADDR_PAGE_DIG + 0x265)
+#define ANC_L_PREPROC1_IIR0_COEF2_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF2_H_OFFSET 0
+#define ANC_L_CTRL65_REG                   (BASE_ADDR_PAGE_DIG + 0x266)
+#define ANC_L_PREPROC1_IIR0_COEF2_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF2_M_OFFSET 0
+#define ANC_L_CTRL66_REG                   (BASE_ADDR_PAGE_DIG + 0x267)
+#define ANC_L_PREPROC1_IIR0_COEF2_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF2_L_OFFSET 0
+#define ANC_L_CTRL67_REG                   (BASE_ADDR_PAGE_DIG + 0x268)
+#define ANC_L_PREPROC1_IIR0_COEF3_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF3_H_OFFSET 0
+#define ANC_L_CTRL68_REG                   (BASE_ADDR_PAGE_DIG + 0x269)
+#define ANC_L_PREPROC1_IIR0_COEF3_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF3_M_OFFSET 0
+#define ANC_L_CTRL69_REG                   (BASE_ADDR_PAGE_DIG + 0x26A)
+#define ANC_L_PREPROC1_IIR0_COEF3_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF3_L_OFFSET 0
+#define ANC_L_CTRL70_REG                   (BASE_ADDR_PAGE_DIG + 0x26B)
+#define ANC_L_PREPROC1_IIR0_COEF4_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF4_H_OFFSET 0
+#define ANC_L_CTRL71_REG                   (BASE_ADDR_PAGE_DIG + 0x26C)
+#define ANC_L_PREPROC1_IIR0_COEF4_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF4_M_OFFSET 0
+#define ANC_L_CTRL72_REG                   (BASE_ADDR_PAGE_DIG + 0x26D)
+#define ANC_L_PREPROC1_IIR0_COEF4_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF4_L_OFFSET 0
+#define ANC_L_CTRL73_REG                   (BASE_ADDR_PAGE_DIG + 0x26E)
+#define ANC_L_PREPROC1_IIR0_COEF5_H_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF5_H_OFFSET 0
+#define ANC_L_CTRL74_REG                   (BASE_ADDR_PAGE_DIG + 0x26F)
+#define ANC_L_PREPROC1_IIR0_COEF5_M_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF5_M_OFFSET 0
+#define ANC_L_CTRL75_REG                   (BASE_ADDR_PAGE_DIG + 0x270)
+#define ANC_L_PREPROC1_IIR0_COEF5_L_LEN    8
+#define ANC_L_PREPROC1_IIR0_COEF5_L_OFFSET 0
+#define ANC_L_CTRL76_REG                   (BASE_ADDR_PAGE_DIG + 0x271)
+#define ANC_L_PREPROC1_IIR1_COEF0_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF0_H_OFFSET 0
+#define ANC_L_CTRL77_REG                   (BASE_ADDR_PAGE_DIG + 0x272)
+#define ANC_L_PREPROC1_IIR1_COEF0_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF0_M_OFFSET 0
+#define ANC_L_CTRL78_REG                   (BASE_ADDR_PAGE_DIG + 0x273)
+#define ANC_L_PREPROC1_IIR1_COEF0_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF0_L_OFFSET 0
+#define ANC_L_CTRL79_REG                   (BASE_ADDR_PAGE_DIG + 0x274)
+#define ANC_L_PREPROC1_IIR1_COEF1_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF1_H_OFFSET 0
+#define ANC_L_CTRL80_REG                   (BASE_ADDR_PAGE_DIG + 0x275)
+#define ANC_L_PREPROC1_IIR1_COEF1_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF1_M_OFFSET 0
+#define ANC_L_CTRL81_REG                   (BASE_ADDR_PAGE_DIG + 0x276)
+#define ANC_L_PREPROC1_IIR1_COEF1_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF1_L_OFFSET 0
+#define ANC_L_CTRL82_REG                   (BASE_ADDR_PAGE_DIG + 0x277)
+#define ANC_L_PREPROC1_IIR1_COEF2_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF2_H_OFFSET 0
+#define ANC_L_CTRL83_REG                   (BASE_ADDR_PAGE_DIG + 0x278)
+#define ANC_L_PREPROC1_IIR1_COEF2_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF2_M_OFFSET 0
+#define ANC_L_CTRL84_REG                   (BASE_ADDR_PAGE_DIG + 0x279)
+#define ANC_L_PREPROC1_IIR1_COEF2_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF2_L_OFFSET 0
+#define ANC_L_CTRL85_REG                   (BASE_ADDR_PAGE_DIG + 0x27A)
+#define ANC_L_PREPROC1_IIR1_COEF3_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF3_H_OFFSET 0
+#define ANC_L_CTRL86_REG                   (BASE_ADDR_PAGE_DIG + 0x27B)
+#define ANC_L_PREPROC1_IIR1_COEF3_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF3_M_OFFSET 0
+#define ANC_L_CTRL87_REG                   (BASE_ADDR_PAGE_DIG + 0x27C)
+#define ANC_L_PREPROC1_IIR1_COEF3_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF3_L_OFFSET 0
+#define ANC_L_CTRL88_REG                   (BASE_ADDR_PAGE_DIG + 0x27D)
+#define ANC_L_PREPROC1_IIR1_COEF4_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF4_H_OFFSET 0
+#define ANC_L_CTRL89_REG                   (BASE_ADDR_PAGE_DIG + 0x27E)
+#define ANC_L_PREPROC1_IIR1_COEF4_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF4_M_OFFSET 0
+#define ANC_L_CTRL90_REG                   (BASE_ADDR_PAGE_DIG + 0x27F)
+#define ANC_L_PREPROC1_IIR1_COEF4_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF4_L_OFFSET 0
+#define ANC_L_CTRL91_REG                   (BASE_ADDR_PAGE_DIG + 0x280)
+#define ANC_L_PREPROC1_IIR1_COEF5_H_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF5_H_OFFSET 0
+#define ANC_L_CTRL92_REG                   (BASE_ADDR_PAGE_DIG + 0x281)
+#define ANC_L_PREPROC1_IIR1_COEF5_M_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF5_M_OFFSET 0
+#define ANC_L_CTRL93_REG                   (BASE_ADDR_PAGE_DIG + 0x282)
+#define ANC_L_PREPROC1_IIR1_COEF5_L_LEN    8
+#define ANC_L_PREPROC1_IIR1_COEF5_L_OFFSET 0
+#define ANC_L_CTRL94_REG                   (BASE_ADDR_PAGE_DIG + 0x283)
+#define ANC_L_WTP_FLT_SFT_LEN    3
+#define ANC_L_WTP_FLT_SFT_OFFSET 3
+#define ANC_L_WTF_FLT_SFT_LEN    3
+#define ANC_L_WTF_FLT_SFT_OFFSET 0
+#define ANC_L_CTRL95_REG                   (BASE_ADDR_PAGE_DIG + 0x284)
+#define ANC_L_WTB_FLT_SFT_LEN    3
+#define ANC_L_WTB_FLT_SFT_OFFSET 0
+#define ANC_L_CTRL96_REG                   (BASE_ADDR_PAGE_DIG + 0x285)
+#define ANC_L_WTS1_FLT_SFT_LEN    3
+#define ANC_L_WTS1_FLT_SFT_OFFSET 3
+#define ANC_L_WTS2_FLT_SFT_LEN    3
+#define ANC_L_WTS2_FLT_SFT_OFFSET 0
+#define ANC_L_CTRL98_REG                   (BASE_ADDR_PAGE_DIG + 0x286)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF0_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF0_H_OFFSET 0
+#define ANC_L_CTRL99_REG                   (BASE_ADDR_PAGE_DIG + 0x287)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF0_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF0_L_OFFSET 0
+#define ANC_L_CTRL101_REG                  (BASE_ADDR_PAGE_DIG + 0x288)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF1_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF1_H_OFFSET 0
+#define ANC_L_CTRL102_REG                  (BASE_ADDR_PAGE_DIG + 0x289)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF1_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF1_L_OFFSET 0
+#define ANC_L_CTRL104_REG                  (BASE_ADDR_PAGE_DIG + 0x28A)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF2_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF2_H_OFFSET 0
+#define ANC_L_CTRL105_REG                  (BASE_ADDR_PAGE_DIG + 0x28B)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF2_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF2_L_OFFSET 0
+#define ANC_L_CTRL106_REG                  (BASE_ADDR_PAGE_DIG + 0x28C)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF3_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF3_H_OFFSET 0
+#define ANC_L_CTRL108_REG                  (BASE_ADDR_PAGE_DIG + 0x28D)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF3_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF3_L_OFFSET 0
+#define ANC_L_CTRL110_REG                  (BASE_ADDR_PAGE_DIG + 0x28E)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF4_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF4_H_OFFSET 0
+#define ANC_L_CTRL111_REG                  (BASE_ADDR_PAGE_DIG + 0x28F)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF4_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF4_L_OFFSET 0
+#define ANC_L_CTRL113_REG                  (BASE_ADDR_PAGE_DIG + 0x290)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF5_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF5_H_OFFSET 0
+#define ANC_L_CTRL114_REG                  (BASE_ADDR_PAGE_DIG + 0x291)
+#define ANC_L_BPFADD_FAREND_IIR0_COEF5_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR0_COEF5_L_OFFSET 0
+#define ANC_L_CTRL116_REG                  (BASE_ADDR_PAGE_DIG + 0x292)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF0_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF0_H_OFFSET 0
+#define ANC_L_CTRL117_REG                  (BASE_ADDR_PAGE_DIG + 0x293)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF0_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF0_L_OFFSET 0
+#define ANC_L_CTRL119_REG                  (BASE_ADDR_PAGE_DIG + 0x294)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF1_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF1_H_OFFSET 0
+#define ANC_L_CTRL120_REG                  (BASE_ADDR_PAGE_DIG + 0x295)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF1_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF1_L_OFFSET 0
+#define ANC_L_CTRL122_REG                  (BASE_ADDR_PAGE_DIG + 0x296)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF2_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF2_H_OFFSET 0
+#define ANC_L_CTRL123_REG                  (BASE_ADDR_PAGE_DIG + 0x297)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF2_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF2_L_OFFSET 0
+#define ANC_L_CTRL125_REG                  (BASE_ADDR_PAGE_DIG + 0x298)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF3_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF3_H_OFFSET 0
+#define ANC_L_CTRL126_REG                  (BASE_ADDR_PAGE_DIG + 0x299)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF3_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF3_L_OFFSET 0
+#define ANC_L_CTRL128_REG                  (BASE_ADDR_PAGE_DIG + 0x29A)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF4_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF4_H_OFFSET 0
+#define ANC_L_CTRL129_REG                  (BASE_ADDR_PAGE_DIG + 0x29B)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF4_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF4_L_OFFSET 0
+#define ANC_L_CTRL131_REG                  (BASE_ADDR_PAGE_DIG + 0x29C)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF5_H_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF5_H_OFFSET 0
+#define ANC_L_CTRL132_REG                  (BASE_ADDR_PAGE_DIG + 0x29D)
+#define ANC_L_BPFADD_FAREND_IIR1_COEF5_L_LEN    8
+#define ANC_L_BPFADD_FAREND_IIR1_COEF5_L_OFFSET 0
+#define ANC_L_CTRL133_REG                  (BASE_ADDR_PAGE_DIG + 0x29E)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_H_OFFSET 0
+#define ANC_L_CTRL134_REG                  (BASE_ADDR_PAGE_DIG + 0x29F)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_M_OFFSET 0
+#define ANC_L_CTRL135_REG                  (BASE_ADDR_PAGE_DIG + 0x2A0)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF0_L_OFFSET 0
+#define ANC_L_CTRL136_REG                  (BASE_ADDR_PAGE_DIG + 0x2A1)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_H_OFFSET 0
+#define ANC_L_CTRL137_REG                  (BASE_ADDR_PAGE_DIG + 0x2A2)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_M_OFFSET 0
+#define ANC_L_CTRL138_REG                  (BASE_ADDR_PAGE_DIG + 0x2A3)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF1_L_OFFSET 0
+#define ANC_L_CTRL139_REG                  (BASE_ADDR_PAGE_DIG + 0x2A4)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_H_OFFSET 0
+#define ANC_L_CTRL140_REG                  (BASE_ADDR_PAGE_DIG + 0x2A5)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_M_OFFSET 0
+#define ANC_L_CTRL141_REG                  (BASE_ADDR_PAGE_DIG + 0x2A6)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF2_L_OFFSET 0
+#define ANC_L_CTRL142_REG                  (BASE_ADDR_PAGE_DIG + 0x2A7)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_H_OFFSET 0
+#define ANC_L_CTRL143_REG                  (BASE_ADDR_PAGE_DIG + 0x2A8)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_M_OFFSET 0
+#define ANC_L_CTRL144_REG                  (BASE_ADDR_PAGE_DIG + 0x2A9)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF3_L_OFFSET 0
+#define ANC_L_CTRL145_REG                  (BASE_ADDR_PAGE_DIG + 0x2AA)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_H_OFFSET 0
+#define ANC_L_CTRL146_REG                  (BASE_ADDR_PAGE_DIG + 0x2AB)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_M_OFFSET 0
+#define ANC_L_CTRL147_REG                  (BASE_ADDR_PAGE_DIG + 0x2AC)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF4_L_OFFSET 0
+#define ANC_L_CTRL148_REG                  (BASE_ADDR_PAGE_DIG + 0x2AD)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_H_OFFSET 0
+#define ANC_L_CTRL149_REG                  (BASE_ADDR_PAGE_DIG + 0x2AE)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_M_OFFSET 0
+#define ANC_L_CTRL150_REG                  (BASE_ADDR_PAGE_DIG + 0x2AF)
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR0_COEF5_L_OFFSET 0
+#define ANC_L_CTRL151_REG                  (BASE_ADDR_PAGE_DIG + 0x2B0)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_H_OFFSET 0
+#define ANC_L_CTRL152_REG                  (BASE_ADDR_PAGE_DIG + 0x2B1)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_M_OFFSET 0
+#define ANC_L_CTRL153_REG                  (BASE_ADDR_PAGE_DIG + 0x2B2)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF0_L_OFFSET 0
+#define ANC_L_CTRL154_REG                  (BASE_ADDR_PAGE_DIG + 0x2B3)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_H_OFFSET 0
+#define ANC_L_CTRL155_REG                  (BASE_ADDR_PAGE_DIG + 0x2B4)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_M_OFFSET 0
+#define ANC_L_CTRL156_REG                  (BASE_ADDR_PAGE_DIG + 0x2B5)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF1_L_OFFSET 0
+#define ANC_L_CTRL157_REG                  (BASE_ADDR_PAGE_DIG + 0x2B6)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_H_OFFSET 0
+#define ANC_L_CTRL158_REG                  (BASE_ADDR_PAGE_DIG + 0x2B7)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_M_OFFSET 0
+#define ANC_L_CTRL159_REG                  (BASE_ADDR_PAGE_DIG + 0x2B8)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF2_L_OFFSET 0
+#define ANC_L_CTRL160_REG                  (BASE_ADDR_PAGE_DIG + 0x2B9)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_H_OFFSET 0
+#define ANC_L_CTRL161_REG                  (BASE_ADDR_PAGE_DIG + 0x2BA)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_M_OFFSET 0
+#define ANC_L_CTRL162_REG                  (BASE_ADDR_PAGE_DIG + 0x2BB)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF3_L_OFFSET 0
+#define ANC_L_CTRL163_REG                  (BASE_ADDR_PAGE_DIG + 0x2BC)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_H_OFFSET 0
+#define ANC_L_CTRL164_REG                  (BASE_ADDR_PAGE_DIG + 0x2BD)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_M_OFFSET 0
+#define ANC_L_CTRL165_REG                  (BASE_ADDR_PAGE_DIG + 0x2BE)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF4_L_OFFSET 0
+#define ANC_L_CTRL166_REG                  (BASE_ADDR_PAGE_DIG + 0x2BF)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_H_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_H_OFFSET 0
+#define ANC_L_CTRL167_REG                  (BASE_ADDR_PAGE_DIG + 0x2C0)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_M_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_M_OFFSET 0
+#define ANC_L_CTRL168_REG                  (BASE_ADDR_PAGE_DIG + 0x2C1)
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_L_LEN    8
+#define ANC_L_BPFADD_ANTINOISE_IIR1_COEF5_L_OFFSET 0
+#define ANC_L_CTRL169_REG                  (BASE_ADDR_PAGE_DIG + 0x2C2)
+#define ANC_L_ERRSIGPROC_ANTINOISE_DSP_CTRL_LEN    2
+#define ANC_L_ERRSIGPROC_ANTINOISE_DSP_CTRL_OFFSET 6
+#define ANC_L_BPFADD_ANTINOISE_DSP_CTRL_LEN    2
+#define ANC_L_BPFADD_ANTINOISE_DSP_CTRL_OFFSET 4
+#define ANC_L_ERRSIGPROC_ERR_DSP_CTRL_LEN    2
+#define ANC_L_ERRSIGPROC_ERR_DSP_CTRL_OFFSET 2
+#define ANC_L_FF_REF_DSP_CTRL_LEN    2
+#define ANC_L_FF_REF_DSP_CTRL_OFFSET 0
+#define ANC_L_CTRL170_REG                  (BASE_ADDR_PAGE_DIG + 0x2C3)
+#define ANC_L_SRC32_GAIN_H_LEN    4
+#define ANC_L_SRC32_GAIN_H_OFFSET 0
+#define ANC_L_CTRL171_REG                  (BASE_ADDR_PAGE_DIG + 0x2C4)
+#define ANC_L_SRC32_GAIN_L_LEN    8
+#define ANC_L_SRC32_GAIN_L_OFFSET 0
+#define ANC_L_CTRL172_REG                  (BASE_ADDR_PAGE_DIG + 0x2C5)
+#define ANC_L_SRC32_SFT_LEN    2
+#define ANC_L_SRC32_SFT_OFFSET 2
+#define ANC_L_IR3_ANC_SFT_LEN    2
+#define ANC_L_IR3_ANC_SFT_OFFSET 0
+#define ANC_L_CTRL173_REG                  (BASE_ADDR_PAGE_DIG + 0x2C6)
+#define ANC_L_INFAR_SFT_LEN    2
+#define ANC_L_INFAR_SFT_OFFSET 1
+#define ANC_L_MEM_ICG_BP_EN_LEN    1
+#define ANC_L_MEM_ICG_BP_EN_OFFSET 0
+#define ANC_L_CTRL174_REG                  (BASE_ADDR_PAGE_DIG + 0x2C7)
+#define ANC_L_PREPROC0_GAIN_OUT_H_LEN    8
+#define ANC_L_PREPROC0_GAIN_OUT_H_OFFSET 0
+#define ANC_L_CTRL175_REG                  (BASE_ADDR_PAGE_DIG + 0x2C8)
+#define ANC_L_PREPROC0_GAIN_OUT_L_LEN    8
+#define ANC_L_PREPROC0_GAIN_OUT_L_OFFSET 0
+#define ANC_L_CTRL176_REG                  (BASE_ADDR_PAGE_DIG + 0x2C9)
+#define ANC_L_PREPROC1_GAIN_OUT_H_LEN    8
+#define ANC_L_PREPROC1_GAIN_OUT_H_OFFSET 0
+#define ANC_L_CTRL177_REG                  (BASE_ADDR_PAGE_DIG + 0x2CA)
+#define ANC_L_PREPROC1_GAIN_OUT_L_LEN    8
+#define ANC_L_PREPROC1_GAIN_OUT_L_OFFSET 0
+#define ANC_L_CTRL178_REG                  (BASE_ADDR_PAGE_DIG + 0x2CB)
+#define ANC_L_BPFADD_FAREND_IIR_SFT_PRE_LEN    2
+#define ANC_L_BPFADD_FAREND_IIR_SFT_PRE_OFFSET 4
+#define ANC_L_BPFADD_FAREND_IIR0_SFT_INNER_LEN    2
+#define ANC_L_BPFADD_FAREND_IIR0_SFT_INNER_OFFSET 2
+#define ANC_L_BPFADD_FAREND_IIR1_SFT_INNER_LEN    2
+#define ANC_L_BPFADD_FAREND_IIR1_SFT_INNER_OFFSET 0
+#define ANC_L_CTRL179_REG                  (BASE_ADDR_PAGE_DIG + 0x2CC)
+#define ANC_L_BPFADD_ANTINOISE_IIR_SFT_PRE_LEN    2
+#define ANC_L_BPFADD_ANTINOISE_IIR_SFT_PRE_OFFSET 4
+#define ANC_L_BPFADD_ANTINOISE_IIR0_SFT_INNER_LEN    2
+#define ANC_L_BPFADD_ANTINOISE_IIR0_SFT_INNER_OFFSET 2
+#define ANC_L_BPFADD_ANTINOISE_IIR1_SFT_INNER_LEN    2
+#define ANC_L_BPFADD_ANTINOISE_IIR1_SFT_INNER_OFFSET 0
+#define ANC_L_CTRL180_REG                  (BASE_ADDR_PAGE_DIG + 0x2CD)
+#define ANC_L_FF_LAMUDA_LEN    8
+#define ANC_L_FF_LAMUDA_OFFSET 0
+#define ANC_L_CTRL181_REG                  (BASE_ADDR_PAGE_DIG + 0x2CE)
+#define ANC_L_FB_LAMUDA_LEN    8
+#define ANC_L_FB_LAMUDA_OFFSET 0
+#define ANC_R_CTRL0_REG                    (BASE_ADDR_PAGE_DIG + 0x2E0)
+#define ANC_R_PREPROC0_EN_LEN    1
+#define ANC_R_PREPROC0_EN_OFFSET 6
+#define ANC_R_PREPROC1_EN_LEN    1
+#define ANC_R_PREPROC1_EN_OFFSET 5
+#define ANC_R_FF_EN_LEN    1
+#define ANC_R_FF_EN_OFFSET 4
+#define ANC_R_FB_EN_LEN    1
+#define ANC_R_FB_EN_OFFSET 3
+#define ANC_R_ERRSIGPROC_EN_LEN    1
+#define ANC_R_ERRSIGPROC_EN_OFFSET 2
+#define ANC_R_BPFADD_EN_LEN    1
+#define ANC_R_BPFADD_EN_OFFSET 1
+#define ANC_R_SRC32_EN_LEN    1
+#define ANC_R_SRC32_EN_OFFSET 0
+#define ANC_R_CTRL1_REG                    (BASE_ADDR_PAGE_DIG + 0x2E1)
+#define ANC_R_MEM_EN_LEN    1
+#define ANC_R_MEM_EN_OFFSET 7
+#define ANC_R_PREPROC0_DCR_CFG_EN_LEN    1
+#define ANC_R_PREPROC0_DCR_CFG_EN_OFFSET 6
+#define ANC_R_PREPROC1_DCR_CFG_EN_LEN    1
+#define ANC_R_PREPROC1_DCR_CFG_EN_OFFSET 5
+#define ANC_R_PREPROC0_DCR_BYP_LEN    1
+#define ANC_R_PREPROC0_DCR_BYP_OFFSET 4
+#define ANC_R_PREPROC0_IIR0_BYP_LEN    1
+#define ANC_R_PREPROC0_IIR0_BYP_OFFSET 3
+#define ANC_R_PREPROC0_IIR1_BYP_LEN    1
+#define ANC_R_PREPROC0_IIR1_BYP_OFFSET 2
+#define ANC_R_PREPROC0_CIC_BYP_LEN    1
+#define ANC_R_PREPROC0_CIC_BYP_OFFSET 1
+#define ANC_R_PREPROC1_DCR_BYP_LEN    1
+#define ANC_R_PREPROC1_DCR_BYP_OFFSET 0
+#define ANC_R_CTRL2_REG                    (BASE_ADDR_PAGE_DIG + 0x2E2)
+#define ANC_R_PREPROC1_IIR0_BYP_LEN    1
+#define ANC_R_PREPROC1_IIR0_BYP_OFFSET 7
+#define ANC_R_PREPROC1_IIR1_BYP_LEN    1
+#define ANC_R_PREPROC1_IIR1_BYP_OFFSET 6
+#define ANC_R_PREPROC1_CIC_BYP_LEN    1
+#define ANC_R_PREPROC1_CIC_BYP_OFFSET 5
+#define ANC_R_SRC32ANC_CIC_BYP_LEN    1
+#define ANC_R_SRC32ANC_CIC_BYP_OFFSET 4
+#define ANC_R_BPFADD_FAREND_IIR0_BYP_LEN    1
+#define ANC_R_BPFADD_FAREND_IIR0_BYP_OFFSET 3
+#define ANC_R_BPFADD_FAREND_IIR1_BYP_LEN    1
+#define ANC_R_BPFADD_FAREND_IIR1_BYP_OFFSET 2
+#define ANC_R_BPFADD_ANTINOISE_IIR0_BYP_LEN    1
+#define ANC_R_BPFADD_ANTINOISE_IIR0_BYP_OFFSET 1
+#define ANC_R_BPFADD_ANTINOISE_IIR1_BYP_LEN    1
+#define ANC_R_BPFADD_ANTINOISE_IIR1_BYP_OFFSET 0
+#define ANC_R_CTRL4_REG                    (BASE_ADDR_PAGE_DIG + 0x2E4)
+#define ANC_R_DSPIF_TEST_SEL_LEN    8
+#define ANC_R_DSPIF_TEST_SEL_OFFSET 0
+#define ANC_R_CTRL5_REG                    (BASE_ADDR_PAGE_DIG + 0x2E5)
+#define ANC_R_PREPROC0_CIC_GAIN_LEN    8
+#define ANC_R_PREPROC0_CIC_GAIN_OFFSET 0
+#define ANC_R_CTRL6_REG                    (BASE_ADDR_PAGE_DIG + 0x2E6)
+#define ANC_R_PREPROC0_DCR_GAIN_H_LEN    4
+#define ANC_R_PREPROC0_DCR_GAIN_H_OFFSET 0
+#define ANC_R_CTRL7_REG                    (BASE_ADDR_PAGE_DIG + 0x2E7)
+#define ANC_R_PREPROC0_DCR_GAIN_L_LEN    8
+#define ANC_R_PREPROC0_DCR_GAIN_L_OFFSET 0
+#define ANC_R_CTRL8_REG                    (BASE_ADDR_PAGE_DIG + 0x2E8)
+#define ANC_R_PREPROC0_DCR_UPDATA_PERIOD_LEN    2
+#define ANC_R_PREPROC0_DCR_UPDATA_PERIOD_OFFSET 6
+#define ANC_R_PREPROC0_IIR_SFT_PRE_LEN    2
+#define ANC_R_PREPROC0_IIR_SFT_PRE_OFFSET 4
+#define ANC_R_PREPROC0_IIR0_SFT_INNER_LEN    2
+#define ANC_R_PREPROC0_IIR0_SFT_INNER_OFFSET 2
+#define ANC_R_PREPROC0_IIR1_SFT_INNER_LEN    2
+#define ANC_R_PREPROC0_IIR1_SFT_INNER_OFFSET 0
+#define ANC_R_CTRL9_REG                    (BASE_ADDR_PAGE_DIG + 0x2E9)
+#define ANC_R_IR3_ANC_EN_LEN    1
+#define ANC_R_IR3_ANC_EN_OFFSET 7
+#define ANC_R_PREPROC0_AGC_ALPHA_LEN    7
+#define ANC_R_PREPROC0_AGC_ALPHA_OFFSET 0
+#define ANC_R_CTRL11_REG                   (BASE_ADDR_PAGE_DIG + 0x2EA)
+#define ANC_R_PREPROC0_DCR_CFG_H_LEN    8
+#define ANC_R_PREPROC0_DCR_CFG_H_OFFSET 0
+#define ANC_R_CTRL12_REG                   (BASE_ADDR_PAGE_DIG + 0x2EB)
+#define ANC_R_PREPROC0_DCR_CFG_L_LEN    8
+#define ANC_R_PREPROC0_DCR_CFG_L_OFFSET 0
+#define ANC_R_CTRL13_REG                   (BASE_ADDR_PAGE_DIG + 0x2EC)
+#define ANC_R_PREPROC0_DCR_SFT_LEN    5
+#define ANC_R_PREPROC0_DCR_SFT_OFFSET 3
+#define ANC_R_PREPROC0_CIC_SFT_LEN    2
+#define ANC_R_PREPROC0_CIC_SFT_OFFSET 1
+#define ANC_R_CTRL14_REG                   (BASE_ADDR_PAGE_DIG + 0x2ED)
+#define ANC_R_PREPROC1_CIC_GAIN_LEN    8
+#define ANC_R_PREPROC1_CIC_GAIN_OFFSET 0
+#define ANC_R_DCR_GAIN_H_REG               (BASE_ADDR_PAGE_DIG + 0x2EE)
+#define ANC_R_PREPROC1_DCR_GAIN_H_LEN    4
+#define ANC_R_PREPROC1_DCR_GAIN_H_OFFSET 0
+#define ANC_R_DCR_GAIN_L_REG               (BASE_ADDR_PAGE_DIG + 0x2EF)
+#define ANC_R_PREPROC1_DCR_GAIN_L_LEN    8
+#define ANC_R_PREPROC1_DCR_GAIN_L_OFFSET 0
+#define ANC_R_CTRL16_REG                   (BASE_ADDR_PAGE_DIG + 0x2F0)
+#define ANC_R_PREPROC1_AGC_ALPHA_LEN    7
+#define ANC_R_PREPROC1_AGC_ALPHA_OFFSET 0
+#define ANC_R_CTRL18_REG                   (BASE_ADDR_PAGE_DIG + 0x2F1)
+#define ANC_R_PREPROC1_DCR_UPDATA_PERIOD_LEN    2
+#define ANC_R_PREPROC1_DCR_UPDATA_PERIOD_OFFSET 6
+#define ANC_R_PREPROC1_IIR_SFT_PRE_LEN    2
+#define ANC_R_PREPROC1_IIR_SFT_PRE_OFFSET 4
+#define ANC_R_PREPROC1_IIR0_SFT_INNER_LEN    2
+#define ANC_R_PREPROC1_IIR0_SFT_INNER_OFFSET 2
+#define ANC_R_PREPROC1_IIR1_SFT_INNER_LEN    2
+#define ANC_R_PREPROC1_IIR1_SFT_INNER_OFFSET 0
+#define ANC_R_CTRL19_REG                   (BASE_ADDR_PAGE_DIG + 0x2F2)
+#define ANC_R_PREPROC1_DCR_CFG_H_LEN    8
+#define ANC_R_PREPROC1_DCR_CFG_H_OFFSET 0
+#define ANC_R_CTRL20_REG                   (BASE_ADDR_PAGE_DIG + 0x2F3)
+#define ANC_R_PREPROC1_DCR_CFG_L_LEN    8
+#define ANC_R_PREPROC1_DCR_CFG_L_OFFSET 0
+#define ANC_R_CTRL21_REG                   (BASE_ADDR_PAGE_DIG + 0x2F4)
+#define ANC_R_PREPROC1_DCR_SFT_LEN    5
+#define ANC_R_PREPROC1_DCR_SFT_OFFSET 3
+#define ANC_R_PREPROC1_CIC_SFT_LEN    2
+#define ANC_R_PREPROC1_CIC_SFT_OFFSET 1
+#define ANC_R_CTRL22_REG                   (BASE_ADDR_PAGE_DIG + 0x2F5)
+#define ANC_R_PREPROC0_IIR0_COEF0_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF0_H_OFFSET 0
+#define ANC_R_CTRL23_REG                   (BASE_ADDR_PAGE_DIG + 0x2F6)
+#define ANC_R_PREPROC0_IIR0_COEF0_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF0_M_OFFSET 0
+#define ANC_R_CTRL24_REG                   (BASE_ADDR_PAGE_DIG + 0x2F7)
+#define ANC_R_PREPROC0_IIR0_COEF0_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF0_L_OFFSET 0
+#define ANC_R_CTRL25_REG                   (BASE_ADDR_PAGE_DIG + 0x2F8)
+#define ANC_R_PREPROC0_IIR0_COEF1_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF1_H_OFFSET 0
+#define ANC_R_CTRL26_REG                   (BASE_ADDR_PAGE_DIG + 0x2F9)
+#define ANC_R_PREPROC0_IIR0_COEF1_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF1_M_OFFSET 0
+#define ANC_R_CTRL27_REG                   (BASE_ADDR_PAGE_DIG + 0x2FA)
+#define ANC_R_PREPROC0_IIR0_COEF1_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF1_L_OFFSET 0
+#define ANC_R_CTRL28_REG                   (BASE_ADDR_PAGE_DIG + 0x2FB)
+#define ANC_R_PREPROC0_IIR0_COEF2_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF2_H_OFFSET 0
+#define ANC_R_CTRL29_REG                   (BASE_ADDR_PAGE_DIG + 0x2FC)
+#define ANC_R_PREPROC0_IIR0_COEF2_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF2_M_OFFSET 0
+#define ANC_R_CTRL30_REG                   (BASE_ADDR_PAGE_DIG + 0x2FD)
+#define ANC_R_PREPROC0_IIR0_COEF2_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF2_L_OFFSET 0
+#define ANC_R_CTRL31_REG                   (BASE_ADDR_PAGE_DIG + 0x2FE)
+#define ANC_R_PREPROC0_IIR0_COEF3_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF3_H_OFFSET 0
+#define ANC_R_CTRL32_REG                   (BASE_ADDR_PAGE_DIG + 0x2FF)
+#define ANC_R_PREPROC0_IIR0_COEF3_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF3_M_OFFSET 0
+#define ANC_R_CTRL33_REG                   (BASE_ADDR_PAGE_DIG + 0x300)
+#define ANC_R_PREPROC0_IIR0_COEF3_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF3_L_OFFSET 0
+#define ANC_R_CTRL34_REG                   (BASE_ADDR_PAGE_DIG + 0x301)
+#define ANC_R_PREPROC0_IIR0_COEF4_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF4_H_OFFSET 0
+#define ANC_R_CTRL35_REG                   (BASE_ADDR_PAGE_DIG + 0x302)
+#define ANC_R_PREPROC0_IIR0_COEF4_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF4_M_OFFSET 0
+#define ANC_R_CTRL36_REG                   (BASE_ADDR_PAGE_DIG + 0x303)
+#define ANC_R_PREPROC0_IIR0_COEF4_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF4_L_OFFSET 0
+#define ANC_R_CTRL37_REG                   (BASE_ADDR_PAGE_DIG + 0x304)
+#define ANC_R_PREPROC0_IIR0_COEF5_H_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF5_H_OFFSET 0
+#define ANC_R_CTRL38_REG                   (BASE_ADDR_PAGE_DIG + 0x305)
+#define ANC_R_PREPROC0_IIR0_COEF5_M_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF5_M_OFFSET 0
+#define ANC_R_CTRL39_REG                   (BASE_ADDR_PAGE_DIG + 0x306)
+#define ANC_R_PREPROC0_IIR0_COEF5_L_LEN    8
+#define ANC_R_PREPROC0_IIR0_COEF5_L_OFFSET 0
+#define ANC_R_CTRL40_REG                   (BASE_ADDR_PAGE_DIG + 0x307)
+#define ANC_R_PREPROC0_IIR1_COEF0_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF0_H_OFFSET 0
+#define ANC_R_CTRL41_REG                   (BASE_ADDR_PAGE_DIG + 0x308)
+#define ANC_R_PREPROC0_IIR1_COEF0_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF0_M_OFFSET 0
+#define ANC_R_CTRL42_REG                   (BASE_ADDR_PAGE_DIG + 0x309)
+#define ANC_R_PREPROC0_IIR1_COEF0_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF0_L_OFFSET 0
+#define ANC_R_CTRL43_REG                   (BASE_ADDR_PAGE_DIG + 0x30A)
+#define ANC_R_PREPROC0_IIR1_COEF1_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF1_H_OFFSET 0
+#define ANC_R_CTRL44_REG                   (BASE_ADDR_PAGE_DIG + 0x30B)
+#define ANC_R_PREPROC0_IIR1_COEF1_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF1_M_OFFSET 0
+#define ANC_R_CTRL45_REG                   (BASE_ADDR_PAGE_DIG + 0x30C)
+#define ANC_R_PREPROC0_IIR1_COEF1_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF1_L_OFFSET 0
+#define ANC_R_CTRL46_REG                   (BASE_ADDR_PAGE_DIG + 0x30D)
+#define ANC_R_PREPROC0_IIR1_COEF2_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF2_H_OFFSET 0
+#define ANC_R_CTRL47_REG                   (BASE_ADDR_PAGE_DIG + 0x30E)
+#define ANC_R_PREPROC0_IIR1_COEF2_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF2_M_OFFSET 0
+#define ANC_R_CTRL48_REG                   (BASE_ADDR_PAGE_DIG + 0x30F)
+#define ANC_R_PREPROC0_IIR1_COEF2_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF2_L_OFFSET 0
+#define ANC_R_CTRL49_REG                   (BASE_ADDR_PAGE_DIG + 0x310)
+#define ANC_R_PREPROC0_IIR1_COEF3_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF3_H_OFFSET 0
+#define ANC_R_CTRL50_REG                   (BASE_ADDR_PAGE_DIG + 0x311)
+#define ANC_R_PREPROC0_IIR1_COEF3_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF3_M_OFFSET 0
+#define ANC_R_CTRL51_REG                   (BASE_ADDR_PAGE_DIG + 0x312)
+#define ANC_R_PREPROC0_IIR1_COEF3_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF3_L_OFFSET 0
+#define ANC_R_CTRL52_REG                   (BASE_ADDR_PAGE_DIG + 0x313)
+#define ANC_R_PREPROC0_IIR1_COEF4_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF4_H_OFFSET 0
+#define ANC_R_CTRL53_REG                   (BASE_ADDR_PAGE_DIG + 0x314)
+#define ANC_R_PREPROC0_IIR1_COEF4_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF4_M_OFFSET 0
+#define ANC_R_CTRL54_REG                   (BASE_ADDR_PAGE_DIG + 0x315)
+#define ANC_R_PREPROC0_IIR1_COEF4_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF4_L_OFFSET 0
+#define ANC_R_CTRL55_REG                   (BASE_ADDR_PAGE_DIG + 0x316)
+#define ANC_R_PREPROC0_IIR1_COEF5_H_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF5_H_OFFSET 0
+#define ANC_R_CTRL56_REG                   (BASE_ADDR_PAGE_DIG + 0x317)
+#define ANC_R_PREPROC0_IIR1_COEF5_M_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF5_M_OFFSET 0
+#define ANC_R_CTRL57_REG                   (BASE_ADDR_PAGE_DIG + 0x318)
+#define ANC_R_PREPROC0_IIR1_COEF5_L_LEN    8
+#define ANC_R_PREPROC0_IIR1_COEF5_L_OFFSET 0
+#define ANC_R_CTRL58_REG                   (BASE_ADDR_PAGE_DIG + 0x319)
+#define ANC_R_PREPROC1_IIR0_COEF0_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF0_H_OFFSET 0
+#define ANC_R_CTRL59_REG                   (BASE_ADDR_PAGE_DIG + 0x31A)
+#define ANC_R_PREPROC1_IIR0_COEF0_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF0_M_OFFSET 0
+#define ANC_R_CTRL60_REG                   (BASE_ADDR_PAGE_DIG + 0x31B)
+#define ANC_R_PREPROC1_IIR0_COEF0_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF0_L_OFFSET 0
+#define ANC_R_CTRL61_REG                   (BASE_ADDR_PAGE_DIG + 0x31C)
+#define ANC_R_PREPROC1_IIR0_COEF1_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF1_H_OFFSET 0
+#define ANC_R_CTRL62_REG                   (BASE_ADDR_PAGE_DIG + 0x31D)
+#define ANC_R_PREPROC1_IIR0_COEF1_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF1_M_OFFSET 0
+#define ANC_R_CTRL63_REG                   (BASE_ADDR_PAGE_DIG + 0x31E)
+#define ANC_R_PREPROC1_IIR0_COEF1_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF1_L_OFFSET 0
+#define ANC_R_CTRL64_REG                   (BASE_ADDR_PAGE_DIG + 0x31F)
+#define ANC_R_PREPROC1_IIR0_COEF2_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF2_H_OFFSET 0
+#define ANC_R_CTRL65_REG                   (BASE_ADDR_PAGE_DIG + 0x320)
+#define ANC_R_PREPROC1_IIR0_COEF2_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF2_M_OFFSET 0
+#define ANC_R_CTRL66_REG                   (BASE_ADDR_PAGE_DIG + 0x321)
+#define ANC_R_PREPROC1_IIR0_COEF2_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF2_L_OFFSET 0
+#define ANC_R_CTRL67_REG                   (BASE_ADDR_PAGE_DIG + 0x322)
+#define ANC_R_PREPROC1_IIR0_COEF3_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF3_H_OFFSET 0
+#define ANC_R_CTRL68_REG                   (BASE_ADDR_PAGE_DIG + 0x323)
+#define ANC_R_PREPROC1_IIR0_COEF3_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF3_M_OFFSET 0
+#define ANC_R_CTRL69_REG                   (BASE_ADDR_PAGE_DIG + 0x324)
+#define ANC_R_PREPROC1_IIR0_COEF3_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF3_L_OFFSET 0
+#define ANC_R_CTRL70_REG                   (BASE_ADDR_PAGE_DIG + 0x325)
+#define ANC_R_PREPROC1_IIR0_COEF4_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF4_H_OFFSET 0
+#define ANC_R_CTRL71_REG                   (BASE_ADDR_PAGE_DIG + 0x326)
+#define ANC_R_PREPROC1_IIR0_COEF4_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF4_M_OFFSET 0
+#define ANC_R_CTRL72_REG                   (BASE_ADDR_PAGE_DIG + 0x327)
+#define ANC_R_PREPROC1_IIR0_COEF4_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF4_L_OFFSET 0
+#define ANC_R_CTRL73_REG                   (BASE_ADDR_PAGE_DIG + 0x328)
+#define ANC_R_PREPROC1_IIR0_COEF5_H_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF5_H_OFFSET 0
+#define ANC_R_CTRL74_REG                   (BASE_ADDR_PAGE_DIG + 0x329)
+#define ANC_R_PREPROC1_IIR0_COEF5_M_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF5_M_OFFSET 0
+#define ANC_R_CTRL75_REG                   (BASE_ADDR_PAGE_DIG + 0x32A)
+#define ANC_R_PREPROC1_IIR0_COEF5_L_LEN    8
+#define ANC_R_PREPROC1_IIR0_COEF5_L_OFFSET 0
+#define ANC_R_CTRL76_REG                   (BASE_ADDR_PAGE_DIG + 0x32B)
+#define ANC_R_PREPROC1_IIR1_COEF0_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF0_H_OFFSET 0
+#define ANC_R_CTRL77_REG                   (BASE_ADDR_PAGE_DIG + 0x32C)
+#define ANC_R_PREPROC1_IIR1_COEF0_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF0_M_OFFSET 0
+#define ANC_R_CTRL78_REG                   (BASE_ADDR_PAGE_DIG + 0x32D)
+#define ANC_R_PREPROC1_IIR1_COEF0_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF0_L_OFFSET 0
+#define ANC_R_CTRL79_REG                   (BASE_ADDR_PAGE_DIG + 0x32E)
+#define ANC_R_PREPROC1_IIR1_COEF1_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF1_H_OFFSET 0
+#define ANC_R_CTRL80_REG                   (BASE_ADDR_PAGE_DIG + 0x32F)
+#define ANC_R_PREPROC1_IIR1_COEF1_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF1_M_OFFSET 0
+#define ANC_R_CTRL81_REG                   (BASE_ADDR_PAGE_DIG + 0x330)
+#define ANC_R_PREPROC1_IIR1_COEF1_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF1_L_OFFSET 0
+#define ANC_R_CTRL82_REG                   (BASE_ADDR_PAGE_DIG + 0x331)
+#define ANC_R_PREPROC1_IIR1_COEF2_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF2_H_OFFSET 0
+#define ANC_R_CTRL83_REG                   (BASE_ADDR_PAGE_DIG + 0x332)
+#define ANC_R_PREPROC1_IIR1_COEF2_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF2_M_OFFSET 0
+#define ANC_R_CTRL84_REG                   (BASE_ADDR_PAGE_DIG + 0x333)
+#define ANC_R_PREPROC1_IIR1_COEF2_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF2_L_OFFSET 0
+#define ANC_R_CTRL85_REG                   (BASE_ADDR_PAGE_DIG + 0x334)
+#define ANC_R_PREPROC1_IIR1_COEF3_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF3_H_OFFSET 0
+#define ANC_R_CTRL86_REG                   (BASE_ADDR_PAGE_DIG + 0x335)
+#define ANC_R_PREPROC1_IIR1_COEF3_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF3_M_OFFSET 0
+#define ANC_R_CTRL87_REG                   (BASE_ADDR_PAGE_DIG + 0x336)
+#define ANC_R_PREPROC1_IIR1_COEF3_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF3_L_OFFSET 0
+#define ANC_R_CTRL88_REG                   (BASE_ADDR_PAGE_DIG + 0x337)
+#define ANC_R_PREPROC1_IIR1_COEF4_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF4_H_OFFSET 0
+#define ANC_R_CTRL89_REG                   (BASE_ADDR_PAGE_DIG + 0x338)
+#define ANC_R_PREPROC1_IIR1_COEF4_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF4_M_OFFSET 0
+#define ANC_R_CTRL90_REG                   (BASE_ADDR_PAGE_DIG + 0x339)
+#define ANC_R_PREPROC1_IIR1_COEF4_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF4_L_OFFSET 0
+#define ANC_R_CTRL91_REG                   (BASE_ADDR_PAGE_DIG + 0x33A)
+#define ANC_R_PREPROC1_IIR1_COEF5_H_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF5_H_OFFSET 0
+#define ANC_R_CTRL92_REG                   (BASE_ADDR_PAGE_DIG + 0x33B)
+#define ANC_R_PREPROC1_IIR1_COEF5_M_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF5_M_OFFSET 0
+#define ANC_R_CTRL93_REG                   (BASE_ADDR_PAGE_DIG + 0x33C)
+#define ANC_R_PREPROC1_IIR1_COEF5_L_LEN    8
+#define ANC_R_PREPROC1_IIR1_COEF5_L_OFFSET 0
+#define ANC_R_CTRL94_REG                   (BASE_ADDR_PAGE_DIG + 0x33D)
+#define ANC_R_WTP_FLT_SFT_LEN    3
+#define ANC_R_WTP_FLT_SFT_OFFSET 3
+#define ANC_R_WTF_FLT_SFT_LEN    3
+#define ANC_R_WTF_FLT_SFT_OFFSET 0
+#define ANC_R_CTRL95_REG                   (BASE_ADDR_PAGE_DIG + 0x33E)
+#define ANC_R_WTB_FLT_SFT_LEN    3
+#define ANC_R_WTB_FLT_SFT_OFFSET 0
+#define ANC_R_CTRL96_REG                   (BASE_ADDR_PAGE_DIG + 0x33F)
+#define ANC_R_WTS1_FLT_SFT_LEN    3
+#define ANC_R_WTS1_FLT_SFT_OFFSET 3
+#define ANC_R_WTS2_FLT_SFT_LEN    3
+#define ANC_R_WTS2_FLT_SFT_OFFSET 0
+#define ANC_R_CTRL98_REG                   (BASE_ADDR_PAGE_DIG + 0x340)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF0_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF0_H_OFFSET 0
+#define ANC_R_CTRL99_REG                   (BASE_ADDR_PAGE_DIG + 0x341)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF0_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF0_L_OFFSET 0
+#define ANC_R_CTRL101_REG                  (BASE_ADDR_PAGE_DIG + 0x342)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF1_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF1_H_OFFSET 0
+#define ANC_R_CTRL102_REG                  (BASE_ADDR_PAGE_DIG + 0x343)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF1_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF1_L_OFFSET 0
+#define ANC_R_CTRL104_REG                  (BASE_ADDR_PAGE_DIG + 0x344)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF2_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF2_H_OFFSET 0
+#define ANC_R_CTRL105_REG                  (BASE_ADDR_PAGE_DIG + 0x345)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF2_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF2_L_OFFSET 0
+#define ANC_R_CTRL107_REG                  (BASE_ADDR_PAGE_DIG + 0x346)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF3_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF3_H_OFFSET 0
+#define ANC_R_CTRL108_REG                  (BASE_ADDR_PAGE_DIG + 0x347)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF3_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF3_L_OFFSET 0
+#define ANC_R_CTRL110_REG                  (BASE_ADDR_PAGE_DIG + 0x348)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF4_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF4_H_OFFSET 0
+#define ANC_R_CTRL111_REG                  (BASE_ADDR_PAGE_DIG + 0x349)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF4_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF4_L_OFFSET 0
+#define ANC_R_CTRL113_REG                  (BASE_ADDR_PAGE_DIG + 0x34A)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF5_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF5_H_OFFSET 0
+#define ANC_R_CTRL114_REG                  (BASE_ADDR_PAGE_DIG + 0x34B)
+#define ANC_R_BPFADD_FAREND_IIR0_COEF5_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR0_COEF5_L_OFFSET 0
+#define ANC_R_CTRL116_REG                  (BASE_ADDR_PAGE_DIG + 0x34C)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF0_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF0_H_OFFSET 0
+#define ANC_R_CTRL117_REG                  (BASE_ADDR_PAGE_DIG + 0x34D)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF0_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF0_L_OFFSET 0
+#define ANC_R_CTRL119_REG                  (BASE_ADDR_PAGE_DIG + 0x34E)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF1_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF1_H_OFFSET 0
+#define ANC_R_CTRL120_REG                  (BASE_ADDR_PAGE_DIG + 0x34F)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF1_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF1_L_OFFSET 0
+#define ANC_R_CTRL122_REG                  (BASE_ADDR_PAGE_DIG + 0x350)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF2_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF2_H_OFFSET 0
+#define ANC_R_CTRL123_REG                  (BASE_ADDR_PAGE_DIG + 0x351)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF2_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF2_L_OFFSET 0
+#define ANC_R_CTRL125_REG                  (BASE_ADDR_PAGE_DIG + 0x352)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF3_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF3_H_OFFSET 0
+#define ANC_R_CTRL126_REG                  (BASE_ADDR_PAGE_DIG + 0x353)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF3_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF3_L_OFFSET 0
+#define ANC_R_CTRL128_REG                  (BASE_ADDR_PAGE_DIG + 0x354)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF4_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF4_H_OFFSET 0
+#define ANC_R_CTRL129_REG                  (BASE_ADDR_PAGE_DIG + 0x355)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF4_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF4_L_OFFSET 0
+#define ANC_R_CTRL131_REG                  (BASE_ADDR_PAGE_DIG + 0x356)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF5_H_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF5_H_OFFSET 0
+#define ANC_R_CTRL132_REG                  (BASE_ADDR_PAGE_DIG + 0x357)
+#define ANC_R_BPFADD_FAREND_IIR1_COEF5_L_LEN    8
+#define ANC_R_BPFADD_FAREND_IIR1_COEF5_L_OFFSET 0
+#define ANC_R_CTRL133_REG                  (BASE_ADDR_PAGE_DIG + 0x358)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_H_OFFSET 0
+#define ANC_R_CTRL134_REG                  (BASE_ADDR_PAGE_DIG + 0x359)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_M_OFFSET 0
+#define ANC_R_CTRL135_REG                  (BASE_ADDR_PAGE_DIG + 0x35A)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF0_L_OFFSET 0
+#define ANC_R_CTRL136_REG                  (BASE_ADDR_PAGE_DIG + 0x35B)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_H_OFFSET 0
+#define ANC_R_CTRL137_REG                  (BASE_ADDR_PAGE_DIG + 0x35C)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_M_OFFSET 0
+#define ANC_R_CTRL138_REG                  (BASE_ADDR_PAGE_DIG + 0x35D)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF1_L_OFFSET 0
+#define ANC_R_CTRL139_REG                  (BASE_ADDR_PAGE_DIG + 0x35E)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_H_OFFSET 0
+#define ANC_R_CTRL140_REG                  (BASE_ADDR_PAGE_DIG + 0x35F)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_M_OFFSET 0
+#define ANC_R_CTRL141_REG                  (BASE_ADDR_PAGE_DIG + 0x360)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF2_L_OFFSET 0
+#define ANC_R_CTRL142_REG                  (BASE_ADDR_PAGE_DIG + 0x361)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_H_OFFSET 0
+#define ANC_R_CTRL143_REG                  (BASE_ADDR_PAGE_DIG + 0x362)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_M_OFFSET 0
+#define ANC_R_CTRL144_REG                  (BASE_ADDR_PAGE_DIG + 0x363)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF3_L_OFFSET 0
+#define ANC_R_CTRL145_REG                  (BASE_ADDR_PAGE_DIG + 0x364)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_H_OFFSET 0
+#define ANC_R_CTRL146_REG                  (BASE_ADDR_PAGE_DIG + 0x365)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_M_OFFSET 0
+#define ANC_R_CTRL147_REG                  (BASE_ADDR_PAGE_DIG + 0x366)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF4_L_OFFSET 0
+#define ANC_R_CTRL148_REG                  (BASE_ADDR_PAGE_DIG + 0x367)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_H_OFFSET 0
+#define ANC_R_CTRL149_REG                  (BASE_ADDR_PAGE_DIG + 0x368)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_M_OFFSET 0
+#define ANC_R_CTRL150_REG                  (BASE_ADDR_PAGE_DIG + 0x369)
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR0_COEF5_L_OFFSET 0
+#define ANC_R_CTRL151_REG                  (BASE_ADDR_PAGE_DIG + 0x36A)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_H_OFFSET 0
+#define ANC_R_CTRL152_REG                  (BASE_ADDR_PAGE_DIG + 0x36B)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_M_OFFSET 0
+#define ANC_R_CTRL153_REG                  (BASE_ADDR_PAGE_DIG + 0x36C)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF0_L_OFFSET 0
+#define ANC_R_CTRL154_REG                  (BASE_ADDR_PAGE_DIG + 0x36D)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_H_OFFSET 0
+#define ANC_R_CTRL155_REG                  (BASE_ADDR_PAGE_DIG + 0x36E)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_M_OFFSET 0
+#define ANC_R_CTRL156_REG                  (BASE_ADDR_PAGE_DIG + 0x36F)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF1_L_OFFSET 0
+#define ANC_R_CTRL157_REG                  (BASE_ADDR_PAGE_DIG + 0x370)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_H_OFFSET 0
+#define ANC_R_CTRL158_REG                  (BASE_ADDR_PAGE_DIG + 0x371)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_M_OFFSET 0
+#define ANC_R_CTRL159_REG                  (BASE_ADDR_PAGE_DIG + 0x372)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF2_L_OFFSET 0
+#define ANC_R_CTRL160_REG                  (BASE_ADDR_PAGE_DIG + 0x373)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_H_OFFSET 0
+#define ANC_R_CTRL161_REG                  (BASE_ADDR_PAGE_DIG + 0x374)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_M_OFFSET 0
+#define ANC_R_CTRL162_REG                  (BASE_ADDR_PAGE_DIG + 0x375)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF3_L_OFFSET 0
+#define ANC_R_CTRL163_REG                  (BASE_ADDR_PAGE_DIG + 0x376)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_H_OFFSET 0
+#define ANC_R_CTRL164_REG                  (BASE_ADDR_PAGE_DIG + 0x377)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_M_OFFSET 0
+#define ANC_R_CTRL165_REG                  (BASE_ADDR_PAGE_DIG + 0x378)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF4_L_OFFSET 0
+#define ANC_R_CTRL166_REG                  (BASE_ADDR_PAGE_DIG + 0x379)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_H_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_H_OFFSET 0
+#define ANC_R_CTRL167_REG                  (BASE_ADDR_PAGE_DIG + 0x37A)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_M_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_M_OFFSET 0
+#define ANC_R_CTRL168_REG                  (BASE_ADDR_PAGE_DIG + 0x37B)
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_L_LEN    8
+#define ANC_R_BPFADD_ANTINOISE_IIR1_COEF5_L_OFFSET 0
+#define ANC_R_CTRL169_REG                  (BASE_ADDR_PAGE_DIG + 0x37C)
+#define ANC_R_ERRSIGPROC_ANTINOISE_DSP_CTRL_LEN    2
+#define ANC_R_ERRSIGPROC_ANTINOISE_DSP_CTRL_OFFSET 6
+#define ANC_R_BPFADD_ANTINOISE_DSP_CTRL_LEN    2
+#define ANC_R_BPFADD_ANTINOISE_DSP_CTRL_OFFSET 4
+#define ANC_R_ERRSIGPROC_ERR_DSP_CTRL_LEN    2
+#define ANC_R_ERRSIGPROC_ERR_DSP_CTRL_OFFSET 2
+#define ANC_R_FF_REF_DSP_CTRL_LEN    2
+#define ANC_R_FF_REF_DSP_CTRL_OFFSET 0
+#define ANC_R_CTRL170_REG                  (BASE_ADDR_PAGE_DIG + 0x37D)
+#define ANC_R_SRC32_GAIN_H_LEN    4
+#define ANC_R_SRC32_GAIN_H_OFFSET 0
+#define ANC_R_CTRL171_REG                  (BASE_ADDR_PAGE_DIG + 0x37E)
+#define ANC_R_SRC32_GAIN_L_LEN    8
+#define ANC_R_SRC32_GAIN_L_OFFSET 0
+#define ANC_R_CTRL172_REG                  (BASE_ADDR_PAGE_DIG + 0x37F)
+#define ANC_R_SRC32_SFT_LEN    2
+#define ANC_R_SRC32_SFT_OFFSET 2
+#define ANC_R_IR3_ANC_SFT_LEN    2
+#define ANC_R_IR3_ANC_SFT_OFFSET 0
+#define ANC_R_CTRL173_REG                  (BASE_ADDR_PAGE_DIG + 0x380)
+#define ANC_R_INFAR_SFT_LEN    2
+#define ANC_R_INFAR_SFT_OFFSET 1
+#define ANC_R_MEM_ICG_BP_EN_LEN    1
+#define ANC_R_MEM_ICG_BP_EN_OFFSET 0
+#define ANC_R_CTRL174_REG                  (BASE_ADDR_PAGE_DIG + 0x381)
+#define ANC_R_PREPROC0_GAIN_OUT_H_LEN    8
+#define ANC_R_PREPROC0_GAIN_OUT_H_OFFSET 0
+#define ANC_R_CTRL175_REG                  (BASE_ADDR_PAGE_DIG + 0x382)
+#define ANC_R_PREPROC0_GAIN_OUT_L_LEN    8
+#define ANC_R_PREPROC0_GAIN_OUT_L_OFFSET 0
+#define ANC_R_CTRL176_REG                  (BASE_ADDR_PAGE_DIG + 0x383)
+#define ANC_R_PREPROC1_GAIN_OUT_H_LEN    8
+#define ANC_R_PREPROC1_GAIN_OUT_H_OFFSET 0
+#define ANC_R_CTRL177_REG                  (BASE_ADDR_PAGE_DIG + 0x384)
+#define ANC_R_PREPROC1_GAIN_OUT_L_LEN    8
+#define ANC_R_PREPROC1_GAIN_OUT_L_OFFSET 0
+#define ANC_R_CTRL178_REG                  (BASE_ADDR_PAGE_DIG + 0x385)
+#define ANC_R_BPFADD_FAREND_IIR_SFT_PRE_LEN    2
+#define ANC_R_BPFADD_FAREND_IIR_SFT_PRE_OFFSET 4
+#define ANC_R_BPFADD_FAREND_IIR0_SFT_INNER_LEN    2
+#define ANC_R_BPFADD_FAREND_IIR0_SFT_INNER_OFFSET 2
+#define ANC_R_BPFADD_FAREND_IIR1_SFT_INNER_LEN    2
+#define ANC_R_BPFADD_FAREND_IIR1_SFT_INNER_OFFSET 0
+#define ANC_R_CTRL179_REG                  (BASE_ADDR_PAGE_DIG + 0x386)
+#define ANC_R_BPFADD_ANTINOISE_IIR_SFT_PRE_LEN    2
+#define ANC_R_BPFADD_ANTINOISE_IIR_SFT_PRE_OFFSET 4
+#define ANC_R_BPFADD_ANTINOISE_IIR0_SFT_INNER_LEN    2
+#define ANC_R_BPFADD_ANTINOISE_IIR0_SFT_INNER_OFFSET 2
+#define ANC_R_BPFADD_ANTINOISE_IIR1_SFT_INNER_LEN    2
+#define ANC_R_BPFADD_ANTINOISE_IIR1_SFT_INNER_OFFSET 0
+#define ANC_R_CTRL180_REG                  (BASE_ADDR_PAGE_DIG + 0x387)
+#define ANC_R_FF_LAMUDA_LEN    8
+#define ANC_R_FF_LAMUDA_OFFSET 0
+#define ANC_R_CTRL182_REG                  (BASE_ADDR_PAGE_DIG + 0x388)
+#define ANC_R_FB_LAMUDA_LEN    8
+#define ANC_R_FB_LAMUDA_OFFSET 0
+#define ANC_EN_CTRL_REG                    (BASE_ADDR_PAGE_DIG + 0x389)
+#define ANC_R_EN_LEN    1
+#define ANC_R_EN_OFFSET 1
+#define ANC_L_EN_LEN    1
+#define ANC_L_EN_OFFSET 0
+#define ANC_COEF_PULSE_CTRL_REG            (BASE_ADDR_PAGE_DIG + 0x38A)
+#define ANC_R_MEM_COEF_RD_PULSE_LEN    1
+#define ANC_R_MEM_COEF_RD_PULSE_OFFSET 3
+#define ANC_L_MEM_COEF_RD_PULSE_LEN    1
+#define ANC_L_MEM_COEF_RD_PULSE_OFFSET 2
+#define ANC_R_COEF_PULSE_LEN    1
+#define ANC_R_COEF_PULSE_OFFSET 1
+#define ANC_L_COEF_PULSE_LEN    1
+#define ANC_L_COEF_PULSE_OFFSET 0
+#define ANC_L_FIFO_CTRL0_REG               (BASE_ADDR_PAGE_DIG + 0x38B)
+#define ANC_L_PREPROC1_FIFO_CLR_LEN    1
+#define ANC_L_PREPROC1_FIFO_CLR_OFFSET 1
+#define ANC_L_PREPROC0_FIFO_CLR_LEN    1
+#define ANC_L_PREPROC0_FIFO_CLR_OFFSET 0
+#define ANC_L_FIFO_CTRL1_REG               (BASE_ADDR_PAGE_DIG + 0x38C)
+#define ANC_L_PREPROC0_FIFO_AFULL_TH_LEN    6
+#define ANC_L_PREPROC0_FIFO_AFULL_TH_OFFSET 0
+#define ANC_L_FIFO_CTRL2_REG               (BASE_ADDR_PAGE_DIG + 0x38D)
+#define ANC_L_PREPROC0_FIFO_AEMPTY_TH_LEN    6
+#define ANC_L_PREPROC0_FIFO_AEMPTY_TH_OFFSET 0
+#define ANC_L_FIFO_CTRL3_REG               (BASE_ADDR_PAGE_DIG + 0x38E)
+#define ANC_L_PREPROC1_FIFO_AFULL_TH_LEN    6
+#define ANC_L_PREPROC1_FIFO_AFULL_TH_OFFSET 0
+#define ANC_L_FIFO_CTRL4_REG               (BASE_ADDR_PAGE_DIG + 0x38F)
+#define ANC_L_PREPROC1_FIFO_AEMPTY_TH_LEN    6
+#define ANC_L_PREPROC1_FIFO_AEMPTY_TH_OFFSET 0
+#define ANC_L_FIFO_STAT_REG                (BASE_ADDR_PAGE_DIG + 0x390)
+#define ANC_L_PREPROC1_FIFO_WFULL_LEN    1
+#define ANC_L_PREPROC1_FIFO_WFULL_OFFSET 7
+#define ANC_L_PREPROC1_FIFO_REMPTY_LEN    1
+#define ANC_L_PREPROC1_FIFO_REMPTY_OFFSET 6
+#define ANC_L_PREPROC1_FIFO_WAFULL_LEN    1
+#define ANC_L_PREPROC1_FIFO_WAFULL_OFFSET 5
+#define ANC_L_PREPROC1_FIFO_RAEMPTY_LEN    1
+#define ANC_L_PREPROC1_FIFO_RAEMPTY_OFFSET 4
+#define ANC_L_PREPROC0_FIFO_WFULL_LEN    1
+#define ANC_L_PREPROC0_FIFO_WFULL_OFFSET 3
+#define ANC_L_PREPROC0_FIFO_REMPTY_LEN    1
+#define ANC_L_PREPROC0_FIFO_REMPTY_OFFSET 2
+#define ANC_L_PREPROC0_FIFO_WAFULL_LEN    1
+#define ANC_L_PREPROC0_FIFO_WAFULL_OFFSET 1
+#define ANC_L_PREPROC0_FIFO_RAEMPTY_LEN    1
+#define ANC_L_PREPROC0_FIFO_RAEMPTY_OFFSET 0
+#define ANC_R_FIFO_CTRL0_REG               (BASE_ADDR_PAGE_DIG + 0x391)
+#define ANC_R_PREPROC1_FIFO_CLR_LEN    1
+#define ANC_R_PREPROC1_FIFO_CLR_OFFSET 1
+#define ANC_R_PREPROC0_FIFO_CLR_LEN    1
+#define ANC_R_PREPROC0_FIFO_CLR_OFFSET 0
+#define ANC_R_FIFO_CTRL1_REG               (BASE_ADDR_PAGE_DIG + 0x392)
+#define ANC_R_PREPROC0_FIFO_AFULL_TH_LEN    6
+#define ANC_R_PREPROC0_FIFO_AFULL_TH_OFFSET 0
+#define ANC_R_FIFO_CTRL2_REG               (BASE_ADDR_PAGE_DIG + 0x393)
+#define ANC_R_PREPROC0_FIFO_AEMPTY_TH_LEN    6
+#define ANC_R_PREPROC0_FIFO_AEMPTY_TH_OFFSET 0
+#define ANC_R_FIFO_CTRL3_REG               (BASE_ADDR_PAGE_DIG + 0x394)
+#define ANC_R_PREPROC1_FIFO_AFULL_TH_LEN    6
+#define ANC_R_PREPROC1_FIFO_AFULL_TH_OFFSET 0
+#define ANC_R_FIFO_CTRL4_REG               (BASE_ADDR_PAGE_DIG + 0x395)
+#define ANC_R_PREPROC1_FIFO_AEMPTY_TH_LEN    6
+#define ANC_R_PREPROC1_FIFO_AEMPTY_TH_OFFSET 0
+#define ANC_R_FIFO_STAT_REG                (BASE_ADDR_PAGE_DIG + 0x396)
+#define ANC_R_PREPROC1_FIFO_WFULL_LEN    1
+#define ANC_R_PREPROC1_FIFO_WFULL_OFFSET 7
+#define ANC_R_PREPROC1_FIFO_REMPTY_LEN    1
+#define ANC_R_PREPROC1_FIFO_REMPTY_OFFSET 6
+#define ANC_R_PREPROC1_FIFO_WAFULL_LEN    1
+#define ANC_R_PREPROC1_FIFO_WAFULL_OFFSET 5
+#define ANC_R_PREPROC1_FIFO_RAEMPTY_LEN    1
+#define ANC_R_PREPROC1_FIFO_RAEMPTY_OFFSET 4
+#define ANC_R_PREPROC0_FIFO_WFULL_LEN    1
+#define ANC_R_PREPROC0_FIFO_WFULL_OFFSET 3
+#define ANC_R_PREPROC0_FIFO_REMPTY_LEN    1
+#define ANC_R_PREPROC0_FIFO_REMPTY_OFFSET 2
+#define ANC_R_PREPROC0_FIFO_WAFULL_LEN    1
+#define ANC_R_PREPROC0_FIFO_WAFULL_OFFSET 1
+#define ANC_R_PREPROC0_FIFO_RAEMPTY_LEN    1
+#define ANC_R_PREPROC0_FIFO_RAEMPTY_OFFSET 0
+#define SC_CODEC_VLD_CTRL_REG              (BASE_ADDR_PAGE_DIG + 0x399)
+#define DATA_VLD_HOLD_BYPASS_LEN    1
+#define DATA_VLD_HOLD_BYPASS_OFFSET 0
+#define SC_CODEC_MUX_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0x39A)
+#define SLIM_SW_SEL_LEN    1
+#define SLIM_SW_SEL_OFFSET 6
+#define S2_IR_PGA_DIN_SEL_LEN    1
+#define S2_IR_PGA_DIN_SEL_OFFSET 5
+#define S2_IL_PGA_DIN_SEL_LEN    1
+#define S2_IL_PGA_DIN_SEL_OFFSET 4
+#define S1_IR_PGA_DIN_SEL_LEN    2
+#define S1_IR_PGA_DIN_SEL_OFFSET 2
+#define S1_IL_PGA_DIN_SEL_LEN    2
+#define S1_IL_PGA_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0x39B)
+#define S4_O_BITMATCH_BYP_EN_LEN    1
+#define S4_O_BITMATCH_BYP_EN_OFFSET 2
+#define S2_I2S_TDM_TX_DATA_SEL_LEN    2
+#define S2_I2S_TDM_TX_DATA_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL2_REG             (BASE_ADDR_PAGE_DIG + 0x39C)
+#define DSPIF0_DATA_VLD_SEL_LEN    3
+#define DSPIF0_DATA_VLD_SEL_OFFSET 3
+#define DSPIF2_DATA_VLD_SEL_LEN    3
+#define DSPIF2_DATA_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL3_REG             (BASE_ADDR_PAGE_DIG + 0x39D)
+#define DSPIF4_DATA_VLD_SEL_LEN    3
+#define DSPIF4_DATA_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL4_REG             (BASE_ADDR_PAGE_DIG + 0x39E)
+#define DSPIF0_DOUT_VLD_SEL_LEN    3
+#define DSPIF0_DOUT_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL5_REG             (BASE_ADDR_PAGE_DIG + 0x39F)
+#define DSPIF2_DOUT_VLD_SEL_LEN    3
+#define DSPIF2_DOUT_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL6_REG             (BASE_ADDR_PAGE_DIG + 0x3A0)
+#define DSPIF4_DOUT_VLD_SEL_LEN    3
+#define DSPIF4_DOUT_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL7_REG             (BASE_ADDR_PAGE_DIG + 0x3A1)
+#define DSPIF6_DOUT_VLD_SEL_LEN    3
+#define DSPIF6_DOUT_VLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL8_REG             (BASE_ADDR_PAGE_DIG + 0x3A2)
+#define S1_I_DSP_BYPASS_LEN    1
+#define S1_I_DSP_BYPASS_OFFSET 3
+#define S2_I_DSP_BYPASS_LEN    1
+#define S2_I_DSP_BYPASS_OFFSET 2
+#define S3_I_DSP_BYPASS_LEN    1
+#define S3_I_DSP_BYPASS_OFFSET 1
+#define S4_I_DSP_BYPASS_LEN    1
+#define S4_I_DSP_BYPASS_OFFSET 0
+#define SC_CODEC_MUX_CTRL9_REG             (BASE_ADDR_PAGE_DIG + 0x3A3)
+#define DAC_MIXER4_VLD_SEL_LEN    1
+#define DAC_MIXER4_VLD_SEL_OFFSET 3
+#define DAC_PRE_MIXER2_VLD_SEL_LEN    1
+#define DAC_PRE_MIXER2_VLD_SEL_OFFSET 2
+#define DACL_PRE_MIXER2_IN1_SEL_LEN    1
+#define DACL_PRE_MIXER2_IN1_SEL_OFFSET 1
+#define DACR_PRE_MIXER2_IN1_SEL_LEN    1
+#define DACR_PRE_MIXER2_IN1_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL11_REG            (BASE_ADDR_PAGE_DIG + 0x3A5)
+#define DSPIF8_TEST_DIN_SEL_LEN    4
+#define DSPIF8_TEST_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL12_REG            (BASE_ADDR_PAGE_DIG + 0x3A6)
+#define DACL_PRE_PGA_DIN_SEL_LEN    2
+#define DACL_PRE_PGA_DIN_SEL_OFFSET 2
+#define DACR_PRE_PGA_DIN_SEL_LEN    2
+#define DACR_PRE_PGA_DIN_SEL_OFFSET 0
+#define DACL_DC_H_REG                      (BASE_ADDR_PAGE_DIG + 0x3A7)
+#define DACL_DC_H_LEN    8
+#define DACL_DC_H_OFFSET 0
+#define DACL_DC_M_REG                      (BASE_ADDR_PAGE_DIG + 0x3A8)
+#define DACL_DC_M_REG_MASK  0xf
+#define DACL_DC_M_REG_VALUE 0x8
+#define DACL_DC_M_LEN    8
+#define DACL_DC_M_OFFSET 0
+#define DACL_DC_L_REG                      (BASE_ADDR_PAGE_DIG + 0x3A9)
+#define DACL_DC_L_LEN    8
+#define DACL_DC_L_OFFSET 0
+#define DACR_DC_H_REG                      (BASE_ADDR_PAGE_DIG + 0x3AA)
+#define DACR_DC_H_LEN    8
+#define DACR_DC_H_OFFSET 0
+#define DACR_DC_M_REG                      (BASE_ADDR_PAGE_DIG + 0x3AB)
+#define DACR_DC_M_REG_MASK  0xf
+#define DACR_DC_M_REG_VALUE 0x8
+#define DACR_DC_M_LEN    8
+#define DACR_DC_M_OFFSET 0
+#define DACR_DC_L_REG                      (BASE_ADDR_PAGE_DIG + 0x3AC)
+#define DACR_DC_L_LEN    8
+#define DACR_DC_L_OFFSET 0
+#define DACSL_DC_H_REG                     (BASE_ADDR_PAGE_DIG + 0x3AD)
+#define DACSL_DC_H_LEN    8
+#define DACSL_DC_H_OFFSET 0
+#define DACSL_DC_M_REG                     (BASE_ADDR_PAGE_DIG + 0x3AE)
+#define DACSL_DC_M_LEN    8
+#define DACSL_DC_M_OFFSET 0
+#define DACSL_DC_L_REG                     (BASE_ADDR_PAGE_DIG + 0x3AF)
+#define DACSL_DC_L_LEN    8
+#define DACSL_DC_L_OFFSET 0
+#define DSDL_DC_H_REG                      (BASE_ADDR_PAGE_DIG + 0x3B3)
+#define DSDL_DC_H_LEN    8
+#define DSDL_DC_H_OFFSET 0
+#define DSDL_DC_M_REG                      (BASE_ADDR_PAGE_DIG + 0x3B4)
+#define DSDL_DC_M_LEN    8
+#define DSDL_DC_M_OFFSET 0
+#define DSDL_DC_L_REG                      (BASE_ADDR_PAGE_DIG + 0x3B5)
+#define DSDL_DC_L_LEN    8
+#define DSDL_DC_L_OFFSET 0
+#define DSDR_DC_H_REG                      (BASE_ADDR_PAGE_DIG + 0x3B6)
+#define DSDR_DC_H_LEN    8
+#define DSDR_DC_H_OFFSET 0
+#define DSDR_DC_M_REG                      (BASE_ADDR_PAGE_DIG + 0x3B7)
+#define DSDR_DC_M_LEN    8
+#define DSDR_DC_M_OFFSET 0
+#define DSDR_DC_L_REG                      (BASE_ADDR_PAGE_DIG + 0x3B8)
+#define DSDR_DC_L_LEN    8
+#define DSDR_DC_L_OFFSET 0
+#define SC_CODEC_MUX_CTRL13_REG            (BASE_ADDR_PAGE_DIG + 0x3B9)
+#define HP_SDM_L_DIN_SEL_LEN    2
+#define HP_SDM_L_DIN_SEL_OFFSET 6
+#define HP_SDM_R_DIN_SEL_LEN    2
+#define HP_SDM_R_DIN_SEL_OFFSET 4
+#define EP_SDM_L_DIN_SEL_LEN    2
+#define EP_SDM_L_DIN_SEL_OFFSET 2
+#define SC_CODEC_MUX_CTRL14_REG            (BASE_ADDR_PAGE_DIG + 0x3BA)
+#define MDM_SEL_LEN    1
+#define MDM_SEL_OFFSET 4
+#define SIDE_SRC_DIN_SEL_LEN    4
+#define SIDE_SRC_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL15_REG            (BASE_ADDR_PAGE_DIG + 0x3BB)
+#define ADC0R_DIN_SEL_LEN    4
+#define ADC0R_DIN_SEL_OFFSET 4
+#define ADC0L_DIN_SEL_LEN    4
+#define ADC0L_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL16_REG            (BASE_ADDR_PAGE_DIG + 0x3BC)
+#define ADC1R_DIN_SEL_LEN    4
+#define ADC1R_DIN_SEL_OFFSET 4
+#define ADC1L_DIN_SEL_LEN    4
+#define ADC1L_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL17_REG            (BASE_ADDR_PAGE_DIG + 0x3BD)
+#define ADC2L_DIN_SEL_LEN    4
+#define ADC2L_DIN_SEL_OFFSET 0
+#define SC_ADC_ANA_SEL_REG                 (BASE_ADDR_PAGE_DIG + 0x3BE)
+#define ADC_MAD_ANA_SEL_LEN    1
+#define ADC_MAD_ANA_SEL_OFFSET 5
+#define ADC4_ANA_SEL_LEN    1
+#define ADC4_ANA_SEL_OFFSET 4
+#define ADC3_ANA_SEL_LEN    1
+#define ADC3_ANA_SEL_OFFSET 3
+#define ADC2_ANA_SEL_LEN    1
+#define ADC2_ANA_SEL_OFFSET 2
+#define ADC1_ANA_SEL_LEN    1
+#define ADC1_ANA_SEL_OFFSET 1
+#define ADC0_ANA_SEL_LEN    1
+#define ADC0_ANA_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL19_REG            (BASE_ADDR_PAGE_DIG + 0x3C0)
+#define FS_ADC2L_LEN    2
+#define FS_ADC2L_OFFSET 0
+#define SC_CODEC_MUX_CTRL20_REG            (BASE_ADDR_PAGE_DIG + 0x3C1)
+#define FS_ADC1R_LEN    2
+#define FS_ADC1R_OFFSET 6
+#define FS_ADC1L_LEN    2
+#define FS_ADC1L_OFFSET 4
+#define FS_ADC0R_LEN    2
+#define FS_ADC0R_OFFSET 2
+#define FS_ADC0L_LEN    2
+#define FS_ADC0L_OFFSET 0
+#define SC_CODEC_MUX_CTRL21_REG            (BASE_ADDR_PAGE_DIG + 0x3C2)
+#define S1_O_DSP_IF_DIN_SEL_LEN    2
+#define S1_O_DSP_IF_DIN_SEL_OFFSET 4
+#define S2_O_DSP_IF_DIN_SEL_LEN    2
+#define S2_O_DSP_IF_DIN_SEL_OFFSET 2
+#define S3_O_DSP_IF_DIN_SEL_LEN    1
+#define S3_O_DSP_IF_DIN_SEL_OFFSET 1
+#define S4_O_DSP_IF_DIN_SEL_LEN    1
+#define S4_O_DSP_IF_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL22_REG            (BASE_ADDR_PAGE_DIG + 0x3C3)
+#define SLIM_UP6_DATA_SEL_LEN    2
+#define SLIM_UP6_DATA_SEL_OFFSET 3
+#define S1_O_DSP_BYPASS_LEN    1
+#define S1_O_DSP_BYPASS_OFFSET 2
+#define S2_O_DSP_BYPASS_LEN    1
+#define S2_O_DSP_BYPASS_OFFSET 1
+#define S3_O_DSP_BYPASS_LEN    1
+#define S3_O_DSP_BYPASS_OFFSET 0
+#define SC_CODEC_MUX_CTRL23_REG            (BASE_ADDR_PAGE_DIG + 0x3C4)
+#define FS_S1_LEN    3
+#define FS_S1_OFFSET 3
+#define FS_S2_LEN    3
+#define FS_S2_OFFSET 0
+#define SC_CODEC_MUX_CTRL24_REG            (BASE_ADDR_PAGE_DIG + 0x3C5)
+#define FS_S4_LEN    3
+#define FS_S4_OFFSET 4
+#define S2_FS_TDM_LEN    2
+#define S2_FS_TDM_OFFSET 2
+#define S4_FS_TDM_LEN    2
+#define S4_FS_TDM_OFFSET 0
+#define SC_FS_SLIM_CTRL_0_REG              (BASE_ADDR_PAGE_DIG + 0x3C6)
+#define FS_SLIM_DN2_LEN    3
+#define FS_SLIM_DN2_OFFSET 4
+#define SLIM_SYNC_MEM_ICG_BP_EN_LEN    1
+#define SLIM_SYNC_MEM_ICG_BP_EN_OFFSET 3
+#define FS_SLIM_DN1_LEN    3
+#define FS_SLIM_DN1_OFFSET 0
+#define SC_FS_SLIM_CTRL_1_REG              (BASE_ADDR_PAGE_DIG + 0x3C7)
+#define FS_SLIM_DN4_LEN    3
+#define FS_SLIM_DN4_OFFSET 4
+#define FS_SLIM_DN3_LEN    3
+#define FS_SLIM_DN3_OFFSET 0
+#define SC_FS_SLIM_CTRL_2_REG              (BASE_ADDR_PAGE_DIG + 0x3C8)
+#define FS_SLIM_DN6_LEN    3
+#define FS_SLIM_DN6_OFFSET 4
+#define FS_SLIM_DN5_LEN    3
+#define FS_SLIM_DN5_OFFSET 0
+#define SC_FS_SLIM_CTRL_3_REG              (BASE_ADDR_PAGE_DIG + 0x3C9)
+#define FS_SLIM_UP2_LEN    3
+#define FS_SLIM_UP2_OFFSET 4
+#define FS_SLIM_UP1_LEN    3
+#define FS_SLIM_UP1_OFFSET 0
+#define SC_FS_SLIM_CTRL_4_REG              (BASE_ADDR_PAGE_DIG + 0x3CA)
+#define FS_SLIM_UP4_LEN    3
+#define FS_SLIM_UP4_OFFSET 4
+#define FS_SLIM_UP3_LEN    3
+#define FS_SLIM_UP3_OFFSET 0
+#define SC_FS_SLIM_CTRL_5_REG              (BASE_ADDR_PAGE_DIG + 0x3CB)
+#define FS_SLIM_UP6_LEN    3
+#define FS_SLIM_UP6_OFFSET 4
+#define FS_SLIM_UP5_LEN    3
+#define FS_SLIM_UP5_OFFSET 0
+#define SC_FS_SLIM_CTRL_6_REG              (BASE_ADDR_PAGE_DIG + 0x3CC)
+#define FS_SLIM_UP8_LEN    3
+#define FS_SLIM_UP8_OFFSET 4
+#define FS_SLIM_UP7_LEN    3
+#define FS_SLIM_UP7_OFFSET 0
+#define SC_FS_SLIM_CTRL_7_REG              (BASE_ADDR_PAGE_DIG + 0x3CD)
+#define FS_SLIM_UP10_LEN    3
+#define FS_SLIM_UP10_OFFSET 4
+#define FS_SLIM_UP9_LEN    3
+#define FS_SLIM_UP9_OFFSET 0
+#define SC_CODEC_MUX_CTRL25_REG            (BASE_ADDR_PAGE_DIG + 0x3CE)
+#define SLIM_UP9_DATA_SEL_LEN    2
+#define SLIM_UP9_DATA_SEL_OFFSET 6
+#define SLIM_UP10_DATA_SEL_LEN    2
+#define SLIM_UP10_DATA_SEL_OFFSET 4
+#define SLIM_UP5_DATA_SEL_LEN    2
+#define SLIM_UP5_DATA_SEL_OFFSET 2
+#define SLIM_UP12_DATA_SEL_LEN    2
+#define SLIM_UP12_DATA_SEL_OFFSET 0
+#define SC_MEM_CTRL0_L_REG                 (BASE_ADDR_PAGE_DIG + 0x3CF)
+#define SP_MEM_CTRL_BUS_L_LEN    8
+#define SP_MEM_CTRL_BUS_L_OFFSET 0
+#define SC_MEM_CTRL0_H_REG                 (BASE_ADDR_PAGE_DIG + 0x3D0)
+#define SP_MEM_CTRL_BUS_H_LEN    8
+#define SP_MEM_CTRL_BUS_H_OFFSET 0
+#define SC_MEM_CTRL1_L_REG                 (BASE_ADDR_PAGE_DIG + 0x3D1)
+#define TP_MEM_CTRL_BUS_L_LEN    8
+#define TP_MEM_CTRL_BUS_L_OFFSET 0
+#define SC_MEM_CTRL1_H_REG                 (BASE_ADDR_PAGE_DIG + 0x3D2)
+#define TP_MEM_CTRL_BUS_H_LEN    8
+#define TP_MEM_CTRL_BUS_H_OFFSET 0
+#define SC_PGA_THRE_CTRL_0_REG             (BASE_ADDR_PAGE_DIG + 0x3D3)
+#define SC_PGA_THRE_CTRL_0_LEN    8
+#define SC_PGA_THRE_CTRL_0_OFFSET 0
+#define SC_PGA_THRE_CTRL_1_REG             (BASE_ADDR_PAGE_DIG + 0x3D4)
+#define SC_PGA_THRE_CTRL_1_LEN    8
+#define SC_PGA_THRE_CTRL_1_OFFSET 0
+#define SC_PGA_THRE_CTRL_2_REG             (BASE_ADDR_PAGE_DIG + 0x3D5)
+#define SC_PGA_THRE_CTRL_2_LEN    8
+#define SC_PGA_THRE_CTRL_2_OFFSET 0
+#define SC_PGA_THRE_CTRL_3_REG             (BASE_ADDR_PAGE_DIG + 0x3D6)
+#define SC_PGA_THRE_CTRL_3_LEN    8
+#define SC_PGA_THRE_CTRL_3_OFFSET 0
+#define SC_PGA_THRE_CTRL_4_REG             (BASE_ADDR_PAGE_DIG + 0x3D7)
+#define SC_PGA_THRE_CTRL_4_LEN    8
+#define SC_PGA_THRE_CTRL_4_OFFSET 0
+#define SC_PGA_THRE_CTRL_5_REG             (BASE_ADDR_PAGE_DIG + 0x3D8)
+#define SC_PGA_THRE_CTRL_5_LEN    8
+#define SC_PGA_THRE_CTRL_5_OFFSET 0
+#define SC_PGA_THRE_CTRL_6_REG             (BASE_ADDR_PAGE_DIG + 0x3D9)
+#define SC_PGA_THRE_CTRL_6_LEN    8
+#define SC_PGA_THRE_CTRL_6_OFFSET 0
+#define SC_PGA_THRE_CTRL_7_REG             (BASE_ADDR_PAGE_DIG + 0x3DA)
+#define SC_PGA_THRE_CTRL_7_LEN    8
+#define SC_PGA_THRE_CTRL_7_OFFSET 0
+#define SC_PGA_THRE_CTRL_8_REG             (BASE_ADDR_PAGE_DIG + 0x3DB)
+#define SC_PGA_THRE_CTRL_8_LEN    8
+#define SC_PGA_THRE_CTRL_8_OFFSET 0
+#define SC_PGA_THRE_CTRL_9_REG             (BASE_ADDR_PAGE_DIG + 0x3DC)
+#define SC_PGA_THRE_CTRL_9_LEN    8
+#define SC_PGA_THRE_CTRL_9_OFFSET 0
+#define SC_PGA_THRE_CTRL_10_REG            (BASE_ADDR_PAGE_DIG + 0x3DD)
+#define SC_PGA_THRE_CTRL_10_LEN    8
+#define SC_PGA_THRE_CTRL_10_OFFSET 0
+#define SC_PGA_THRE_CTRL_11_REG            (BASE_ADDR_PAGE_DIG + 0x3DE)
+#define SC_PGA_THRE_CTRL_11_LEN    8
+#define SC_PGA_THRE_CTRL_11_OFFSET 0
+#define DAC_DATA_SEL_CTRL0_REG             (BASE_ADDR_PAGE_DIG + 0x3DF)
+#define DAC1_DATA_SEL_LEN    3
+#define DAC1_DATA_SEL_OFFSET 3
+#define DAC0_DATA_SEL_LEN    3
+#define DAC0_DATA_SEL_OFFSET 0
+#define DAC_DATA_SEL_CTRL1_REG             (BASE_ADDR_PAGE_DIG + 0x3E0)
+#define DAC2_DATA_SEL_LEN    3
+#define DAC2_DATA_SEL_OFFSET 0
+#define SC_IO_TEST_CTRL_0_REG              (BASE_ADDR_PAGE_DIG + 0x3E1)
+#define IO_TEST_OE_0_LEN    8
+#define IO_TEST_OE_0_OFFSET 0
+#define SC_IO_TEST_CTRL_1_REG              (BASE_ADDR_PAGE_DIG + 0x3E2)
+#define IO_TEST_OE_1_LEN    8
+#define IO_TEST_OE_1_OFFSET 0
+#define SC_IO_TEST_CTRL_2_REG              (BASE_ADDR_PAGE_DIG + 0x3E3)
+#define IO_TEST_OE_2_LEN    8
+#define IO_TEST_OE_2_OFFSET 0
+#define SC_IO_TEST_CTRL_3_REG              (BASE_ADDR_PAGE_DIG + 0x3E4)
+#define IO_TEST_OE_3_LEN    4
+#define IO_TEST_OE_3_OFFSET 0
+#define SC_CODEC_MUX_CTRL26_REG            (BASE_ADDR_PAGE_DIG + 0x3E5)
+#define S1_CLK_IF_TXRX_EN_LEN    1
+#define S1_CLK_IF_TXRX_EN_OFFSET 6
+#define S2_CLK_IF_TXRX_EN_LEN    1
+#define S2_CLK_IF_TXRX_EN_OFFSET 5
+#define S4_CLK_IF_TXRX_EN_LEN    1
+#define S4_CLK_IF_TXRX_EN_OFFSET 4
+#define S1_CLK_IF_EN_LEN    1
+#define S1_CLK_IF_EN_OFFSET 2
+#define S2_CLK_IF_EN_LEN    1
+#define S2_CLK_IF_EN_OFFSET 1
+#define S4_CLK_IF_EN_LEN    1
+#define S4_CLK_IF_EN_OFFSET 0
+#define SC_CODEC_MUX_CTRL27_REG            (BASE_ADDR_PAGE_DIG + 0x3E6)
+#define MIC_5_SEL_LEN    4
+#define MIC_5_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL28_REG            (BASE_ADDR_PAGE_DIG + 0x3E7)
+#define MIC_4_SEL_LEN    4
+#define MIC_4_SEL_OFFSET 4
+#define MIC_3_SEL_LEN    4
+#define MIC_3_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL29_REG            (BASE_ADDR_PAGE_DIG + 0x3E8)
+#define MIC_2_SEL_LEN    4
+#define MIC_2_SEL_OFFSET 4
+#define MIC_1_SEL_LEN    4
+#define MIC_1_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL30_REG            (BASE_ADDR_PAGE_DIG + 0x3E9)
+#define ULTRASONIC_RX_MUX2_SEL_LEN    4
+#define ULTRASONIC_RX_MUX2_SEL_OFFSET 4
+#define ULTRASONIC_RX_MUX1_SEL_LEN    4
+#define ULTRASONIC_RX_MUX1_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL31_REG            (BASE_ADDR_PAGE_DIG + 0x3EA)
+#define BTR_DATA_SEL_LEN    4
+#define BTR_DATA_SEL_OFFSET 4
+#define BTL_DATA_SEL_LEN    4
+#define BTL_DATA_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL32_REG            (BASE_ADDR_PAGE_DIG + 0x3EB)
+#define M1R_DATA_SEL_LEN    4
+#define M1R_DATA_SEL_OFFSET 4
+#define M1L_DATA_SEL_LEN    4
+#define M1L_DATA_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL33_REG            (BASE_ADDR_PAGE_DIG + 0x3EC)
+#define DACL_UP16_DIN_SEL_LEN    1
+#define DACL_UP16_DIN_SEL_OFFSET 3
+#define DACR_UP16_DIN_SEL_LEN    1
+#define DACR_UP16_DIN_SEL_OFFSET 2
+#define DACL_S_UP16_DIN_SEL_LEN    1
+#define DACL_S_UP16_DIN_SEL_OFFSET 1
+#define SC_CODEC_MUX_CTRL34_REG            (BASE_ADDR_PAGE_DIG + 0x3ED)
+#define DACL_POST_MIXER2_DVLD_SEL_LEN    1
+#define DACL_POST_MIXER2_DVLD_SEL_OFFSET 1
+#define DACR_POST_MIXER2_DVLD_SEL_LEN    1
+#define DACR_POST_MIXER2_DVLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL35_REG            (BASE_ADDR_PAGE_DIG + 0x3EE)
+#define ANC_L_INREF_MIC_SEL_LEN    3
+#define ANC_L_INREF_MIC_SEL_OFFSET 3
+#define ANC_L_INERR_MIC_SEL_LEN    3
+#define ANC_L_INERR_MIC_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL36_REG            (BASE_ADDR_PAGE_DIG + 0x3EF)
+#define ANC_R_INREF_MIC_SEL_LEN    3
+#define ANC_R_INREF_MIC_SEL_OFFSET 3
+#define ANC_R_INERR_MIC_SEL_LEN    3
+#define ANC_R_INERR_MIC_SEL_OFFSET 0
+#define HP_SDM_MUX_REG0_REG                (BASE_ADDR_PAGE_DIG + 0x3F1)
+#define HP_SDM_MUX_REG0_LEN    8
+#define HP_SDM_MUX_REG0_OFFSET 0
+#define HP_SDM_MUX_REG1_REG                (BASE_ADDR_PAGE_DIG + 0x3F2)
+#define HP_SDM_MUX_REG1_LEN    8
+#define HP_SDM_MUX_REG1_OFFSET 0
+#define HP_SDM_MUX_REG2_REG                (BASE_ADDR_PAGE_DIG + 0x3F3)
+#define HP_SDM_MUX_REG2_LEN    8
+#define HP_SDM_MUX_REG2_OFFSET 0
+#define HP_SDM_MUX_REG3_REG                (BASE_ADDR_PAGE_DIG + 0x3F4)
+#define HP_SDM_MUX_REG3_LEN    8
+#define HP_SDM_MUX_REG3_OFFSET 0
+#define HP_SDM_MUX_REG4_REG                (BASE_ADDR_PAGE_DIG + 0x3F5)
+#define HP_SDM_MUX_REG4_LEN    8
+#define HP_SDM_MUX_REG4_OFFSET 0
+#define HP_SDM_MUX_REG5_REG                (BASE_ADDR_PAGE_DIG + 0x3F6)
+#define HP_SDM_MUX_REG5_LEN    8
+#define HP_SDM_MUX_REG5_OFFSET 0
+#define HP_SDM_MUX_REG6_REG                (BASE_ADDR_PAGE_DIG + 0x3F7)
+#define HP_SDM_MUX_REG6_LEN    8
+#define HP_SDM_MUX_REG6_OFFSET 0
+#define HP_SDM_MUX_REG7_REG                (BASE_ADDR_PAGE_DIG + 0x3F8)
+#define HP_SDM_MUX_REG7_LEN    4
+#define HP_SDM_MUX_REG7_OFFSET 4
+#define EP_SDM_MUX_REG0_REG                (BASE_ADDR_PAGE_DIG + 0x3F9)
+#define EP_SDM_MUX_REG0_LEN    8
+#define EP_SDM_MUX_REG0_OFFSET 0
+#define EP_SDM_MUX_REG1_REG                (BASE_ADDR_PAGE_DIG + 0x3FA)
+#define EP_SDM_MUX_REG1_LEN    8
+#define EP_SDM_MUX_REG1_OFFSET 0
+#define EP_SDM_MUX_REG2_REG                (BASE_ADDR_PAGE_DIG + 0x3FB)
+#define EP_SDM_MUX_REG2_LEN    8
+#define EP_SDM_MUX_REG2_OFFSET 0
+#define EP_SDM_MUX_REG3_REG                (BASE_ADDR_PAGE_DIG + 0x3FC)
+#define EP_SDM_MUX_REG3_LEN    8
+#define EP_SDM_MUX_REG3_OFFSET 0
+#define EP_SDM_MUX_REG4_REG                (BASE_ADDR_PAGE_DIG + 0x3FD)
+#define EP_SDM_MUX_REG4_LEN    8
+#define EP_SDM_MUX_REG4_OFFSET 0
+#define EP_SDM_MUX_REG5_REG                (BASE_ADDR_PAGE_DIG + 0x3FE)
+#define EP_SDM_MUX_REG5_LEN    8
+#define EP_SDM_MUX_REG5_OFFSET 0
+#define EP_SDM_MUX_REG6_REG                (BASE_ADDR_PAGE_DIG + 0x3FF)
+#define EP_SDM_MUX_REG6_LEN    4
+#define EP_SDM_MUX_REG6_OFFSET 4
+#define SC_SOUNDWIRE_FS_CTRL0_REG          (BASE_ADDR_PAGE_DIG + 0x403)
+#define FS_SW_UP1_2_LEN    3
+#define FS_SW_UP1_2_OFFSET 3
+#define FS_SW_UP3_4_LEN    3
+#define FS_SW_UP3_4_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL1_REG          (BASE_ADDR_PAGE_DIG + 0x404)
+#define FS_SW_UP5_6_LEN    3
+#define FS_SW_UP5_6_OFFSET 3
+#define FS_SW_UP7_8_LEN    3
+#define FS_SW_UP7_8_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL2_REG          (BASE_ADDR_PAGE_DIG + 0x405)
+#define FS_SW_UP9_10_LEN    3
+#define FS_SW_UP9_10_OFFSET 3
+#define FS_SW_UP11_12_LEN    3
+#define FS_SW_UP11_12_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL3_REG          (BASE_ADDR_PAGE_DIG + 0x406)
+#define FS_SW_UP13_14_LEN    3
+#define FS_SW_UP13_14_OFFSET 3
+#define FS_SW_UP15_16_LEN    3
+#define FS_SW_UP15_16_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL4_REG          (BASE_ADDR_PAGE_DIG + 0x407)
+#define FS_SW_UP17_18_LEN    3
+#define FS_SW_UP17_18_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL5_REG          (BASE_ADDR_PAGE_DIG + 0x408)
+#define FS_SW_DN1_2_LEN    3
+#define FS_SW_DN1_2_OFFSET 3
+#define FS_SW_DN3_4_LEN    3
+#define FS_SW_DN3_4_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL6_REG          (BASE_ADDR_PAGE_DIG + 0x409)
+#define FS_SW_DN5_6_LEN    3
+#define FS_SW_DN5_6_OFFSET 3
+#define FS_SW_DN7_8_LEN    3
+#define FS_SW_DN7_8_OFFSET 0
+#define SC_SOUNDWIRE_FS_CTRL7_REG          (BASE_ADDR_PAGE_DIG + 0x40A)
+#define FS_SW_DN9_10_LEN    3
+#define FS_SW_DN9_10_OFFSET 0
+#define SC_CODEC_MUX_CTRL37_REG            (BASE_ADDR_PAGE_DIG + 0x40B)
+#define SLIM_SW_UP7_DATA_SEL_LEN    2
+#define SLIM_SW_UP7_DATA_SEL_OFFSET 6
+#define SLIM_SW_UP8_DATA_SEL_LEN    2
+#define SLIM_SW_UP8_DATA_SEL_OFFSET 4
+#define SPA_OL_SRC_DIN_SEL_LEN    2
+#define SPA_OL_SRC_DIN_SEL_OFFSET 2
+#define SPA_OR_SRC_DIN_SEL_LEN    2
+#define SPA_OR_SRC_DIN_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL38_REG            (BASE_ADDR_PAGE_DIG + 0x40C)
+#define CLASSH_ANC_EP_ANTINOISE_SEL_LEN    1
+#define CLASSH_ANC_EP_ANTINOISE_SEL_OFFSET 6
+#define ANC_L_INFAREND_SEL_LEN    1
+#define ANC_L_INFAREND_SEL_OFFSET 5
+#define ANC_R_INFAREND_SEL_LEN    1
+#define ANC_R_INFAREND_SEL_OFFSET 4
+#define DACSL_PGA_DIN_SEL_LEN    1
+#define DACSL_PGA_DIN_SEL_OFFSET 3
+#define DACSL_MIXER4_DVLD_SEL_LEN    1
+#define DACSL_MIXER4_DVLD_SEL_OFFSET 1
+#define DACSR_MIXER4_DVLD_SEL_LEN    1
+#define DACSR_MIXER4_DVLD_SEL_OFFSET 0
+#define SC_CODEC_MUX_CTRL39_REG            (BASE_ADDR_PAGE_DIG + 0x40D)
+#define DSPIF9_DIN_SEL_LEN    2
+#define DSPIF9_DIN_SEL_OFFSET 1
+#define DSPIF8_DIN_SEL_LEN    1
+#define DSPIF8_DIN_SEL_OFFSET 0
+#define SLIM_SYNC_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x40F)
+#define SLIM_SYNC_FIFO_CLR_LEN    1
+#define SLIM_SYNC_FIFO_CLR_OFFSET 6
+#define SLIM_SYNC_FIFO_AF0_TH_LEN    6
+#define SLIM_SYNC_FIFO_AF0_TH_OFFSET 0
+#define SLIM_SYNC_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x410)
+#define SLIM_SYNC_FIFO_AEMPTY_TH_LEN    6
+#define SLIM_SYNC_FIFO_AEMPTY_TH_OFFSET 0
+#define SLIM_SYNC_STAT1_REG                (BASE_ADDR_PAGE_DIG + 0x411)
+#define SLIM_SYNC_FIFO1_EMPTY_LEN    1
+#define SLIM_SYNC_FIFO1_EMPTY_OFFSET 7
+#define SLIM_SYNC_FIFO1_FULL_LEN    1
+#define SLIM_SYNC_FIFO1_FULL_OFFSET 6
+#define SLIM_SYNC_FIFO1_WERROR_LEN    1
+#define SLIM_SYNC_FIFO1_WERROR_OFFSET 5
+#define SLIM_SYNC_FIFO1_RERROR_LEN    1
+#define SLIM_SYNC_FIFO1_RERROR_OFFSET 4
+#define SLIM_SYNC_STAT2_REG                (BASE_ADDR_PAGE_DIG + 0x412)
+#define SLIM_SYNC_FIFO2_EMPTY_LEN    1
+#define SLIM_SYNC_FIFO2_EMPTY_OFFSET 7
+#define SLIM_SYNC_FIFO2_FULL_LEN    1
+#define SLIM_SYNC_FIFO2_FULL_OFFSET 6
+#define SLIM_SYNC_FIFO2_WERROR_LEN    1
+#define SLIM_SYNC_FIFO2_WERROR_OFFSET 5
+#define SLIM_SYNC_FIFO2_RERROR_LEN    1
+#define SLIM_SYNC_FIFO2_RERROR_OFFSET 4
+#define SC_DSP_IF_AFIFO_THRE_CTRL_0_REG    (BASE_ADDR_PAGE_DIG + 0x413)
+#define DSP_IF0_FIFO_THRE_DN_LEN    4
+#define DSP_IF0_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF0_FIFO_THRE_UP_LEN    4
+#define DSP_IF0_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_1_REG    (BASE_ADDR_PAGE_DIG + 0x414)
+#define DSP_IF1_FIFO_THRE_DN_LEN    4
+#define DSP_IF1_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF1_FIFO_THRE_UP_LEN    4
+#define DSP_IF1_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_2_REG    (BASE_ADDR_PAGE_DIG + 0x415)
+#define DSP_IF2_FIFO_THRE_DN_LEN    4
+#define DSP_IF2_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF2_FIFO_THRE_UP_LEN    4
+#define DSP_IF2_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_3_REG    (BASE_ADDR_PAGE_DIG + 0x416)
+#define DSP_IF3_FIFO_THRE_DN_LEN    4
+#define DSP_IF3_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF3_FIFO_THRE_UP_LEN    4
+#define DSP_IF3_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_4_REG    (BASE_ADDR_PAGE_DIG + 0x417)
+#define DSP_IF4_FIFO_THRE_DN_LEN    4
+#define DSP_IF4_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF4_FIFO_THRE_UP_LEN    4
+#define DSP_IF4_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_5_REG    (BASE_ADDR_PAGE_DIG + 0x418)
+#define DSP_IF5_FIFO_THRE_DN_LEN    4
+#define DSP_IF5_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF5_FIFO_THRE_UP_LEN    4
+#define DSP_IF5_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_6_REG    (BASE_ADDR_PAGE_DIG + 0x419)
+#define DSP_IF6_FIFO_THRE_DN_LEN    4
+#define DSP_IF6_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF6_FIFO_THRE_UP_LEN    4
+#define DSP_IF6_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_7_REG    (BASE_ADDR_PAGE_DIG + 0x41A)
+#define DSP_IF7_FIFO_THRE_DN_LEN    4
+#define DSP_IF7_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF7_FIFO_THRE_UP_LEN    4
+#define DSP_IF7_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_8_REG    (BASE_ADDR_PAGE_DIG + 0x41B)
+#define DSP_IF8_FIFO_THRE_DN_LEN    4
+#define DSP_IF8_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF8_FIFO_THRE_UP_LEN    4
+#define DSP_IF8_FIFO_THRE_UP_OFFSET 0
+#define SC_DSP_IF_AFIFO_THRE_CTRL_9_REG    (BASE_ADDR_PAGE_DIG + 0x41C)
+#define DSP_IF9_FIFO_THRE_DN_LEN    4
+#define DSP_IF9_FIFO_THRE_DN_OFFSET 4
+#define DSP_IF9_FIFO_THRE_UP_LEN    4
+#define DSP_IF9_FIFO_THRE_UP_OFFSET 0
+#define SLIM_UP_EN1_REG                    (BASE_ADDR_PAGE_DIG + 0x41D)
+#define SLIM_UP8_EN_LEN    1
+#define SLIM_UP8_EN_OFFSET 7
+#define SLIM_UP7_EN_LEN    1
+#define SLIM_UP7_EN_OFFSET 6
+#define SLIM_UP6_EN_LEN    1
+#define SLIM_UP6_EN_OFFSET 5
+#define SLIM_UP5_EN_LEN    1
+#define SLIM_UP5_EN_OFFSET 4
+#define SLIM_UP4_EN_LEN    1
+#define SLIM_UP4_EN_OFFSET 3
+#define SLIM_UP3_EN_LEN    1
+#define SLIM_UP3_EN_OFFSET 2
+#define SLIM_UP2_EN_LEN    1
+#define SLIM_UP2_EN_OFFSET 1
+#define SLIM_UP1_EN_LEN    1
+#define SLIM_UP1_EN_OFFSET 0
+#define SLIM_UP_EN2_REG                    (BASE_ADDR_PAGE_DIG + 0x41E)
+#define SLIM_UP10_EN_LEN    1
+#define SLIM_UP10_EN_OFFSET 7
+#define SLIM_UP9_EN_LEN    1
+#define SLIM_UP9_EN_OFFSET 6
+#define SC_IOTEST_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0x41F)
+#define CODEC_IOTEST_OUT_SEL_LEN    5
+#define CODEC_IOTEST_OUT_SEL_OFFSET 0
+#define DACSL_MIXER4_PGA_CTRL0_REG         (BASE_ADDR_PAGE_DIG + 0x421)
+#define DACSL_MIXER4_PGA_BYPASS_LEN    1
+#define DACSL_MIXER4_PGA_BYPASS_OFFSET 7
+#define DACSL_MIXER4_PGA_NOISE_EN_LEN    1
+#define DACSL_MIXER4_PGA_NOISE_EN_OFFSET 6
+#define DACSL_MIXER4_PGA_THRE_ID_LEN    2
+#define DACSL_MIXER4_PGA_THRE_ID_OFFSET 4
+#define DACSL_MIXER4_PGA_CFG_LEN    3
+#define DACSL_MIXER4_PGA_CFG_OFFSET 1
+#define DACSL_MIXER4_PGA_CTRL1_REG         (BASE_ADDR_PAGE_DIG + 0x422)
+#define DACSL_MIXER4_PGA_GAIN_LEN    8
+#define DACSL_MIXER4_PGA_GAIN_OFFSET 0
+#define DACSL_MIXER4_PGA_CTRL2_REG         (BASE_ADDR_PAGE_DIG + 0x423)
+#define DACSL_MIXER4_PGA_FADE_IN_LEN    5
+#define DACSL_MIXER4_PGA_FADE_IN_OFFSET 0
+#define DACSL_MIXER4_PGA_CTRL3_REG         (BASE_ADDR_PAGE_DIG + 0x424)
+#define DACSL_MIXER4_PGA_FADE_OUT_LEN    5
+#define DACSL_MIXER4_PGA_FADE_OUT_OFFSET 0
+#define DACSLR_MIXER4_PGA_ZERO_CROSS_REG   (BASE_ADDR_PAGE_DIG + 0x425)
+#define DACSL_MIXER4_PGA_ZERO_NUM_LEN    5
+#define DACSL_MIXER4_PGA_ZERO_NUM_OFFSET 0
+#define DACSLR_MIXER4_PGA_GAIN_OFFSET_REG  (BASE_ADDR_PAGE_DIG + 0x426)
+#define DACSL_MIXER4_PGA_GAIN_OFFSET_LEN    8
+#define DACSL_MIXER4_PGA_GAIN_OFFSET_OFFSET 0
+#define DACSR_MIXER4_PGA_CTRL0_REG         (BASE_ADDR_PAGE_DIG + 0x427)
+#define DACSR_MIXER4_PGA_BYPASS_LEN    1
+#define DACSR_MIXER4_PGA_BYPASS_OFFSET 7
+#define DACSR_MIXER4_PGA_NOISE_EN_LEN    1
+#define DACSR_MIXER4_PGA_NOISE_EN_OFFSET 6
+#define DACSR_MIXER4_PGA_THRE_ID_LEN    2
+#define DACSR_MIXER4_PGA_THRE_ID_OFFSET 4
+#define DACSR_MIXER4_PGA_CFG_LEN    3
+#define DACSR_MIXER4_PGA_CFG_OFFSET 1
+#define DACSR_MIXER4_PGA_CTRL1_REG         (BASE_ADDR_PAGE_DIG + 0x428)
+#define DACSR_MIXER4_PGA_GAIN_LEN    8
+#define DACSR_MIXER4_PGA_GAIN_OFFSET 0
+#define DACSR_MIXER4_PGA_CTRL2_REG         (BASE_ADDR_PAGE_DIG + 0x429)
+#define DACSR_MIXER4_PGA_FADE_IN_LEN    5
+#define DACSR_MIXER4_PGA_FADE_IN_OFFSET 0
+#define DACSR_MIXER4_PGA_CTRL3_REG         (BASE_ADDR_PAGE_DIG + 0x42A)
+#define DACSR_MIXER4_PGA_FADE_OUT_LEN    5
+#define DACSR_MIXER4_PGA_FADE_OUT_OFFSET 0
+#define DACSLR_MIXER4_PGA_SEL_REG          (BASE_ADDR_PAGE_DIG + 0x42B)
+#define DACSR_MIXER4_PGA_DIN_SEL_LEN    1
+#define DACSR_MIXER4_PGA_DIN_SEL_OFFSET 1
+#define DACSL_MIXER4_PGA_DIN_SEL_LEN    1
+#define DACSL_MIXER4_PGA_DIN_SEL_OFFSET 0
+#define IR_SOURCE_CTRL_REG                 (BASE_ADDR_PAGE_DIG + 0x42C)
+#define IR_REG_CTRL_LEN    1
+#define IR_REG_CTRL_OFFSET 2
+#define IR_SOURCE_SEL_LEN    2
+#define IR_SOURCE_SEL_OFFSET 0
+#define SRC_VLD_CTRL0_REG                  (BASE_ADDR_PAGE_DIG + 0x42D)
+#define S2_I_SRC_DIN_VLD_SEL_LEN    3
+#define S2_I_SRC_DIN_VLD_SEL_OFFSET 2
+#define S2_IL_SRC_DOUT_VLD_SEL_LEN    1
+#define S2_IL_SRC_DOUT_VLD_SEL_OFFSET 1
+#define S2_IR_SRC_DOUT_VLD_SEL_LEN    1
+#define S2_IR_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL1_REG                  (BASE_ADDR_PAGE_DIG + 0x42E)
+#define S3_I_SRC_DIN_VLD_SEL_LEN    3
+#define S3_I_SRC_DIN_VLD_SEL_OFFSET 2
+#define S3_IL_SRC_DOUT_VLD_SEL_LEN    1
+#define S3_IL_SRC_DOUT_VLD_SEL_OFFSET 1
+#define S3_IR_SRC_DOUT_VLD_SEL_LEN    1
+#define S3_IR_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL2_REG                  (BASE_ADDR_PAGE_DIG + 0x42F)
+#define MIC1_SRC_DIN_VLD_SEL_LEN    1
+#define MIC1_SRC_DIN_VLD_SEL_OFFSET 4
+#define MIC2_SRC_DIN_VLD_SEL_LEN    1
+#define MIC2_SRC_DIN_VLD_SEL_OFFSET 3
+#define MIC1_2_SRC_DOUT_VLD_SEL_LEN    3
+#define MIC1_2_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL3_REG                  (BASE_ADDR_PAGE_DIG + 0x430)
+#define MIC3_SRC_DIN_VLD_SEL_LEN    1
+#define MIC3_SRC_DIN_VLD_SEL_OFFSET 3
+#define MIC3_SRC_DOUT_VLD_SEL_LEN    3
+#define MIC3_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL4_REG                  (BASE_ADDR_PAGE_DIG + 0x431)
+#define MIC4_SRC_DIN_VLD_SEL_LEN    1
+#define MIC4_SRC_DIN_VLD_SEL_OFFSET 3
+#define MIC4_SRC_DOUT_VLD_SEL_LEN    3
+#define MIC4_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL5_REG                  (BASE_ADDR_PAGE_DIG + 0x432)
+#define MIC5_SRC_DIN_VLD_SEL_LEN    1
+#define MIC5_SRC_DIN_VLD_SEL_OFFSET 3
+#define MIC5_SRC_DOUT_VLD_SEL_LEN    3
+#define MIC5_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL6_REG                  (BASE_ADDR_PAGE_DIG + 0x433)
+#define S2_OL_SRC_DIN_VLD_SEL_LEN    1
+#define S2_OL_SRC_DIN_VLD_SEL_OFFSET 4
+#define S2_OR_SRC_DIN_VLD_SEL_LEN    1
+#define S2_OR_SRC_DIN_VLD_SEL_OFFSET 3
+#define S2_O_SRC_DOUT_VLD_SEL_LEN    3
+#define S2_O_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL7_REG                  (BASE_ADDR_PAGE_DIG + 0x434)
+#define S3_OL_SRC_DIN_VLD_SEL_LEN    1
+#define S3_OL_SRC_DIN_VLD_SEL_OFFSET 4
+#define S3_OR_SRC_DIN_VLD_SEL_LEN    1
+#define S3_OR_SRC_DIN_VLD_SEL_OFFSET 3
+#define S3_O_SRC_DOUT_VLD_SEL_LEN    3
+#define S3_O_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL8_REG                  (BASE_ADDR_PAGE_DIG + 0x435)
+#define S4_OL_SRC_DIN_VLD_SEL_LEN    1
+#define S4_OL_SRC_DIN_VLD_SEL_OFFSET 4
+#define S4_OR_SRC_DIN_VLD_SEL_LEN    1
+#define S4_OR_SRC_DIN_VLD_SEL_OFFSET 3
+#define S4_O_SRC_DOUT_VLD_SEL_LEN    3
+#define S4_O_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL9_REG                  (BASE_ADDR_PAGE_DIG + 0x436)
+#define SPA_OL_SRC_DIN_VLD_SEL_LEN    1
+#define SPA_OL_SRC_DIN_VLD_SEL_OFFSET 3
+#define SPA_OL_SRC_DOUT_VLD_SEL_LEN    3
+#define SPA_OL_SRC_DOUT_VLD_SEL_OFFSET 0
+#define SRC_VLD_CTRL10_REG                 (BASE_ADDR_PAGE_DIG + 0x437)
+#define SPA_OR_SRC_DIN_VLD_SEL_LEN    1
+#define SPA_OR_SRC_DIN_VLD_SEL_OFFSET 3
+#define SPA_OR_SRC_DOUT_VLD_SEL_LEN    3
+#define SPA_OR_SRC_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL0_REG                (BASE_ADDR_PAGE_DIG + 0x438)
+#define DSPIF1_DIN_VLD_SEL_LEN    3
+#define DSPIF1_DIN_VLD_SEL_OFFSET 3
+#define DSPIF1_DOUT_VLD_SEL_LEN    3
+#define DSPIF1_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL1_REG                (BASE_ADDR_PAGE_DIG + 0x439)
+#define DSPIF3_DIN_VLD_SEL_LEN    3
+#define DSPIF3_DIN_VLD_SEL_OFFSET 3
+#define DSPIF3_DOUT_VLD_SEL_LEN    3
+#define DSPIF3_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL2_REG                (BASE_ADDR_PAGE_DIG + 0x43A)
+#define DSPIF5_DIN_VLD_SEL_LEN    3
+#define DSPIF5_DIN_VLD_SEL_OFFSET 3
+#define DSPIF5_DOUT_VLD_SEL_LEN    3
+#define DSPIF5_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL3_REG                (BASE_ADDR_PAGE_DIG + 0x43B)
+#define DSPIF7_DIN_VLD_SEL_LEN    3
+#define DSPIF7_DIN_VLD_SEL_OFFSET 3
+#define DSPIF7_DOUT_VLD_SEL_LEN    3
+#define DSPIF7_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL4_REG                (BASE_ADDR_PAGE_DIG + 0x43C)
+#define DSPIF8_DIN_VLD_SEL_LEN    3
+#define DSPIF8_DIN_VLD_SEL_OFFSET 3
+#define DSPIF8_DOUT_VLD_SEL_LEN    3
+#define DSPIF8_DOUT_VLD_SEL_OFFSET 0
+#define DSPIF_VLD_CTRL5_REG                (BASE_ADDR_PAGE_DIG + 0x43D)
+#define DSPIF9_DIN_VLD_SEL_LEN    3
+#define DSPIF9_DIN_VLD_SEL_OFFSET 3
+#define DSPIF9_DOUT_VLD_SEL_LEN    3
+#define DSPIF9_DOUT_VLD_SEL_OFFSET 0
+/* dig reg end */
+
+/* mbhc begin */
+#define IBIAS_EN_BIT 2
+/* mbhc end */
+
+/* ana reg begin */
+#define CODEC_ANA_RWREG_01                 (BASE_ADDR_PAGE_ANA + 0x01)
+#define CODEC_PD_INFCAL_CLK_OFFSET   5
+#define CODEC_ANA_RWREG_02                 (BASE_ADDR_PAGE_ANA + 0x02)
+#define CODEC_ANA_RWREG_03                 (BASE_ADDR_PAGE_ANA + 0x03)
+#define CODEC_ANA_RWREG_04                 (BASE_ADDR_PAGE_ANA + 0x04)
+#define CODEC_ANA_RWREG_05                 (BASE_ADDR_PAGE_ANA + 0x05)
+#define CODEC_ANA_RWREG_06                 (BASE_ADDR_PAGE_ANA + 0x06)
+#define CODEC_ANA_RWREG_07                 (BASE_ADDR_PAGE_ANA + 0x07)
+#define CODEC_ANA_RWREG_08                 (BASE_ADDR_PAGE_ANA + 0x08)
+#define CODEC_ANA_RWREG_09                 (BASE_ADDR_PAGE_ANA + 0x09)
+#define CODEC_ANA_RWREG_010                (BASE_ADDR_PAGE_ANA + 0x0A)
+#define CODEC_ANA_RWREG_011                (BASE_ADDR_PAGE_ANA + 0x0B)
+#define CODEC_ANA_RWREG_012                (BASE_ADDR_PAGE_ANA + 0x0C)
+#define MBHD_PD_MBHD_VTN       0
+#define MBHD_PD_NORMCOMP       1
+#define SARADC_START_BIT       2
+#define MBHD_SAR_PD_BIT        3
+#define CODEC_ANA_RWREG_013                (BASE_ADDR_PAGE_ANA + 0x0D)
+#define HS_MICB_PD_BIT         2
+#define CODEC_ANA_RWREG_014                (BASE_ADDR_PAGE_ANA + 0x0E)
+#define CODEC_ANA_PD_CALIBI2V_EP_LEN    1
+#define CODEC_ANA_PD_CALIBI2V_EP_OFFSET 6
+#define CODEC_ANA_PD_VCTRL_LEN           1
+#define CODEC_ANA_PD_VCTRL_OFFSET        5
+#define CODEC_ANA_PD_EPDAC_LEN           1
+#define CODEC_ANA_PD_EPDAC_OFFSET        4
+#define CODEC_ANA_PD_EPINT_LEN           1
+#define CODEC_ANA_PD_EPINT_OFFSET        3
+#define CODEC_ANA_PD_EPPGA_LEN           1
+#define CODEC_ANA_PD_EPPGA_OFFSET        2
+#define CODEC_ANA_PD_EPVB_LEN            1
+#define CODEC_ANA_PD_EPVB_OFFSET         1
+#define CODEC_ANA_PD_RSUB_EP_LEN         1
+#define CODEC_ANA_PD_RSUB_EP_OFFSET     0
+
+#define CODEC_ANA_RWREG_049                (BASE_ADDR_PAGE_ANA + 0x31)
+#define AVREF_ESD_SW11_LEN        1
+#define AVREF_ESD_SW11_OFFSET     2
+#define ISO_A18_D11_REG_LEN       1
+#define ISO_A18_D11_REG_OFFSET    1
+#define ISO_A33_D11_REG_LEN       1
+#define ISO_A33_D11_REG_OFFSET    0
+#define CODEC_ANA_RWREG_050                (BASE_ADDR_PAGE_ANA + 0x32)
+#define CODEC_ANA_EP_GAIN_LEN	    3
+#define CODEC_ANA_EP_GAIN_OFFSET 0
+
+#define CODEC_ANA_RWREG_050                (BASE_ADDR_PAGE_ANA + 0x32)
+#define CODEC_ANA_RWREG_051                (BASE_ADDR_PAGE_ANA + 0x33)
+#define CODEC_FIR_OUT_NON           0
+#define CODEC_FIR_OUT_X8            0x8
+#define CODEC_FIR_OUT_X15           0xf
+#define CODEC_FIR_OUT_CTRL_LEN      4
+#define CODEC_FIR_OUT_CTRL_OFFSET   4
+#define CODEC_FIR_ATE_X1            0
+#define CODEC_FIR_ATE_X8            0x8
+#define CODEC_FIR_ATE_XF            0xf
+#define CODEC_FIR_ATE_CTRL_LEN      4
+#define CODEC_FIR_ATE_CTRL_OFFSET   0
+#define CODEC_ANA_RWREG_052                (BASE_ADDR_PAGE_ANA + 0x34)
+#define CODEC_OTPREG_SEL_FIR_OFFSET  7
+#define CODEC_SIGN_CAL_MT_OFFSET     6
+#define CODEC_PD_CHOP_INF_OFFSET     5
+#define CODEC_PD_INF_EMS_OFFSET      4
+#define CODEC_PD_INF_LRN_OFFSET      3
+#define CODEC_INF_RESIDE_EN_OFFSET   2
+#define CODEC_INF_IBCT_LEN           2
+#define CODEC_INF_IBCT_OFFSET        0
+#define CODEC_ANA_RWREG_053                (BASE_ADDR_PAGE_ANA + 0x35)
+#define CODEC_OTPREG_SEL_INF_OFFSET           7
+#define CODEC_INF_TRIM_CTRL_REG_LEN           7
+#define CODEC_INF_TRIM_CTRL_REG_OFFSET        0
+#define CODEC_ANA_RWREG_054                (BASE_ADDR_PAGE_ANA + 0x36)
+#define CODEC_EN_CAL_MT_OFFSET       7
+#define CODEC_EN_CAL_OFFSET          6
+#define CODEC_RST_CAL_OFFSET         5
+#define CODEC_LEAK_CTRL_OFFSET       4
+#define CODEC_RST_CLK_CAL_OFFSET     3
+#define CODEC_CLK_CALIB_CFG_OFFSET   2
+#define CODEC_INF_IBCT_CAL_LEN       2
+#define CODEC_INF_IBCT_CAL_OFFSET    0
+#define CODEC_ANA_RWREG_055                (BASE_ADDR_PAGE_ANA + 0x37)
+#define CODEC_ANA_RWREG_056                (BASE_ADDR_PAGE_ANA + 0x38)
+#define CODEC_ANA_RST_CLK_POP_LEN      1
+#define CODEC_ANA_RST_CLK_POP_OFFSET   6
+#define CODEC_ANA_STB_1N_CT_OFFSET     5
+#define CODEC_ANA_STB_1N_CAP_OFFSET    4
+#define CODEC_ANA_IBCT_HP_LEN          2
+#define CODEC_ANA_IBCT_HP_OFFSET       2
+#define CODEC_ANA_IBCT_FB_LEN          2
+#define CODEC_ANA_IBCT_FB_OFFSET       0
+#define CODEC_ANA_RWREG_057                (BASE_ADDR_PAGE_ANA + 0x39)
+#define CODEC_ANA_NG_EN_CLASSH      0x2
+#define CODEC_ANA_NG_EN_LEN      4
+#define CODEC_ANA_NG_EN_OFFSET   4
+#define CODEC_ANA_RWREG_058                (BASE_ADDR_PAGE_ANA + 0x3A)
+#define CODEC_ANA_RWREG_059                (BASE_ADDR_PAGE_ANA + 0x3B)
+#define CODEC_ANA_RWREG_060                (BASE_ADDR_PAGE_ANA + 0x3C)
+#define CODEC_ANA_RWREG_061                (BASE_ADDR_PAGE_ANA + 0x3D)
+#define CODEC_ANA_RWREG_062                (BASE_ADDR_PAGE_ANA + 0x3E)
+#define CODEC_ANA_RWREG_063                (BASE_ADDR_PAGE_ANA + 0x3F)
+#define CODEC_ANA_RWREG_064                (BASE_ADDR_PAGE_ANA + 0x40)
+#define CODEC_ANA_RWREG_065                (BASE_ADDR_PAGE_ANA + 0x41)
+#define CODEC_ANA_HP_IMPDET_RES_CFG_OFFSET      1
+#define CODEC_ANA_RWREG_066                (BASE_ADDR_PAGE_ANA + 0x42)
+#define CODEC_ANA_RWREG_067                (BASE_ADDR_PAGE_ANA + 0x43)
+#define CODEC_ANA_HP_POP_RAMP_PULL_ENL_LEN      1
+#define CODEC_ANA_HP_POP_RAMP_PULL_ENL_OFFSET   6
+#define CODEC_ANA_HP_POP_RAMP_PULL_ENR_LEN      1
+#define CODEC_ANA_HP_POP_RAMP_PULL_ENR_OFFSET   5
+#define CODEC_ANA_HP_POP_RAMP_MODE_EN_LEN       1
+#define CODEC_ANA_HP_POP_RAMP_MODE_EN_OFFSET    4
+#define CODEC_ANA_HP_POP_RAMP_SPD_CFG_PD_LEN    2
+#define CODEC_ANA_HP_POP_RAMP_SPD_CFG_PD_OFFSET   2
+#define CODEC_ANA_HP_POP_RAMP_SPD_CFG_PU_LEN      2
+#define CODEC_ANA_HP_POP_RAMP_SPD_CFG_PU_OFFSET   0
+
+#define CODEC_ANA_RWREG_073                (BASE_ADDR_PAGE_ANA + 0x049)
+#define HSMICB_ADJ_REG_LEN     4
+#define HSMICB_ADJ             0
+#define HSMICB2_DSCHG          5
+#define CODEC_ANA_RWREG_077                (BASE_ADDR_PAGE_ANA + 0x04D)
+#define SAR_INPUT_SEL_REG_LEN  2
+#define SAR_INPUT_SEL_BIT      0
+#define SAR_TSMP_CFG_REG_LEN   2
+#define SAR_TSMP_CFG_BIT       2
+#define CLK_SAR_SEL_REG_LEN    2
+#define CLK_SAR_SEL_BIT        4
+#define CODEC_ANA_RWREG_078                (BASE_ADDR_PAGE_ANA + 0x04E)
+#define RST_SAR_BIT            0
+#define HSD_VTH_LO_CFG         2
+#define HSD_VL_SEL_BIT_REG_LEN 2
+#define HSD_VL_SEL_BIT         2
+#define HSD_VTH_HI_CFG         8
+#define HSD_VH_SEL_BIT_REG_LEN 4
+#define HSD_VH_SEL_BIT         4
+#define CODEC_ANA_RWREG_079                (BASE_ADDR_PAGE_ANA + 0x04F)
+#define HSD_VTH_SEL_BIT        6
+#define HSD_VTH_MICH_CFG_95         3
+#define HSD_VTH_MICH_CFG_LEN        2
+#define HSD_VTH_MICH_CFG_OFFSET     2
+#define HSD_VTH_MICL_CFG_800MV      2
+#define HSD_VTH_MICL_CFG_LEN        2
+#define HSD_VTH_MICL_CFG_OFFSET     0
+
+#define CODEC_ANA_RWREG_080                (BASE_ADDR_PAGE_ANA + 0x050)
+#define MBHD_HSD_EN_BIT        0
+#define MBHD_ECO_EN_BIT        1
+#define MBHD_PULLOUT_POP_EN_BIT   2
+#define MBHD_RES_CALIB_EN_BIT     3
+#define MBHD_VTH_ECO_CFG_LEN      3
+#define MBHD_VTH_ECO_CFG_OFFSET   4
+#define MBHD_VTH_ECO_CFG_125MV    1
+
+#define CODEC_ANA_RWREG_090                (BASE_ADDR_PAGE_ANA + 0x05A)
+
+#define LDOTRX_EN_BIT          2
+#define VREF_EN_BIT            7
+
+#define CP_CFG_BIT             6
+#define VREF_CFG_BIT           7
+/* mbhc end */
+
+/* pll begin */
+//test
+#define CODEC_ANA_RWREG_000                (BASE_ADDR_PAGE_ANA)
+#define IBIAS_PD_OFFSET 2
+#define PD_MAD_SDM_VREF_OFFSET 1
+#define CODEC_ANA_RWREG_104                (BASE_ADDR_PAGE_ANA + 0x068)
+#define BUCK1_ENP_BIT            6
+#define CP2_ENP_BIT              5
+#define LDON_ENP_BIT             3
+#define CODEC_ANA_RWREG_120                (BASE_ADDR_PAGE_ANA + 0x078)
+#define CODEC_CP1_CLK_SEL_OUT     2
+#define CODEC_CP1_CLK_SEL_LEN     2
+#define CODEC_CP1_CLK_SEL_OFFSET  6
+#define CODEC_ANA_RWREG_125                (BASE_ADDR_PAGE_ANA + 0x07D)
+#define CODEC_ANA_RWREG_127                (BASE_ADDR_PAGE_ANA + 0x07F)
+#define CODEC_ANA_RWREG_128                (BASE_ADDR_PAGE_ANA + 0x080)
+#define CODEC_ANA_RWREG_129                (BASE_ADDR_PAGE_ANA + 0x081)
+#define CODEC_ANA_RWREG_130                (BASE_ADDR_PAGE_ANA + 0x082)
+#define CODEC_ANA_RWREG_131                (BASE_ADDR_PAGE_ANA + 0x083)
+#define CODEC_ANA_RWREG_132                (BASE_ADDR_PAGE_ANA + 0x084)
+#define CODEC_ANA_RWREG_133                (BASE_ADDR_PAGE_ANA + 0x085)
+#define CODEC_BGR_ATE_MASK   0x7F
+#define CODEC_BGR_ATE_0_9V   0x4E
+#define CODEC_OTPREG_SEL_BGR_OFFSET 7
+#define CODEC_BGR_ATE_REG_LEN 6
+#define CODEC_BGR_ATE_REG_OFFSET 0
+#define CODEC_ANA_RWREG_134                (BASE_ADDR_PAGE_ANA + 0x086)
+#define CODEC_ANA_RWREG_135                (BASE_ADDR_PAGE_ANA + 0x087)
+#define CODEC_ANA_RWREG_136                (BASE_ADDR_PAGE_ANA + 0x088)
+#define CODEC_ANA_RWREG_137                (BASE_ADDR_PAGE_ANA + 0x089)
+#define CODEC_ANA_RWREG_138                (BASE_ADDR_PAGE_ANA + 0x08A)
+#define CODEC_RX_CHOP_BPS_OFFSET    0
+#define CODEC_ANA_RWREG_139                (BASE_ADDR_PAGE_ANA + 0x08B)
+#define CODEC_ANA_RWREG_140                (BASE_ADDR_PAGE_ANA + 0x08C)
+#define CODEC_ANA_CTCM_CHOP_BPS_LEN 1
+#define CODEC_ANA_CTCM_CHOP_BPS_OFFSET 7
+#define CODEC_ANA_CP_POP_PD_LEN 1
+#define CODEC_ANA_CP_POP_PD_OFFSET 6
+#define CODEC_CLK_ANA_MAINMIC_SEL_LEN 2
+#define CODEC_CLK_ANA_MAINMIC_SEL_OFFSET 4
+#define CODEC_CLK_ANA_MICX_SEL_LEN 2
+#define CODEC_CLK_ANA_MICX_SEL_OFFSET 2
+#define CODEC_CLK_ANA_MAD_SEL_LEN 2
+#define CODEC_CLK_ANA_MAD_SEL_OFFSET 0
+#define CODEC_ANA_RWREG_141                (BASE_ADDR_PAGE_ANA + 0x08D)
+#define CODEC_ANA_CODEC_CLK_ANA_TX_SEL_LEN 2
+#define CODEC_ANA_CODEC_CLK_ANA_TX_SEL_OFFSET 2
+#define CODEC_ANA_CLK_POP_SEL_LEN 2
+#define CODEC_ANA_CLK_POP_SEL_OFFSET 0
+#define CODEC_ANA_RWREG_142                (BASE_ADDR_PAGE_ANA + 0x08E)
+#define CODEC_ANA_RWREG_143                (BASE_ADDR_PAGE_ANA + 0x08F)
+#define CODEC_ANA_RWREG_144                (BASE_ADDR_PAGE_ANA + 0x090)
+#define CODEC_ANA_RWREG_145                (BASE_ADDR_PAGE_ANA + 0x091)
+//pll config
+#define CODEC_ANA_RWREG_146                (BASE_ADDR_PAGE_ANA + 0x092)
+#define PLL_IBIAS_PD_OFFSET      6
+
+#define CODEC_ANA_RWREG_147                (BASE_ADDR_PAGE_ANA + 0x093)
+
+//main1_pll config
+#define CODEC_ANA_RWREG_148                (BASE_ADDR_PAGE_ANA + 0x094)
+#define CODEC_ANA_RWREG_149                (BASE_ADDR_PAGE_ANA + 0x095)
+#define MAIN1_TRK_EN_OFFSET    5
+#define CODEC_ANA_RWREG_150                (BASE_ADDR_PAGE_ANA + 0x096)
+#define CODEC_ANA_RWREG_151                (BASE_ADDR_PAGE_ANA + 0x097)
+#define CODEC_ANA_RWREG_152                (BASE_ADDR_PAGE_ANA + 0x098)
+#define MAIN1_DPLL_LOCK_LOSE_RST_LEN        1
+#define MAIN1_DPLL_LOCK_LOSE_RST_OFFSET     3
+#define CODEC_ANA_RWREG_153                (BASE_ADDR_PAGE_ANA + 0x099)
+#define MAIN1_RUN_START_OFFSET   7
+#define MAIN1_FCM_EN_OFFSET      5
+#define MAIN1_FCM_NUM_LEN        5
+#define MAIN1_FCM_NUM_OFFSET     0
+#define CODEC_ANA_RWREG_154                (BASE_ADDR_PAGE_ANA + 0x09A)
+#define CODEC_ANA_RWREG_155                (BASE_ADDR_PAGE_ANA + 0x09B)
+#define MAIN1_FCM_DEN_LEN        5
+#define MAIN1_FCM_DEN_OFFSET     3
+#define CODEC_ANA_RWREG_156                (BASE_ADDR_PAGE_ANA + 0x09C)
+#define CODEC_ANA_RWREG_157                (BASE_ADDR_PAGE_ANA + 0x09D)
+#define CODEC_ANA_RWREG_158                (BASE_ADDR_PAGE_ANA + 0x09E)
+#define CODEC_ANA_RWREG_159                (BASE_ADDR_PAGE_ANA + 0x09F)
+#define CODEC_ANA_RWREG_160                (BASE_ADDR_PAGE_ANA + 0x0A0)
+#define CODEC_ANA_RWREG_161                (BASE_ADDR_PAGE_ANA + 0x0A1)
+#define CODEC_ANA_RWREG_162                (BASE_ADDR_PAGE_ANA + 0x0A2)
+#define CODEC_ANA_RWREG_163                (BASE_ADDR_PAGE_ANA + 0x0A3)
+#define CODEC_ANA_RWREG_164                (BASE_ADDR_PAGE_ANA + 0x0A4)
+#define CODEC_ANA_RWREG_165                (BASE_ADDR_PAGE_ANA + 0x0A5)
+#define MAIN1_LOCK_DET_MODE_ONLY_P  0
+#define MAIN1_LOCK_DET_MODE_ONLY_F  1
+#define MAIN1_LOCK_DET_MODE_P       2
+#define MAIN1_LOCK_DET_MODE_F       3
+#define MAIN1_LOCK_DET_MODE_LEN     2
+#define MAIN1_LOCK_DET_MODE_OFFSET  3
+#define CODEC_ANA_RWREG_166                (BASE_ADDR_PAGE_ANA + 0x0A6)
+#define MAIN1_LCK_PREC_64           4
+#define MAIN1_LCK_PREC_LEN          4
+#define MAIN1_LCK_PREC_OFFSET       4
+#define MAIN1_LCK_THR_4            4
+#define MAIN1_LCK_THR_LEN          4
+#define MAIN1_LCK_THR_OFFSET       0
+#define CODEC_ANA_RWREG_167                (BASE_ADDR_PAGE_ANA + 0x0A7)
+#define CODEC_ANA_MAIN1_TEST_RDY_LEN          1
+#define CODEC_ANA_MAIN1_TEST_RDY_OFFSET       7
+#define CODEC_ANA_MAIN1_TEST_TUNE_FINE_LEN    7
+#define CODEC_ANA_MAIN1_TEST_TUNE_FINE_OFFSET 0
+#define CODEC_ANA_RWREG_168                (BASE_ADDR_PAGE_ANA + 0x0A8)
+#define CODEC_ANA_MAIN1_TEST_DATA_SEL_LEN     2
+#define CODEC_ANA_MAIN1_TEST_DATA_SEL_OFFSET  6
+#define CODEC_ANA_MAIN1_TEST_TUNE_PVT_LEN     6
+#define CODEC_ANA_MAIN1_TEST_TUNE_PVT_OFFSET  0
+#define CODEC_ANA_RWREG_169                (BASE_ADDR_PAGE_ANA + 0x0A9)
+#define CODEC_ANA_RWREG_170                (BASE_ADDR_PAGE_ANA + 0x0AA)
+#define MAIN1_PLL_PD_BIT         0
+#define MAIN1_ISO_BIT            6
+#define MAIN1_PLL_RST_BIT        7
+#define MAIN1_PLL_RUN_START_BIT  7
+
+//main2_pll config
+#define CODEC_ANA_RWREG_171                (BASE_ADDR_PAGE_ANA + 0x0AB)
+#define CODEC_ANA_RWREG_172                (BASE_ADDR_PAGE_ANA + 0x0AC)
+#define MAIN2_TRK_EN_OFFSET    5
+#define CODEC_ANA_RWREG_173                (BASE_ADDR_PAGE_ANA + 0x0AD)
+#define CODEC_ANA_RWREG_174                (BASE_ADDR_PAGE_ANA + 0x0AE)
+#define CODEC_ANA_RWREG_175                (BASE_ADDR_PAGE_ANA + 0x0AF)
+#define CODEC_ANA_RWREG_176                (BASE_ADDR_PAGE_ANA + 0x0B0)
+#define MAIN2_FCM_EN_OFFSET      5
+#define MAIN2_FCM_NUM_LEN        5
+#define MAIN2_FCM_NUM_OFFSET     0
+#define CODEC_ANA_RWREG_177                (BASE_ADDR_PAGE_ANA + 0x0B1)
+#define CODEC_ANA_RWREG_178                (BASE_ADDR_PAGE_ANA + 0x0B2)
+#define MAIN2_FCM_DEN_LEN        5
+#define MAIN2_FCM_DEN_OFFSET     3
+#define CODEC_ANA_RWREG_179                (BASE_ADDR_PAGE_ANA + 0x0B3)
+#define CODEC_ANA_RWREG_180                (BASE_ADDR_PAGE_ANA + 0x0B4)
+#define CODEC_ANA_RWREG_181                (BASE_ADDR_PAGE_ANA + 0x0B5)
+#define CODEC_ANA_RWREG_182                (BASE_ADDR_PAGE_ANA + 0x0B6)
+#define CODEC_ANA_RWREG_183                (BASE_ADDR_PAGE_ANA + 0x0B7)
+#define CODEC_ANA_RWREG_184                (BASE_ADDR_PAGE_ANA + 0x0B8)
+#define CODEC_ANA_RWREG_185                (BASE_ADDR_PAGE_ANA + 0x0B9)
+#define CODEC_ANA_RWREG_186                (BASE_ADDR_PAGE_ANA + 0x0BA)
+#define CODEC_ANA_RWREG_187                (BASE_ADDR_PAGE_ANA + 0x0BB)
+#define CODEC_ANA_RWREG_188                (BASE_ADDR_PAGE_ANA + 0x0BC)
+#define MAIN2_LOCK_DET_MODE_ONLY_P  0
+#define MAIN2_LOCK_DET_MODE_ONLY_F  1
+#define MAIN2_LOCK_DET_MODE_P       2
+#define MAIN2_LOCK_DET_MODE_F       3
+#define MAIN2_LOCK_DET_MODE_LEN     2
+#define MAIN2_LOCK_DET_MODE_OFFSET  3
+#define CODEC_ANA_RWREG_189                (BASE_ADDR_PAGE_ANA + 0x0BD)
+#define MAIN2_LCK_PREC_64           4
+#define MAIN2_LCK_PREC_LEN          4
+#define MAIN2_LCK_PREC_OFFSET       4
+#define MAIN2_LCK_THR_4            4
+#define MAIN2_LCK_THR_LEN          4
+#define MAIN2_LCK_THR_OFFSET       0
+#define CODEC_ANA_RWREG_190                (BASE_ADDR_PAGE_ANA + 0x0BE)
+#define CODEC_ANA_MAIN2_TEST_RDV_LEN          1
+#define CODEC_ANA_MAIN2_TEST_RDV_OFFSET       7
+#define CODEC_ANA_MAIN2_TEST_TUNE_FINE_LEN    7
+#define CODEC_ANA_MAIN2_TEST_TUNE_FINE_OFFSET 0
+#define CODEC_ANA_RWREG_191                (BASE_ADDR_PAGE_ANA + 0x0BF)
+#define CODEC_ANA_MAIN2_TEST_DATA_SEL_LEN     2
+#define CODEC_ANA_MAIN2_TEST_DATA_SEL_OFFSET  6
+#define CODEC_ANA_MAIN2_TEST_TUNE_PVT_LEN     6
+#define CODEC_ANA_MAIN2_TEST_TUNE_PVT_OFFSET  0
+#define CODEC_ANA_RWREG_192                (BASE_ADDR_PAGE_ANA + 0x0C0)
+#define CODEC_ANA_RWREG_193                (BASE_ADDR_PAGE_ANA + 0x0C1)
+#define CODEC_ANA_TEST_REF_CLK_CG_EN_LEN      1
+#define CODEC_ANA_TEST_REF_CLK_CG_EN_OFFSET   7
+#define CODEC_ANA_TEST_MODE_EN_LEN            1
+#define CODEC_ANA_TEST_MODE_EN_OFFSET         6
+#define CODEC_ANA_TEST_PLL_SEL_LEN            1
+#define CODEC_ANA_TEST_PLL_SEL_OFFSET         5
+#define CODEC_ANA_TEST_DCO_OPEN_EN_LEN        1
+#define CODEC_ANA_TEST_DCO_OPEN_EN_OFFSET     4
+#define CODEC_ANA_TEST_PLL_CLOSE_EN_LEN       1
+#define CODEC_ANA_TEST_PLL_CLOSE_EN_OFFSET    3
+#define CODEC_ANA_TEST_PLL_CLOSE_CAPTUTE_MODE_LEN    3
+#define CODEC_ANA_TEST_PLL_CLOSE_CAPTUTE_MODE_OFFSET 0
+#define CODEC_ANA_RWREG_194                (BASE_ADDR_PAGE_ANA + 0x0C2)
+#define CODEC_ANA_RWREG_195                (BASE_ADDR_PAGE_ANA + 0x0C3)
+#define CODEC_ANA_RWREG_196                (BASE_ADDR_PAGE_ANA + 0x0C4)
+#define CODEC_ANA_PVT_SET_LEN                    1
+#define CODEC_ANA_PVT_SEL_OFFSET                 7
+#define CODEC_ANA_TEST_LOOP_I_LEN                3
+#define CODEC_ANA_TEST_LOOP_I_OFFSET             4
+#define CODEC_ANA_TEST_FREQ_CALC_CNT_TIME_LEN    4
+#define CODEC_ANA_TEST_FREQ_CALC_CNT_TIME_OFFSET 0
+#define CODEC_ANA_RWREG_197                (BASE_ADDR_PAGE_ANA + 0x0C5)
+#define CODEC_ANA_RWREG_198                (BASE_ADDR_PAGE_ANA + 0x0C6)
+#define CODEC_ANA_RWREG_199                (BASE_ADDR_PAGE_ANA + 0x0C7)
+#define CODEC_ANA_RWREG_200                (BASE_ADDR_PAGE_ANA + 0x0C8)
+#define CODEC_ANA_TEST_SOFT_RST_N_LEN            1
+#define CODEC_ANA_TEST_SOFT_RST_N_OFFSET         7
+#define CODEC_ANA_TEST_SCAN_CNT_TIME_LEN         2
+#define CODEC_ANA_TEST_SCAN_CNT_TIME_OFFSET      0
+#define CODEC_ANA_RWREG_201                (BASE_ADDR_PAGE_ANA + 0x0C9)
+#define CODEC_ANA_RWREG_202                (BASE_ADDR_PAGE_ANA + 0x0CA)
+
+//mad_pll config
+#define CODEC_ANA_RWREG_203                (BASE_ADDR_PAGE_ANA + 0x0CB)
+#define CODEC_ANA_RWREG_204                (BASE_ADDR_PAGE_ANA + 0x0CC)
+#define CODEC_ANA_RWREG_205                (BASE_ADDR_PAGE_ANA + 0x0CD)
+#define CODEC_ANA_RWREG_206                (BASE_ADDR_PAGE_ANA + 0x0CE)
+#define CODEC_ANA_RWREG_207                (BASE_ADDR_PAGE_ANA + 0x0CF)
+#define CODEC_ANA_RWREG_208                (BASE_ADDR_PAGE_ANA + 0x0D0)
+#define CODEC_ANA_RWREG_209                (BASE_ADDR_PAGE_ANA + 0x0D1)
+#define CODEC_ANA_RWREG_210                (BASE_ADDR_PAGE_ANA + 0x0D2)
+#define CODEC_ANA_RWREG_211                (BASE_ADDR_PAGE_ANA + 0x0D3)
+#define CODEC_ANA_RWREG_212                (BASE_ADDR_PAGE_ANA + 0x0D4)
+#define CODEC_ANA_RWREG_213                (BASE_ADDR_PAGE_ANA + 0x0D5)
+#define CODEC_ANA_RWREG_214                (BASE_ADDR_PAGE_ANA + 0x0D6)
+#define CODEC_ANA_RWREG_215                (BASE_ADDR_PAGE_ANA + 0x0D7)
+#define CODEC_ANA_RWREG_216                (BASE_ADDR_PAGE_ANA + 0x0D8)
+/* pll end   */
+
+#define CODEC_ANA_RWREG_217                (BASE_ADDR_PAGE_ANA + 0x0D9)
+#define CODEC_ANA_RWREG_218                (BASE_ADDR_PAGE_ANA + 0x0DA)
+#define CODEC_ANA_RWREG_219                (BASE_ADDR_PAGE_ANA + 0x0DB)
+#define CODEC_ANA_RWREG_220                (BASE_ADDR_PAGE_ANA + 0x0DC)
+#define CODEC_ANA_RWREG_221                (BASE_ADDR_PAGE_ANA + 0x0DD)
+#define CODEC_ANA_RWREG_222                (BASE_ADDR_PAGE_ANA + 0x0DE)
+#define CODEC_ANA_RWREG_223                (BASE_ADDR_PAGE_ANA + 0x0DF)
+#define CODEC_ANA_RWREG_224                (BASE_ADDR_PAGE_ANA + 0x0E0)
+#define CODEC_ANA_RWREG_225                (BASE_ADDR_PAGE_ANA + 0x0E1)
+#define CODEC_ANA_RWREG_226                (BASE_ADDR_PAGE_ANA + 0x0E2)
+#define CODEC_ANA_RWREG_227                (BASE_ADDR_PAGE_ANA + 0x0E3)
+#define CODEC_ANA_RWREG_228                (BASE_ADDR_PAGE_ANA + 0x0E4)
+#define CODEC_ANA_RWREG_229                (BASE_ADDR_PAGE_ANA + 0x0E5)
+#define CODEC_ANA_RWREG_230                (BASE_ADDR_PAGE_ANA + 0x0E6)
+#define CODEC_ANA_RWREG_231                (BASE_ADDR_PAGE_ANA + 0x0E7)
+#define CODEC_ANA_RWREG_232                (BASE_ADDR_PAGE_ANA + 0x0E8)
+#define CODEC_ANA_RWREG_233                (BASE_ADDR_PAGE_ANA + 0x0E9)
+#define CODEC_ANA_RWREG_234                (BASE_ADDR_PAGE_ANA + 0x0EA)
+#define CODEC_ANA_RWREG_235                (BASE_ADDR_PAGE_ANA + 0x0EB)
+
+#define CODEC_ANA_ROREG_000                (BASE_ADDR_PAGE_ANA + 0x0F2)
+#define CODEC_ANA_ROREG_001                (BASE_ADDR_PAGE_ANA + 0x0F3)
+#define CODEC_ANA_ROREG_002                (BASE_ADDR_PAGE_ANA + 0x0F4)
+#define CODEC_ANA_ROREG_003                (BASE_ADDR_PAGE_ANA + 0x0F5)
+
+#define ANA_HSMIC_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x02)
+#define ANA_HSMIC_PGA_MUTE2         0
+#define ANA_HSMIC_PGA_MUTE1         1
+#define ANA_HSMIC_FLASH_MUTE        3
+#define ANA_HSMIC_PGA_SDM_PD        4
+#define ANA_HSMIC_PGA_PD            6
+
+#define ANA_AUXMIC_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x03)
+#define ANA_AUXMIC_PGA_MUTE2        0
+#define ANA_AUXMIC_PGA_MUTE1        1
+#define ANA_AUXMIC_FLASH_MUTE       3
+#define ANA_AUXMIC_PGA_SDM_PD       4
+#define ANA_AUXMIC_PGA_PD           6
+
+#define ANA_MIC3_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x04)
+#define ANA_MIC3_PGA_MUTE2         0
+#define ANA_MIC3_PGA_MUTE1         1
+#define ANA_MIC3_FLASH_MUTE        3
+#define ANA_MIC3_PGA_SDM_PD        4
+#define ANA_MIC3_PGA_PD            6
+
+#define ANA_MIC4_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x05)
+#define ANA_MIC4_PGA_MUTE2         0
+#define ANA_MIC4_PGA_MUTE1         1
+#define ANA_MIC4_FLASH_MUTE        3
+#define ANA_MIC4_PGA_SDM_PD        4
+#define ANA_MIC4_PGA_PD            6
+
+#define ANA_MIC5_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x06)
+#define ANA_MIC5_PGA_MUTE2         0
+#define ANA_MIC5_PGA_MUTE1         1
+#define ANA_MIC5_FLASH_MUTE        3
+#define ANA_MIC5_PGA_SDM_PD        4
+#define ANA_MIC5_PGA_PD            6
+
+#define ANA_MAD_PGA_ENABLE (BASE_ADDR_PAGE_ANA + 0x07)
+#define ANA_MAD_PGA_MUTE2          0
+#define ANA_MAD_PGA_MUTE1          1
+#define ANA_MAD_PGA_PD             4
+
+#define ANA_MAD_PGA_SDM (BASE_ADDR_PAGE_ANA + 0x08)
+#define ANA_MAD_PGA_MUTE_DWA_OUT   0
+#define ANA_MAD_PGA_MUTE_FLS       1
+#define ANA_MAD_PGA_PD_SDM         2
+#define ANA_MAD_PGA_PD_IBIAS       3
+#define ANA_MAD_PGA_PD_OUT         4
+
+#define ANA_IR_EN (BASE_ADDR_PAGE_ANA + 0x11)
+#define ANA_IR_INF_SEL_OFFSET 0
+
+#define ANA_ADC_SDM (BASE_ADDR_PAGE_ANA + 0x12)
+#define ANA_PD_OUT_HSMIC_OFFSET 4
+#define ANA_PD_OUT_AUXMIC_OFFSET 3
+#define ANA_PD_OUT_MIC3_OFFSET 2
+#define ANA_PD_OUT_MIC4_OFFSET 1
+#define ANA_PD_OUT_MIC5_OFFSET 0
+
+#define ANA_IR_INF_SEL_OFFSET 0
+
+#define ANA_MICBIAS_ENABLE (BASE_ADDR_PAGE_ANA + 0x0D)
+#define ANA_MICBIAS1_PD_BIT 0
+#define ANA_MICBIAS2_PD_BIT 1
+#define ANA_HSMICBIAS_PD_BIT 2
+
+#define CODEC_ANA_RWREG_020 (BASE_ADDR_PAGE_ANA + 0x014)
+#define CODEC_ANA_HSMIC_ADC_BOOST 0
+
+#define ANA_HSMIC_MUX_AND_PGA (BASE_ADDR_PAGE_ANA + 0x015)
+#define ANA_HSMIC_MUX_BIT 4
+#define ANA_HSMIC_PGA_BIT 0
+#define ANA_HSMIC_PGA_SEL_LEN 4
+
+#define CODEC_ANA_RWREG_024 (BASE_ADDR_PAGE_ANA + 0x018)
+#define CODEC_ANA_AUXMIC_ADC_BOOST 0
+
+#define ANA_AUXMIC_MUX_AND_PGA (BASE_ADDR_PAGE_ANA + 0x019)
+#define ANA_AUXMIC_MUX_BIT 4
+#define ANA_AUXMIC_PGA_BIT 0
+#define ANA_AUXMIC_PGA_SEL_LEN 4
+
+#define CODEC_ANA_RWREG_028 (BASE_ADDR_PAGE_ANA + 0x01C)
+#define CODEC_ANA_MIC3_ADC_BOOST 0
+
+#define ANA_MIC3_MUX_AND_PGA (BASE_ADDR_PAGE_ANA + 0x01D)
+#define ANA_MIC3_MUX_BIT 4
+#define ANA_MIC3_PGA_BIT 0
+
+#define CODEC_ANA_RWREG_032 (BASE_ADDR_PAGE_ANA + 0x020)
+#define CODEC_ANA_MIC4_ADC_BOOST 0
+
+#define ANA_MIC4_MUX_AND_PGA (BASE_ADDR_PAGE_ANA + 0x021)
+#define ANA_MIC4_MUX_BIT 4
+#define ANA_MIC4_PGA_BIT 0
+
+#define CODEC_ANA_RWREG_036 (BASE_ADDR_PAGE_ANA + 0x024)
+#define CODEC_ANA_MIC5_ADC_BOOST 0
+
+#define ANA_MIC5_MUX_AND_PGA (BASE_ADDR_PAGE_ANA + 0x025)
+#define ANA_MIC5_MUX_BIT 4
+#define ANA_MIC5_PGA_BIT 0
+
+#define ANA_MAD_PGA (BASE_ADDR_PAGE_ANA + 0x02A)
+#define ANA_MAD_BOOST_18_OFFSET 4
+#define ANA_MAD_PGA_BIT 0
+
+#define ANA_MAD_CAPLESS_MIXER (BASE_ADDR_PAGE_ANA + 0x02B)
+
+#define ANA_MAD_PGA_MIXER (BASE_ADDR_PAGE_ANA + 0x02C)
+#define ANA_MAD_PGA_MIC5_SEL_BIT        0
+#define ANA_MAD_PGA_MIC4_SEL_BIT        1
+#define ANA_MAD_PGA_MIC3_SEL_BIT        2
+#define ANA_MAD_PGA_AUXMIC_SEL_BIT      3
+#define ANA_MAD_PGA_MAINMIC_SEL_BIT     4
+#define ANA_MAD_PGA_HSMIC_SEL_BIT       5
+
+#define ANA_MAD_PGA_CAPLESS_MIXER (BASE_ADDR_PAGE_ANA + 0x02D)
+
+#define ANA_MICBIAS1 (BASE_ADDR_PAGE_ANA + 0x047)
+#define ANA_MICBIAS1_DSCHG_OFFSET 5
+#define ANA_MICBIAS1_ADJ_2_7V 0xB
+#define ANA_MICBIAS1_ADJ_LEN 4
+#define ANA_MICBIAS1_ADJ_OFFSET 0
+
+#define ANA_MICBIAS2 (BASE_ADDR_PAGE_ANA + 0x048)
+#define ANA_MICBIAS2_DSCHG_OFFSET 5
+#define ANA_MICBIAS2_ADJ_2_7V 0xB
+
+#define ANA_HSMICBIAS (BASE_ADDR_PAGE_ANA + 0x049)
+#define ANA_HSMIC_DSCHG_OFFSET 5
+/* ana reg end */
+
+/* usb reg begin */
+#define USB20_CTRL_I_1 (CODEC_BASE_ADDR + BASE_ADDR_PAGE_USB + 0x4)
+/* usb reg end */
+
+/* SCTRL reg begin */
+#define DSP_IF_CLK_EN (CODEC_BASE_ADDR + BASE_ADDR_PAGE_SCTRL + 0x0f0)
+/* SCTRL reg end */
+
+/* pll test fifo reg */
+#define PLL_FIFO  (CODEC_BASE_ADDR + 0xE000 + 0x0)
+
+#define GPIO1DIR_REG  (BASE_ADDR_PAGE_GPIO1 + 0x400)
+#define GPIO2_15_OFFSET 7
+
+#define GPIO2DIR_REG  (BASE_ADDR_PAGE_GPIO2 + 0x400)
+#define GPIO2IS_REG   (BASE_ADDR_PAGE_GPIO2 + 0x404)
+#define GPIO2IBE_REG  (BASE_ADDR_PAGE_GPIO2 + 0x408)
+#define GPIO2IEV_REG  (BASE_ADDR_PAGE_GPIO2 + 0x40C)
+#define GPIO2IE_REG   (BASE_ADDR_PAGE_GPIO2 + 0x410)
+#define GPIO2_18_OFFSET 2
+#define GPIO2_19_OFFSET 3
+
+#define VIRTUAL_UP_REG               (BASE_ADDR_PAGE_VIRTUAL + VIR_UP)
+#define S3_OL_SRC_EN_MM_BIT           0
+#define S3_OR_SRC_EN_MM_BIT           1
+#define U3_OL_SRC_EN_MM_BIT           2
+#define U4_OR_SRC_EN_MM_BIT           3
+#define AUDIOUP_2MIC_BIT              4
+#define AUDIOUP_4MIC_BIT              5
+#define AUDIOUP_4MIC_V2_BIT           6
+#define AUDIOUP_5MIC_BIT              7
+#define VOICE8K_BIT                   8
+#define VOICE16K_BIT                  9
+#define VOICE32K_BIT                  10
+#define S1_OL_SRC_EN_MM_BIT           11
+#define S1_OR_SRC_EN_MM_BIT           12
+#define IR_ENV_STUDY_BIT              13
+#define MAD_BIT                       14
+#define U5_OL_SRC_EN_MM_BIT           15
+#define US_R1_MM_BIT                  16
+#define US_R2_MM_BIT                  17
+#define SOUNDTRIGGER_ONE_MIC_EN_BIT   18
+#define SOUNDTRIGGER_DUAL_MIC_EN_BIT  19
+#define SOUNDTRIGGER_MULTI_MIC_EN_BIT 20
+#define AUXMIC_HSMICBIAS_EN_MM_BIT    21
+#define AUXMIC_MICBIAS2_EN_MM_BIT     22
+#define I2S2_BLUETOOTH_LOOP_BIT       23
+#define MOVEUP_2PA_TDM_IV_BIT         24
+#define MOVEUP_4PA_TDM_IV_BIT         25
+#define VIRTUAL_BTN_ACTIVE_BIT        26
+#define VIRTUAL_BTN_PASSIVE_BIT       27
+#define AUXMIC_MICBIAS1_EN_MM_BIT     28
+#define VOICE8K_4PA_BIT               29
+#define VOICE16K_4PA_BIT              30
+#define VOICE32K_4PA_BIT              31
+
+#define VIRTUAL_DOWN_REG             (BASE_ADDR_PAGE_VIRTUAL + VIR_DOWN)
+#define PLL48K_BIT                    1
+#define PLL44K1_BIT                   2
+#define PLL32K_BIT                    3
+#define PLAY44K1_BIT                  4
+#define PLAY48K_BIT                   5
+#define PLAY96K_BIT                   6
+#define PLAY192K_BIT                  7
+#define PLAY384K_BIT                  8
+#define S1_OL_BIT                     9
+#define S1_OR_BIT                     10
+#define S2_OL_BIT                     11
+#define S2_OR_BIT                     12
+#define S4_OL_BIT                     13
+#define S4_OR_BIT                     14
+#define PLAY384K_VIR_BIT              15
+#define IV_DSPIF_BIT                  16
+#define IV_2PA_BIT                    17
+#define IV_4PA_BIT                    18
+#define S4_IL_BIT                     19
+#define S4_IR_BIT                     20
+#define IR_EMISSION_BIT               21
+#define HP_HIGH_BIT                   22
+#define EC_BIT                        23
+#define TDM_AUDIO_PA_TDM_DOWN_BIT     24
+#define TDM_AUDIO_PA_TDM_DN_LOOP_BIT  25
+#define FM_BIT                        26
+#define HP_CONCURRENCY_BIT            27
+#define PLAY88K2_BIT                  28
+#define PLAY176K4_BIT                 29
+#define PLAY44K1_GAIN_BIT             30
+#define FM_HIFI_BIT                   31
+
+#define VIRTUAL_PC_DOWN_REG           (BASE_ADDR_PAGE_VIRTUAL + VIR_PC)
+#define HEADSET_PLAYBACK_SW_BIT       0
+#define SPEAKER_PLAYBACK_SW_BIT       1
+#define HEADSET_MIC_CAPTURE_SW_BIT    2
+#define MIC_CAPTURE_SW_BIT            3
+#define INVERT_HEADSET_BIT            4
+#define BT_PLAYBACK_SW_BIT            5
+#define BT_CAPTURE_SW_BIT             6
+#define BT_PLAYBACK_WB_SW_BIT         7
+#define BT_CAPTURE_WB_SW_BIT          8
+#define REAR_LINE_IN_CAPTURE_BIT      9
+#define REAR_HEAD_MIC_CAPTURE_BIT     10
+#define REAR_HEADPHONE_PLAYBACK_BIT   11
+
+#define VIRTUAL_MAIN_MIC_CALIB_REG     (BASE_ADDR_PAGE_VIRTUAL + VIR_MAIN_MIC)
+#define VIRTUAL_MAIN_MIC_CALIB_SHFIT_BIT     0
+
+#define VIRTUAL_MAIN_MIC2_CALIB_REG   (BASE_ADDR_PAGE_VIRTUAL + VIR_MAIN_MIC2)
+#define VIRTUAL_MAIN_MIC2_CALIB_SHFIT_BIT    0
+
+#define VIRTUAL_SUB_MIC_CALIB_REG       (BASE_ADDR_PAGE_VIRTUAL + VIR_SUB_MIC)
+#define VIRTUAL_SUB_MIC_CALIB_SHFIT_BIT      0
+
+#define VIRTUAL_SUB_MIC2_CALIB_REG     (BASE_ADDR_PAGE_VIRTUAL + VIR_SUB_MIC2)
+#define VIRTUAL_SUB_MIC2_CALIB_SHFIT_BIT     0
+
+#define VIRTUAL_EXTERN_REG             (BASE_ADDR_PAGE_VIRTUAL + VIR_EXTERN)
+#define DACL96K_BIT                          0
+#define ULTRASONIC_DOWN_OFFSET               1
+#define ULTRASONIC_DOWN_LEN                  2
+#define ULTRASONIC_UP_BIT                    3
+#define MIC4_MICBIAS1_EN_MM_BIT              4
+#define MIC5_MICBIAS1_EN_MM_BIT              5
+#define VOICE8K_V2_BIT                       6
+#define VOICE16K_V2_BIT                      7
+#define VOICE32K_V2_BIT                      8
+#define ULTRA_UP9_BIT                        9
+
+#endif

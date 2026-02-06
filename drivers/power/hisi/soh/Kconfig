@@ -1,0 +1,15 @@
+
+config BATT_SOH
+        bool "batt soh"
+        default n
+
+config BATT_SOH_PMIC
+        bool "batt soh pmic driver"
+        default n
+
+config BATT_SOH_HI6531
+        bool "batt soh hi6531 driver"
+        default n
+config BATT_SOH_CHARGER
+        bool "batt soh charger driver"
+        default n

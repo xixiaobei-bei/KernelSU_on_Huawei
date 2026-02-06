@@ -1,0 +1,8 @@
+config HUAWEI_PROC_CHECK_ROOT
+	bool "/proc/check_root support"
+	default n
+	help
+	  Enable serveral root checks and security audit.
+	  kernel root checks provides setxid syscalls audit
+	  and keyfiles check.
+	  security audit provides audit log functions.

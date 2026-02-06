@@ -1,0 +1,2 @@
+obj-$(CONFIG_SND_SOC_ES7210) += es7210.o
+obj-$(CONFIG_SND_SOC_ES7243E) += es7243e.o

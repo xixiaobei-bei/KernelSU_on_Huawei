@@ -1,0 +1,63 @@
+#
+# charge_pump drivers
+#
+
+config CHARGE_PUMP
+	bool "charge pump"
+	default n
+	help
+	  Say Y here to enable charge pump driver.
+	  This driver provides a unified interface to charge pump.
+	  This driver is in logic layer.
+
+config CHARGE_PUMP_HL1506
+	bool "charge pump hl1506"
+	depends on CHARGE_PUMP
+	default n
+	help
+	  Say Y here to enable hl1506 driver.
+	  The hl1506 is an soc for wireless charge-pump converter.
+	  It is fully compliant with the latest Qi receiver to make
+	  the input current to be half the current delivered to the output.
+
+config CHARGE_PUMP_SY6510
+	bool "charge pump sy6510"
+	depends on CHARGE_PUMP
+	default n
+	help
+	  Say Y here to enable sy6510 driver.
+	  The sy6510 is an soc for wireless charge-pump converter.
+	  It is fully compliant with the latest Qi receiver to make
+	  the input current to be half the current delivered to the output.
+
+config CHARGE_PUMP_PCA9488
+	bool "charge pump pca9488"
+	depends on CHARGE_PUMP
+	default n
+	help
+	  Say Y here to enable pca9488 driver.
+	  The PCA9488 is a highly-integrated switched-capacitor converter
+	  with a dual-input, targeted to provide a doubled output current
+	  for a fast charging application.
+	  It is fully compliant with the latest Qi receiver to make
+	  the input current to be half the current delivered to the output.
+
+config CHARGE_PUMP_HL1512
+	bool "charge pump hl1512"
+	depends on CHARGE_PUMP
+	default n
+	help
+	  Say Y here to enable hl1512 driver.
+	  The hl1512 is an soc for wireless charge-pump converter.
+	  It is fully compliant with the latest Qi receiver to make
+	  the input current to be half the current delivered to the output.
+
+config CHARGE_PUMP_SC8502
+	bool "charge pump sc8502"
+	depends on CHARGE_PUMP
+	default n
+	help
+	  Say Y here to enable sc8502 driver.
+	  The sc8502 is an soc for wireless charge-pump converter.
+	  It is fully compliant with the latest Qi receiver to make
+	  the input current to be half the current delivered to the output.

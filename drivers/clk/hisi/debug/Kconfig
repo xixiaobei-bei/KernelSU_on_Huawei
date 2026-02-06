@@ -1,0 +1,4 @@
+config HISI_CLK_DEBUG
+	depends on DEBUG_FS
+	bool "HiSilicon clock driver debug"
+	default n

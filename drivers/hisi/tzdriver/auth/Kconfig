@@ -1,0 +1,28 @@
+# Auth Configuration
+config CLIENT_AUTH
+	bool "Client Application Hash Auth"
+	default n
+	depends on TZDRIVER
+	help
+	  TEEOS CA code hash auth
+
+config ANDROID_HIDL
+	bool "Android Hidl Adapt"
+	default n
+	depends on CLIENT_AUTH
+	help
+	  TEEOS hidl proc auth
+
+config SELINUX_ADAPT
+	bool "Selinux Interface Adapt"
+	default n
+	depends on TEECD_AUTH || CLIENT_AUTH
+	help
+	  Selinux Interface Adapt
+
+config AUTH_ENHANCE
+	bool "Secure Execution Auth Enhance"
+	default n
+	depends on CLIENT_AUTH
+	help
+	  TEEOS auth enhance
