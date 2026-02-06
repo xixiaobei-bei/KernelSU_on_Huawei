@@ -173,6 +173,8 @@ jobs:
           export ARCH=arm64
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
           export CROSS_COMPILE=aarch64-linux-android-
+          export KCFLAGS="-Wno-error -D__aarch64__ -fno-pic -no-integrated-as"
+          export AFLAGS="-no-integrated-as"
           sudo chmod -R 777 $(pwd)/
 
         if [ "${{ matrix.pm }}" = "true" ]; then
