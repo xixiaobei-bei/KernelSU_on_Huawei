@@ -123,6 +123,7 @@ jobs:
         if [[ "$tool" == *"gcc"* ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
         elif [[ "$tool" == *"clang"* ]]; then
+          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
           git clone -b emu-29.0-release --single-branch --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/
         fi
 
@@ -169,14 +170,9 @@ jobs:
           echo "No Config, good."
         fi
 
-        if [[ "$tool" == *"gcc"* ]]; then
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
           export CROSS_COMPILE=aarch64-linux-android-
           sudo chmod -R 777 $(pwd)/
-        elif [[ "$tool" == *"clang"* ]]; then
-          export CROSS_COMPILE=aarch64-linux-android-
-          sudo chmod -R 777 $(pwd)/
-        fi
 
         if [ "${{ matrix.pm }}" = "true" ]; then
           sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "$DEFCONFIG" || true
