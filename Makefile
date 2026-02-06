@@ -386,9 +386,9 @@ HOST_LFS_CFLAGS := $(shell getconf LFS_CFLAGS 2>/dev/null)
 HOST_LFS_LDFLAGS := $(shell getconf LFS_LDFLAGS 2>/dev/null)
 HOST_LFS_LIBS := $(shell getconf LFS_LIBS 2>/dev/null)
 ifeq ($(strip $(cfi_check)),true)
-CLANG_PREBUILTS_PATH ?= $(srctree)/../../prebuilts/cfi_clang/linux-x86/cfi_clang/
+CLANG_PREBUILTS_PATH ?= $(srctree)/linux-x86/cfi_clang/
 else
-CLANG_PREBUILTS_PATH ?= $(srctree)/../../prebuilts/clang/host/linux-x86/clang-r353983c/
+CLANG_PREBUILTS_PATH ?= $(srctree)/linux-x86/clang-r353983c/
 endif
 CLANG_PREBUILT_BIN := $(CLANG_PREBUILTS_PATH)bin/
 export CLANG_PREBUILTS_PATH
