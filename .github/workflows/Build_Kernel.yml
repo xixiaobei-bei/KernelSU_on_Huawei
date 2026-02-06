@@ -9,6 +9,7 @@ on:
       - MHA_HarmonyOS2.0_KernelSU
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
+      - ELE_HarmonyOS2.0_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -18,6 +19,7 @@ on:
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
       - EVA_EMUI8.0_KernelSU
+      - ELE_HarmonyOS2.0_KernelSU
 
 jobs:
   build:
@@ -36,6 +38,7 @@ jobs:
           - MHA_HarmonyOS2.0_KernelSU-Next
           - MHA_HarmonyOS2.0_SukiSU-Ultra
           - EVA_EMUI8.0_KernelSU
+          - ELE_HarmonyOS2.0_KernelSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -52,13 +55,73 @@ jobs:
         fetch-depth: 1
         lfs: false
 
+    - name: Set build vars
+      run: |
+        if [ "${{ matrix.pm }}" = "true" ]; then
+          echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
+        else
+          echo "PM_SUFFIX=" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
+        fi
+
+        BRANCH='${{ matrix.branch }}'
+        case "$BRANCH" in
+          MHA_EMUI9.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_EMUI9.0_KernelSU-Next)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_EMUI9.0_SukiSU-Ultra)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_KernelSU-Next)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_SukiSU-Ultra)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          EVA_EMUI8.0_KernelSU)
+            DEFCONFIG="merge_hi3650_defconfig"
+            os_version="8"
+            tool="gcc" ;;
+          ELE_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_kirin980_defconfig"
+            os_version="10"
+            tool="clang" ;;
+        esac
+
+        if [ -z "$DEFCONFIG" ]; then
+          echo "::error::DEFCONFIG is empty for branch $BRANCH. Please set mapping in workflow 'Set build vars' step." >&2
+          exit 1
+        fi
+
+        echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
+        echo "os_version=$os_version" >> $GITHUB_ENV
+        echo "tool=$tool" >> $GITHUB_ENV
+
     - name: Install dependencies
       run: |
         ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
         apt-get update -y 
         apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
         sudo ln -sf /bin/bash /bin/sh
-        git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
+
+        if [[ "$tool" == *"gcc"* ]]; then
+          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
+        elif [[ "$tool" == *"clang"* ]]; then
+          git clone -b emu-29.0-release --single-branch --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/prebuilts/clang/host/linux-x86/
+        fi
 
     - name: Prepare KernelSU sources (branch-specific)
       run: |
@@ -79,52 +142,21 @@ jobs:
           echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
         fi
 
-    - name: Set build vars
-      run: |
-        if [ "${{ matrix.pm }}" = "true" ]; then
-          echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
-        else
-          echo "PM_SUFFIX=" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
-        fi
-
-        BRANCH='${{ matrix.branch }}'
-        case "$BRANCH" in
-          MHA_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          MHA_EMUI9.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          MHA_EMUI9.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          MHA_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          MHA_HarmonyOS2.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          MHA_HarmonyOS2.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9" ;;
-          EVA_EMUI8.0_KernelSU)
-            DEFCONFIG="merge_hi3650_defconfig"
-            os_version="8" ;;
-        esac
-
-        if [ -z "$DEFCONFIG" ]; then
-          echo "::error::DEFCONFIG is empty for branch $BRANCH. Please set mapping in workflow 'Set build vars' step." >&2
-          exit 1
-        fi
-
-        echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
-        echo "os_version=$os_version" >> $GITHUB_ENV
-
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
       run: |
-        echo kernel:$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi)
+
+        CURRENT_DATE=$(date +'%Y-%m-%d')
+        if [ "${{ matrix.pm }}" = "true" ]; then
+          SELINUX_MODE="permissive"
+        else
+          SELINUX_MODE="enforcing"
+        fi
+
+        echo kernel:${SELINUX_MODE}
+        echo os_version:$os_version
+        echo tool:$tool
+        echo time:$CURRENT_DATE
+
         sudo ln -sf /usr/bin/python2.7 /usr/bin/python
 
         if [ -d include/config ]; then
@@ -134,9 +166,11 @@ jobs:
           echo "No Config, good."
         fi
 
-        export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
-        export CROSS_COMPILE=aarch64-linux-android-
-        sudo chmod -R 777 $(pwd)/
+        if [[ "$tool" == *"gcc"* ]]; then
+          export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+          export CROSS_COMPILE=aarch64-linux-android-
+          sudo chmod -R 777 $(pwd)/
+        fi
 
         if [ "${{ matrix.pm }}" = "true" ]; then
           sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "$DEFCONFIG" || true
@@ -153,12 +187,12 @@ jobs:
         make ARCH=arm64 O=out "${DEFCONFIG}"
         make ARCH=arm64 O=out -j$(nproc --all)
 
-        CURRENT_DATE=$(date +'%Y-%m-%d')
-
         if [ "$os_version" = "9" ]; then
-        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
         elif [ "$os_version" = "8" ]; then
-        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=$(if [ "${{ matrix.pm }}" = "true" ]; then echo "permissive"; else echo "enforcing"; fi) buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+        elif [ "$os_version" = "10" ]; then
+        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
         fi
 
     - name: Upload Kernel Artifact
