@@ -9,7 +9,6 @@ on:
       - MHA_HarmonyOS2.0_KernelSU
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
-      - ELE_HarmonyOS2.0_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -19,7 +18,6 @@ on:
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
       - EVA_EMUI8.0_KernelSU
-      - ELE_HarmonyOS2.0_KernelSU
 
 jobs:
   build:
@@ -42,7 +40,6 @@ jobs:
           - MHA_HarmonyOS2.0_KernelSU-Next
           - MHA_HarmonyOS2.0_SukiSU-Ultra
           - EVA_EMUI8.0_KernelSU
-          - ELE_HarmonyOS2.0_KernelSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -99,10 +96,6 @@ jobs:
             DEFCONFIG="merge_hi3650_defconfig"
             os_version="8"
             tool="gcc" ;;
-          ELE_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_kirin980_defconfig"
-            os_version="10"
-            tool="clang" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
@@ -120,7 +113,7 @@ jobs:
         apt-get update -y 
         apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
 
-        if [[ "$tool" == *"gcc"* ]]; then
+        if [[ "$tool" == "gcc" ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
         elif [[ "$tool" == *"clang"* ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
@@ -170,11 +163,11 @@ jobs:
           echo "No Config, good."
         fi
 
-        if [[ "$tool" == *"gcc"* ]]; then
+        if [[ "$tool" == "gcc" ]]; then
           export ARCH=arm64
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
           export CROSS_COMPILE=aarch64-linux-android-
-        elif [[ "$tool" == *"clang"* ]]; then
+        elif [[ "$tool" == "clang" ]]; then
           export ARCH=arm64
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
           export CROSS_COMPILE=aarch64-linux-android-
