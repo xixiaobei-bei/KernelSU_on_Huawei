@@ -42,7 +42,7 @@ jobs:
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
       CCACHE_NOHASHDIR: "true"
-      CCACHE_MAXSIZE: "2G"
+      CCACHE_MAXSIZE: "32G"
       CCACHE_HARDLINK: "true"
       KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=out"
     steps:
@@ -171,11 +171,8 @@ jobs:
         fi
 
         if [ "${{ matrix.pm }}" = "true" ]; then
-          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "$DEFCONFIG" || true
-          sed -i 's/^\(CONFIG_LOCALVERSION="[^"]*\)_\([^"]*"\)$/\1_PM_\2/' "$DEFCONFIG" || true
-          if ! grep -q '_PM_' "$DEFCONFIG"; then
-            sed -i 's/^CONFIG_LOCALVERSION="\(.*\)"$/CONFIG_LOCALVERSION="\1_PM"/' "$DEFCONFIG" || true
-          fi
+          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "$DEFCONFIG"
+          sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
         fi
 
         make clean
@@ -186,11 +183,11 @@ jobs:
         make ARCH=arm64 O=out -j$(nproc --all)
 
         if [ "$os_version" = "9" ]; then
-        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
         elif [ "$os_version" = "8" ]; then
-        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
         elif [ "$os_version" = "10" ]; then
-        tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
         fi
 
     - name: Upload Kernel Artifact
