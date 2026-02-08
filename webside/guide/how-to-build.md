@@ -41,7 +41,7 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 
 ## 更改内核
 
-#### 需要关闭def-config配置文件的以下选项：
+#### 需要关闭defconfig配置文件的以下选项：
 
 ```text
 CONFIG_HISI_PMALLOC=y
@@ -73,7 +73,7 @@ CONFIG_HWAA=y
 这些内容需要改成如下格式：
 
 ```text
-## CONFIG_XXXXXX is not set
+# CONFIG_XXXXXX is not set
 ```
 
 #### 可选部分： 
@@ -81,7 +81,7 @@ CONFIG_HWAA=y
 把
 
 ```text
-## CONFIG_SECURITY_SELINUX_DEVELOP is not set
+# CONFIG_SECURITY_SELINUX_DEVELOP is not set
 ```
 
 改为
@@ -101,8 +101,8 @@ CONFIG_DM_VERITY_AVB=y
 改为
 
 ```text
-## CONFIG_DM_VERITY=y is not set  
-## CONFIG_DM_VERITY_AVB=y is not set 
+# CONFIG_DM_VERITY=y is not set  
+# CONFIG_DM_VERITY_AVB=y is not set 
 ```
 
 ## 集成KernelSU/KernelSU-Next
@@ -130,7 +130,7 @@ KernelSU官方的v0.9.5的源码与内核代码冲突，拉取源码要用main�
 在你的设备defconfig配置文件最后加入以下几行：
 
 ```text
-## KernelSU
+# KernelSU
 CONFIG_KSU=y
 ```
 
