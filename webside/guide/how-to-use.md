@@ -10,7 +10,7 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 
 |机型名称|机型代码|支持情况|
 |:---:|:---:|:---:|
-|Mate9全系列|MHA-XXX|KernelSU、KernelSU-Next、SukiSU-Ultra|
+|Mate9全系列|MHA-XXX|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
 |P9全系列(testing)|EVA-XXX|KernelSU|
 
 ## 下载内核映像文件

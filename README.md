@@ -133,11 +133,13 @@ KernelSU模块有关：
 
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——KernelSU作者
 
-- [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——KernelSU-Next作者（好像是的）
+- [rsuntk](https://github.com/rsuntk) / [KernelSU](https://github.com/rsuntk/KernelSU)——添加KernelSU在5系内核以下的支持
 
-- [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra)——SukiSU-Ultra作者
+- [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)——KernelSU-Next作者
 
-- [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU)——添加SukiSU-Ultra在5系内核以下的ManualHook支持
+- [SukiSU-Ultra](https://github.com/SukiSU-Ultra) / [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra)——SukiSU-Ultra作者
+
+- [ReSukiSU](https://github.com/ReSukiSU) / [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU)——添加SukiSU-Ultra在5系内核以下的支持
 
 - [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的ManualHooks集成思路
 

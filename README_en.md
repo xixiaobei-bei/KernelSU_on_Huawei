@@ -130,11 +130,13 @@ KernelSU modules:
 
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/) — KernelSU author
 
+- [rsuntk](https://github.com/rsuntk) / [KernelSU](https://github.com/rsuntk/KernelSU)——added support for KernelSU on kernels below the 5.x version
+
 - [KernelSU-Next](https://github.com/KernelSU-Next/) / [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) — KernelSU-Next authors
 
 - [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra) — SukiSU-Ultra author
 
-- [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU) — added ManualHook support for SukiSU-Ultra on kernels below the 5-series
+- [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU) — added support for SukiSU-Ultra on kernels below the 5.x version
 
 - [Coconutat](https://github.com/Coconutat) and their [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — provided ideas for integrating SukiSU-Ultra ManualHooks
 
