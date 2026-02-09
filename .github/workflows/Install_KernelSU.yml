@@ -71,7 +71,8 @@ jobs:
           echo "KernelSU directory not found; skipping zipping and upload"
           exit 0
         fi
-
+      
+        sync
         tar -czf "${{ matrix.branch }}_sources.tar.gz" .
 
     - name: Upload Kernel Artifact
