@@ -3,14 +3,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - MHA_EMUI9.0_RKSU
-      - MHA_EMUI9.0_ReSukiSU
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
   pull_request:
     branches:
-      - MHA_EMUI9.0_RKSU
-      - MHA_EMUI9.0_ReSukiSU
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
 jobs:
@@ -27,8 +23,6 @@ jobs:
     strategy:
       matrix:
         branch:
-        - MHA_EMUI9.0_RKSU
-        - MHA_EMUI9.0_ReSukiSU
         - MHA_HarmonyOS2.0_RKSU
         - MHA_HarmonyOS2.0_ReSukiSU
     steps:
