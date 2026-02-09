@@ -67,6 +67,22 @@ fastboot flash kernel <内核文件>
 
 若是PM内核，请解密DATA后格式化DATA分区才可开机
 
+## 安装管理器
+
+设备重启后安装对应管理器即可获取Root权限，对应KernelSU分支对应的管理器见下表：
+|KernelSU分支|对应管理器版本|下载链接|
+|:---:|:---:|:---:|
+|KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
+|RKSU|最新版|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
+|SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
+|ReSukiSU|最新版|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
+
+> [!NOTE]
+>
+> 通过GithubAction下载需要登陆Github账号才可以显示下载按钮
+>
+
 # 支持设备
 
 - [x] Mate 9 系列（MHA）

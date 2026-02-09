@@ -71,5 +71,13 @@ fastboot reboot
 |KernelSU分支|对应管理器版本|下载链接|
 |:---:|:---:|:---:|
 |KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
+|RKSU|最新版|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
 |KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
+|ReSukiSU|最新版|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
+
+:::tip
+
+通过GithubAction下载需要登陆Github账号才可以显示下载按钮
+
+:::

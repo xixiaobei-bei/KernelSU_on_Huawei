@@ -62,6 +62,22 @@ fastboot flash kernel <kernel-file>
 
 If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA partition before booting.
 
+## Install the manager.
+
+After the device reboots, install the corresponding manager to obtain Root access. The manager corresponding to each KernelSU branch is listed in the table below:
+|KernelSU branches name|Manager version|Download links|
+|:---:|:---:|:---:|
+|KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
+|RKSU|Lastest|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|KernelSU-Next|Lastest|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
+|SukiSU-Ultra|Lastest|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
+|ReSukiSU|Lastest|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
+
+> [!NOTE]
+>
+> Downloading via GitHub Actions requires logging into your GitHub account for the download button to appear.
+>
+
 # Supported Devices
 
 - [x] Mate 9 series (MHA)
