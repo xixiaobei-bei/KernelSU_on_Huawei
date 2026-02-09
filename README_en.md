@@ -40,7 +40,7 @@ If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA pa
 # Supported Devices
 
 - [x] Mate 9 series (MHA)
-- [x] P 9 series (EVA)
+- [ ] P 9 series (EVA)
 
 ### More devices coming...
 
@@ -50,9 +50,9 @@ If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA pa
 - [x] Add GitHub Actions for automatic builds
 - [x] Add support for SukiSU-Ultra
 - [ ] Add automatic ManualHooks integration
-- [ ] Add support for RKSU
-- [ ] Add support for ReSukiSU
-- [ ] Add support for SusFS
+- [x] Add support for RKSU
+- [x] Add support for ReSukiSU
+- [ ] Add support for SUSFS
 - [ ] Add support for KPM
 
 # Contributing

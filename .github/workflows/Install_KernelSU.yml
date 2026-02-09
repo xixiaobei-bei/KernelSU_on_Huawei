@@ -1,0 +1,73 @@
+﻿name: Install KernelSU for edited kernel branches
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - MHA_EMUI9.0_RKSU
+      - MHA_EMUI9.0_ReSukiSU
+      - MHA_HarmonyOS2.0_RKSU
+      - MHA_HarmonyOS2.0_ReSukiSU
+  pull_request:
+    branches:
+      - MHA_EMUI9.0_RKSU
+      - MHA_EMUI9.0_ReSukiSU
+      - MHA_HarmonyOS2.0_RKSU
+      - MHA_HarmonyOS2.0_ReSukiSU
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+      options: --privileged
+    defaults:
+      run:
+        shell: bash
+
+    timeout-minutes: 480
+    strategy:
+      matrix:
+        branch:
+        - MHA_EMUI9.0_RKSU
+        - MHA_EMUI9.0_ReSukiSU
+        - MHA_HarmonyOS2.0_RKSU
+        - MHA_HarmonyOS2.0_ReSukiSU
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ matrix.branch }}
+        submodules: false
+        fetch-depth: 1
+        lfs: false
+
+    - name: Prepare KernelSU sources (branch-specific)
+      run: |
+        BRANCH='${{ matrix.branch }}'
+        if [[ "$BRANCH" == *"KernelSU"* ]]; then
+          echo "Branch contains KernelSU: running KernelSU main setup"
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+        elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+          echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
+        elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
+          echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
+          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+        elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+          echo "Branch contains ReSukiSU: running ReSukiSU setup"
+          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+        elif [[ "$BRANCH" == *"RKSU"* ]]; then
+          echo "Branch contains RKSU: running RKSU setup"
+          curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+        else
+          echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
+        fi
+
+    - name: Zipping sources for artifact upload
+      run: |
+          tar -czf "${{ matrix.branch }}_sources.tar.gz" .
+
+    - name: Upload Kernel Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.branch }}_sources
+        path: "${{ matrix.branch }}_sources.tar.gz"

@@ -45,7 +45,7 @@ fastboot flash kernel <内核文件>
 # 支持设备
 
 - [x] Mate 9 系列（MHA）
-- [x] P 9 系列 (EVA)
+- [ ] P 9 系列 (EVA)
 
 ### 持续更新中...
 
@@ -55,9 +55,9 @@ fastboot flash kernel <内核文件>
 - [x] 添加GithubAction自动编译功能
 - [x] 添加对SukiSU-Ultra的支持
 - [ ] 添加ManualHooks自动集成的支持
-- [ ] 添加对RKSU的支持
-- [ ] 添加对ReSukiSU的支持
-- [ ] 添加对SusFS的支持
+- [x] 添加对RKSU的支持
+- [x] 添加对ReSukiSU的支持
+- [ ] 添加对SUSFS的支持
 - [ ] 添加对KPM的支持
 
 # 贡献项目

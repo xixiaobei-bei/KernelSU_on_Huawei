@@ -5,7 +5,7 @@
 |机型名称|机型代码|支持情况|
 |:---:|:---:|:---:|
 |Mate9全系列|MHA-XXX|KernelSU、KernelSU-Next、SukiSU-Ultra|
-|P9全系列|EVA-XXX|KernelSU|
+|P9全系列(testing)|EVA-XXX|KernelSU|
 
 ## 下载内核映像文件
 
