@@ -6,17 +6,25 @@ on:
       - MHA_EMUI9.0_KernelSU
       - MHA_EMUI9.0_KernelSU-Next
       - MHA_EMUI9.0_SukiSU-Ultra
+      - MHA_EMUI9.0_RKSU
+      - MHA_EMUI9.0_ReSukiSU
       - MHA_HarmonyOS2.0_KernelSU
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
+      - MHA_HarmonyOS2.0_RKSU
+      - MHA_HarmonyOS2.0_ReSukiSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
       - MHA_EMUI9.0_KernelSU-Next
       - MHA_EMUI9.0_SukiSU-Ultra
+      - MHA_EMUI9.0_RKSU
+      - MHA_EMUI9.0_ReSukiSU
       - MHA_HarmonyOS2.0_KernelSU
       - MHA_HarmonyOS2.0_KernelSU-Next
       - MHA_HarmonyOS2.0_SukiSU-Ultra
+      - MHA_HarmonyOS2.0_RKSU
+      - MHA_HarmonyOS2.0_ReSukiSU
 
 jobs:
   build:
@@ -35,9 +43,13 @@ jobs:
           - MHA_EMUI9.0_KernelSU
           - MHA_EMUI9.0_KernelSU-Next
           - MHA_EMUI9.0_SukiSU-Ultra
+          - MHA_EMUI9.0_RKSU
+          - MHA_EMUI9.0_ReSukiSU
           - MHA_HarmonyOS2.0_KernelSU
           - MHA_HarmonyOS2.0_KernelSU-Next
           - MHA_HarmonyOS2.0_SukiSU-Ultra
+          - MHA_HarmonyOS2.0_RKSU
+          - MHA_HarmonyOS2.0_ReSukiSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -78,6 +90,14 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
+          MHA_EMUI9.0_RKSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_EMUI9.0_ReSukiSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
           MHA_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
@@ -87,6 +107,14 @@ jobs:
             os_version="9"
             tool="gcc" ;;
           MHA_HarmonyOS2.0_SukiSU-Ultra)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_RKSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_ReSukiSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
@@ -121,14 +149,22 @@ jobs:
           echo "Branch contains KernelSU: running KernelSU main setup"
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+        elif [[ "$BRANCH" == *"RKSU"* ]]; then
+          echo "Branch contains RKSU: running RKSU setup"
+          rm -rf KernelSU
+          curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
         elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
           rm -rf KernelSU-Next
           curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
         elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
-          rm -rf KernelSU
           echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
+          rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+        elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+          echo "Branch contains ReSukiSU: running ReSukiSU setup"
+          rm -rf KernelSU
+          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
         else
           echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
         fi
