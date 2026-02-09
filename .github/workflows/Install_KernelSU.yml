@@ -26,6 +26,14 @@ jobs:
         - MHA_HarmonyOS2.0_RKSU
         - MHA_HarmonyOS2.0_ReSukiSU
     steps:
+    - name: Install packeges
+      run: |
+        apt-get update
+        apt-get install -y --no-install-recommends \
+          git \
+          curl \
+          tar
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
