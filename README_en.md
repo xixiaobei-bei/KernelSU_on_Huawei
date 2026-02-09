@@ -6,6 +6,31 @@
 
 - Thanks to all contributors — I'm standing on the shoulders of giants
 
+> [!CAUTION]
+>
+> Rooting your device may void its warranty and could cause permanent damage if not done correctly. Please ensure you create a full backup before proceeding, read the documentation to confirm compatibility with your device, follow all reference guides, and have a recovery plan ready. The author of this project (xixiaobei) and any other individuals assume no responsibility for any consequences resulting from improper operation!
+>
+
+## Download
+
+### Download via GitHub Releases
+
+You can download it from [this page](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/releases).Select the latest Release, find the corresponding file, and click to download.
+
+### Download Development Versions via GitHub Actions
+
+> [!WARNING]
+>
+> The development version has not been confirmed to be fully usable and may contain unknown issues!
+>
+
+> [!NOTE]
+>
+> Downloading via GitHub Actions requires logging into your GitHub account for the download button to appear.
+>
+
+Open the [GitHub Actions page for this project](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions),select the "Build Kernel" section from the left Action list, choose the latest compilation task, and then download the file corresponding to your device.
+
 ## Naming Convention
 
 `device_code_base_firmware_KernelSU_type_SELinux_state`

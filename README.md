@@ -8,6 +8,31 @@
 
 - 感谢各位贡献作者，我只是站在了巨人的肩膀上
 
+> [!CAUTION]
+>
+> Root 您的设备可能会使保修失效，如果操作不当可能会造成永久性损坏。 请务必在继续之前创建完整备份，阅读文档确保与您的设备兼容，遵循文档参考，准备好恢复计划。由操作不当导致的任何后果不由本项目作者（xixiaobei）及任何人负责！
+>
+
+## 下载
+
+### 通过GithubReleases下载
+
+可以在[此页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/releases)下载，选择最新Release找到对应文件点击下载即可
+
+### 通过GithubAction下载开发版
+
+> [!WARNING]
+>
+> 开发版没有被确定完全可用，可能包含未知的问题！
+>
+
+> [!NOTE]
+>
+> 通过GithubAction下载需要登陆Github账号才可以显示下载按钮
+>
+
+打开[本项目GithubAction页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions)，选择左侧Action列表的Build Kernel板块，选择最新编译任务，然后找到设备对应的文件下载
+
 ## 命名规则
 
 ```机型代码_底包版本_KernelSU类型_Selinux状态```
