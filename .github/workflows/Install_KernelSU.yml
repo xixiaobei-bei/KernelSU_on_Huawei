@@ -73,7 +73,7 @@ jobs:
         fi
       
         sync
-        tar -czf "${{ matrix.branch }}_sources.tar.gz" .
+        tar -czf "${{ matrix.branch }}_sources.tar.gz" --warning=no-file-changed .
 
     - name: Upload Kernel Artifact
       uses: actions/upload-artifact@v4
