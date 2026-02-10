@@ -86,7 +86,8 @@ fastboot flash kernel <内核文件>
 # 支持设备
 
 - [x] Mate 9 系列（MHA）
-- [ ] P 9 系列 (EVA)
+- [x] 荣耀V9 全系列 (DUK)
+- [ ] P 9 系列 (EVA)(测试中)
 
 ### 持续更新中...
 

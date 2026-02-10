@@ -81,7 +81,8 @@ After the device reboots, install the corresponding manager to obtain Root acces
 # Supported Devices
 
 - [x] Mate 9 series (MHA)
-- [ ] P 9 series (EVA)
+- [x] HONOR V9 series (DUK)
+- [ ] P 9 series (EVA)(testing)
 
 ### More devices coming...
 

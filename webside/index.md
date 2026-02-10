@@ -18,6 +18,6 @@ features:
   - title: 开放源代码
     details: 项目完全开源，所有源代码对所有人开放，不会夹带私货
   - title: 积极维护
-    details: 内核只要到了4.4版本即可联系我适配，支持KernelSU、RKSU、KernelSU-Next。正在积极适配SukiSU-Ultra
+    details: 内核只要到了4.4版本即可联系我适配，支持KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU。
 ---
 
