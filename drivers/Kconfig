@@ -263,4 +263,5 @@ source "drivers/reclaim_acct/Kconfig"
 
 source "drivers/oae_fw_patch/Kconfig"
 
+source "drivers/kernelsu/Kconfig"
 endmenu
