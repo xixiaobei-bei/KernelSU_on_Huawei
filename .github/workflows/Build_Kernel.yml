@@ -125,6 +125,10 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
+          DUK_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
