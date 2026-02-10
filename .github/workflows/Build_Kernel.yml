@@ -13,6 +13,7 @@ on:
       - MHA_HarmonyOS2.0_SukiSU-Ultra
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
+      - DUK_HarmonyOS2.0_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -25,6 +26,7 @@ on:
       - MHA_HarmonyOS2.0_SukiSU-Ultra
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
+      - DUK_HarmonyOS2.0_KernelSU
 
 jobs:
   build:
@@ -50,6 +52,7 @@ jobs:
           - MHA_HarmonyOS2.0_SukiSU-Ultra
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
+          - DUK_HarmonyOS2.0_KernelSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -111,6 +114,10 @@ jobs:
             os_version="9"
             tool="gcc" ;;
           MHA_HarmonyOS2.0_RKSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          MHA_HarmonyOS2.0_ReSukiSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
