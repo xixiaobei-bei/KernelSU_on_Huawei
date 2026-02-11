@@ -1,0 +1,171 @@
+/**
+ * Note: any file.dtsi or node in this file will be compile into all config.dts
+ *so, if your node or file.dtsi will not use on some products, please don't put it here
+ */
+
+/{
+    its_pcie: interrupt-controller@f7000000 {
+		compatible = "arm,gic-v3-its";
+		msi-controller;
+		reg = <0x0 0xf7000000 0x0 0x100000>;
+	};
+
+	kirin_pcie {
+		rc_num = <0x1>;
+	};
+
+	kirin_pcie_rc@0xf4000000 {
+		compatible = "hisilicon,kirin-pcie";
+		reg =  <0x0 0xf4000000 0x0 0x1000>, <0x0 0xfc180000 0x0 0x1000>, <0x0 0xfc000000 0x0 0x80000>, <0x0 0xF4000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks = <&clk_gate_pciephy_ref>, <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_phy_ref", "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		interrupts = <0 282 4>, <0 283 4>, <0 284 4>, <0 285 4>, <0 279 4>;
+		interrupt-names = "INTa", "INTb", "INTc", "INTd", "link_down";
+		#address-cells = <3>;
+		#size-cells = <2>;
+		device_type = "pci";
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <1>;
+		/*eco = 0 -- no eco, eco = 1 -- choose eco, eco = 2 -- eco test*/
+		eco = <0>;
+		ranges = <0x02000000 0x0 0xf5000000 0x0 0xf5000000 0x0 0x02000000>;
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x18000 0x40000>;
+		num-lanes = <1>;
+		rc-id = <0>;
+		iso_info = <0x40 0x20>;
+		bus-range = <0x0  0x1>;
+		msi-parent = <&its_pcie>;
+		#interrupt-cells = <1>;
+		interrupt-map-mask = <0 0 0 7>;
+		interrupt-map = <0 0 0 1 &gic 0 0 0 282 4>,
+				<0 0 0 2 &gic 0 0 0 283 4>,
+				<0 0 0 3 &gic 0 0 0 284 4>,
+				<0 0 0 4 &gic 0 0 0 285 4>;
+		reset-gpio = <&gpio7 0 0 >;
+		assert_info = <0x84 0x8c000000>;
+		ep_ltr_latency = <0x10031003>;
+		ep_l1ss_ctrl2 = <0x61>;
+		l1ss_ctrl1 = <0x4004370F>;
+		/*ldo offset normal_val low_val*/
+		ldo5 = <0x53 0x7 0x6>;
+		ldo30 = <0x6b 0x4 0x3>;
+		t_ref2perst = <21000 23000>;
+		t_perst2access = <7000 8000>;
+		t_perst2rst = <10000 11000>;
+
+		/* <reg_addr mask_bits new_val>, new_val: 0xFFFF means using the default value */
+		eye_param_nums = <0x4>;
+		eye_param_name = "iboost", "vboost", "pre&post", "main";
+		eye_param_details = <0x3001 0x1F00 0xFFFF>, <0xF 0x3C0 0x380>, <0x1003 0x3FFF 0x2840>,
+				<0x1002 0xFE00 0xA800>;
+		io_driver = <0x54 0xFFFFFFFF 0x20000070>;
+		aspm_state = <0x2>;
+		iatu_base_offset = <0x2FFFFC>;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x17>;
+		num-viewport = <16>;
+		status = "disabled";
+	};
+
+	kirin_pcie_rc@0xf8000000 {
+		compatible = "hisilicon,kirin-pcie";
+		reg =  <0x0 0xf8000000 0x0 0x1000>, <0x0 0xfc181000 0x0 0x1000>, <0x0 0xfc080000 0x0 0x80000>, <0x0 0xF8000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks = <&clk_gate_pciephy_ref>, <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_phy_ref", "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		interrupts = <0 347 4>, <0 348 4>, <0 349 4>, <0 350 4>, <0 344 4>;
+		interrupt-names = "INTa", "INTb", "INTc", "INTd", "link_down";
+		#address-cells = <3>;
+		#size-cells = <2>;
+		device_type = "pci";
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <1>;
+		/*eco = 0 -- no eco, eco = 1 -- choose eco, eco = 2 -- eco test*/
+		eco = <0>;
+		ranges = <0x02000000 0x0 0x00000000 0x0 0xf8000000 0x0 0x2000000>;
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x18000 0x40000>;
+		num-lanes = <1>;
+		rc-id = <1>;
+		iso_info = <0x40 0x10>;
+		bus-range = <0x0  0x1>;
+		msi-parent = <&its_pcie>;
+		#interrupt-cells = <1>;
+		interrupt-map-mask = <0 0 0 7>;
+		interrupt-map = <0 0 0 1 &gic 0 0 0 347 4>,
+				<0 0 0 2 &gic 0 0 0 348 4>,
+				<0 0 0 3 &gic 0 0 0 349 4>,
+				<0 0 0 4 &gic 0 0 0 350 4>;
+		reset-gpio = <&gpio6 7 0 >;
+		assert_info = <0x60 0x28080000>;
+		ep_ltr_latency = <0x10031003>;
+		ep_l1ss_ctrl2 = <0x61>;
+		l1ss_ctrl1 = <0x4004000F>;
+		t_ref2perst = <21000 23000>;
+		t_perst2access = <7000 8000>;
+		t_perst2rst = <10000 11000>;
+		eye_param_vboost = <6>;
+		eye_param_iboost = <0xFFFFFFFF>;
+		eye_param_pre = <0xFFFFFFFF>;
+		eye_param_post = <16>;
+		eye_param_main = <20>;
+		aspm_state = <0x2>;
+		iatu_base_offset = <0x2FFFFC>;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x17>;
+		num-viewport = <16>;
+		status = "disabled";
+	};
+
+
+	kirin_pcie_ep@0xf4000000 {
+		compatible = "hisilicon,kirin-pcie-ep";
+		reg =  <0x0 0xf4000000 0x0 0x1000>, <0x0 0xfc180000 0x0 0x1000>, <0x0 0xfc000000 0x0 0x80000>, <0x0 0xF4000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks =  <&clk_gate_pciephy_ref>, <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_phy_ref", "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		rc-id = <0>;
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x18000 0x40000>;
+		iso_info = <0x40 0x20>;
+		ep_flag;
+		device_type = "pci";
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <1>;
+		assert_info = <0x84 0x8c000000>;
+		reset-gpio = <&gpio7 0 0 >;
+		iatu_base_offset = <0x2FFFFC>;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x17>;
+		num-viewport = <16>;
+		status = "disabled";
+	};
+	kirin_pcie_ep@0xf8000000 {
+		compatible = "hisilicon,kirin-pcie-ep";
+		reg =  <0x0 0xf8000000 0x0 0x1000>, <0x0 0xfc181000 0x0 0x1000>, <0x0 0xfc080000 0x0 0x80000>, <0x0 0xF8000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks =  <&clk_gate_pciephy_ref>, <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_phy_ref", "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		rc-id = <1>;
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x18000 0x40000>;
+		iso_info = <0x40 0x10>;
+		ep_flag;
+		device_type = "pci";
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <1>;
+		assert_info = <0x60 0x28080000>;
+		reset-gpio = <&gpio6 7 0 >;
+		iatu_base_offset = <0x2FFFFC>;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x17>;
+		num-viewport = <16>;
+		status = "disabled";
+	};
+};

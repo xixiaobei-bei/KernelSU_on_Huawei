@@ -1,0 +1,140 @@
+/*
+ * Hisilicon Ltd. Kirin970 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	cambricon-ipu@ff400000{
+		vipu-supply = <&ics>;
+		compatible = "hisilicon,cambricon-ipu";
+		reg = <0x0 0xff400000 0x0 0x100000>,<0x0 0xff500000 0x0 0x100000>;
+		interrupts = <0 293 4>;
+		interrupt-names = "ipu_dma_irq";
+		ics-platform = "kirin970_cs";
+		clocks = <&clk_gate_ics>;
+		clock-names = "clk-ics";
+		status = "ok";
+		ipu-and-vcodecbus-clock-rate {
+			start-rate = <900000000>;
+			stop-rate = <332000000>;
+			ipu-low = <384000000>;
+			ipu-middle = <600000000>;
+			ipu-high = <900000000>;
+			ipu-low-temperature = <600000000>;
+			vcodecbus-low = <185000000>;
+			vcodecbus-middle = <332000000>;
+			vcodecbus-high = <450000000>;
+			vcodecbus-default = <415000000>;
+			vcodecbus-high2default = <225000000>;
+		};
+		iommu_info {
+			start-addr = <0x40000>;
+			iova-align = <0x1000>;
+			size = <0x80000000>;
+		};
+		smmu_master {
+			smmu-mstr-base-addr = <0xff4a0000>;
+			smmu-mstr-glb-bypass = <0x0000>;
+			smmu-mstr-end-ack = <0x001c>;
+			smmu-mstr-smrx-start = <0x0028>;
+			smmu-mstr-inpt-sel = <0x0034>;
+			smmu-mstr-intmask = <0x0040>;
+			smmu-mstr-intstat = <0x0048>;
+			smmu-mstr-intclr = <0x004c>;
+			smmu-mstr-dbg-port-in-0 = <0x0070>;
+			smmu-mstr-dbg-port-out = <0x0078>;
+			smmu-mstr-smrx-0-stream-0 = <0x0100>;
+			smmu-mstr-smrx-0-stream-1 = <0x0104>;
+			smmu-mstr-smrx-0-stream-2 = <0x0108>;
+			smmu-mstr-smrx-0-stream-3 = <0x010c>;
+			read-cmd-total-cnt-stream-0 = <0x0600>;
+			read-cmd-total-cnt-stream-1 = <0x0604>;
+			read-cmd-total-cnt-stream-2 = <0x0608>;
+			read-cmd-miss-cnt-stream-0 = <0x0760>;
+			read-cmd-miss-cnt-stream-1 = <0x0764>;
+			read-cmd-miss-cnt-stream-2 = <0x0768>;
+			read-data-total-cnt-stream-0 = <0x08c0>;
+			read-data-total-cnt-stream-1 = <0x08c4>;
+			read-data-total-cnt-stream-2 = <0x08c8>;
+			read-cmd-case-cnt-stream-0 = <0x0a20>;
+			read-cmd-case-cnt-stream-1 = <0x0a24>;
+			read-cmd-case-cnt-stream-2 = <0x0a28>;
+			read-cmd-case-cnt-stream-3 = <0x0a2c>;
+			read-cmd-case-cnt-stream-4 = <0x0a30>;
+			read-cmd-case-cnt-stream-5 = <0x0a34>;
+			read-cmd-trans-latency = <0x0a38>;
+			write-cmd-total-cnt = <0x0b00>;
+			write-cmd-miss-cnt = <0x0c60>;
+			write-data-total-cnt = <0x0dc0>;
+			write-cmd-case-cnt-stream-0 = <0x0f20>;
+			write-cmd-case-cnt-stream-1 = <0x0f24>;
+			write-cmd-case-cnt-stream-2 = <0x0f28>;
+			write-cmd-case-cnt-stream-3 = <0x0f2c>;
+			write-cmd-case-cnt-stream-4 = <0x0f30>;
+			write-cmd-case-cnt-stream-5 = <0x0f34>;
+			write-cmd-trans-latency = <0x0f38>;
+		};
+		smmu_common {
+			smmu-common-base-addr = <0xff480000>;
+			smmu-scr = <0x0000>;
+			smmu-intmask-ns = <0x0010>;
+			smmu-intstat-ns = <0x0018>;
+			smmu-intclr-ns = <0x001c>;
+			smmu-cb-ttbr0 = <0x0204>;
+			smmu-cb-ttbcr = <0x020c>;
+			smmu-scachei-all = <0x0214>;
+			smmu-fama-ctrl1-ns = <0x0224>;
+			smmu-addr-msb = <0x0300>;
+			smmu-err-rdaddr = <0x0304>;
+			smmu-err-wraddr = <0x0308>;
+			smmu-opref-addr = <0x03a4>;
+			smmu-opref-ctrl = <0x03a8>;
+		};
+		ics_irq {
+			ics-irq-base-addr = <0xff4a2000>;
+			ics-irq-mask-ns = <0x0000>;
+			ics-irq-status-ns = <0x0008>;
+			ics-irq-clr-ns = <0x000c>;
+		};
+		ics_noc_bus {
+			base-addr = <0xe8950000>;
+			qos-type = <0x000c>;
+			factor = <0x0010>;
+			saturation = <0x0014>;
+			qos_extcontrol = <0x0018>;
+		};
+		pmctrl {
+			base-addr = <0xfff31000>;
+			noc-power-idle-req = <0x0380>;
+			noc-power-idle-ack = <0x0384>;
+			noc-power-idle-stat = <0x0388>;
+		};
+		pctrl {
+			base-addr = <0xe8a09000>;
+			peri-stat3 = <0x00a0>;
+		};
+		media2 {
+			base-addr = <0xe8900000>;
+			peren0 = <0x000>;
+			perdis0 = <0x004>;
+			perclken0 = <0x008>;
+			perstat0 = <0x00c>;
+			perrsten0 = <0x030>;
+			perrstdis0 = <0x034>;
+			perrststat0 = <0x038>;
+		};
+		peri {
+			base-addr = <0xfff35000>;
+			clkdiv8 = <0xc8>;
+			clkdiv18 = <0xf0>;
+			perpwrstat = <0x158>;
+			perpwrack = <0x15c>;
+			peristat7 = <0x50c>;
+		};
+	};
+};

@@ -1,0 +1,168 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+    apr_config{
+        compatible = "hisilicon,apr_config";
+        module_sum = <15>;
+        module_node = "drv_info","osa_info","pam_info","cttf_info","cas_info","cproc_info","guas_info","gunas_info","gudsp_info","tlps_info","tldsp_info","cphy_info","rtt_info","cnas_info","ims_info",
+        "rtosck_info";
+        drv_info:drv_info{
+            module_name = "DRV";
+            modid_sum = <2>;
+            modid_range = <0x00000000 0x0fffffff>, <0x82000030 0x82000031>;
+            task_sum = <41>;
+            task_name = "SLEEP","AWAKE","I1_SLEEP","I1_AWAKE","I2_SLEEP","I2_AWAKE","pan_rpc_task","tSCI0LOG",
+            "tSCI0SYSNC","tSCI0HOTPLUG","tSCI2LOG","tSCI2SYSNC","tSCI2HOTPLUG","tSCI1LOG","tSCI1SYSNC","tSCI1HOTPLUG","pm_wakeup_debug",
+            "softtimer_nowak","mspChr","dsp_dvs_task","CPM_LTE","CPM_LTE1","CPM_TDS","CPM_CORE","rfile","mbx_proc","icc_shared","SEC_IFC",
+            "SEC_VSIM","SEC_RFILE","pm_info_gather","NV_FLUSH","mspDiag","ondemand_dfs_ta","wdt0feedtask","wdt1feedtask","pmu_ocp_task","ipc_msg_send",
+            "ipc_msg_recv","virtshl_sfunc","virtshl_rfunc";
+            int_sum = <109>;
+            int_id =<13>,<14>,<15>,<32>,<33>,<36>,<37>,<38>,<40>,<41>,
+                    <50>,<51>,<52>,<60>,<64>,<65>,<66>,<67>,<68>,<69>,
+                    <70>,<71>,<72>,<73>,<74>,<75>,<76>,<79>,<80>,<81>,
+                    <108>,<109>,<110>,<111>,<113>,<114>,<115>,<116>,<117>,<118>,<112>,
+                    <119>,<120>,<121>,<123>,<126>,<140>,<141>,<142>,<143>,<144>,
+                    <145>,<146>,<147>,<148>,<149>,<150>,<151>,<152>,<153>,<154>,
+                    <155>,<156>,<157>,<158>,<161>,<162>,<163>,<164>,<165>,<166>,
+                    <167>,<168>,<169>,<170>,<172>,<173>,<174>,<175>,<195>,<196>,
+                    <207>,<208>,<211>,<212>,<213>,<214>,<215>,<216>,<217>,<218>,
+                    <219>,<220>,<222>,<223>,<224>,<225>,<226>,<229>,<230>,<231>,
+                    <232>,<233>,<234>,<236>,<241>,<242>,<243>,<244>;
+        };
+        osa_info:osa_info{
+            module_name = "OSA";
+            modid_sum = <2>;
+            modid_range = <0x10000000 0x1fffffff>, <0x20002100 0x2fffffff>;
+            task_sum = <3>;
+            task_name = "VOS_TIMER", "RTC_TIMER", "DRX_TIMER";
+			int_sum = <0>;
+        };
+        pam_info:pam_info{
+            module_name = "PAM";
+            modid_sum = <1>;
+            modid_range = <0x20000000 0x200020ff>;
+            task_sum = <18>;
+            task_name = "USIMM_FID","SI_FID","HPA_FID","SPY","OM_NOSIG","CBPCA_FID","CSIMA_FID","CBT","PAM_OM","I0_PB_FID","USIMM_FID1",
+            "SI_FID1","CSIMA_FID1","I1_PB_FID","USIMM_FID2","SI_FID2","CSIMA_FID2","F9_I0";
+            int_sum = <7>;
+            int_id = <127>, <128>,<129>, <133>,  <134>,<135>, <136>;
+        };      
+        cttf_info:cttf_info{
+            module_name = "CTTF";
+            modid_sum = <1>;
+            modid_range = <0x3F000000 0x3fffffff>;
+            task_sum = <26>;
+            task_name = "I0_RM_FID","I0_RM_DL_FID","I0_SL_FID","I0_RM_FID","I0_GRM_FID","I0_RM_DL_FID","I0_DC_FID",
+            "RRM_FID","SL_FID1","DC_FID1","GRM_FID1","I1_RM_FID","I1_RM_DL_FID","SL_FID2",
+            "DC_FID2","GRM_FID2","HRPD_SIG_FID","HRPD_SIG_FID","HRPD_F_FID","1X_R_FID","1X_F_FID",
+            "PPPC_FID","SOCK","CCpuFlowCtrl","IPS_CCORE","IPSC";
+            int_sum = <0>;
+        };
+        cas_info:cas_info{
+            module_name = "CAS";
+            modid_sum = <1>;
+            modid_range = <0x4e000000 0x4effffff>;
+            task_sum = <2>;
+            task_name = "CAS1X_FID","CASHRPD_FID";
+            int_sum = <0>;
+        };
+        cproc_info:cproc_info{
+            module_name = "CPROC";
+            modid_sum = <1>;
+            modid_range = <0x4f000000 0x4fffffff>;
+            task_sum = <3>;
+            task_name = "CPROC_1X","CPROC_EVDO","CPROC_RM";
+            int_sum = <1>;
+            int_id = <107>;
+        };
+        guas_info:guas_info{
+            module_name = "GUAS";
+            modid_sum = <3>;
+            modid_range = <0x30000000 0x3effffff>,<0x40000000 0x4dffffff>,<0x50000000 0x5fffffff>;
+            task_sum = <5>;
+            task_name = "I0_RR_FID","I0_WRR_FID","RR_FID1","I1_WRR_FID","RR_FID2";
+            int_sum = <8>;
+            int_id = <42>, <43>, <44>,<45>,<77>,<78>,<94>,<192>;
+        };
+        gunas_info:gunas_info{
+            module_name = "GUNAS";
+            modid_sum = <1>;
+            modid_range = <0x60000000 0x6fffffff>;
+            task_sum = <21>; 
+            task_name = "I0_CM_FID","I0_RABMSM_FID","I0_TAF_FID","CMMCA","MTC","I0_MSCC_FID","MM_FID1","CM_FID1","RABMSM_FID1","TAF_FID1",
+            "MSCC_FID1","mspL4_1","mspFTM1","MM_FID2","CM_FID2","RABMSM_FID2","TAF_FID2","MSCC_FID2","mspL4_0","mspFTM0","EDA_FID"; 
+            int_sum = <0>;
+        };
+        gudsp_info:gudsp_info{
+            module_name = "GUDSP";
+            modid_sum = <1>;
+            modid_range = <0x70000000 0x7fffffff>;
+            task_sum = <20>;
+            task_name = "DSP_APM0","DSP_UPA","DSP_WPHY0","DSP_GPHY0","DSP_SLEEP0","DSP_WAKE0","DSP_IDLE0","DSP_RCM","DSP_STARTUP",
+            "DSP_APM1","DSP_WPHY1","DSP_GPHY1","DSP_SLEEP1","DSP_WAKE1","DSP_IDLE1","DSP_APM2","DSP_GPHY2","DSP_SLEEP2","DSP_WAKE2","DSP_IDLE2";
+            int_sum = <34>;
+            int_id = <46>,<47>,<48>,<49>,<53>,<54>,<85>,<86>,<87>,<88>, <89>, <90>, <91>, <92>, <93>,<95>, <97>, <98>, <99>, <130>, <131>,<132>, <137>,<180>,<181>,<184>,<185>,<186>,<187>,<188>,<189>,<190>,<191>,<193>;
+        };
+        tlps_info:tlps_info{
+            module_name = "TLPS";
+            modid_sum = <1>;
+            modid_range = <0xA0000000 0xAfffffff>;
+            task_sum = <24>;
+            task_name = "I0_MM_FID","UEPS_FID_CSS","LCM_FID1","I1_LPSOM_FID","I1_IMSA_FID","I1_IMSVA_FID","LCM_FID2","LCM_FID",
+            "LPSOM_FID","IMSA_FID","IMSVA_FID","NCCLIENT_FID","TPS_FID_MAC","TPS_FID_PDC","MACRLCUL_FID","MACRLCDL_FID","I1_MACRLCUL_FID","I1_MACRLCDL_FID","SNDCMD_FID","CDS_FID","I1_LRRC_FID","I1_LHPA_FID","LRRC_FID","LHPA_FID";
+            int_sum = <4>;
+            int_id = <82>, <83>, <84>, <106>;
+        };
+        tldsp_info:tldsp_info{
+            module_name = "TLDSP";
+            modid_sum = <1>;
+            modid_range = <0xC0000000 0xCfffffff>;
+            task_sum = <1>;
+            task_name = "TLPHY_RTTAGENT";
+            int_sum = <0>;
+        };
+        cphy_info:cphy_info{
+            module_name = "CPHY";
+            modid_sum = <1>;
+            modid_range = <0xd0000000 0xdfffffff>;
+            task_sum = <2>;
+            task_name = "UPHY_HPA","LINKH_FID_ARM";
+            int_sum = <2>;
+            int_id = <138>,<139>;
+        };  
+        rtt_info:rtt_info{
+            module_name = "RTT";
+            modid_sum = <0>;
+            task_sum = <6>;
+            task_name = "RTT_STUB","RTT_MATCH","RTT_PREEMPT","RTT_ONLINE","F129_I0","F127_I0";
+			int_sum = <0>;
+        };
+        cnas_info:cnas_info{
+            module_name = "CNAS";
+            modid_sum = <0>;
+            task_sum = <1>;
+            task_name = "CNAS_FID";
+            int_sum = <0>;
+        };
+        ims_info:ims_info{
+            module_name = "IMS";
+            modid_sum = <0>;
+            task_sum = <10>;
+            task_name = "PidThread0","TIMER1","SockThread2","MOD_MGR0","UTPT-ZOS0","SIP0","MSF0","MTCDRVNEW0","CSF0","MVC0";
+            int_sum = <0>;
+        };
+        rtosck_info:rtosck_info{
+            module_name = "RTOSck";
+            modid_sum = <0>;
+            task_sum = <4>;
+            task_name = "shsvr","ShellAgent","IdleTsk000","IdleTsk001";
+            int_sum = <29>;
+            int_id = <0>,<1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>,<10>,<11>,<12>,<16>,<17>,<18>,<19>,<20>,<21>,<22>,<23>,<24>,<25>,
+                    <26>,<27>,<28>,<29>,<30>,<31>;
+        };
+    };
+};
