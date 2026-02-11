@@ -1,0 +1,12 @@
+#
+# battery heating control drivers
+#
+
+config HUAWEI_BAT_HEATING
+	bool "battery heating control"
+	default n
+	help
+	  Say Y here to enable battery heating control driver.
+	  We know that, batteries cannot be charged at low temperatures,
+	  but we can heat them in a special way to achieve the goal of charging
+	  at low temperatures.

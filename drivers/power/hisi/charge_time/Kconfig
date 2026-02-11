@@ -1,0 +1,3 @@
+config HISI_CHARGE_TIME
+	bool "hisi charge time"
+	default n

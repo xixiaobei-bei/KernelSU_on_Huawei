@@ -1,0 +1,6 @@
+config CONTEXTHUB_SWING_CAM
+	bool "swing cam driver"
+	depends on INPUTHUB_20&&HUAWEI_CAMERA
+	default n
+	help
+	Swing driver support camera.

@@ -1,0 +1,38 @@
+
+menu "HISI RPMB support"
+
+config HISI_RPMB
+	bool "HISI rpmb"
+	default n
+	help
+	   config HISI rpmb driver
+
+config HISI_RPMB_MMC
+	bool "HISI rpmb mmc"
+	depends on HISI_RPMB && HISI_MMC
+	default n
+	help
+	   config HISI mmc rpmb driver
+
+config HISI_RPMB_UFS
+	bool "HISI rpmb ufs"
+	depends on HISI_RPMB && SCSI_UFS_KIRIN
+	default n
+	help
+	   config HISI ufs rpmb driver
+
+config HISI_RPMB_DEBUG_FS
+	bool "HISI rpmb debugfs"
+	depends on HISI_RPMB && HISI_DEBUG_FS
+	default n
+	help
+	   config HISI rpmb debug
+
+config HISI_RPMB_TIME_DEBUG
+	bool "HISI rpmb time debug"
+	depends on HISI_RPMB && HISI_DEBUG_FS
+	default n
+	help
+	   config HISI rpmb time debug
+
+endmenu

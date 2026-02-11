@@ -1,0 +1,16 @@
+#
+# huawei mmc/ufs host device state stat config
+#
+
+config HUAWEI_DSM_IOMT_HOST
+	bool "Huawei dsm iomt host"
+	default n
+	help
+	  enable host state stat feature.
+
+config HUAWEI_DSM_IOMT_EMMC_HOST
+	bool "Huawei dsm iomt emmc host"
+	depends on MMC != n && HUAWEI_DSM_IOMT_HOST != n
+	default n
+	help
+	  enable emmc host state stat feature.

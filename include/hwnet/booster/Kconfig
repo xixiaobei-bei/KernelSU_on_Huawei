@@ -1,0 +1,17 @@
+config HW_BOOSTER
+    tristate "Network-related optimization acceleration features."
+    default n
+    help
+      Provide network acceleration, business quality assessment
+      and other functions.
+config HW_PACKET_FILTER_BYPASS
+    tristate "huawei iptables and bpf interception detection and bypass module"
+    default n
+    help
+      Detect whether the network packet of foreground uid is dropped by netfilter
+      or bpf, and then try to recovery it.
+config HW_NETWORK_QOE
+    tristate "Network-Qoe optimization features."
+    default n
+    help
+      Provide network Qoe feature.

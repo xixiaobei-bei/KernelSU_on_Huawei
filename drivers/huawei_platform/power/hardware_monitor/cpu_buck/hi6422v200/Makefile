@@ -1,0 +1,2 @@
+obj-$(CONFIG_HI6422V200) += hi6422v200_main.o
+obj-$(CONFIG_HI6422V200) += hi6422v200_aux.o

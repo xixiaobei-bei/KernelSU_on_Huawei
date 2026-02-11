@@ -1,0 +1,11 @@
+config HISI_DPM_HWMON
+	bool "dpm hwmon driver config"
+	default n
+	help
+	  Driver for kernel dpm
+config HISI_DPM_HWMON_DEBUG
+	bool "dpm hwmon driver config"
+	depends on HISI_DPM_HWMON
+	default n
+	help
+	  Driver for kernel dpm debug
