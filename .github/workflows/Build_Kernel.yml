@@ -14,6 +14,7 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
+      - BLA_EMUI10.0_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -27,6 +28,7 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
+      - BLA_EMUI10.0_KernelSU
 
 jobs:
   build:
@@ -53,6 +55,7 @@ jobs:
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
           - DUK_HarmonyOS2.0_KernelSU
+          - BLA_EMUI10.0_KernelSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -129,6 +132,10 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
+          BLA_EMUI10.0_KernelSU)
+            DEFCONFIG="merge_kirin970_defconfig"
+            os_version="10"
+            tool="clang-r346389c" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
@@ -148,9 +155,9 @@ jobs:
 
         if [[ "$tool" == "gcc" ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-        elif [[ "$tool" == *"clang"* ]]; then
+        elif [[ "$tool" == "clang-r346389c" ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-          git clone -b emu-29.0-release --single-branch --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/
+          git clone -b android10-release --single-branch --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/prebuilts/clang/host/linux-x86/
         fi
 
     - name: Prepare KernelSU sources (branch-specific)
