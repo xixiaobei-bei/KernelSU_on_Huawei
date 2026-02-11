@@ -8,11 +8,11 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 
 首先，您应该阅读支持设备列表：
 
-|机型名称|机型代码|支持情况|
-|:---:|:---:|:---:|
-|Mate9 全系列|MHA-XXX|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
-|荣耀V9 全系列|DUK-XXX|KernelSU|
-|P9全系列(testing)|EVA-XXX|KernelSU|
+|机型名称|机型代码|支持系统|支持情况|
+|:---:|:---:|:---:|:---:|
+|Mate9 系列|MHA-XXX|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
+|荣耀V9 系列|DUK-XXX|HarmonyOS2.0|KernelSU|
+|P9 系列(testing)|EVA-XXX|EMUI8.0|KernelSU|
 
 ## 下载内核映像文件
 
