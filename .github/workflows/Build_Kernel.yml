@@ -14,7 +14,7 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
-      - BLA_EMUI10.0_KernelSU
+      - BLA_EMUI9.1_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -28,7 +28,7 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
-      - BLA_EMUI10.0_KernelSU
+      - BLA_EMUI9.1_KernelSU
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
           - DUK_HarmonyOS2.0_KernelSU
-          - BLA_EMUI10.0_KernelSU
+          - BLA_EMUI9.1_KernelSU
         pm: [false, true]
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -132,10 +132,10 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
-          BLA_EMUI10.0_KernelSU)
+          BLA_EMUI9.1_KernelSU)
             DEFCONFIG="merge_kirin970_defconfig"
-            os_version="10"
-            tool="clang-r346389c" ;;
+            os_version="9"
+            tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
