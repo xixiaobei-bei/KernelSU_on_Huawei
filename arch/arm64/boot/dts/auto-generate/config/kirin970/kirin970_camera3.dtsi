@@ -1,0 +1,132 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+/ {
+	huawei,hisi_isp160 {
+		compatible = "huawei,hisi_isp160";
+		hisi,product_name = "kirin970";
+                hisi,is_fpga = <1>;
+
+                clocks = <&aclk_gate_isp>, <&aclk_gate_dss>, <&pclk_gate_dss>;
+                clock-names = "aclk_isp", "aclk_dss", "pclk_dss";
+
+		status = "ok";
+	};
+
+/* begin for hwcam arch  */
+
+	huawei,camcfgdev {
+			compatible = "huawei,camcfgdev";		
+            huawei,binderized = <1>;
+			status = "ok";
+		};
+
+	huawei,imx179 {
+		compatible = "huawei,imx179";
+		huawei,sensor_name = "IMX179_VENDOR";
+		huawei,sensor_index = <1>; 
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <1>;
+		status = "ok";
+	};
+
+	huawei,imx230 {
+		compatible = "huawei,imx230";
+		huawei,sensor_name = "IMX230_A";
+		huawei,sensor_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <1>;
+		status = "disabled";
+    };
+
+    huawei,imx298 {
+        compatible = "huawei,imx298";
+        huawei,sensor_name = "IMX298_VENDOR";
+        huawei,sensor_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <1>;
+        status = "disabled";
+    };
+
+    amba{
+        i2c4: i2c@FDF0D000 {
+
+            huawei,lm3646@67{
+                compatible = "huawei,lm3646";
+                reg = <0x67>;
+                huawei,flash-name = "lm3646";
+                huawei,flash-index = <0>;
+                huawei,flash-type = <0>;
+                huawei,slave-address = <0x67>;
+                huawei,flash-ctrltype = <1>;
+                huawei,need-wakelock = <0>;
+                huawei,flash-chipid = <0x11>;
+                huawei,flash_led_num = <336>;
+                huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+                huawei,torch_led_num = <336>;
+                huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+                huawei,led-type = <1>; /* 1, dual tempature; 0, dual white */
+                huawei,flash-current = <0x7c 0x7f 0x0>;
+                status = "disabled";
+            };
+            huawei,mp3336@27{
+                compatible = "huawei,mp3336";
+                reg = <0x27>;
+                huawei,flash-name = "mp3336";
+                huawei,flash-index = <0>;
+                huawei,flash-type = <0>;
+                huawei,slave-address = <0x27>;
+                huawei,flash-ctrltype = <1>;
+                huawei,need-wakelock = <0>;
+                huawei,flash-chipid = <0x38>;
+                huawei,flash_led_num = <336>;
+                huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+                huawei,torch_led_num = <336>;
+                huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+                huawei,led-type = <1>; /* 1, dual tempature; 0, dual white */
+                huawei,flash-current = <0xbe 0xbe 0x0>;
+                status = "disabled";
+            };
+        };
+    };
+	huawei,hjpeg {
+		compatible = "huawei,hjpeg";
+		huawei,hjpeg-name = "hjpeg";
+		huawei,hjpeg-base = <0xE8405000 0x1000>;
+		huawei,smmu-base = <0xE8406000 0x2000>;
+		huawei,cvdr-base = <0xE842E000 0x1000>;
+		huawei,subctrl-base = <0xE8583700 0x4>;
+		huawei,chip_type = <0>;
+		huawei,smmu_bypass = <0>;
+		huawei,smmu_type = <0>;
+		huawei,power_control = <1>;
+		huawei,cvdr = <0 1 25>;
+		huawei,stream_id = <0 0 0>;
+		huawei,qos_update = <0>;
+		huawei,iova_update = <0>;
+               huawei,wr_port_addr_update = <0>;
+		huawei,hjpeg-base-flag = <0x00000200>;
+		huawei,hjpeg-irq = <265>;
+		huawei,hjpeg-irq-flag = <0x00000400>;
+		reg = <0 0xE8405000 0 0x1000>;
+		interrupts = <0 265 4>;
+	};
+};

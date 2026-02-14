@@ -1,0 +1,121 @@
+/*
+ * Hisilicon Ltd. HI6250 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+ /{
+	hisi_ao_ipc: ipc@0xFFF22000 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,HiIPCV230";
+		reg = <0x0 0xFFF22000 0x0 0x1000>;
+		interrupts = <0 173 4>, <0 173 4>;
+		clocks = <&pclk>;
+		clock-names = "apb_pclk";
+		unlock_key = <0x1ACCE551>;
+		capability = <8>;
+		hardware_board_type = <0>; /* 1:udp & fpga 0:others */
+		status = "disabled";
+
+		/*
+		 * "func"
+		 * <mbox_type, is_src_mbox, is_des_mbox>;
+		 *
+		 * "src_bit" & "des_bit"
+		 * <0: IOM7>;
+		 * <1: GIC>;
+		 * <2: ISP>;
+		 *
+		 * "index"
+		 * software encoded the index of different ipc-mailbox,
+		 * if add new ipc, please add 100 in new ipc-dtsi,
+		 * example:
+		 * Kernel-PERI-IPC: 0~99;   ISP-IPC: 100~199;   NEW-IPC: 200~299
+		 *
+		 * "used"
+		 * <1: using   0: unused>
+		 *
+		 * "timeout"
+		 * <300> means TIMEOUT time is 300ms,
+		 * timeout must be multiple of 5ms,such as 305;
+		 *
+		 * "fifo_size"
+		 * <8> means IPC async send tx_thread_fifo is 8;
+		 *
+		 * "sched_priority"
+		 * <1: highest priority   20: default priority>
+		 *
+		 * "sched_policy"
+		 * <1: SCHED_FIFO   2: SCHED_RR   2:default policy>
+		 *
+		 * don't forget to increase the number of mailbox
+		 * when add or decrease a mailbox channel
+		 */
+		mailboxes = <2>;
+		ao-mailbox-0 {
+			compatible = "HiIPCV230,tx-mailbox-fast";
+			func = <1 1 0>;
+			src_bit = <1>;
+			des_bit = <0>;
+			index = <200>;
+			used = <1>;
+			timeout = <500>;
+		};
+
+		ao-mailbox-1 {
+			compatible = "HiIPCV230,rx-mailbox-fast";
+			func = <1 0 1>;
+			interrupts = <0 172 4>;
+			src_bit = <0>;
+			des_bit = <1>;
+			index = <201>;
+			used = <1>;
+			timeout = <500>;
+		};
+
+		ao-mailbox-2 {
+			compatible = "HiIPCV230,rx-mailbox-fast";
+			func = <1 1 0>;
+			src_bit = <1>;
+			des_bit = <2>;
+			index = <202>;
+			used = <0>;
+			timeout = <300>;
+		};
+
+		ao-mailbox-3 {
+			compatible = "HiIPCV230,rx-mailbox-fast";
+			func = <1 1 0>;
+			src_bit = <1>;
+			des_bit = <0>;
+			index = <203>;
+			used = <0>;
+			timeout = <300>;
+		};
+
+		ao-mailbox-4 {
+			compatible = "HiIPCV230,mailbox-comm";
+			func = <1 1 0>;
+			src_bit = <1>;
+			des_bit = <0>;
+			index = <204>;
+			used = <0>;
+			timeout = <300>;
+		};
+
+		ao-mailbox-5 {
+			compatible = "HiIPCV230,mailbox-comm";
+			func = <1 1 0>;
+			src_bit = <0>;
+			des_bit = <1>;
+			index = <205>;
+			used = <0>;
+			timeout = <300>;
+		};
+	};
+};
