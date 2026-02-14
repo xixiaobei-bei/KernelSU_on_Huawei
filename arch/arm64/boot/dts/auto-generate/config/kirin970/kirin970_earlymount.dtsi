@@ -1,0 +1,35 @@
+/{
+	firmware {
+		android {
+			compatible = "android,firmware";
+			boot_devices ="ff3c0000.ufs";
+			vbmeta_huawei {
+				compatible = "android,vbmeta";
+				parts = "vbmeta,kernel,vendor,odm,cust,version,product,system,eng_system,eng_vendor,preload";
+			};
+			vbmeta_hisi {
+				compatible = "android,vbmeta";
+				parts = "vbmeta,kernel,vendor,odm,system,eng_system,eng_vendor";
+			};
+			fstab {
+				compatible = "android,fstab";
+				vendor {
+					compatible = "android,vendor";
+					dev = "/dev/block/by-name/vendor";
+					type = "ext4";
+					mnt_flags = "ro,barrier=1";
+					fsmgr_flags = "wait,slotselect,avb";
+					status = "ok";
+				};
+				odm {
+					compatible = "android,odm";
+					dev = "/dev/block/by-name/odm";
+					type = "ext4";
+					mnt_flags = "ro,barrier=1";
+					fsmgr_flags = "wait,slotselect,avb";
+					status = "ok";
+				};
+			};
+		};
+	};
+};

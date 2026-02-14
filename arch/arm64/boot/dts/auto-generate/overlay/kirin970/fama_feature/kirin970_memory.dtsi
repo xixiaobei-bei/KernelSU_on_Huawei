@@ -1,0 +1,241 @@
+/{
+	smmu {
+		compatible = "hisi,hisi-smmu";
+		phy_pgd_base = <0x0 0x34A78000>;
+	};
+	smmu_lpae{
+		compatible = "hisi,hisi-smmu-lpae";
+		status = "ok";
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x00400000 0x0 0xBFE00000>;
+	};
+
+	memory@fama_3_1 {
+		device_type = "memory";
+		reg = <0x4 0x5D200000 0x0 0x2DF00000>,
+		      <0x5 0xA0000000 0x0 0xFD00000>;
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		logo-buffer {
+			reg = <0x0 0xDC00000 0x0 0x3000000>;
+			status = "disabled";
+		};
+
+		modem-phy-ex {
+			reg = <0x0 0x12780000 0x0 0x880000>;
+			no-map;
+		};
+
+		modem-hardq {
+			reg = <0x0 0x13000000 0x0 0x800000>;
+			no-map;
+		};
+
+		hhee {
+			reg = <0x0 0x14000000 0x0 0x800000>;
+			no-map;
+			status = "ok";
+		};
+
+		modem-socp {
+			reg = <0x0 0x14800000 0x0 0x2000000>;
+			no-map;
+			status = "disabled";
+		};
+
+		/*Please modify HISEE_LOG_SPACE_ADDR_MIN and HISEE_LOG_SPACE_ADDR_MAX defined in atf for hisee mntn,
+		if you modify any value here!!!*/
+		fastboot_cma:fastboot-cma-mem {
+			reg = <0x0 0x16800000 0x0 0x5C00000>;
+			compatible = "shared-dma-pool";
+			sec-attr = <0x0 0x0>;
+			hisi,cma-sec;
+			linux,cma-default;
+			reusable;
+			status = "ok";
+		};
+
+		ivp {
+			reg = <0x0 0x1CD00000 0x0 0x100000>;
+			no-map;
+		};
+
+		secos {
+			reg = <0x0 0x1CE00000 0x0 0x3000000>;
+			no-map;
+		};
+
+		bl31 {
+			reg = <0x0 0x1FE00000 0x0 0x400000>;
+			no-map;
+		};
+
+		sensorhub-s {
+			reg = <0x0 0x20200000 0x0 0x700000>;
+			no-map;
+		};
+
+		/* sensorhub share mem part1 */
+		sensorhub-shmem{
+			reg = <0x0 0x20900000 0x0 0x40000>;
+			no-map;
+		};
+
+		/* sensorhub share mem part2 */
+		sensorhub-share-mem {
+			reg = <0x0 0x20940000 0x0 0x80000>;
+			no-map;
+		};
+
+		/*fastboot kernel android reserve mem; non secure;no map*/
+		fka-mem{
+			reg = <0x0 0x209C0000 0x0 0x3F000>;
+			no-map;
+		};
+
+		/* At the end of fka-mem */
+		mntndump {
+			reg = <0x0 0x209FF000 0x0 0x1000>;
+			no-map;
+		};
+
+		ramoops_ram:pstore-mem{
+			reg = <0x0 0x20A00000 0x0 0x100000>;
+		};
+
+		dp-dhcp {
+			reg = <0x0 0x20B00000 0x0 0x100000>;
+			no-map;
+		};
+
+		modem-sa {
+			reg = <0x0 0x38000000 0x0 0x8000000>;
+			no-map;
+			status = "disabled";
+		};
+
+		kerneldump {
+			reg = <0x4 0x5D200000 0x0 0x20000000>;
+			status = "disabled";
+		};
+
+		modem-s {
+			reg = <0x5 0xA0000000 0x0 0xD500000>;
+			no-map;
+		};
+
+		hifi-base {
+			reg = <0x5 0xAD500000 0x0 0xC00000>;
+			no-map;
+		};
+
+		lpmx-core {
+			reg = <0x5 0xAE100000 0x0 0x100000>;
+			no-map;
+		};
+
+		lpmcu {
+			reg = <0x5 0xAE200000 0x0 0x40000>;
+			no-map;
+		};
+
+		align-reserved {
+			reg = <0x5 0xAE240000 0x0 0xC0000>;
+			no-map;
+		};
+
+		hifi-data {
+			reg = <0x5 0xAE300000 0x0 0x500000>;
+			no-map;
+		};
+
+		modem-share-mem {
+			reg = <0x5 0xAE800000 0x0 0xC00000>;
+			no-map;
+		};
+
+		modem-mntn {
+			reg = <0x5 0xAF400000 0x0 0x100000>;
+			no-map;
+		};
+
+		mntn_mem:bbox-mem {
+			reg = <0x5 0xAF500000 0x0 0x800000>;
+			no-map;
+		};
+
+		app_no_allocate{
+			reg = <0x0 0x0 0x0 0x1000>;
+		};
+
+		fama_black_hole {
+			reg = <0x0 0x80000000 0x0 0x3F400000>;
+			no-map;
+		};
+
+		fama_3_hole_1 {
+			reg = <0x4 0x5D200000 0x0 0x200000>;
+			no-map;
+			status = "disabled";
+		};
+
+		fama_3_hole_2 {
+			reg = <0x4 0x8B000000 0x0 0x100000>;
+			no-map;
+			status = "disabled";
+		};
+
+		fama_misc_chan3 {
+			reg = <0x4 0x5D400000 0x0 0x19000000>;
+			status = "disabled";
+		};
+
+		fama_misc_chan4 {
+			reg = <0x0 0x40000000 0x0 0x19000000>;
+			status = "disabled";
+		};
+	};
+	cma-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		fama_3_cma {
+			reg = <0x4 0x5D400000 0x0 0x2DC00000>;
+			hisi,cma-name = "fama_3_cma";
+			hisi,cma-fixed;
+			status = "disabled";
+		};
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		modem_xmode_memory: xmode-data {
+			size = <0x0 0x1F400000>;
+			alignment  = <0x0 0x100000>;
+			alloc-ranges = <0x0 0x0 0x1 0x0>;
+			compatible = "modem_xmode_region";
+			region-name = "xmode-data";
+			status = "disabled";
+		};
+
+		dmss_pt{
+			compatible = "dmsspt_trace_buffer";
+			reg = <0x1 0x40000000 0x0 0x80000000>;
+			no-map;
+			fama_offset = <0x0 0x0>;
+			status = "disable";
+		};
+	};
+};

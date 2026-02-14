@@ -1,0 +1,26 @@
+/*
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+  vdec{
+        compatible = "hisi,kirin970-vdec";
+        reg = <0x0 0xe8800000 0x0 0x40000>;
+        interrupts = <0 290 4>, <0 291 4>, <0 292 4>;
+        clocks = <&clk_gate_vdec>;
+        clock-names = "clk_vdec";
+        dec_clk_rate = <450000000>, <300000000>, <185000000>;
+        ldo_vdec-supply = <&vdec>;
+        vdec_qos_mode = <0x2>;
+        status = "ok";
+        iommu_info {
+            start-addr = <0x40000>;
+            size = <0xE0000000>;
+        };
+      };
+};

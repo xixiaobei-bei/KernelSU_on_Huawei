@@ -1,0 +1,14 @@
+
+
+/ {
+	hisee@0x0 {
+		compatible = "hisilicon,hisee-device";
+		memory-region = <&fastboot_cma>;
+		reg = <0x0 0x0 0x0 0x0>;
+		sm_flag_pos = <24>;
+		hibench_flag_pos = <44>;
+		sm_flag_total_pos = <1976>;  /* Define the offset bit in total efuse bits */
+		hisee_partition_byname_find;
+		status="okay";
+	};
+};
