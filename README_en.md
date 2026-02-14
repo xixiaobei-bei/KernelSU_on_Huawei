@@ -81,8 +81,11 @@ After the device reboots, install the corresponding manager to obtain Root acces
 # Supported Devices
 
 - [x] Mate 9 series (MHA)
+- [ ] Mate 10 Pro series (BLA)(testing)
+- [ ] Mate 10 series (ALP)(testing)
 - [x] HONOR V9 series (DUK)
 - [ ] P 9 series (EVA)(testing)
+- [ ] Nova 4 series(VCE)(testing)
 
 ### More devices coming...
 
@@ -158,3 +161,5 @@ KernelSU modules:
 - [Coconutat](https://github.com/Coconutat) and their [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — provided ideas for integrating SukiSU-Ultra ManualHooks
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide) — basic guide for building KernelSU kernels
+
+- [xfy2412](https://github.com/xfy2412)——Added KernelSU support for Huawei Nova4

@@ -86,8 +86,11 @@ fastboot flash kernel <内核文件>
 # 支持设备
 
 - [x] Mate9 系列（MHA）
+- [ ] Mate 10 Pro 系列（BLA）(测试中)
+- [ ] Mate 10 系列（ALP）(测试中)
 - [x] 荣耀V9 系列 (DUK)
 - [ ] P9 系列 (EVA)(测试中)
+- [ ] Nova 4 系列（VCE）（测试中）
 
 ### 持续更新中...
 
@@ -161,3 +164,5 @@ KernelSU模块有关：
 - [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的ManualHooks集成思路
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——编译KernelSU内核的基础教程
+
+- [xfy2412](https://github.com/xfy2412)——提供华为Nova4的KernelSU支持
