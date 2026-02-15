@@ -240,7 +240,7 @@ jobs:
 
         if [ "${{ matrix.pm }}" = "true" ]; then
           sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
-          sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
+          sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
         fi
 
         make clean
