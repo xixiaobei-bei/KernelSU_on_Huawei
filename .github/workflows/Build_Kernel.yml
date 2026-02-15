@@ -177,7 +177,11 @@ jobs:
     - name: Prepare KernelSU sources (branch-specific)
       run: |
         BRANCH='${{ matrix.branch }}'
-        if [[ "$BRANCH" == *"KernelSU"* ]]; then
+        if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+          echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
+          rm -rf KernelSU-Next
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
+        elif [[ "$BRANCH" == *"KernelSU"* ]]; then
           echo "Branch contains KernelSU: running KernelSU main setup"
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
@@ -185,10 +189,6 @@ jobs:
           echo "Branch contains RKSU: running RKSU setup"
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
-        elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
-          echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
-          rm -rf KernelSU-Next
-          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
         elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
           echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
           rm -rf KernelSU
