@@ -237,6 +237,7 @@ jobs:
           sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
         fi
 
+        export CONFIG_KSU_MANUAL_HOOK=y
         make clean
         make distclean
         make mrproper
