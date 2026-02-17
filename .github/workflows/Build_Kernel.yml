@@ -17,6 +17,7 @@ on:
       - BLA_EMUI9.1_KernelSU
       - ALP_EMUI9.0_KernelSU
       - VCE_EMUI9.0_KernelSU
+      - VCE_EMUI9.0_SukiSU-Ultra
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -33,6 +34,7 @@ on:
       - BLA_EMUI9.1_KernelSU
       - ALP_EMUI9.0_KernelSU
       - VCE_EMUI9.0_KernelSU
+      - VCE_EMUI9.0_SukiSU-Ultra
 
 jobs:
   build:
@@ -62,6 +64,7 @@ jobs:
           - BLA_EMUI9.1_KernelSU
           - ALP_EMUI9.0_KernelSU
           - VCE_EMUI9.0_KernelSU
+          - VCE_EMUI9.0_SukiSU-Ultra
         pm: [false, true]
     steps:
     - name: Checkout
@@ -144,6 +147,10 @@ jobs:
             DEFCONFIG="merge_kirin970_defconfig"
             os_version="9"
             tool="gcc" ;;
+          VCE_EMUI9.0_SukiSU-Ultra)
+            DEFCONFIG="merge_kirin970_defconfig"
+            os_version="9"
+            tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
@@ -191,6 +198,7 @@ jobs:
           echo "Branch contains ReSukiSU: running ReSukiSU setup"
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+
         else
           echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
         fi
@@ -237,7 +245,10 @@ jobs:
           sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
         fi
 
-        export CONFIG_KSU_MANUAL_HOOK=y
+        BRANCH='${{ matrix.branch }}'
+        if [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+          export CONFIG_KSU_MANUAL_HOOK=y
+        fi
         make clean
         make distclean
         make mrproper
