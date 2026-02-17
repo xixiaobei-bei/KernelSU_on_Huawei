@@ -185,7 +185,7 @@ jobs:
         elif [[ "$BRANCH" == *"KernelSU"* ]]; then
           echo "Branch contains KernelSU: running KernelSU main setup"
           rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
         elif [[ "$BRANCH" == *"RKSU"* ]]; then
           echo "Branch contains RKSU: running RKSU setup"
           rm -rf KernelSU
