@@ -1,0 +1,15 @@
+/{
+	hisi_usb3otg_bc@ff200000 {
+		compatible = "hisilicon,usb3otg_bc";
+		reg = <0x0 0xff200000 0x0 0x1000>;
+	};
+
+	pddevice: pddevice {
+		compatible = "hisilicon,pd";
+		status = "ok";
+		irq-gpio = <182>;
+		pd-at-ch = <1>; /*0 AP 1 CH*/
+		clocks = <&clk_gate_abb_usb &hclk_gate_usb3otg>;
+		clock-names = "clk_usb3_tcxo_en", "hclk_usb3otg";
+	};
+};
