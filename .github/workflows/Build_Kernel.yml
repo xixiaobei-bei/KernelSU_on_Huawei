@@ -181,7 +181,7 @@ jobs:
         if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
           rm -rf KernelSU-Next
-          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
         elif [[ "$BRANCH" == *"KernelSU"* ]]; then
           echo "Branch contains KernelSU: running KernelSU main setup"
           rm -rf KernelSU
