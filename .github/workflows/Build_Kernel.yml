@@ -248,7 +248,7 @@ jobs:
         BRANCH='${{ matrix.branch }}'
         if [[ "$BRANCH" == *"ReSukiSU"* ]]; then
           export CONFIG_KSU_MANUAL_HOOK=y
-        elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+        elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           export CONFIG_KSU_MANUAL_HOOK=y
         fi
         make clean
