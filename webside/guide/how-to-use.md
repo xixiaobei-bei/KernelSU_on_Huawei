@@ -74,7 +74,7 @@ fastboot reboot
 设备重启后安装对应管理器即可获取Root权限，对应KernelSU分支对应的管理器见下表：
 |KernelSU分支|对应管理器版本|下载链接|
 |:---:|:---:|:---:|
-|KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
+|KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
 |RKSU|最新版|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
 |KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|

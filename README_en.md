@@ -67,7 +67,7 @@ If you are flashing a PM kernel, decrypt and (if necessary) reformat the DATA pa
 After the device reboots, install the corresponding manager to obtain Root access. The manager corresponding to each KernelSU branch is listed in the table below:
 |KernelSU branches name|Manager version|Download links|
 |:---:|:---:|:---:|
-|KernelSU|v0.9.5|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.5/KernelSU_v0.9.5_11872-release.apk)|
+|KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
 |RKSU|Lastest|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
 |KernelSU-Next|Lastest|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|Lastest|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
