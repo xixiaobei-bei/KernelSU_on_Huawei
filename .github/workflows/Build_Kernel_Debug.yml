@@ -3,38 +3,15 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - MHA_EMUI9.0_KernelSU
-      - MHA_EMUI9.0_KernelSU-Next
-      - MHA_EMUI9.0_SukiSU-Ultra
-      - MHA_EMUI9.0_RKSU
-      - MHA_EMUI9.0_ReSukiSU
-      - MHA_HarmonyOS2.0_KernelSU
-      - MHA_HarmonyOS2.0_KernelSU-Next
-      - MHA_HarmonyOS2.0_SukiSU-Ultra
-      - MHA_HarmonyOS2.0_RKSU
-      - MHA_HarmonyOS2.0_ReSukiSU
-      - DUK_HarmonyOS2.0_KernelSU
-      - BLA_EMUI9.1_KernelSU
-      - ALP_EMUI9.0_KernelSU
-      - VCE_EMUI9.0_KernelSU
-      - VCE_EMUI9.0_SukiSU-Ultra
+      - VTR_EMUI9.0_KernelSU
+      - VTR_EMUI9.q_KernelSU
+      - VTR_HarmonyOS2.0_KernelSU
+
   pull_request:
     branches:
-      - MHA_EMUI9.0_KernelSU
-      - MHA_EMUI9.0_KernelSU-Next
-      - MHA_EMUI9.0_SukiSU-Ultra
-      - MHA_EMUI9.0_RKSU
-      - MHA_EMUI9.0_ReSukiSU
-      - MHA_HarmonyOS2.0_KernelSU
-      - MHA_HarmonyOS2.0_KernelSU-Next
-      - MHA_HarmonyOS2.0_SukiSU-Ultra
-      - MHA_HarmonyOS2.0_RKSU
-      - MHA_HarmonyOS2.0_ReSukiSU
-      - DUK_HarmonyOS2.0_KernelSU
-      - BLA_EMUI9.1_KernelSU
-      - ALP_EMUI9.0_KernelSU
-      - VCE_EMUI9.0_KernelSU
-      - VCE_EMUI9.0_SukiSU-Ultra
+      - VTR_EMUI9.0_KernelSU
+      - VTR_EMUI9.q_KernelSU
+      - VTR_HarmonyOS2.0_KernelSU
 
 jobs:
   build:
@@ -50,21 +27,9 @@ jobs:
     strategy:
       matrix:
         branch:
-          - MHA_EMUI9.0_KernelSU
-          - MHA_EMUI9.0_KernelSU-Next
-          - MHA_EMUI9.0_SukiSU-Ultra
-          - MHA_EMUI9.0_RKSU
-          - MHA_EMUI9.0_ReSukiSU
-          - MHA_HarmonyOS2.0_KernelSU
-          - MHA_HarmonyOS2.0_KernelSU-Next
-          - MHA_HarmonyOS2.0_SukiSU-Ultra
-          - MHA_HarmonyOS2.0_RKSU
-          - MHA_HarmonyOS2.0_ReSukiSU
-          - DUK_HarmonyOS2.0_KernelSU
-          - BLA_EMUI9.1_KernelSU
-          - ALP_EMUI9.0_KernelSU
-          - VCE_EMUI9.0_KernelSU
-          - VCE_EMUI9.0_SukiSU-Ultra
+          - VTR_EMUI9.0_KernelSU
+          - VTR_EMUI9.q_KernelSU
+          - VTR_HarmonyOS2.0_KernelSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -87,68 +52,16 @@ jobs:
 
         BRANCH='${{ matrix.branch }}'
         case "$BRANCH" in
-          MHA_EMUI9.0_KernelSU)
+          VTR_EMUI9.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
-          MHA_EMUI9.0_KernelSU-Next)
+          VTR_EMUI9.q_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
-          MHA_EMUI9.0_SukiSU-Ultra)
+          VTR_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_RKSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_RKSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          DUK_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          BLA_EMUI9.1_KernelSU)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          ALP_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VCE_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VCE_EMUI9.0_SukiSU-Ultra)
-            DEFCONFIG="merge_kirin970_defconfig"
             os_version="9"
             tool="gcc" ;;
         esac
