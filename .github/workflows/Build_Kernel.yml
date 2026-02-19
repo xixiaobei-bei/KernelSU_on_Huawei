@@ -16,6 +16,9 @@ on:
       - DUK_HarmonyOS2.0_KernelSU
       - VCE_EMUI9.0_KernelSU
       - VCE_EMUI9.0_SukiSU-Ultra
+      - VTR_EMUI9.0_KernelSU
+      - VTR_EMUI9.1_KernelSU
+      - VTR_HarmonyOS2.0_KernelSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -31,6 +34,9 @@ on:
       - DUK_HarmonyOS2.0_KernelSU
       - VCE_EMUI9.0_KernelSU
       - VCE_EMUI9.0_SukiSU-Ultra
+      - VTR_EMUI9.0_KernelSU
+      - VTR_EMUI9.1_KernelSU
+      - VTR_HarmonyOS2.0_KernelSU
 
 jobs:
   build:
@@ -59,6 +65,9 @@ jobs:
           - DUK_HarmonyOS2.0_KernelSU
           - VCE_EMUI9.0_KernelSU
           - VCE_EMUI9.0_SukiSU-Ultra
+          - VTR_EMUI9.0_KernelSU
+          - VTR_EMUI9.1_KernelSU
+          - VTR_HarmonyOS2.0_KernelSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -135,6 +144,18 @@ jobs:
             tool="gcc" ;;
           VCE_EMUI9.0_SukiSU-Ultra)
             DEFCONFIG="merge_kirin970_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          VTR_EMUI9.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          VTR_EMUI9.1_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          VTR_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
         esac
