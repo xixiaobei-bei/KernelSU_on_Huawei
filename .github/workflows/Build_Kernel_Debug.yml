@@ -1,4 +1,4 @@
-﻿name: Build_Kernel_Release
+﻿name: Build_Kernel_Debug
 on:
   workflow_dispatch:
   push:
@@ -14,6 +14,8 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
+      - BLA_EMUI9.1_KernelSU
+      - ALP_EMUI9.0_KernelSU
       - VCE_EMUI9.0_KernelSU
       - VCE_EMUI9.0_SukiSU-Ultra
   pull_request:
@@ -29,6 +31,8 @@ on:
       - MHA_HarmonyOS2.0_RKSU
       - MHA_HarmonyOS2.0_ReSukiSU
       - DUK_HarmonyOS2.0_KernelSU
+      - BLA_EMUI9.1_KernelSU
+      - ALP_EMUI9.0_KernelSU
       - VCE_EMUI9.0_KernelSU
       - VCE_EMUI9.0_SukiSU-Ultra
 
@@ -57,6 +61,8 @@ jobs:
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
           - DUK_HarmonyOS2.0_KernelSU
+          - BLA_EMUI9.1_KernelSU
+          - ALP_EMUI9.0_KernelSU
           - VCE_EMUI9.0_KernelSU
           - VCE_EMUI9.0_SukiSU-Ultra
         pm: [false, true]
@@ -127,6 +133,14 @@ jobs:
             tool="gcc" ;;
           DUK_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          BLA_EMUI9.1_KernelSU)
+            DEFCONFIG="merge_kirin970_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          ALP_EMUI9.0_KernelSU)
+            DEFCONFIG="merge_kirin970_defconfig"
             os_version="9"
             tool="gcc" ;;
           VCE_EMUI9.0_KernelSU)

@@ -48,7 +48,7 @@ jobs:
         BRANCH='${{ matrix.branch }}'
         if [[ "$BRANCH" == *"KernelSU"* ]]; then
           echo "Branch contains KernelSU: running KernelSU main setup"
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
         elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
           curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
