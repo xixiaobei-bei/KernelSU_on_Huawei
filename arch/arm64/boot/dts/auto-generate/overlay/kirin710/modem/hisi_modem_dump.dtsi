@@ -1,0 +1,22 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+	smntn_type {
+		compatible = "hisilicon,smntn_type";
+		product_type = "PHONE";
+	};
+	/*该节点用于ap在fastboot阶段配置kernel对mdm ddr的访问权限，此节点权限含义不可以修改
+	 *如果存在此节点，mdm ddr的权限配置按照此节点为准，如果不存在则由ap控制，主要是为了保持旧的商用分支，modem的商用对ap的开发这种情况
+	 *ap_sec_access_mdmddr = <0> 表示ap可以非安全读
+	 *ap_sec_access_mdmddr = <1> 表示ap只能安全读写，不可以非安全读
+	 */	
+	ap_sec_access_mdmddr {
+		compatible = "hisilicon,ap_sec_access_mdmddr";
+		ap_sec_access_mdmddr = <0>;
+		status = "ok";
+	};
+};

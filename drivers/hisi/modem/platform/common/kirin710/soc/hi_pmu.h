@@ -1,0 +1,12 @@
+#ifndef __HI_PMU_H__
+#define __HI_PMU_H__ 
+#define PMIC_HI6421 
+#ifdef BSP_CONFIG_SFT
+#define PMIC_BASE_ADDR 0xE1FD8000
+#else
+#define PMIC_BASE_ADDR 0xFFF36000
+#endif
+#define EPMU_INVALID 0xFFFFFFFF
+#define SECONDARY_PMU_SALVE_ID EPMU_INVALID
+#define PRIMARY_PMU_SALVE_ID 0
+#endif
