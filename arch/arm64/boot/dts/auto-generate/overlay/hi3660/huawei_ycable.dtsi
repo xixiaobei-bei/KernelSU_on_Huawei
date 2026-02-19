@@ -1,0 +1,11 @@
+/ {
+	huawei_ycable: huawei_ycable{
+		compatible = "huawei,ycable";
+		ycable_support = <1>;
+		ycable_iin_curr = <1000>;
+		ycable_ichg_curr = <1100>;
+		ycable_id_gpio = <&gpio23 0 0>;
+		ycable_adc_channel = <12>;
+		status = "disabled";
+	};
+};
