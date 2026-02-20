@@ -135,21 +135,13 @@ CONFIG_DM_VERITY_AVB=y
 # CONFIG_DM_VERITY_AVB=y is not set 
 ```
 
-## 集成KernelSU/KernelSU-Next
+## 集成KernelSU
 
 #### 1.拉取源码
 
-:::code-group
-
-```KernelSU
+```bash
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
 ```
-
-```KernelSU-Next
-curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -
-```
-
-:::
 
 :::tip
 KernelSU官方的v0.9.5的源码与内核代码冲突，拉取源码要用v0.9.2版本
@@ -170,14 +162,55 @@ CONFIG_KSU=y
 CONFIG_KSU_DEBUG=y
 ```
 
-#### 3.集成KernelSU到内核源码
+#### 3.应用补丁
 
-参考[KernelSU官网](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code)修改，要该的c文件在fs目录
+参考[KernelSU官网](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code)修改
 
 注意，若你的内核没有vfs_statx和do_faccessat，不要抄写上面的通用代码，要用下面给的，不要忽略！
 
 #### 4.修改hooks.c以启用模块
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
+
+## 集成RKSU/KernelSU-Next
+
+### 1.拉取源码
+
+:::code-group
+
+```RKSU
+curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+```
+
+```KernelSU-Next
+curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+```
+
+### 2.启用RKSU/KernelSU-Next
+
+在你的设备defconfig配置文件最后加入以下几行：
+
+```text
+# KernelSU
+CONFIG_KSU=y
+CONFIG_KSU_MANUAL_HOOK=y
+```
+
+若要开启KernelSU的调试模式，还需要加入：
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+### 3.应用补丁
+
+[4.4-4.9版本内核](https://github.com/rksuorg/kernel_patches/blob/master/manual_hook/kernel-4.4_4.9.patch)
+
+[4.14内核](https://github.com/rksuorg/kernel_patches/blob/master/manual_hook/kernel-4.14.patch)
+
+#### 4.修改hooks.c以启用模块
+参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
+
+此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
 
 ## 集成SukiSU-Ultra
 
@@ -514,9 +547,11 @@ diff -ruN a/security/Makefile b/security/Makefile
 +obj-y += kernelsu/
 ```
 
+此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
+
 :::
 
-### 3.修改内核以启用SukiSU-Ultra
+### 3.启用SukiSU-Ultra
 
 在你的设备defconfig配置文件最后加入以下几行：
 
@@ -533,6 +568,36 @@ CONFIG_KSU_MANUAL_SU=y
 ```text
 CONFIG_KSU_DEBUG=y
 ```
+
+## 集成ReSukiSU
+
+### 1.拉取源码
+
+```bash
+curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+```
+
+### 2.启用ReSukiSU
+
+在你的设备defconfig配置文件最后加入以下几行：
+
+```text
+# ReSukiSU
+CONFIG_KSU=y
+CONFIG_KSU_MANUAL_HOOK=y
+```
+
+若要开启KernelSU的调试模式，还需要加入：
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+### 3.应用补丁
+
+参考[ReSukiSU官网](https://resukisu.github.io/guide/manual-integrate.html)修改
+
+即使你的内核版本小于4.19，但是部分钩子仍然要使用4.19+的版本，若你编译时报错，请尝试不同版本的钩子
 
 ## 编译
 

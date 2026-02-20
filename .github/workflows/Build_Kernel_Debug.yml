@@ -6,14 +6,12 @@ on:
       - JKM_EMUI8.2_KernelSU
       - JKM_EMUI9.1_KernelSU
       - JKM_HarmonyOS2.0_KernelSU
-      - KNT_EMUI8.0_RKSU
 
   pull_request:
     branches:
       - JKM_EMUI8.2_KernelSU
       - JKM_EMUI9.1_KernelSU
       - JKM_HarmonyOS2.0_KernelSU
-      - KNT_EMUI8.0_RKSU
 
 jobs:
   build:
@@ -32,7 +30,6 @@ jobs:
           - JKM_EMUI8.2_KernelSU
           - JKM_EMUI9.1_KernelSU
           - JKM_HarmonyOS2.0_KernelSU
-          - KNT_EMUI8.0_RKSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -66,10 +63,6 @@ jobs:
           JKM_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
-            tool="gcc" ;;
-          KNT_EMUI8.0_RKSU)
-            DEFCONFIG="merge_hi3650_defconfig"
-            os_version="8"
             tool="gcc" ;;
         esac
 
