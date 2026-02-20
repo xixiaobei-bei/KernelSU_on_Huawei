@@ -209,10 +209,10 @@ CONFIG_KSU_DEBUG=y
 
 [4.14内核](https://github.com/rksuorg/kernel_patches/blob/master/manual_hook/kernel-4.14.patch)
 
+此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
+
 #### 4.修改hooks.c以启用模块
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
-
-此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
 
 ## 集成SukiSU-Ultra
 
@@ -549,9 +549,9 @@ diff -ruN a/security/Makefile b/security/Makefile
 +obj-y += kernelsu/
 ```
 
-此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
-
 :::
+
+此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
 
 ### 3.启用SukiSU-Ultra
 
