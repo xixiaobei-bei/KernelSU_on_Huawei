@@ -67,7 +67,7 @@ jobs:
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
             tool="gcc" ;;
-          KNT_HarmonyOS2.0_KernelSU)
+          KNT_EMUI8.0_KernelSU)
             DEFCONFIG="merge_hi3650_defconfig"
             os_version="8"
             tool="gcc" ;;
