@@ -185,6 +185,8 @@ curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.s
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 ```
 
+:::
+
 ### 2.启用RKSU/KernelSU-Next
 
 在你的设备defconfig配置文件最后加入以下几行：
