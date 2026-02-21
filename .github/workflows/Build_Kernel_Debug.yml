@@ -3,13 +3,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - JKM_EMUI9.1_KernelSU
-      - JKM_HarmonyOS2.0_KernelSU
+      - STF_EMUI9.0_KernelSU
 
   pull_request:
     branches:
-      - JKM_EMUI9.1_KernelSU
-      - JKM_HarmonyOS2.0_KernelSU
+      - STF_EMUI9.0_KernelSU
 
 jobs:
   build:
@@ -25,8 +23,7 @@ jobs:
     strategy:
       matrix:
         branch:
-          - JKM_EMUI9.1_KernelSU
-          - JKM_HarmonyOS2.0_KernelSU
+          - STF_EMUI9.0_KernelSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -49,14 +46,11 @@ jobs:
 
         BRANCH='${{ matrix.branch }}'
         case "$BRANCH" in
-          JKM_EMUI9.1_KernelSU)
-            DEFCONFIG="merge_kirin710_defconfig"
+          STF_EMUI9.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
-            tool="gcc" ;;
-          JKM_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_kirin710_defconfig"
-            os_version="9"
-            tool="gcc" ;;
+            tool="gcc"
+            ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
