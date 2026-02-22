@@ -83,6 +83,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Mate 9 series(MHA)
 - [ ] Mate 10 Pro series(BLA)(testing)
 - [ ] Mate 10 series(ALP)(testing)
+- [x] P 10 series
 - [x] HONOR V9 series(DUK)
 - [x] HONOR 9 series(STF)
 - [x] Nova 4 series(VCE)

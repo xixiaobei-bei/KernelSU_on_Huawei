@@ -88,6 +88,7 @@ fastboot flash kernel <内核文件>
 - [x] Mate9 系列(MHA)
 - [ ] Mate10 Pro 系列(BLA)(测试中)
 - [ ] Mate10 系列(ALP)(测试中)
+- [x] P10 系列
 - [x] 荣耀V9 系列 (DUK)
 - [x] 荣耀9 系列 (STF)
 - [x] Nova4 系列(VCE)
