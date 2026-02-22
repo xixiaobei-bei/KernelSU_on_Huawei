@@ -11,11 +11,12 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 |机型名称|机型代码|支持系统|支持情况|
 |:---:|:---:|:---:|:---:|
 |Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
-|Mate 10 Pro(测试中)|BLA|EMUI9.1|KernelSU|
-|Mate 10 系列(测试中)|ALP|EMUI9.0|KernelSU|
+|Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|
+|Mate10 系列(测试中)|ALP|EMUI9.0|KernelSU|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|
-|P9 系列(测试中)|EVA|EMUI8.0|KernelSU|
-|Nova 4 系列(测试中)|VCE|EMUI9.0|KernelSU|
+|荣耀9 系列|STF|EMUI9.0|KernelSU|
+|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|
+|畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|
 
 ## 下载内核映像文件
 

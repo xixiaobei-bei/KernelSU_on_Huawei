@@ -4,13 +4,13 @@
 
 - 适用于华为的KernelSU内核！
 
-- 现支持KernelSU和KernelSU-Next（SukiSU在研究了）
+- 现支持KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra和ReSukiSU
 
 - 感谢各位贡献作者，我只是站在了巨人的肩膀上
 
 > [!CAUTION]
 >
-> Root 您的设备可能会使保修失效，如果操作不当可能会造成永久性损坏。 请务必在继续之前创建完整备份，阅读文档确保与您的设备兼容，遵循文档参考，准备好恢复计划。由操作不当导致的任何后果不由本项目作者（xixiaobei）及任何人负责！
+> Root 您的设备可能会使保修失效，如果操作不当可能会造成永久性损坏。 请务必在继续之前创建完整备份，阅读文档确保与您的设备兼容，遵循文档参考，准备好恢复计划。由操作不当导致的任何后果不由本项目作者(xixiaobei)及任何人负责！
 >
 
 ## 下载
@@ -85,12 +85,13 @@ fastboot flash kernel <内核文件>
 
 # 支持设备
 
-- [x] Mate9 系列（MHA）
-- [ ] Mate 10 Pro 系列（BLA）(测试中)
-- [ ] Mate 10 系列（ALP）(测试中)
+- [x] Mate9 系列(MHA)
+- [ ] Mate10 Pro 系列(BLA)(测试中)
+- [ ] Mate10 系列(ALP)(测试中)
 - [x] 荣耀V9 系列 (DUK)
-- [ ] P9 系列 (EVA)(测试中)
-- [ ] Nova 4 系列（VCE）（测试中）
+- [x] 荣耀9 系列 (STF)
+- [x] Nova4 系列(VCE)
+- [x] 畅想9 Plus系列(JKM)
 
 ### 持续更新中...
 
@@ -117,7 +118,7 @@ jiaxi120516@outlook.com
 
 ## 方法2
 
-将自己的 设备型号，安卓版本，系统版本和内核版本（内核至少得是4.9版本） 一起发给我的邮箱
+将自己的 设备型号，安卓版本，系统版本和内核版本(内核至少得是4.9版本) 一起发给我的邮箱
 
 jiaxi120516@outlook.com
 
@@ -131,7 +132,7 @@ KernelSU有关：
 - `fs/read_write.c` 中的 `vfs_read` 方法
 - `stat.c` 中的 `vfs_fstatat` 方法
 
-SukiSU-Ultra的ManualHooks有关：
+ManualHooks有关：
 - `fs/open.c` 中的 `faccessat` 方法
 - `fs/exec.c` 中的 `do_execve` 方法
 - `fs/read_write.c` 中的 `SYSCALL_DEFINE3` 方法
@@ -149,7 +150,7 @@ KernelSU模块有关：
 
 - `fs/namespace.c` 中的path_umount方法
 
-## 特别鸣谢（排名不分前后）
+## 特别鸣谢(排名不分前后)
 
 - [tiann](https://github.com/tiann) / [KernelSU](https://github.com/tiann/KernelSU/)——KernelSU作者
 

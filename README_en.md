@@ -2,9 +2,9 @@
 
 - KernelSU kernels for Huawei devices!
 
-- Currently supports KernelSU and KernelSU-Next (SukiSU support is under investigation)
+- Currently supports KernelSU,RKSU,KernelSU-Next,SukiSU-Ultra and ReSukiSU.
 
-- Thanks to all contributors — I'm standing on the shoulders of giants
+- Thanks to all contributors — I'm standing on the shoulders of giants.
 
 > [!CAUTION]
 >
@@ -80,12 +80,13 @@ After the device reboots, install the corresponding manager to obtain Root acces
 
 # Supported Devices
 
-- [x] Mate 9 series (MHA)
-- [ ] Mate 10 Pro series (BLA)(testing)
-- [ ] Mate 10 series (ALP)(testing)
-- [x] HONOR V9 series (DUK)
-- [ ] P 9 series (EVA)(testing)
-- [ ] Nova 4 series(VCE)(testing)
+- [x] Mate 9 series(MHA)
+- [ ] Mate 10 Pro series(BLA)(testing)
+- [ ] Mate 10 series(ALP)(testing)
+- [x] HONOR V9 series(DUK)
+- [x] HONOR 9 series(STF)
+- [x] Nova 4 series(VCE)
+- [x] Nova Y 9 series(JKM)
 
 ### More devices coming...
 
@@ -128,7 +129,7 @@ KernelSU-related:
 - `fs/read_write.c` — `vfs_read`
 - `stat.c` — `vfs_fstatat`
 
-SukiSU-Ultra ManualHooks-related:
+ManualHooks related:
 - `fs/open.c` — `faccessat`
 - `fs/exec.c` — `do_execve`
 - `fs/read_write.c` — `SYSCALL_DEFINE3`
