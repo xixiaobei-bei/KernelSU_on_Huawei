@@ -19,14 +19,3 @@
 ## 如何构建？
 
 [如何构建](/guide/how-to-build.md)
-
-## 未来计划
-
-- [x] 添加官方网站
-- [x] 添加GithubAction自动编译功能
-- [x] 添加对SukiSU-Ultra的支持
-- [ ] 添加ManualHooks自动集成的支持
-- [x] 添加对RKSU的支持
-- [x] 添加对ReSukiSU的支持
-- [ ] 添加对SUSFS的支持
-- [ ] 添加对KPM的支持
