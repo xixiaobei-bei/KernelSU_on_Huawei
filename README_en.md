@@ -88,7 +88,10 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] HONOR 9 series(STF)
 - [x] Nova 4 series(VCE)
 - [x] Nova Y 9 series(JKM)
-
+  
+# Supported Devices (EMUI10)
+- [x] [Mate 10 Pro series(BLA)(testing)](https://github.com/Coconutat/android_kernel_huawei_blanc)  
+  
 ### More devices coming...
 
 ## Roadmap / Future Plans

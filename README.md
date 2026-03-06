@@ -93,7 +93,10 @@ fastboot flash kernel <内核文件>
 - [x] 荣耀9 系列 (STF)
 - [x] Nova4 系列(VCE)
 - [x] 畅想9 Plus系列(JKM)
-
+  
+# 支持设备(EMUI10)
+- [x] [Mate10 Pro 系列(BLA)(测试中)](https://github.com/Coconutat/android_kernel_huawei_blanc)
+  
 ### 持续更新中...
 
 ## 未来计划
