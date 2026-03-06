@@ -10,12 +10,12 @@
 
 ## 如何使用？
 
-[如何使用](/guide/how-to-use.md)
+[如何使用](/docs/guide/how-to-use.md)
 
 ## 如何适配？
 
-[如何适配](/guide/how-to-make.md)
+[如何适配](/docs/guide/how-to-make.md)
 
 ## 如何构建？
 
-[如何构建](/guide/how-to-build.md)
+[如何构建](/docs/guide/how-to-build.md)
