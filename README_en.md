@@ -167,4 +167,4 @@ KernelSU modules:
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide) — basic guide for building KernelSU kernels
 
-- [xfy2412](https://github.com/xfy2412)——Added KernelSU support for Huawei Nova4
+- [xfy2412](https://github.com/xfy2412)——Added KernelSU and SukiSU-Ultra support for Huawei Nova4

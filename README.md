@@ -170,4 +170,4 @@ KernelSU模块有关：
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——编译KernelSU内核的基础教程
 
-- [xfy2412](https://github.com/xfy2412)——提供华为Nova4的KernelSU支持
+- [xfy2412](https://github.com/xfy2412)——提供华为Nova4的KernelSU和SukiSU-Ultra支持
