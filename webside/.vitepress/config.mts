@@ -2,11 +2,13 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   base: '/KernelSU_on_Huawei/',
+  srcDir: 'docs',
+
   locales: {
     root: {
       label: '简体中文',
       lang: 'zh-CN',
-      link: '/docs/',
+      link: '/',
       title: "KernelSU on Huawei",
       description: "为你的华为设备吃上内核Root",
       themeConfig: {
@@ -16,11 +18,11 @@ export default defineConfig({
     en: {
       label: 'English',
       lang: 'en-US',
-      link: '/docs/en/',
+      link: '/en/',
       title: "KernelSU on Huawei",
       description: "Get kernel-level root for your Huawei devices",
       themeConfig: {
-        nav: [{ text: 'Home', link: '/docs/en/' }]
+        nav: [{ text: 'Home', link: '/en/' }]
       }
     }
   },
@@ -31,25 +33,25 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/docs/': [
+      '/': [
         {
           text: '指导文档',
           items: [
-            { text: '项目介绍', link: '/docs/guide/what-is-this' },
-            { text: '如何使用', link: '/docs/guide/how-to-use' },
-            { text: '如何适配', link: '/docs/guide/how-to-adapt' },
-            { text: '如何构建', link: '/docs/guide/how-to-build' }
+            { text: '项目介绍', link: '/guide/what-is-this' },
+            { text: '如何使用', link: '/guide/how-to-use' },
+            { text: '如何适配', link: '/guide/how-to-adapt' },
+            { text: '如何构建', link: '/guide/how-to-build' }
           ]
         }
       ],
-      '/docs/en/': [
+      '/en/': [
         {
           text: 'Documentation',
           items: [
-            { text: 'What is this', link: '/docs/en/guide/what-is-this' },
-            { text: 'How to use', link: '/docs/en/guide/how-to-use' },
-            { text: 'How to adapt', link: '/docs/en/guide/how-to-adapt' },
-            { text: 'How to build', link: '/docs/en/guide/how-to-build' }
+            { text: 'What is this', link: '/en/guide/what-is-this' },
+            { text: 'How to use', link: '/en/guide/how-to-use' },
+            { text: 'How to adapt', link: '/en/guide/how-to-adapt' },
+            { text: 'How to build', link: '/en/guide/how-to-build' }
           ]
         }
       ]
