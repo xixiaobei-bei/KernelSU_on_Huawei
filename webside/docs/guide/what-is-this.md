@@ -14,7 +14,7 @@
 
 ## 如何适配？
 
-[如何适配](/docs/guide/how-to-make.md)
+[如何适配](/docs/guide/how-to-adapt.md)
 
 ## 如何构建？
 
