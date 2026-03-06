@@ -104,7 +104,7 @@ fastboot flash kernel <内核文件>
 - [ ] 添加ManualHooks自动集成的支持
 - [x] 添加对RKSU的支持
 - [x] 添加对ReSukiSU的支持
-- [ ] 添加对SUSFS的支持
+- [x] 添加对SUSFS的支持
 - [ ] 添加对KPM的支持
 
 # 贡献项目

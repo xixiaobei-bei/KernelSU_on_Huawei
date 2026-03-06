@@ -99,7 +99,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [ ] Add automatic ManualHooks integration
 - [x] Add support for RKSU
 - [x] Add support for ReSukiSU
-- [ ] Add support for SUSFS
+- [x] Add support for SUSFS
 - [ ] Add support for KPM
 
 # Contributing

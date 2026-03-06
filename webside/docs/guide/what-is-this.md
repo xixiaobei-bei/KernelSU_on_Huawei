@@ -19,3 +19,7 @@
 ## 如何构建？
 
 [如何构建](/docs/guide/how-to-build.md)
+
+## 如何添加Susfs 
+
+[如何添加Susfs](/docs/guide/how-to-add-susfs.md)
