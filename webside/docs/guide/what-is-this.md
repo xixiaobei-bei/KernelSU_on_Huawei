@@ -10,16 +10,16 @@
 
 ## 如何使用？
 
-[如何使用](/docs/guide/how-to-use.md)
+[如何使用](/guide/how-to-use.md)
 
 ## 如何适配？
 
-[如何适配](/docs/guide/how-to-adapt.md)
+[如何适配](/guide/how-to-adapt.md)
 
 ## 如何构建？
 
-[如何构建](/docs/guide/how-to-build.md)
+[如何构建](/guide/how-to-build.md)
 
 ## 如何添加Susfs 
 
-[如何添加Susfs](/docs/guide/how-to-add-susfs.md)
+[如何添加Susfs](/guide/how-to-add-susfs.md)

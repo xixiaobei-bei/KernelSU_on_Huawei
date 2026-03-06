@@ -22,7 +22,7 @@ jiaxi120516@outlook.com
 
 ## 自行适配
 
-参考[如何构建](/docs/guide/how-to-build.md)，构建出可启动内核后，将其与你的Github或其他平台账号打包发到我的邮箱
+参考[如何构建](/guide/how-to-build.md)，构建出可启动内核后，将其与你的Github或其他平台账号打包发到我的邮箱
 
 jiaxi120516@outlook.com
 

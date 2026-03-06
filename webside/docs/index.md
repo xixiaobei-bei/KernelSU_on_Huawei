@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /docs/guide/how-to-use
+      link: /guide/how-to-use
     - theme: alt
       text: 查看Github
       link: https://github.com/xixiaobei-bei/KernelSU_on_Huawei
