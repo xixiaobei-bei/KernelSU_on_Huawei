@@ -1,25 +1,25 @@
-# 什么是KernelSU_on_Huawei项目？
+# What is the KernelSU_on_Huawei project?  
 
-## 项目介绍
+## Project Introduction  
 
-本项目计划为华为设备集成KernelSU内核Root方案，你可以在Github找到该项目，项目所有文件都已开源。
+This project aims to integrate the KernelSU kernel root solution into Huawei devices. You can find the project on GitHub; all project files are open source.  
 
-## 为什么用KernelSU？
+## Why use KernelSU?  
 
-华为设备recovery与boot的ramdisk都位于recovery_ramdisk分区，若选择Magisk修补，则无法使用Recovery，即使是TWRP。而KernelSU只修改Kernel分区，所以选择KernelSU就可以实现同时使用TWRP+Root
+Huawei devices have both the recovery and boot ramdisk located in the recovery_ramdisk partition. If you choose Magisk for patching, Recovery cannot be used, even with TWRP. KernelSU only modifies the kernel partition, so choosing KernelSU allows you to use TWRP + Root simultaneously.  
 
-## 如何使用？
+## How to use it?  
 
-[如何使用](/guide/how-to-use.md)
+[How to use](/guide/how-to-use.md)  
 
-## 如何适配？
+## How to adapt?  
 
-[如何适配](/guide/how-to-adapt.md)
+[How to adapt](/guide/how-to-adapt.md)  
 
-## 如何构建？
+## How to build it?  
 
-[如何构建](/guide/how-to-build.md)
+[How to Build](/guide/how-to-build.md)  
 
-## 如何添加Susfs 
+## How to Add Susfs  
 
-[如何添加Susfs](/guide/how-to-add-susfs.md)
+[How to Add Susfs](/guide/how-to-add-susfs-and-kpm.md)  

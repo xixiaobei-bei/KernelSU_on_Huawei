@@ -1,29 +1,29 @@
-# 如何适配
+# How to Adapt
 
-## 联系适配
+## Contact Adaptation
 
-首先确保内核版本>=4.9
+First, ensure your kernel version is >= 4.9
 
 :::tip
 
-安卓内核的版本号命名方式与日常不同，例如：
+Android kernel version naming conventions differ from the norm. For example:
 
-4.19>4.4
+4.19 > 4.4
 
-这是因为"4.00"与"0,19“分开对比，转换成无小数形式对比，变为"4"与"19",其中的"4"为大版本，"0.19"为小版本，大版本与大版本对比，小版本与小版本对比
+This is because "4.00" and "0.19" are compared separately, converted to a decimal-free form, becoming "4" and "19". "4" represents the major version, and "0.19" represents the minor version. Major versions are compared with major versions, and minor versions with minor versions.
 
 :::
 
-然后获取设备型号代码，系统版本，安卓版本，将其一同发到邮箱：
+Then, obtain the device model code, system version, and Android version, and send them together to the email address:
 
 jiaxi120516@outlook.com
 
-我会加急适配
+I will expedite the adaptation process.
 
-## 自行适配
+## Please adapt accordingly.
 
-参考[如何构建](/guide/how-to-build.md)，构建出可启动内核后，将其与你的Github或其他平台账号打包发到我的邮箱
+Refer to [How to Build](/guide/how-to-build.md) to build a bootable kernel. Then, package it with your GitHub or other platform account and send it to my email address:
 
 jiaxi120516@outlook.com
 
-随后我将会将其加入项目并将你加入特别鸣谢名单
+I will then add it to the project and include you in the special thanks list.

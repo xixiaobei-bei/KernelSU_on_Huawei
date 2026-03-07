@@ -1,89 +1,90 @@
-# 如何使用？
+# How to Use?
 
 :::danger
 
-Root 您的设备可能会使保修失效，如果操作不当可能会造成永久性损坏。 请务必在继续之前创建完整备份，阅读文档确保与您的设备兼容，遵循文档参考，准备好恢复计划。由操作不当导致的任何后果不由本项目作者（xixiaobei）及任何人负责！
+Root your device may void your warranty and cause permanent damage if done improperly. Please create a full backup before proceeding, read the documentation to ensure compatibility with your device, follow the documentation's references, and prepare a recovery plan. The project author (xixiaobei) and anyone else are not responsible for any consequences resulting from improper operation!
 
 :::
 
-首先，您应该阅读支持设备列表：
+First, you should read the list of supported devices:
 
-|机型名称|机型代码|支持系统|支持情况|
+|Model Name|Model Code|Supported Systems|Support Status|
 |:---:|:---:|:---:|:---:|
-|Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
-|Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|
-|Mate10 系列(测试中)|ALP|EMUI9.0|KernelSU|
-|P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|
-|荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|
-|荣耀9 系列|STF|EMUI9.0|KernelSU|
-|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|
-|畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|
+|Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|
+|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|
+|Mate10 Series (Under Testing)|ALP|EMUI 9.0|KernelSU|
+|P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|
+|Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|
+|Honor 9 Series|STF|EMUI 9.0|KernelSU|
+|Nova4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |
+| Enjoy 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |
 
-## 下载内核映像文件
+## Download Kernel Image File
 
-### 通过GithubReleases下载
+### Download via Github Releases
 
-可以在[此页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/releases)下载，选择最新Release找到对应文件点击下载即可
+You can download it from [this page](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/releases). Select the latest Release, find the corresponding file, and click download.
 
-### 通过GithubAction下载开发版
+### Download Development Version via Github Actions
 
 :::warning
 
-开发版没有被确定完全可用，可能包含未知的问题！
+The development version is not confirmed to be fully usable and may contain unknown issues!
 
 :::
 
 :::tip
 
-通过GithubAction下载需要登陆Github账号才可以显示下载按钮
+Downloading via Github Actions requires logging into your Github account to display the download button.
 
 :::
 
-打开[本项目GithubAction页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions)，选择左侧Action列表的Build Kernel板块，选择最新编译任务，然后找到设备对应的文件下载。
+Open the [Github Actions page for this project](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions), select the Build Kernel section in the Actions list on the left, select the latest build task, and then locate and download the file corresponding to your device.
 
-映像文件的命名规则如下：
+The naming convention for image files is as follows:
 
-```机型代码_底包版本_KernelSU类型_Selinux状态```
+``Device Code_Baseband Version_KernelSU Type_Selinux Status```
 
-例如：
+For example:
 
 ```MHA_EMUI9.0_KernelSU-Next_PM.img```
 
-代表支持MHA型号EMUI9.0底包设备的KernelSU-Next的Selinux状态为宽容的内核
+This indicates that the KernelSU-Next kernel with a forgiving Selinux status is supported for MHA-model EMUI9.0 baseband devices.
 
-## 刷入内核映像文件
+## Flashing the Kernel Image File
 
-在电脑上下载[Platform-tools](https://developer.android.google.cn/tools/releases/platform-tools?hl=zh-cn)
+Download [Platform-tools](https://developer.android.google.cn/tools/releases/platform-tools?hl=zh-cn) on your computer.
 
-随后将手机重启进入Fastboot模式，并确保设备已解锁BL
+Then reboot your phone into Fastboot mode and ensure the bootloader is unlocked.
 
-在Platform-tools工具目录下终端输入：
+In the terminal within the Platform-tools directory, type:
 
 ```bash
-fastboot flash kernel <内核映像文件路径>
-```
+fastboot flash kernel <kernel image file path>
 
-最后输入
+```
+Finally, type:
 
 ```bash
 fastboot reboot
 ```
 
-以重启
+To reboot.
 
-## 安装管理器
+## Install Manager
 
-设备重启后安装对应管理器即可获取Root权限，对应KernelSU分支对应的管理器见下表：
-|KernelSU分支|对应管理器版本|下载链接|
+After restarting the device, install the corresponding manager to obtain root privileges. The managers corresponding to the KernelSU branch are shown in the table below:
+
+|KernelSU Branch|Corresponding Manager Version|Download Link|
 |:---:|:---:|:---:|
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
-|RKSU|最新版|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
-|KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
-|SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
-|ReSukiSU|最新版|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
+|RKSU|Latest Version|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|KernelSU-Next|Latest Version| [GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
+|SukiSU-Ultra|Latest Version|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
+|ReSukiSU|Latest Version|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
 
 :::tip
 
-通过GithubAction下载需要登陆Github账号才可以显示下载按钮
+Downloading via GithubActions requires logging into a Github account to display the download button.
 
 :::
