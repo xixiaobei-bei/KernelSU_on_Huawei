@@ -83,7 +83,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Mate 9 series(MHA)
 - [ ] Mate 10 Pro series(BLA)(testing)
 - [ ] Mate 10 series(ALP)(testing)
-- [x] P 10 series(VTR)
+- [x] P10 Series (VTR) --- [Experimental Version: System Requirements: HM2 version 150, kernel support for SUSFS and KPM](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)
 - [x] HONOR V9 series(DUK)
 - [x] HONOR 9 series(STF)
 - [x] Nova 4 series(VCE)
@@ -103,7 +103,10 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Add support for RKSU
 - [x] Add support for ReSukiSU
 - [x] Add support for SUSFS
-- [ ] Add support for KPM
+- [x] Add support for KPM(Only Support Based EMUI 9 OS Devices's Kernel)
+
+## How to add SUSFS and KPM support?
+[How to integrate SUSFS](webside/docs/guide/how-to-add-susfs-and-kpm.md)
 
 # Contributing
 

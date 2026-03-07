@@ -40,7 +40,8 @@ export default defineConfig({
             { text: '项目介绍', link: '/guide/what-is-this' },
             { text: '如何使用', link: '/guide/how-to-use' },
             { text: '如何适配', link: '/guide/how-to-adapt' },
-            { text: '如何构建', link: '/guide/how-to-build' }
+            { text: '如何构建', link: '/guide/how-to-build' },
+            { text: '如何添加SUSFS和KPM', link: '/guide/how-to-add-susfs-and-kpm' }
           ]
         }
       ],
@@ -51,7 +52,8 @@ export default defineConfig({
             { text: 'What is this', link: '/en/guide/what-is-this' },
             { text: 'How to use', link: '/en/guide/how-to-use' },
             { text: 'How to adapt', link: '/en/guide/how-to-adapt' },
-            { text: 'How to build', link: '/en/guide/how-to-build' }
+            { text: 'How to build', link: '/en/guide/how-to-build' },
+            { text: 'How to add SUSFS and KPM', link: '/en/guide/how-to-add-susfs-and-kpm' }
           ]
         }
       ]

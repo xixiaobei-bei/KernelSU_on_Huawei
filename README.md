@@ -88,7 +88,7 @@ fastboot flash kernel <内核文件>
 - [x] Mate9 系列(MHA)
 - [ ] Mate10 Pro 系列(BLA)(测试中)
 - [ ] Mate10 系列(ALP)(测试中)
-- [x] P10 系列(VTR)
+- [x] P10 系列(VTR)  --- [实验版本:系统要求HM2 150版本，内核支持SUSFS和KPM](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)  
 - [x] 荣耀V9 系列 (DUK)
 - [x] 荣耀9 系列 (STF)
 - [x] Nova4 系列(VCE)
@@ -108,8 +108,11 @@ fastboot flash kernel <内核文件>
 - [x] 添加对RKSU的支持
 - [x] 添加对ReSukiSU的支持
 - [x] 添加对SUSFS的支持
-- [ ] 添加对KPM的支持
+- [x] 添加对KPM的支持(仅兼容基于EMUI9设备的内核)
 
+## 如何添加SUSFS与KPM支持？  
+[如何集成SUSFS](webside/docs/guide/how-to-add-susfs-and-kpm.md)   
+  
 # 贡献项目
 
 ## 方法1
