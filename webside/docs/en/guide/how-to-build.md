@@ -181,7 +181,11 @@ CONFIG_KSU_DEBUG=y
 
 Refer to the [KernelSU official website](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code) for modification.
 
-Note: If your kernel does not have vfs_statx and do_faccessat, do not copy the general code above; use the code provided below. Do not ignore it!
+:::warning
+
+If your kernel does not have vfs_statx and do_faccessat, do not copy the general code above; use the code provided below. Do not ignore it!
+
+:::
 
 #### 4. Modify hooks.c to enable the module
 

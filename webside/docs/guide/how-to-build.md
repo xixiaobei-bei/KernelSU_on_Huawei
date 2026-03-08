@@ -174,7 +174,7 @@ CONFIG_KSU_DEBUG=y
 
 参考[KernelSU官网](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code)修改
 
-:::note
+:::warning
 
 注意，若你的内核没有vfs_statx和do_faccessat，不要抄写上面的通用代码，要用下面给的，不要忽略！
 
