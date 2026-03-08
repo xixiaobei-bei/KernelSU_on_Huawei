@@ -22,4 +22,4 @@
 
 ## 如何添加Susfs 
 
-[如何添加Susfs](/guide/how-to-add-susfs-and-kpm.md)
+[如何添加Susfs](/guide/how-to-add-susfs.md)

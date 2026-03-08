@@ -43,11 +43,11 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 
 映像文件的命名规则如下：
 
-```机型代码_底包版本_KernelSU类型_Selinux状态```
+`机型代码_底包版本_KernelSU类型_SELinux状态`
 
 例如：
 
-```MHA_EMUI9.0_KernelSU-Next_PM.img```
+`MHA_EMUI9.0_KernelSU-Next_PM.img`
 
 代表支持MHA型号EMUI9.0底包设备的KernelSU-Next的Selinux状态为宽容的内核
 

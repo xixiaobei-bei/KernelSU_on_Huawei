@@ -7,7 +7,9 @@ defconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的de
 ## 安装依赖
 
 :::warning
+
 由于Ubuntu/Debian高版本全局定义yylloc问题，所以只推荐使用Ubuntu20.04或Ubuntu18.04（Debian13以下，推荐这两个版本）
+
 :::
 #### 1.安装编译所需要的软件包
 
@@ -24,17 +26,21 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 ```
 
 :::tip
+
 华为只能用Aarch64版本
+
 :::
 
 ## 获取源码
 
 [华为的官方源码](https://consumer.huawei.com/en/opensource/)
 
-在其中输入设备型号代码，下载后打开```Code_opensource\kernel```文件夹，这为你的内核源码，解压出来即可
+在其中输入设备型号代码，下载后打开`Code_opensource\kernel`文件夹，这为你的内核源码，解压出来即可
 
 :::warning
+
 由于编码原因，只能在Linux环境下解压到非ntfs/fat分区，否则会无法编译
+
 :::
 
 #### 其他设备可寻找第三方ROM的内核源码或在互联网搜索
@@ -104,7 +110,7 @@ sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 /^CONFIG_HWAA=y$/c\# CONFIG_HWAA is not set' merge_hi3660_defconfig
 ```
 
-将最后的merge_hi3660_defconfig替换为你的配置文件
+将最后的`merge_hi3660_defconfig`替换为你的配置文件
 
 #### 可选部分： 
 
@@ -144,7 +150,9 @@ curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh
 ```
 
 :::tip
+
 KernelSU官方的v0.9.5的源码与内核代码冲突，拉取源码要用v0.9.2版本
+
 :::
 
 #### 2.启用KernelSU
@@ -166,9 +174,14 @@ CONFIG_KSU_DEBUG=y
 
 参考[KernelSU官网](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code)修改
 
+:::note
+
 注意，若你的内核没有vfs_statx和do_faccessat，不要抄写上面的通用代码，要用下面给的，不要忽略！
 
+:::
+
 #### 4.修改hooks.c以启用模块
+
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
 ## 集成RKSU/KernelSU-Next
@@ -177,11 +190,11 @@ CONFIG_KSU_DEBUG=y
 
 :::code-group
 
-```RKSU
+```bash[RKSU]
 curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
 
-```KernelSU-Next
+```bash[KernelSU-Next]
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 ```
 
@@ -212,6 +225,7 @@ CONFIG_KSU_DEBUG=y
 此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
 
 #### 4.修改hooks.c以启用模块
+
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
 ## 集成SukiSU-Ultra
@@ -599,7 +613,7 @@ CONFIG_KSU_DEBUG=y
 
 参考[ReSukiSU官网](https://resukisu.github.io/guide/manual-integrate.html)修改
 
-即使你的内核版本小于4.19，但是部分钩子仍然要使用4.19+的版本，若你编译时报错，请尝试不同版本的钩子
+即使你的内核版本小于4.19，但是sys_read钩子仍然要使用4.19+的版本。
 
 ## 编译
 
@@ -632,25 +646,17 @@ make ARCH=arm64 O=out -j8
 
 编译完后在out/arch/arm64/boot/路径下会有一个Image.gz文件，复制到内核根目录的tools文件夹
 
-更改pack_kernerimage_cmd.sh文件内容为：
+#### 更改pack_kernerimage_cmd.sh文件
 
-Selinux的Enforcing状态版本：
+更改`--kernel kernel`为`--kernel Image.gz`以修复文件名问题
 
-```sh
-##!/bin/bash 
-./mkbootimg --kernel Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=enforcing buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
-```
+如果你的SELinux为宽容模式，请将`androidboot.selinux=enforcing`改为`androidboot.selinux=permissive`
 
-Selinux的Permissive状态版本：
+修改`--os_patch_level 2020-01-01`以更改内核编译时间
 
-```sh
-##!/bin/bash 
-./mkbootimg --kernel Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07C00000 --header_version 1 --os_version 9 --os_patch_level 2020-01-01  --output kernel.img
-```
+#### 打包
 
-###### 里面的内核编译时间需要更改
-
-随后运行：
+运行：
 
 ```bash
 bash pack_kernerimage_cmd.sh
