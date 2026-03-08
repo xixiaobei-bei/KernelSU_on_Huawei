@@ -17,7 +17,7 @@ First, you should read the list of supported devices:
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|
 |Nova4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |
-| Enjoy 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |
+|Hi nova 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |
 
 ## Download Kernel Image File
 
@@ -43,11 +43,11 @@ Open the [Github Actions page for this project](https://github.com/xixiaobei-bei
 
 The naming convention for image files is as follows:
 
-``Device Code_Baseband Version_KernelSU Type_Selinux Status```
+`Device Code_Baseband Version_KernelSU Type_Selinux Status`
 
 For example:
 
-```MHA_EMUI9.0_KernelSU-Next_PM.img```
+`MHA_EMUI9.0_KernelSU-Next_PM.img`
 
 This indicates that the KernelSU-Next kernel with a forgiving Selinux status is supported for MHA-model EMUI9.0 baseband devices.
 
