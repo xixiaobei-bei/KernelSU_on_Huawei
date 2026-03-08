@@ -20,7 +20,7 @@ jiaxi120516@outlook.com
 
 I will expedite the adaptation process.
 
-## Please adapt accordingly.
+## Self-adaptation.
 
 Refer to [How to Build](/guide/how-to-build.md) to build a bootable kernel. Then, package it with your GitHub or other platform account and send it to my email address:
 
