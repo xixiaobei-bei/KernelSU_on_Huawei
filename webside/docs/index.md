@@ -5,7 +5,6 @@ layout: home
 hero:
   name: "KernelSU on Huawei"
   text: "为你的华为设备吃上内核Root"
-  tagline: By Bilibili@爱玩电脑的Minecraft
   actions:
     - theme: brand
       text: 开始使用
