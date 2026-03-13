@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - STF_EMUI9.0_KernelSU
+      - STK_EMUI9.1_RKSU
 
   pull_request:
     branches:
-      - STF_EMUI9.0_KernelSU
+      - STK_EMUI9.1_RKSU
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         branch:
-          - STF_EMUI9.0_KernelSU
+          - STK_EMUI9.1_RKSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -46,8 +46,8 @@ jobs:
 
         BRANCH='${{ matrix.branch }}'
         case "$BRANCH" in
-          STF_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
+          STK_EMUI9.1_RKSU)
+            DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
             tool="gcc"
             ;;
