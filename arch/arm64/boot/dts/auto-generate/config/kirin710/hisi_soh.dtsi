@@ -1,0 +1,41 @@
+ / {
+    soh_core:soh_core {
+        compatible = "hisi,soh_core";
+		acr_support = <1>;
+        dcr_support = <0>;
+        pd_ocv_support = <0>;
+        soh_ovp_support = <0>;
+        soh_ovh_thd = <4200 60>, <4300 55>, <4350 50>; /*ovh threshold :voltage(mv),temp*/
+        soh_ovl_thd = <4100 60>, <4200 55>, <4300 50>; /*ovl threshold :voltage(mv),temp*/
+        soh_ovl_safe_thd = <4100 50>;                 /*safe ovl threshold :voltage(mv),temp*/
+        soh_ovp_start_min_thd = <30>; /*start discharge if ovp time is more than pmic_soh_ovp_start_min_thd*/
+        soh_pd_leak_standby_leakage_current = <0>;  /*uA*/
+	status = "disabled";
+   };
+   spmi: spmi@FFF24000 {
+	 pmic: pmic@0 {
+                 hisi_soh_pmic: hisi_soh_pmic@1 {
+                         compatible = "hisi_soh_pmic";
+                         interrupt-parent = <&pmic>;
+                         interrupts = <17 0>, <18 0>;
+                         interrupt-names = "soh_ovh_dis", "soh_ovh";
+                         pmic_acr_support = <1>;
+                         pmic_dcr_support = <1>;
+                         pmic_pd_leak_support = <1>;
+                         pmic_soh_ovp_support = <1>;
+                         status = "disabled";
+                 };
+	};
+    };
+    amba {
+	    i2c6: i2c@FFD6A000 {
+		    soh_hi6531_i2c6: soh_hi6531_i2c6@56 {
+			    compatible = "hisi,soh_hi6531";
+			    reg = <0x56>;
+			    acr_gpio_en = <&gpio18 4 0>;
+			    hi6531_acr_support = <1>;
+			    status = "disabled";
+		    };
+	    };
+    };
+ };

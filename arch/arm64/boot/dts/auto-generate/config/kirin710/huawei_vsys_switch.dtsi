@@ -1,0 +1,10 @@
+/ {
+	tps62180: tps62180 {
+		compatible = "huawei,tps62180";
+		status = "disabled";
+	};
+	vsys_switch: vsys_switch {
+		compatible = "huawei,vsys_switch";
+		status = "disabled";
+	};
+};
