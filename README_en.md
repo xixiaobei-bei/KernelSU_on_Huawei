@@ -87,7 +87,9 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] HONOR V9 series(DUK)
 - [x] HONOR 9 series(STF)
 - [x] Nova 4 series(VCE)
+- [x] Nova 3i series(INE)
 - [x] Nova Y 9 series(JKM)
+- [x] Nova Y 10 Plus series(STK)
   
 # Supported Devices (EMUI10)
 - [x] [Mate 10 Pro series(BLA)(testing)](https://github.com/Coconutat/android_kernel_huawei_blanc)  
@@ -166,8 +168,10 @@ KernelSU modules:
 
 - [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU) — added support for SukiSU-Ultra on kernels below the 5.x version
 
-- [Coconutat](https://github.com/Coconutat) and their [PR #1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/) — provided ideas for integrating SukiSU-Ultra ManualHooks
+- [Coconutat](https://github.com/Coconutat)—Participate in partial project maintenance work
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide) — basic guide for building KernelSU kernels
 
 - [xfy2412](https://github.com/xfy2412)——Added KernelSU and SukiSU-Ultra support for Huawei Nova4
+
+- [xqlpx](https://github.com/xqlpx)——Added RKSU support for Huawei Nova3i and Huawei Hi Nova10Plus

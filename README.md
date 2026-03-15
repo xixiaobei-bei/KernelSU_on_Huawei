@@ -92,7 +92,9 @@ fastboot flash kernel <内核文件>
 - [x] 荣耀V9 系列 (DUK)
 - [x] 荣耀9 系列 (STF)
 - [x] Nova4 系列(VCE)
+- [x] Nova3i 系列(STK)
 - [x] 畅想9 Plus系列(JKM)
+- [x] 畅想10 Plus系列(INE)
   
 # 支持设备(EMUI10)
 - [x] [Mate10 Pro 系列(BLA)(测试中)](https://github.com/Coconutat/android_kernel_huawei_blanc)
@@ -169,8 +171,10 @@ KernelSU模块有关：
 
 - [ReSukiSU](https://github.com/ReSukiSU) / [ReSukiSU](https://github.com/ReSukiSU/ReSukiSU)——添加SukiSU-Ultra在5系内核以下的支持
 
-- [Coconutat](https://github.com/Coconutat) 以及他提交的[pr#1](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/pull/1/)——提供SukiSU-Ultra的ManualHooks集成思路
+- [Coconutat](https://github.com/Coconutat)——参与部分项目维护工作
 
 - [dabao1955](https://github.com/dabao1955) / [KernelSU_General_porting_guide](https://github.com/dabao1955/KernelSU_General_porting_guide)——编译KernelSU内核的基础教程
 
 - [xfy2412](https://github.com/xfy2412)——提供华为Nova4的KernelSU和SukiSU-Ultra支持
+
+- [xqlpx](https://github.com/xqlpx)——提供华为Nova3i和华为畅想10Plus的RKSU支持
