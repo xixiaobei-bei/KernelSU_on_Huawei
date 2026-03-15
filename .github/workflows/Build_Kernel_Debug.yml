@@ -97,7 +97,7 @@ jobs:
         elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
           echo "Branch contains ReSukiSU: running ReSukiSU setup"
           rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s v4.1.0
 
         else
           echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
