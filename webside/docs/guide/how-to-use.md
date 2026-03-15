@@ -17,7 +17,9 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|
 |Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|
+|Nova 3i 系列|INE|EMUI9.1|RKSU|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|
+|畅享10 Plus 系列|INE|EMUI9.1|RKSU|
 
 ## 下载内核映像文件
 
