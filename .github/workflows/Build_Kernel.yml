@@ -22,6 +22,8 @@ on:
       - JKM_EMUI9.1_KernelSU
       - JKM_HarmonyOS2.0_KernelSU
       - STF_EMUI9.0_KernelSU
+      - STK_EMUI9.1_RKSU
+      - INE_EMUI9.1_RKSU
   pull_request:
     branches:
       - MHA_EMUI9.0_KernelSU
@@ -43,6 +45,8 @@ on:
       - JKM_EMUI9.1_KernelSU
       - JKM_HarmonyOS2.0_KernelSU
       - STF_EMUI9.0_KernelSU
+      - STK_EMUI9.1_RKSU
+      - INE_EMUI9.1_RKSU
 
 jobs:
   build:
@@ -77,6 +81,8 @@ jobs:
           - JKM_EMUI9.1_KernelSU
           - JKM_HarmonyOS2.0_KernelSU
           - STF_EMUI9.0_KernelSU
+          - STK_EMUI9.1_RKSU
+          - INE_EMUI9.1_RKSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -178,8 +184,15 @@ jobs:
           STF_EMUI9.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
-            tool="gcc"
-            ;;
+            tool="gcc" ;;
+          STK_EMUI9.1_RKSU)
+            DEFCONFIG="merge_kirin710_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          INE_EMUI9.1_RKSU)
+            DEFCONFIG="merge_kirin710_defconfig"
+            os_version="9"
+            tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
