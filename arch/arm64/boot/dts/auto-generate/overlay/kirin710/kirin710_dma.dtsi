@@ -1,0 +1,18 @@
+/{
+	peripherals {
+		dma0: dma@fdf30000 {
+			compatible = "hisilicon,hisi-dma-1.0";
+			reg = <0xfdf30000 0x1000>;
+			#dma-cells = <1>;
+			dma-channels = <16>;
+			dma-requests = <32>;
+			dma-min-chan = <1>;
+			dma-used-chans = <0xFFFE>;
+			dma-share;
+			interrupts = <0 143 4>;
+			clocks = <&clk_gate_dmac &pclk>;
+			clock-names = "clk_dmac", "apb_pclk";
+			status = "disabled";
+		};
+	};
+};

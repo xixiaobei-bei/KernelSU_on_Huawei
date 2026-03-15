@@ -1,0 +1,11 @@
+/*
+ * Hisilicon Ltd Balong SW
+ */
+
+/ {
+        hisi,hds {
+                compatible = "hisilicon,hds_balong";
+                dma_mask_bit = <64>;
+                status = "ok";
+        };
+};

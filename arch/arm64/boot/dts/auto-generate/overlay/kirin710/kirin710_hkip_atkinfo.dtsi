@@ -1,0 +1,7 @@
+/{
+		hkip_atkinfo@0 {
+				compatible = "hisi,hkip-atkinfo";
+				hkip_atkinfo_enable = <1>;
+				cycle-time = <86400000>; /*ms, 24hours*/
+		};
+};
