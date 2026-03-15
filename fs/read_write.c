@@ -618,13 +618,13 @@ extern __attribute__((cold)) int ksu_handle_sys_read(unsigned int fd,
 
 SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count)
 {
+	struct fd f = fdget_pos(fd);
+	ssize_t ret = -EBADF;
+
 #ifdef CONFIG_KSU_MANUAL_HOOK
 	if (unlikely(ksu_init_rc_hook)) 
 		ksu_handle_sys_read(fd, &buf, &count);
 #endif
-	struct fd f = fdget_pos(fd);
-	ssize_t ret = -EBADF;
-
 	if (f.file) {
 		loff_t pos = file_pos_read(f.file);
 		ret = vfs_read(f.file, buf, count, &pos);
