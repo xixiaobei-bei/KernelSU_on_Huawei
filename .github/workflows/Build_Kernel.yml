@@ -313,3 +313,4 @@ jobs:
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: "${{ env.ARTIFACT_NAME }}.img"
+        compression-level: 0
