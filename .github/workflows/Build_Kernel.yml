@@ -314,3 +314,25 @@ jobs:
         name: ${{ env.ARTIFACT_NAME }}
         path: "${{ env.ARTIFACT_NAME }}.img"
         compression-level: 0
+
+  release:
+    name: Draft a new Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifacts from build job
+        uses: actions/download-artifact@v4
+        with:
+          path: ./all-artifacts
+
+      - name: Draft a new Release and upload files
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./all-artifacts/**/*
+          draft: true
+          body: "Please modify the release notes as needed, then publish the release to make the new kernel images available to users."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
