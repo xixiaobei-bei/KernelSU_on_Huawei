@@ -12,6 +12,7 @@
 #include <linux/vmalloc.h>
 #include <asm/cacheflush.h>
 #include <asm/tlbflush.h>
+#include <linux/set_memory.h>
 
 #include "vmarea.h"
 #include "patch_api.h"
