@@ -53,7 +53,7 @@ case $version in
         ;;
     [Bb]*)
         echo "Installing SukiSU-Ultra (Builtin)..."
-        curl $CURL_OPTS "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+        curl $CURL_OPTS "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/builtin/kernel/setup.sh" | bash -s builtin
         ;;
     [Cc]*)
         echo "Installing rsuntk KernelSU (Main)..."

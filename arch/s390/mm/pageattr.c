@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright IBM Corp. 2011
  * Author(s): Jan Glauber <jang@linux.vnet.ibm.com>
  */
@@ -6,6 +6,7 @@
 #include <linux/module.h>
 #include <linux/mm.h>
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <asm/facility.h>
 #include <asm/pgtable.h>
 #include <asm/page.h>

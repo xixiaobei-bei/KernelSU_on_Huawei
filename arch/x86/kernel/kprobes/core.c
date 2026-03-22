@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Kernel Probes (KProbes)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -55,12 +55,15 @@
 
 #include <asm/text-patching.h>
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <asm/desc.h>
 #include <asm/pgtable.h>
 #include <asm/uaccess.h>
 #include <asm/alternative.h>
 #include <asm/insn.h>
 #include <asm/debugreg.h>
+#include <asm/sections.h>
+#include <asm/set_memory.h>
 
 #include "common.h"
 
@@ -412,23 +415,36 @@ void free_insn_page(void *page)
 	module_memfree(page);
 }
 
+/* Prepare reljump right after instruction to boost */
+static void prepare_boost(struct kprobe *p, int length)
+{
+	if (can_boost(p->ainsn.insn, p->addr) &&
+	    MAX_INSN_SIZE - length >= RELATIVEJUMP_SIZE) {
+		/*
+		 * These instructions can be executed directly if it
+		 * jumps back to correct address.
+		 */
+		synthesize_reljump(p->ainsn.insn + length, p->addr + length);
+		p->ainsn.boostable = 1;
+	} else {
+		p->ainsn.boostable = -1;
+	}
+}
+
 static int arch_copy_kprobe(struct kprobe *p)
 {
-	int ret;
+	int len;
 
 	/* Copy an instruction with recovering if other optprobe modifies it.*/
-	ret = __copy_instruction(p->ainsn.insn, p->addr);
-	if (!ret)
+	len = __copy_instruction(p->ainsn.insn, p->addr);
+	if (!len)
 		return -EINVAL;
 
 	/*
 	 * __copy_instruction can modify the displacement of the instruction,
 	 * but it doesn't affect boostable check.
 	 */
-	if (can_boost(p->ainsn.insn, p->addr))
-		p->ainsn.boostable = 0;
-	else
-		p->ainsn.boostable = -1;
+	prepare_boost(p, len);
 
 	/* Check whether the instruction modifies Interrupt Flag or not */
 	p->ainsn.if_modifier = is_IF_modifier(p->ainsn.insn);
@@ -889,21 +905,6 @@ static void resume_execution(struct kprobe *p, struct pt_regs *regs,
 		}
 	default:
 		break;
-	}
-
-	if (p->ainsn.boostable == 0) {
-		if ((regs->ip > copy_ip) &&
-		    (regs->ip - copy_ip) + 5 < MAX_INSN_SIZE) {
-			/*
-			 * These instructions can be executed directly if it
-			 * jumps back to correct address.
-			 */
-			synthesize_reljump((void *)regs->ip,
-				(void *)orig_ip + (regs->ip - copy_ip));
-			p->ainsn.boostable = 1;
-		} else {
-			p->ainsn.boostable = -1;
-		}
 	}
 
 	regs->ip += orig_ip - copy_ip;

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Just-In-Time compiler for BPF filters on 32bit ARM
  *
  * Copyright (c) 2011 Mircea Gherzan <mgherzan@gmail.com>
@@ -18,6 +18,7 @@
 #include <linux/if_vlan.h>
 
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <asm/hwcap.h>
 #include <asm/opcodes.h>
 

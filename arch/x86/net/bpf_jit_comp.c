@@ -1,4 +1,4 @@
-/* bpf_jit_comp.c : BPF JIT compiler
+﻿/* bpf_jit_comp.c : BPF JIT compiler
  *
  * Copyright (C) 2011-2013 Eric Dumazet (eric.dumazet@gmail.com)
  * Internal BPF Copyright (c) 2011-2014 PLUMgrid, http://plumgrid.com
@@ -12,6 +12,7 @@
 #include <linux/filter.h>
 #include <linux/if_vlan.h>
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <linux/bpf.h>
 
 int bpf_jit_enable __read_mostly;

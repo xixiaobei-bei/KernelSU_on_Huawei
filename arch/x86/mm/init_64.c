@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  linux/arch/x86_64/mm/init.c
  *
  *  Copyright (C) 1995  Linus Torvalds
@@ -51,6 +51,7 @@
 #include <asm/kdebug.h>
 #include <asm/numa.h>
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <asm/init.h>
 #include <asm/uv/uv.h>
 #include <asm/setup.h>

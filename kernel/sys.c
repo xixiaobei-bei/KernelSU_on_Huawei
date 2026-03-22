@@ -609,7 +609,8 @@ error:
  * This function implements a generic ability to update ruid, euid,
  * and suid.  This allows you to implement the 4.4 compatible seteuid().
  */
-#ifdef CONFIG_KSU
+
+#ifdef CONFIG_KSU_SUSFS
 extern int ksu_handle_setresuid(uid_t ruid, uid_t euid, uid_t suid);
 #endif
 
@@ -625,11 +626,10 @@ SYSCALL_DEFINE3(setresuid, uid_t, ruid, uid_t, euid, uid_t, suid)
 	keuid = make_kuid(ns, euid);
 	ksuid = make_kuid(ns, suid);
 
-#ifdef CONFIG_KSU_SUSFS
-	if (ksu_handle_setresuid(ruid, euid, suid)) {
-		pr_info("Something wrong with ksu_handle_setresuid()\\n");
-	}
-#endif
+	#ifdef CONFIG_KSU_SUSFS
+       (void)ksu_handle_setresuid(ruid, euid, suid);
+	#endif
+
 	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
 		return -EINVAL;
 
@@ -1188,20 +1188,36 @@ static int override_release(char __user *release, size_t len)
 	return ret;
 }
 
+#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
+extern void susfs_spoof_uname(struct new_utsname* tmp);
+#endif
+
 SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 {
-	int errno = 0;
+    struct new_utsname tmp; // 1. 定义临时变量
+    int errno = 0;
 
-	down_read(&uts_sem);
-	if (copy_to_user(name, utsname(), sizeof *name))
-		errno = -EFAULT;
-	up_read(&uts_sem);
+    down_read(&uts_sem);
+    memcpy(&tmp, utsname(), sizeof(tmp)); // 2. 将全局信息复制到临时变量
+#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
+    susfs_spoof_uname(&tmp); // 3. SUSFS 在内核空间修改临时变量
+#endif
+    up_read(&uts_sem);
 
-	if (!errno && override_release(name->release, sizeof(name->release)))
-		errno = -EFAULT;
-	if (!errno && override_architecture(name))
-		errno = -EFAULT;
-	return errno;
+    // 4. 将修改后的临时变量一次性拷贝给用户
+    if (copy_to_user(name, &tmp, sizeof(tmp)))
+        return -EFAULT;
+
+    /* * 5. 保留你原有的逻辑 (如果有必要)
+     * 因为此时数据已经在用户空间 'name' 中，
+     * 原有的 override 函数如果操作的是用户指针，依然有效。
+     */
+    if (override_release(name->release, sizeof(name->release)))
+        errno = -EFAULT;
+    if (!errno && override_architecture(name))
+        errno = -EFAULT;
+
+    return errno;
 }
 
 #ifdef __ARCH_WANT_SYS_OLD_UNAME

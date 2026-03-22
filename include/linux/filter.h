@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Linux Socket Filter Data Structures
  */
 #ifndef __LINUX_FILTER_H__
@@ -18,6 +18,7 @@
 #include <net/sch_generic.h>
 
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 
 #include <uapi/linux/filter.h>
 #include <uapi/linux/bpf.h>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *    Copyright IBM Corp. 2006
  *    Author(s): Heiko Carstens <heiko.carstens@de.ibm.com>
  */
@@ -12,6 +12,7 @@
 #include <linux/slab.h>
 #include <linux/memblock.h>
 #include <asm/cacheflush.h>
+#include <linux/set_memory.h>
 #include <asm/pgalloc.h>
 #include <asm/pgtable.h>
 #include <asm/setup.h>

@@ -30,6 +30,7 @@
 #include <asm/insn.h>
 #include <asm/sections.h>
 #include <asm/livepatch-hhee.h>
+#include <asm/set_memory.h>
 
 void *module_alloc(unsigned long size)
 {

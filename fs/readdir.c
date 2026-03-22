@@ -18,6 +18,10 @@
 #include <linux/security.h>
 #include <linux/syscalls.h>
 #include <linux/unistd.h>
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+#include <linux/susfs_def.h>
+extern bool susfs_is_inode_sus_path(struct inode *inode);
+#endif
 
 #include <asm/uaccess.h>
 
@@ -84,6 +88,9 @@ struct old_linux_dirent {
 struct readdir_callback {
 	struct dir_context ctx;
 	struct old_linux_dirent __user * dirent;
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	struct super_block *sb;
+#endif
 	int result;
 };
 
@@ -94,6 +101,9 @@ static int fillonedir(struct dir_context *ctx, const char *name, int namlen,
 		container_of(ctx, struct readdir_callback, ctx);
 	struct old_linux_dirent __user * dirent;
 	unsigned long d_ino;
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	struct inode *inode;
+#endif
 
 	if (buf->result)
 		return -EINVAL;
@@ -102,6 +112,18 @@ static int fillonedir(struct dir_context *ctx, const char *name, int namlen,
 		buf->result = -EOVERFLOW;
 		return -EOVERFLOW;
 	}
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	inode = ilookup(buf->sb, ino);
+	if (!inode) {
+		goto orig_flow;
+	}
+	if (susfs_is_inode_sus_path(inode)) {
+		iput(inode);
+		return 0;
+	}
+	iput(inode);
+orig_flow:
+#endif
 	buf->result++;
 	dirent = buf->dirent;
 	if (!access_ok(VERIFY_WRITE, dirent,
@@ -133,6 +155,9 @@ SYSCALL_DEFINE3(old_readdir, unsigned int, fd,
 	if (!f.file)
 		return -EBADF;
 
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	buf.sb = f.file->f_inode->i_sb;
+#endif
 	error = iterate_dir(f.file, &buf.ctx);
 	if (buf.result)
 		error = buf.result;
@@ -157,6 +182,9 @@ struct linux_dirent {
 struct getdents_callback {
 	struct dir_context ctx;
 	struct linux_dirent __user * current_dir;
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	struct super_block *sb;
+#endif
 	struct linux_dirent __user * previous;
 	int count;
 	int error;
@@ -165,47 +193,71 @@ struct getdents_callback {
 static int filldir(struct dir_context *ctx, const char *name, int namlen,
 		   loff_t offset, u64 ino, unsigned int d_type)
 {
-	struct linux_dirent __user * dirent;
-	struct getdents_callback *buf =
-		container_of(ctx, struct getdents_callback, ctx);
-	unsigned long d_ino;
-	int reclen = ALIGN(offsetof(struct linux_dirent, d_name) + namlen + 2,
-		sizeof(long));
+    struct linux_dirent __user * dirent;
+    struct getdents_callback *buf =
+        container_of(ctx, struct getdents_callback, ctx);
+    unsigned long d_ino;
+    int reclen = ALIGN(offsetof(struct linux_dirent, d_name) + namlen + 2,
+        sizeof(long));
 
-	buf->error = -EINVAL;	/* only used if we fail.. */
-	if (reclen > buf->count)
-		return -EINVAL;
-	d_ino = ino;
-	if (sizeof(d_ino) < sizeof(ino) && d_ino != ino) {
-		buf->error = -EOVERFLOW;
-		return -EOVERFLOW;
-	}
-	dirent = buf->previous;
-	if (dirent) {
-		if (signal_pending(current))
-			return -EINTR;
-		if (__put_user(offset, &dirent->d_off))
-			goto efault;
-	}
-	dirent = buf->current_dir;
-	if (__put_user(d_ino, &dirent->d_ino))
-		goto efault;
-	if (__put_user(reclen, &dirent->d_reclen))
-		goto efault;
-	if (copy_to_user(dirent->d_name, name, namlen))
-		goto efault;
-	if (__put_user(0, dirent->d_name + namlen))
-		goto efault;
-	if (__put_user(d_type, (char __user *) dirent + reclen - 1))
-		goto efault;
-	buf->previous = dirent;
-	dirent = (void __user *)dirent + reclen;
-	buf->current_dir = dirent;
-	buf->count -= reclen;
-	return 0;
+    #ifdef CONFIG_KSU_SUSFS_SUS_PATH
+    struct inode *inode;
+    #endif
+        
+    buf->error = -EINVAL;   /* only used if we fail.. */
+    if (reclen > buf->count)
+        return -EINVAL;
+    d_ino = ino;
+    if (sizeof(d_ino) < sizeof(ino) && d_ino != ino) {
+        buf->error = -EOVERFLOW;
+        return -EOVERFLOW;
+    }
+
+    /* === [保留] 正确的 SUSFS 逻辑位置 (在处理 previous 之前) === */
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+    inode = ilookup(buf->sb, ino);
+    if (!inode) {
+        goto orig_flow;
+    }
+    if (susfs_is_inode_sus_path(inode)) {
+        iput(inode);
+        return 0;
+    }
+    iput(inode);
+orig_flow:
+#endif
+    /* === [结束] === */
+
+    dirent = buf->previous;
+    if (dirent) {
+        if (signal_pending(current))
+            return -EINTR;       
+		
+        if (__put_user(offset, &dirent->d_off))
+            goto efault;
+    }
+
+    /* 更新 previous 指针，准备处理下一个 */
+    buf->previous = (struct linux_dirent __user *)((char *)buf->current_dir + reclen);
+    dirent = buf->current_dir;
+    
+    /* 下面是写入 dirent 的常规操作 */
+    if (__put_user(d_ino, &dirent->d_ino) ||
+        __put_user(reclen, &dirent->d_reclen) ||
+        __put_user(d_type, (char __user *) dirent + reclen - 1) ||
+        copy_to_user(dirent->d_name, name, namlen) ||
+        __put_user(0, dirent->d_name + namlen))
+        goto efault;
+    
+    buf->previous = dirent;
+    dirent = (void __user *)dirent + reclen;
+    buf->current_dir = dirent;
+    buf->count -= reclen;
+    return 0;
+
 efault:
-	buf->error = -EFAULT;
-	return -EFAULT;
+    buf->error = -EFAULT;
+    return -EFAULT;
 }
 
 SYSCALL_DEFINE3(getdents, unsigned int, fd,
@@ -227,6 +279,9 @@ SYSCALL_DEFINE3(getdents, unsigned int, fd,
 	if (!f.file)
 		return -EBADF;
 
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	buf.sb = f.file->f_inode->i_sb;
+#endif
 	error = iterate_dir(f.file, &buf.ctx);
 	if (error >= 0)
 		error = buf.error;
@@ -244,6 +299,9 @@ SYSCALL_DEFINE3(getdents, unsigned int, fd,
 struct getdents_callback64 {
 	struct dir_context ctx;
 	struct linux_dirent64 __user * current_dir;
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	struct super_block *sb;
+#endif
 	struct linux_dirent64 __user * previous;
 	int count;
 	int error;
@@ -258,6 +316,10 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
 	int reclen = ALIGN(offsetof(struct linux_dirent64, d_name) + namlen + 1,
 		sizeof(u64));
 
+	#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	struct inode *inode;
+	#endif
+
 	buf->error = -EINVAL;	/* only used if we fail.. */
 	if (reclen > buf->count)
 		return -EINVAL;
@@ -265,6 +327,18 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
 	if (dirent) {
 		if (signal_pending(current))
 			return -EINTR;
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	inode = ilookup(buf->sb, ino);
+	if (!inode) {
+		goto orig_flow;
+	}
+	if (susfs_is_inode_sus_path(inode)) {
+		iput(inode);
+		return 0;
+	}
+	iput(inode);
+orig_flow:
+#endif
 		if (__put_user(offset, &dirent->d_off))
 			goto efault;
 	}
@@ -310,6 +384,9 @@ SYSCALL_DEFINE3(getdents64, unsigned int, fd,
 	if (!f.file)
 		return -EBADF;
 
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+	buf.sb = f.file->f_inode->i_sb;
+#endif
 	error = iterate_dir(f.file, &buf.ctx);
 	if (error >= 0)
 		error = buf.error;
