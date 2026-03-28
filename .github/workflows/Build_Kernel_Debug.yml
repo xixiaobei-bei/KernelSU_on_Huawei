@@ -1,4 +1,4 @@
-﻿name: Build_Kernel_Release
+﻿name: Build_Kernel_Debug
 on:
   workflow_dispatch:
 
