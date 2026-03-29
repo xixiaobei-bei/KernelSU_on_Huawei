@@ -174,4 +174,4 @@ KernelSU modules:
 
 - [xfy2412](https://github.com/xfy2412)——Added KernelSU and SukiSU-Ultra support for Huawei Nova4
 
-- [xqlpx](https://github.com/xqlpx)——Added RKSU support for Huawei Nova3i and Huawei Hi Nova10Plus
+- [xqlpx](https://github.com/xqlpx)——Added RKSU support for Huawei Nova Y 10Plus

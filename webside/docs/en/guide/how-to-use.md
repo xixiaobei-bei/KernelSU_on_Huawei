@@ -19,7 +19,7 @@ First, you should read the list of supported devices:
 |Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |
 |Nova 3i Series | STK | EMUI 9.1 | RKSU |
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |
-|Nova Y 10 Plus Series | INE | EMUI 9.1 | RKSU |
+|Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |
 
 ## Download Kernel Image File
 
