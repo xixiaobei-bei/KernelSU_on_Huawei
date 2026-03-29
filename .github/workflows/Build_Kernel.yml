@@ -269,32 +269,32 @@ jobs:
         path: "${{ env.ARTIFACT_NAME }}.img"
         compression-level: 0
 
-release:
-  name: Draft A New Release
-  needs: build
-  runs-on: ubuntu-latest
-  permissions:
-    contents: write
+  release:
+    name: Draft A New Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
-  steps:
-    - name: Download all build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: ./all-artifacts
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./all-artifacts
 
-    - name: Extract all Artifact files and clean up zip files
-      run: |
-        for zipfile in ./all-artifacts/**/*.zip; do
-          if [ -f "$zipfile" ]; then
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")"
-            rm "$zipfile"
-          fi
-        done
+      - name: Extract all Artifact files and clean up zip files
+        run: |
+          for zipfile in ./all-artifacts/**/*.zip; do
+            if [ -f "$zipfile" ]; then
+              unzip -o "$zipfile" -d "$(dirname "$zipfile")"
+              rm "$zipfile"
+            fi
+          done
 
-    - name: Draft a new Release and upload files
-      uses: softprops/action-gh-release@v2
-      with:
-        files: ./all-artifacts/**/*.img
-        draft: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Draft a new Release and upload files
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./all-artifacts/**/*.img
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
