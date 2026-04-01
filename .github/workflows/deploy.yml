@@ -2,7 +2,15 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [KernelSU_on_Huawei]
+    branches:
+      - KernelSU_on_Huawei
+    paths:
+      - 'webside/**'
+  pull_request:
+    branches:
+      - KernelSU_on_Huawei
+    paths:
+      - 'webside/**'
 
 jobs:
   build-and-deploy:
