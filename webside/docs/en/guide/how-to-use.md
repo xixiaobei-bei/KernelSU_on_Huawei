@@ -80,7 +80,7 @@ After restarting the device, install the corresponding manager to obtain root pr
 |KernelSU Branch|Corresponding Manager Version|Download Link|
 |:---:|:---:|:---:|
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
-|RKSU|Latest Version|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|RKSU|v3.0.0-30-legacy|[GithubReleases](https://github.com/rsuntk/KernelSU/releases/download/v3.0.0-30-legacy/KernelSU_v3.0.0-30-legacy_32334-release.apk)
 |KernelSU-Next|Latest Version| [GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|Latest Version|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
 |ReSukiSU|Latest Version|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)

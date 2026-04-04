@@ -16,10 +16,10 @@
 
 [如何适配](/guide/how-to-adapt.md)
 
-## 如何构建？
+## 构建不带SuSFS的内核
 
-[如何构建](/guide/how-to-build.md)
+[构建不带SuSFS的内核](/guide/how-to-build.md)
 
-## 如何添加Susfs 
+## 构建带SuSFS和KPM的内核 
 
-[如何添加Susfs](/guide/how-to-add-susfs-and-kpm.md)
+[构建带SuSFS和KPM的内核](/guide/how-to-build-susfs-and-kpm.md)
