@@ -1,9 +1,5 @@
 # 如何构建
 
-感谢大佬们的辛苦奉献，我只不过是站在了巨人的肩膀上而已
-
-defconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的defconfig结尾的文件，可能有多个，根据你的手机型号来
-
 ## 安装依赖
 
 :::warning
@@ -47,6 +43,11 @@ git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x
 
 ## 更改内核
 
+:::tip
+
+defconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的defconfig结尾的文件，可能有多个，根据你的手机型号来
+
+:::
 #### 需要关闭defconfig配置文件的以下选项：
 
 ```text

@@ -1,9 +1,5 @@
 # How to Build
 
-Thanks to the experts for their hard work; I'm just standing on the shoulders of giants.
-
-The defconfig configuration file is located in the kernel source directory /arch/arm64/configs folder, and there may be multiple files ending in defconfig, depending on your phone model.
-
 ## Install Dependencies
 
 :::warning
@@ -50,6 +46,11 @@ Due to encoding limitations, it can only be extracted to a non-NTFS/FAT partitio
 
 ## Modifying the Kernel
 
+:::tip
+
+The defconfig configuration file is located in the kernel source directory /arch/arm64/configs folder, and there may be multiple files ending in defconfig, depending on your phone model.
+
+:::
 #### The following options of the defconfig configuration file need to be turned off:
 
 ```text
