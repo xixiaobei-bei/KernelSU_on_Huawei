@@ -18,5 +18,7 @@ features:
     details: The project is completely open-source, with all source code open to everyone, without any hidden or unauthorized additions.
   - title: Actively maintained
     details: As long as the kernel version is 4.4 or higher, you can contact me for adaptation. It supports KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, and ReSukiSU.
+  - title: Wide support coverage
+    details: It supports KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, and ReSukiSU.Also supports SuSFS and KPM for 4.9 and 4.14 kernels.
 ---
 
