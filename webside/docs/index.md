@@ -18,5 +18,7 @@ features:
     details: 项目完全开源，所有源代码对所有人开放，不会夹带私货
   - title: 积极维护
     details: 内核只要到了4.4版本即可联系我适配，支持KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU。
+  - title: 支持范围广
+    details: 支持KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU。还支持4.9、4.14内核的SuSFS和KPM。
 ---
 
