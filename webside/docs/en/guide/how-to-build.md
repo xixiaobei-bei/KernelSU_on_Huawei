@@ -1,4 +1,4 @@
-# How to Build
+# Build kernel without SuSFS
 
 ## Install Dependencies
 

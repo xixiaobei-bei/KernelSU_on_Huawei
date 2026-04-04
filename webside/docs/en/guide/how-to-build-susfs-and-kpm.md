@@ -1,4 +1,4 @@
-# SUSFS and KPM Support
+# Build kernel with SuSFS and KPM
 
 ## SUSFS
 Supports v4.14.xxx (EMUI 10+) and v4.9.xxx (EMUI 9+).  

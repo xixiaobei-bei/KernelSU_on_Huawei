@@ -1,4 +1,4 @@
-# SUSFS 与 KPM 支持
+# 构建带SuSFS和KPM的内核
   
 ## SUSFS
 支持v4.14.xxx(EMUI 10+)和v4.9.xxx(EMUI9+)。  
