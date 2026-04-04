@@ -31,7 +31,7 @@
 > 通过GithubAction下载需要登陆Github账号才可以显示下载按钮
 >
 
-打开[本项目GithubAction页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions)，选择左侧Action列表的Build Kernel板块，选择最新编译任务，然后找到设备对应的文件下载
+打开[本项目GithubAction页面](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions)，选择左侧Action列表的Build Kernel Release板块，选择最新编译任务，然后找到设备对应的文件下载
 
 ## 命名规则
 
@@ -49,7 +49,7 @@
 
 - 请选择对应底包的内核再刷入，否则会无法开机！
 
-- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用 [v0.9.5的管理器](https://github.com/tiann/KernelSU/releases/v0.9.5/) ，其他KernelSU分支不受影响
+- KernelSU官方在1.0版本已经舍弃非GKI内核，所以需要使用 [v0.9.2的管理器](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk) ，其他KernelSU分支不受影响
 
 ## 刷入
 
@@ -73,7 +73,7 @@ fastboot flash kernel <内核文件>
 |KernelSU分支|对应管理器版本|下载链接|
 |:---:|:---:|:---:|
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
-|RKSU|最新版|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|RKSU|v3.0.0-30-legacy|[GithubReleases](https://github.com/rsuntk/KernelSU/releases/download/v3.0.0-30-legacy/KernelSU_v3.0.0-30-legacy_32334-release.apk)
 |KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
 |ReSukiSU|最新版|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)

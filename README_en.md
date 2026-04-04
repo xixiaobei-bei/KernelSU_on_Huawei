@@ -29,7 +29,7 @@ You can download it from [this page](https://github.com/xixiaobei-bei/KernelSU_o
 > Downloading via GitHub Actions requires logging into your GitHub account for the download button to appear.
 >
 
-Open the [GitHub Actions page for this project](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions),select the "Build Kernel" section from the left Action list, choose the latest compilation task, and then download the file corresponding to your device.
+Open the [GitHub Actions page for this project](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/actions),select the "Build Kernel Release" section from the left Action list, choose the latest compilation task, and then download the file corresponding to your device.
 
 ## Naming Convention
 
@@ -47,7 +47,7 @@ This indicates a KernelSU-Next kernel for the MHA model running EMUI 9.0, with S
 
 - Always flash a kernel that matches the device's base firmware; flashing a mismatched kernel may prevent the device from booting!
 
-- Official KernelSU dropped non-GKI kernels in v1.0. If your device requires a non-GKI kernel, use the [v0.9.5 manager](https://github.com/tiann/KernelSU/releases/v0.9.5/). Other KernelSU branches are unaffected.
+- Official KernelSU dropped non-GKI kernels in v1.0. If your device requires a non-GKI kernel, use the [v0.9.2 manager](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk). Other KernelSU branches are unaffected.
 
 ## Flashing (Installation)
 
@@ -68,7 +68,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |KernelSU branches name|Manager version|Download links|
 |:---:|:---:|:---:|
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
-|RKSU|Lastest|[GithubReleases](https://github.com/rsuntk/KernelSU/releases)
+|RKSU|v3.0.0-30-legacy|[GithubReleases](https://github.com/rsuntk/KernelSU/releases/download/v3.0.0-30-legacy/KernelSU_v3.0.0-30-legacy_32334-release.apk)
 |KernelSU-Next|Lastest|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
 |SukiSU-Ultra|Lastest|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
 |ReSukiSU|Lastest|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
