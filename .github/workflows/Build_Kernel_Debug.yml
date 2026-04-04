@@ -189,7 +189,7 @@ jobs:
         elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
           echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
           rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/xixiaobei-bei/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
         elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
           echo "Branch contains ReSukiSU: running ReSukiSU setup"
           rm -rf KernelSU
