@@ -110,7 +110,7 @@ If you'd like to contribute, there are two main ways:
 
 ## Method 1
 
-Follow the tutorial on the [wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87) to build your kernel, package it, and send it to my email:
+Follow the tutorial on the [offical webside](https://xixiaobei-bei.github.io/KernelSU_on_Huawei/guide/how-to-build.html) to build your kernel, package it, and send it to my email:
 
 jiaxi120516@outlook.com
 

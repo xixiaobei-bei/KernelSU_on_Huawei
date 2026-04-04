@@ -113,7 +113,7 @@ fastboot flash kernel <内核文件>
 
 ## 方法1
 
-按照[wiki](https://github.com/xixiaobei-bei/KernelSU_on_Huawei/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)的教程编译出自己的内核后打包发给我的邮箱
+按照[官网](https://xixiaobei-bei.github.io/KernelSU_on_Huawei/guide/how-to-build.html)的教程编译出自己的内核后打包发给我的邮箱
 
 jiaxi120516@outlook.com
 
