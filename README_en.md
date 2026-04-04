@@ -81,18 +81,15 @@ After the device reboots, install the corresponding manager to obtain Root acces
 # Supported Devices
 
 - [x] Mate 9 series(MHA)
-- [ ] Mate 10 Pro series(BLA)(testing)
+- [ ] Mate 10 Pro series(BLA)(testing)([More links](https://github.com/Coconutat/android_kernel_huawei_blanc))
 - [ ] Mate 10 series(ALP)(testing)
-- [x] P10 Series (VTR) --- [Experimental Version: System Requirements: HM2 version 150, kernel support for SUSFS and KPM](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)
+- [x] P10 Series (VTR) --- ([More links](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2))
 - [x] HONOR V9 series(DUK)
 - [x] HONOR 9 series(STF)
 - [x] Nova 4 series(VCE)
 - [x] Nova 3i series(INE)
 - [x] Nova Y 9 series(JKM)
 - [x] Nova Y 10 Plus series(STK)
-  
-# Supported Devices (EMUI10)
-- [x] [Mate 10 Pro series(BLA)(testing)](https://github.com/Coconutat/android_kernel_huawei_blanc)  
   
 ### More devices coming...
 
@@ -106,9 +103,6 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Add support for ReSukiSU
 - [x] Add support for SUSFS
 - [x] Add support for KPM(Only Support Based EMUI 9 OS Devices's Kernel)
-
-## How to add SUSFS and KPM support?
-[How to integrate SUSFS](webside/docs/guide/how-to-add-susfs-and-kpm.md)
 
 # Contributing
 
