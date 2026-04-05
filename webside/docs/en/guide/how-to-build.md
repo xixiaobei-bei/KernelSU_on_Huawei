@@ -1,5 +1,11 @@
 # Build kernel without SuSFS
 
+:::warning
+
+The website is under construction. It is not recommended to integrate on it at this time.
+
+:::
+
 ## Install Dependencies
 
 :::warning
