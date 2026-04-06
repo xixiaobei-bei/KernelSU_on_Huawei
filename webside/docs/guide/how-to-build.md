@@ -267,7 +267,25 @@ CONFIG_KSU_DEBUG=y
 curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 ```
 
-### 2.应用补丁
+### 2.回溯commit
+
+由于SukiSU-Ultra对4系内核的放弃，自commit [68d04cb](https://github.com/SukiSU-Ultra/SukiSU-Ultra/commit/68d04cb6c82463a010106c196f7dff805ccf620f)后SukiSU-Ultra再也无法编译到NonGKI内核，所以我们需要回溯commit。
+
+在内核源码目录输入以下命令：
+
+定位到KernelSU目录：
+
+```shell
+cd KernelSU
+```
+
+回溯commit：
+
+```shell
+git reset --hard 4a394d0
+```
+
+### 3.应用补丁
 
 :::code-group
 
