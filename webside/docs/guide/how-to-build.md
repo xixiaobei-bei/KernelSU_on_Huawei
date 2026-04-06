@@ -198,23 +198,44 @@ CONFIG_KSU_DEBUG=y
 
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-## 集成RKSU/KernelSU-Next
+## 集成KernelSU-Next
 
-### 1.拉取源码
+#### 1.拉取源码
 
-:::code-group
-
-```shell[RKSU]
-curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
-```
-
-```shell[KernelSU-Next]
+```shell
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 ```
 
-:::
+#### 2.启用KernelSU
 
-### 2.启用RKSU/KernelSU-Next
+在你的设备defconfig配置文件最后加入以下几行：
+
+```text
+# KernelSU
+CONFIG_KSU=y
+```
+
+若要开启KernelSU的调试模式，还需要加入：
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+#### 3.应用补丁
+
+参考[KernelSU-Next官网](https://kernelsu-next.github.io/webpage/pages/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)修改
+
+此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
+
+## 集成RKSU
+
+### 1.拉取源码
+
+```shell
+curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+```
+
+### 2.启用RKSU
 
 在你的设备defconfig配置文件最后加入以下几行：
 

@@ -205,24 +205,44 @@ If your kernel does not have vfs_statx and do_faccessat, do not copy the general
 
 Refer to [this Github Commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
-## Integrating RKSU/KernelSU-Next
+## Integrating KernelSU-Next
+
+#### 1. Pull Source Code
+
+```shell
+curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+```
+
+#### 2. Enable KernelSU
+
+Add the following lines to the end of your device's defconfig configuration file:
+
+```text
+# KernelSU
+CONFIG_KSU=y
+```
+
+To enable KernelSU's debug mode, you also need to add:
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+#### 3. Apply the Patch
+
+Refer to the [KernelSU-Next official website](https://kernelsu-next.github.io/webpage/pages/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) for modification.
+
+In addition, you can also backport path_umount via the [KernelSU offical webside](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) to enable the module unmount feature.
+
+## Integrating RKSU
 
 ### 1. Pull the source code
 
-:::code-group
-
-```shell[RKSU]
+```shell
 curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
 
-```shell[KernelSU-Next]
-curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
-
-```
-
-:::
-
-### 2.Enable RKSU/KernelSU-Next
+### 2.Enable RKSU
 
 Add the following lines to the end of your device's defconfig file:
 
