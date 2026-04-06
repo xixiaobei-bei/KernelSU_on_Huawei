@@ -10,7 +10,14 @@
 
 :::warning
 
-由于Ubuntu/Debian高版本全局定义yylloc问题，所以只推荐使用Ubuntu20.04或Ubuntu18.04（Debian13以下，推荐这两个版本）
+由于Ubuntu/Debian高版本全局定义`yylloc`问题，所以只推荐使用Ubuntu18.04到Ubuntu22.04（Debian13以下，推荐这两个版本）
+
+如果你的系统版本大于20.04,需要安装GCC9并设为默认：
+
+```shell
+sudo apt install gcc-9
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
+```
 
 :::
 #### 1.安装编译所需要的软件包
