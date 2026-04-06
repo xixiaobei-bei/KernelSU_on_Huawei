@@ -108,6 +108,7 @@ fastboot flash kernel <内核文件>
 - [x] 添加对ReSukiSU的支持
 - [x] 添加对SUSFS的支持
 - [x] 添加对KPM的支持(仅兼容基于EMUI9设备的内核)
+- [ ] 添加对ReSukiSU的多管理器支持
   
 # 贡献项目
 
