@@ -25,14 +25,14 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
 
 Run:
 
-```bash
+```shell
 sudo apt-get install libncurses5-dev libncurses-dev libssl-dev device-tree-compiler bc cpio lib32ncurses5-dev lib32z1 build-essential binutils bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev git python2
 
 ```
 
 #### 2. Obtain GCC
 
-```bash
+```shell
 git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
 
 ```
@@ -101,7 +101,7 @@ These contents need to be changed to the following format:
 
 Automatic replacement command:
 
-```bash
+```shell
 sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 /^CONFIG_HIVIEW_SELINUX=y$/c\# CONFIG_HIVIEW_SELINUX is not set
 /^CONFIG_HISI_SELINUX_EBITMAP_RO=y$/c\# CONFIG_HISI_SELINUX_EBITMAP_RO is not set
@@ -166,7 +166,7 @@ Change to
 
 #### 1. Pull Source Code
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
 ```
 
@@ -211,11 +211,11 @@ Refer to [this Github Commit](https://github.com/sticpaper/android_kernel_xiaomi
 
 :::code-group
 
-```bash[RKSU]
+```shell[RKSU]
 curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
 
-```bash[KernelSU-Next]
+```shell[KernelSU-Next]
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 
 ```
@@ -254,7 +254,7 @@ Refer to [this GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_
 
 ### 1.Pull the Source Code
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 ```
 
@@ -615,7 +615,7 @@ CONFIG_KSU_DEBUG=y
 
 ### 1.Pull the Sources Code
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
 ```
 
@@ -645,13 +645,13 @@ Even if your kernel version is lower than 4.19, you still need to use the versio
 
 ### 1.Set up default Python2
 
-```bash
+```shell
 sudo ln -sf /usr/bin/python2.7 /usr/bin/python
 ```
 
 ### 2.Set environment variables.
 
-```bash
+```shell
 export ARCH=arm64  
 export PATH=$PATH:<Path to your GCC>
 export CROSS_COMPILE=aarch64-linux-android-
@@ -661,7 +661,7 @@ export CROSS_COMPILE=aarch64-linux-android-
 
 Run this command on your kernel root：
 
-```bash
+```shell
 make ARCH=arm64 O=out <defconfig>(Only name,not path)  
 make ARCH=arm64 O=out -j8
 ```
@@ -684,8 +684,8 @@ Change`--os_patch_level 2020-01-01` to update the kernel build timestamp.
 
 Run：
 
-```bash
-bash pack_kernerimage_cmd.sh
+```shell
+sh pack_kernerimage_cmd.sh
 ```
 
 Then a kernel.img file will appear in the current directory. Flash it to the `kernel` partition using fastboot.

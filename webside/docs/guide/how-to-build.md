@@ -24,13 +24,13 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
 
 运行：
 
-```bash
+```shell
 sudo apt-get install libncurses5-dev libncurses-dev libssl-dev device-tree-compiler bc cpio lib32ncurses5-dev lib32z1 build-essential binutils bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev git python2
 ```
 
 #### 2.获取GCC
 
-```bash
+```shell
 git clone --depth=1 https://kkgithub.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
 ```
 
@@ -97,7 +97,7 @@ CONFIG_HWAA=y
 ```
 
 自动替换命令：
-```bash
+```shell
 sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 /^CONFIG_HIVIEW_SELINUX=y$/c\# CONFIG_HIVIEW_SELINUX is not set
 /^CONFIG_HISI_SELINUX_EBITMAP_RO=y$/c\# CONFIG_HISI_SELINUX_EBITMAP_RO is not set
@@ -159,7 +159,7 @@ CONFIG_DM_VERITY_AVB=y
 
 #### 1.拉取源码
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
 ```
 
@@ -204,11 +204,11 @@ CONFIG_KSU_DEBUG=y
 
 :::code-group
 
-```bash[RKSU]
+```shell[RKSU]
 curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
 ```
 
-```bash[KernelSU-Next]
+```shell[KernelSU-Next]
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 ```
 
@@ -246,7 +246,7 @@ CONFIG_KSU_DEBUG=y
 
 ### 1.拉取源码
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 ```
 
@@ -603,7 +603,7 @@ CONFIG_KSU_DEBUG=y
 
 ### 1.拉取源码
 
-```bash
+```shell
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
 ```
 
@@ -633,13 +633,13 @@ CONFIG_KSU_DEBUG=y
 
 #### 1.设定默认Python2
 
-```bash
+```shell
 sudo ln -sf /usr/bin/python2.7 /usr/bin/python
 ```
 
 #### 2.设置环境变量
 
-```bash
+```shell
 export ARCH=arm64  
 export PATH=$PATH:GCC编译工具下bin文件夹的绝对路径  
 export CROSS_COMPILE=aarch64-linux-android-
@@ -649,7 +649,7 @@ export CROSS_COMPILE=aarch64-linux-android-
 
 在内核源码目录输入命令：
 
-```bash
+```shell
 make ARCH=arm64 O=out defconfig配置文件名字(只要名字，不要路径)  
 make ARCH=arm64 O=out -j8
 ```
@@ -672,8 +672,8 @@ make ARCH=arm64 O=out -j8
 
 运行：
 
-```bash
-bash pack_kernerimage_cmd.sh
+```shell
+sh pack_kernerimage_cmd.sh
 ```
 
 然后本目录会多出一个kernel.img文件，fastboot刷入kernel分区即可
