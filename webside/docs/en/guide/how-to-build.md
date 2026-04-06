@@ -10,7 +10,14 @@ The website is under construction. It is not recommended to integrate on it at t
 
 :::warning
 
-Due to the global definition of yylloc in higher versions of Ubuntu/Debian, it is only recommended to use Ubuntu 20.04 or Ubuntu 18.04 (for Debian 13 and below, these two versions are recommended).
+Due to the global definition issue of `yylloc` in higher versions of Ubuntu/Debian, it is recommended to use only Ubuntu 18.04 to Ubuntu 22.04 (below Debian 13, these two versions are recommended).
+
+If your system version is greater than 20.04, you need to install GCC9 and set it as the default:
+
+```shell
+sudo apt install gcc-9
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100
+```
 
 :::
 
