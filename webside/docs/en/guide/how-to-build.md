@@ -246,10 +246,6 @@ CONFIG_KSU_DEBUG=y
 
 In addition, you can also backport path_umount via the [KernelSU offical webside](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) to enable the module unmount feature.
 
-#### 4.Modify hooks.c to enable modules
-
-Refer to [this GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
-
 ## Integrate SukiSU-Ultra
 
 ### 1.Pull the Source Code
