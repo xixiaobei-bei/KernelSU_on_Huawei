@@ -11,12 +11,12 @@ on:
         description: 'RKSU自定义集成命令'
         required: false
         type: string
-        default: 'curl -LSs "https://raw.githubusercontent.com/rsuntk/RKSU/next/kernel/setup.sh" | bash -s legacy'
+        default: 'curl -LSs "https://raw.githubusercontent.com/rsuntk/RKSU/next/kernel/setup.sh" | bash'
       sukisu_command:
         description: 'SukiSU-Ultra自定义集成命令'
         required: false
         type: string
-        default: 'curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/next/kernel/setup.sh" | bash -s legacy'
+        default: 'curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/next/kernel/setup.sh" | bash -s builtin'
 
 jobs:
   build:
