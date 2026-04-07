@@ -115,10 +115,6 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
-          MHA_HarmonyOS2.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
           DUK_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
@@ -193,7 +189,7 @@ jobs:
         if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
           rm -rf KernelSU-Next
-          ￥{ { github.event.inputs.ksunext_command } }
+          ${{ github.event.inputs.ksunext_command }}
         elif [[ "$BRANCH" == *"KernelSU"* ]]; then
           echo "Branch contains KernelSU: running KernelSU main setup"
           rm -rf KernelSU
@@ -201,11 +197,11 @@ jobs:
         elif [[ "$BRANCH" == *"RKSU"* ]]; then
           echo "Branch contains RKSU: running RKSU setup"
           rm -rf KernelSU
-          ￥{ { github.event.inputs.rksu_command } }
+          ${{ github.event.inputs.rksu_command }}
         elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
           echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
           rm -rf KernelSU
-          ￥{ { github.event.inputs.sukisu_command } }
+          ${{ github.event.inputs.sukisu_command }}
           cd KernelSU
           git reset --hard 4a0c01e
         elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
