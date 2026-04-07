@@ -289,7 +289,7 @@ cd KernelSU
 Revert the commit:
 
 ```shell
-git reset --hard 4a394d0
+git reset --hard 4a0c01e
 ```
 
 ### 3.Apply patches
