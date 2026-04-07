@@ -17,6 +17,16 @@ on:
         required: false
         type: string
         default: 'curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/next/kernel/setup.sh" | bash -s builtin'
+      selected_branches:
+        description: '要编译的分支名称，多个用英文逗号分隔（留空表示全部）'
+        required: false
+        type: string
+        default: ''
+      enable_pm:
+        description: '是否编译PM版本'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -54,230 +64,280 @@ jobs:
           - STK_EMUI9.1_RKSU
           - INE_EMUI9.1_RKSU
         pm: [false, true]
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ matrix.branch }}
-        submodules: false
-        fetch-depth: 1
-        lfs: false
+      - name: Check branch selection
+        id: check_branch
+        run: |
+          SELECTED="${{ github.event.inputs.selected_branches }}"
+          CURRENT="${{ matrix.branch }}"
+          if [ -z "$SELECTED" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            if echo "$SELECTED" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -qxF "$CURRENT"; then
+              echo "skip=false" >> $GITHUB_OUTPUT
+            else
+              echo "skip=true" >> $GITHUB_OUTPUT
+            fi
+          fi
 
-    - name: Set build vars
-      run: |
-        if [ "${{ matrix.pm }}" = "true" ]; then
-          echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
-        else
-          echo "PM_SUFFIX=" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
-        fi
+      - name: Check PM mode selection
+        id: check_pm
+        run: |
+          ENABLE_PM="${{ github.event.inputs.enable_pm }}"
+          CURRENT_PM="${{ matrix.pm }}"
+          if [ "$ENABLE_PM" = "true" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            if [ "$CURRENT_PM" = "true" ]; then
+              echo "skip=true" >> $GITHUB_OUTPUT
+            else
+              echo "skip=false" >> $GITHUB_OUTPUT
+            fi
+          fi
 
-        BRANCH='${{ matrix.branch }}'
-        case "$BRANCH" in
-          MHA_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_RKSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_EMUI9.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_KernelSU-Next)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_SukiSU-Ultra)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_RKSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          MHA_HarmonyOS2.0_ReSukiSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          DUK_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VCE_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VCE_EMUI9.0_SukiSU-Ultra)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VTR_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VTR_EMUI9.1_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          VTR_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          JKM_EMUI9.1_KernelSU)
-            DEFCONFIG="merge_kirin710_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          JKM_HarmonyOS2.0_KernelSU)
-            DEFCONFIG="merge_kirin710_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          STF_EMUI9.0_KernelSU)
-            DEFCONFIG="merge_hi3660_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          STK_EMUI9.1_RKSU)
-            DEFCONFIG="merge_kirin710_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-          INE_EMUI9.1_RKSU)
-            DEFCONFIG="merge_kirin710_defconfig"
-            os_version="9"
-            tool="gcc" ;;
-        esac
+      - name: Combine skip conditions
+        id: should_skip
+        run: |
+          if [ "${{ steps.check_branch.outputs.skip }}" = "true" ] || [ "${{ steps.check_pm.outputs.skip }}" = "true" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
 
-        if [ -z "$DEFCONFIG" ]; then
-          echo "::error::DEFCONFIG is empty for branch $BRANCH. Please set mapping in workflow 'Set build vars' step." >&2
-          exit 1
-        fi
+      - name: Skip this job due to user selection
+        if: steps.should_skip.outputs.skip == 'true'
+        run: |
+          echo "Skipping branch ${{ matrix.branch }} (pm=${{ matrix.pm }}) because it does not match user selection."
+          exit 0
 
-        echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
-        echo "os_version=$os_version" >> $GITHUB_ENV
-        echo "tool=$tool" >> $GITHUB_ENV
+      - name: Checkout
+        if: steps.should_skip.outputs.skip != 'true'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ matrix.branch }}
+          submodules: false
+          fetch-depth: 1
+          lfs: false
 
-    - name: Install dependencies
-      run: |
-        ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-        apt-get update -y 
-        apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
+      - name: Set build vars
+        if: steps.should_skip.outputs.skip != 'true'
+        run: |
+          if [ "${{ matrix.pm }}" = "true" ]; then
+            echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
+          else
+            echo "PM_SUFFIX=" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
+          fi
 
-        if [[ "$tool" == "gcc" ]]; then
-          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-        elif [[ "$tool" == "clang-r346389c" ]]; then
-          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-          git clone -b android10-release --single-branch --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/
-        fi
+          BRANCH='${{ matrix.branch }}'
+          case "$BRANCH" in
+            MHA_EMUI9.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_EMUI9.0_KernelSU-Next)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_EMUI9.0_SukiSU-Ultra)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_EMUI9.0_RKSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_EMUI9.0_ReSukiSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_HarmonyOS2.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_HarmonyOS2.0_KernelSU-Next)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_HarmonyOS2.0_SukiSU-Ultra)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_HarmonyOS2.0_RKSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            MHA_HarmonyOS2.0_ReSukiSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            DUK_HarmonyOS2.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            VCE_EMUI9.0_KernelSU)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            VCE_EMUI9.0_SukiSU-Ultra)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            VTR_EMUI9.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            VTR_EMUI9.1_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            VTR_HarmonyOS2.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            JKM_EMUI9.1_KernelSU)
+              DEFCONFIG="merge_kirin710_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            JKM_HarmonyOS2.0_KernelSU)
+              DEFCONFIG="merge_kirin710_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            STF_EMUI9.0_KernelSU)
+              DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            STK_EMUI9.1_RKSU)
+              DEFCONFIG="merge_kirin710_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            INE_EMUI9.1_RKSU)
+              DEFCONFIG="merge_kirin710_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+          esac
 
-    - name: Prepare KernelSU sources (branch-specific)
-      run: |
-        BRANCH='${{ matrix.branch }}'
-        if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
-          echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
-          rm -rf KernelSU-Next
-          ${{ github.event.inputs.ksunext_command }}
-        elif [[ "$BRANCH" == *"KernelSU"* ]]; then
-          echo "Branch contains KernelSU: running KernelSU main setup"
-          rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
-        elif [[ "$BRANCH" == *"RKSU"* ]]; then
-          echo "Branch contains RKSU: running RKSU setup"
-          rm -rf KernelSU
-          ${{ github.event.inputs.rksu_command }}
-        elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
-          echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
-          rm -rf KernelSU
-          ${{ github.event.inputs.sukisu_command }}
-          cd KernelSU
-          git reset --hard 4a0c01e
-        elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
-          echo "Branch contains ReSukiSU: running ReSukiSU setup"
-          rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+          if [ -z "$DEFCONFIG" ]; then
+            echo "::error::DEFCONFIG is empty for branch $BRANCH. Please set mapping in workflow 'Set build vars' step." >&2
+            exit 1
+          fi
 
-        else
-          echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
-        fi
+          echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
+          echo "os_version=$os_version" >> $GITHUB_ENV
+          echo "tool=$tool" >> $GITHUB_ENV
 
-    - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
-      run: |
+      - name: Install dependencies
+        if: steps.should_skip.outputs.skip != 'true'
+        run: |
+          ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+          apt-get update -y 
+          apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
 
-        CURRENT_DATE=$(date +'%Y-%m-%d')
-        if [ "${{ matrix.pm }}" = "true" ]; then
-          SELINUX_MODE="permissive"
-        else
-          SELINUX_MODE="enforcing"
-        fi
+          if [[ "$tool" == "gcc" ]]; then
+            git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
+          elif [[ "$tool" == "clang-r346389c" ]]; then
+            git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
+            git clone -b android10-release --single-branch --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/
+          fi
 
-        echo kernel:${SELINUX_MODE}
-        echo os_version:$os_version
-        echo tool:$tool
-        echo time:$CURRENT_DATE
+      - name: Prepare KernelSU sources (branch-specific)
+        if: steps.should_skip.outputs.skip != 'true'
+        run: |
+          BRANCH='${{ matrix.branch }}'
+          if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+            echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
+            rm -rf KernelSU-Next
+            ${{ github.event.inputs.ksunext_command }}
+          elif [[ "$BRANCH" == *"KernelSU"* ]]; then
+            echo "Branch contains KernelSU: running KernelSU main setup"
+            rm -rf KernelSU
+            curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
+          elif [[ "$BRANCH" == *"RKSU"* ]]; then
+            echo "Branch contains RKSU: running RKSU setup"
+            rm -rf KernelSU
+            ${{ github.event.inputs.rksu_command }}
+          elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
+            echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
+            rm -rf KernelSU
+            ${{ github.event.inputs.sukisu_command }}
+            cd KernelSU
+            git reset --hard 4a0c01e
+          elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+            echo "Branch contains ReSukiSU: running ReSukiSU setup"
+            rm -rf KernelSU
+            curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+          else
+            echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
+          fi
 
-        sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+      - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
+        if: steps.should_skip.outputs.skip != 'true'
+        run: |
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          if [ "${{ matrix.pm }}" = "true" ]; then
+            SELINUX_MODE="permissive"
+          else
+            SELINUX_MODE="enforcing"
+          fi
 
-        if [ -d include/config ]; then
-          echo "Find config, will remove it"
-          rm -rf include/config
-        else
-          echo "No Config, good."
-        fi
+          echo kernel:${SELINUX_MODE}
+          echo os_version:$os_version
+          echo tool:$tool
+          echo time:$CURRENT_DATE
 
-        if [[ "$tool" == "gcc" ]]; then
-          export ARCH=arm64
-          export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
-          export CROSS_COMPILE=aarch64-linux-android-
-        elif [[ "$tool" == "clang" ]]; then
-          export ARCH=arm64
-          export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
-          export CROSS_COMPILE=aarch64-linux-android-
-          export KCFLAGS="-Wno-error -D__aarch64__ -fno-pic -no-integrated-as"
-          export AFLAGS="-no-integrated-as"
-          sudo chmod -R 777 $(pwd)/
-        fi
+          sudo ln -sf /usr/bin/python2.7 /usr/bin/python
 
-        if [ "${{ matrix.pm }}" = "true" ]; then
-          sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
-          sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
-        fi
+          if [ -d include/config ]; then
+            echo "Find config, will remove it"
+            rm -rf include/config
+          else
+            echo "No Config, good."
+          fi
 
-        BRANCH='${{ matrix.branch }}'
-        if [[ "$BRANCH" == *"ReSukiSU"* ]]; then
-          export CONFIG_KSU_MANUAL_HOOK=y
-        elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
-          export CONFIG_KSU_MANUAL_HOOK=y
-        fi
-        make clean
-        make distclean
-        make mrproper
-        rm -rf out
-        make ARCH=arm64 O=out "${DEFCONFIG}"
-        make ARCH=arm64 O=out -j$(nproc --all)
+          if [[ "$tool" == "gcc" ]]; then
+            export ARCH=arm64
+            export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+            export CROSS_COMPILE=aarch64-linux-android-
+          elif [[ "$tool" == "clang" ]]; then
+            export ARCH=arm64
+            export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+            export CROSS_COMPILE=aarch64-linux-android-
+            export KCFLAGS="-Wno-error -D__aarch64__ -fno-pic -no-integrated-as"
+            export AFLAGS="-no-integrated-as"
+            sudo chmod -R 777 $(pwd)/
+          fi
 
-        if [ "$os_version" = "9" ]; then
-          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
-        elif [ "$os_version" = "8" ]; then
-          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
-        elif [ "$os_version" = "10" ]; then
-          tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
-        fi
+          if [ "${{ matrix.pm }}" = "true" ]; then
+            sed -i 's/^# CONFIG_SECURITY_SELINUX_DEVELOP is not set$/CONFIG_SECURITY_SELINUX_DEVELOP=y/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
+            sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
+          fi
 
-    - name: Upload Kernel Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-        path: "${{ env.ARTIFACT_NAME }}.img"
+          BRANCH='${{ matrix.branch }}'
+          if [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+            export CONFIG_KSU_MANUAL_HOOK=y
+          elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+            export CONFIG_KSU_MANUAL_HOOK=y
+          fi
+          make clean
+          make distclean
+          make mrproper
+          rm -rf out
+          make ARCH=arm64 O=out "${DEFCONFIG}"
+          make ARCH=arm64 O=out -j$(nproc --all)
+
+          if [ "$os_version" = "9" ]; then
+            tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
+          elif [ "$os_version" = "8" ]; then
+            tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x400000 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --os_version 8.0.0 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+          elif [ "$os_version" = "10" ]; then
+            tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE  --output ${ARTIFACT_NAME}.img
+          fi
+
+      - name: Upload Kernel Artifact
+        if: steps.should_skip.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: "${{ env.ARTIFACT_NAME }}.img"
