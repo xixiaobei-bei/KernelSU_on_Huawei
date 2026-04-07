@@ -590,6 +590,12 @@ CONFIG_KSU_MANUAL_SU=y
 CONFIG_KSU_DEBUG=y
 ```
 
+:::tip
+
+SukiSU-Ultra在EMUI系统上无法获取root，你需要使用其他系统。
+
+:::
+
 ## 集成ReSukiSU
 
 ### 1.拉取源码

@@ -601,6 +601,12 @@ CONFIG_KSU_DEBUG=y
 CONFIG_KSU_DEBUG=y
 ```
 
+:::tip
+
+SukiSU-Ultra cannot obtain root on EMUI systems, you need to use another system.
+
+:::
+
 ## Integrate ReSukiSU
 
 ### 1.Pull the Sources Code
