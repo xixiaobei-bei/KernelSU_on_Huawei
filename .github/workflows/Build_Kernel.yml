@@ -1,6 +1,13 @@
 ﻿name: Build_Kernel_Release
+run-name: "${{ github.event.inputs.version }} - Release"
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号'
+        required: true
+        type: string
+        default: 'Build_Kernel_Release'
 
 jobs:
   build:
@@ -291,6 +298,8 @@ jobs:
       - name: Draft a new Release and upload files
         uses: softprops/action-gh-release@v2
         with:
+          name: ${{ github.event.inputs.version }}
+          tag_name: ${{ github.event.inputs.version }}
           files: ./all-artifacts/**/*.img
           draft: true
         env:
