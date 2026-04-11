@@ -316,13 +316,6 @@ jobs:
             sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
           fi
 
-          BRANCH='${{ matrix.branch }}'
-          if [[ "$BRANCH" == *"ReSukiSU"* ]]; then
-            export CONFIG_KSU_MANUAL_HOOK=y
-          elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
-            export CONFIG_KSU_MANUAL_HOOK=y
-          fi
-
           make mrproper
           rm -rf out
           make ARCH=arm64 O=out "${DEFCONFIG}"
