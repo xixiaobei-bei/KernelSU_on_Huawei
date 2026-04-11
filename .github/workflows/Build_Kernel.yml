@@ -266,6 +266,7 @@ jobs:
 
           if [ -f "oImage" ]; then
               echo "检测到 oImage，替换原 Image..."
+              rm -rf Image.gz
               mv -f oImage Image
           fi
 
