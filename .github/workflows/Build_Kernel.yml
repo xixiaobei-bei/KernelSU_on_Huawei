@@ -254,8 +254,7 @@ jobs:
         elif [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
           export CONFIG_KSU_MANUAL_HOOK=y
         fi
-        make clean
-        make distclean
+
         make mrproper
         rm -rf out
         make ARCH=arm64 O=out "${DEFCONFIG}"
