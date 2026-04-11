@@ -233,7 +233,7 @@ jobs:
         run: |
           ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
           apt-get update -y 
-          apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
+          apt install --no-install-recommends bash sudo binutils make python2 libssl-dev flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev gh -y
 
           if [[ "$tool" == "gcc" ]]; then
             git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
@@ -273,6 +273,8 @@ jobs:
           fi
 
       - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: steps.should_skip.outputs.skip != 'true'
         run: |
           CURRENT_DATE=$(date +'%Y-%m-%d')
@@ -326,6 +328,32 @@ jobs:
           rm -rf out
           make ARCH=arm64 O=out "${DEFCONFIG}"
           make ARCH=arm64 O=out -j$(nproc --all)
+
+          if grep -q "CONFIG_KPM=y" "out/.config"; then
+            echo "==========================================="
+            echo "检测到 CONFIG_KPM=y，准备进行内核修补..."
+
+            cd ./out/arch/arm64/boot/
+            gh release download --repo SukiSU-Ultra/SukiSU_KernelPatch_patch --pattern "patch_linux"
+            chmod 777 ./patch_linux
+
+            echo "正在运行 patch_linux 工具..."
+            ./patch_linux
+
+            if [ -f "oImage" ]; then
+                echo "检测到 oImage，替换原 Image..."
+                mv -f oImage Image
+            fi
+
+            echo "正在重新压缩为 Image.gz..."
+            gzip -k Image Image.gz
+
+            cd ../../../../
+
+            echo "==========================================="
+          else
+            echo "未检测到 CONFIG_KPM 开启，跳过 KPM 修补流程。"
+          fi
 
           if [ "$os_version" = "9" ]; then
             tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img
