@@ -237,9 +237,18 @@ jobs:
 
           if [[ "$tool" == "gcc" ]]; then
             git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-          elif [[ "$tool" == "clang-r346389c" ]]; then
-            git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-            git clone -b android10-release --single-branch --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/
+          elif [[ "$tool" == "clang" ]]; then
+            git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
+            cd aarch64-linux-android-4.9
+            git checkout 84fb09fafc92a3d9b4d160f049d46c3c784cc941
+            cd ..
+            git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
+            cd arm-linux-androideabi-4.9
+            git checkout 5a8beef7b1aa2c8ca0dfe4a00358559d12dfa3b6
+            cd ..
+            git clone https://android.googlesource.com/platform//prebuilts/clang/host/linux-x86
+            cd linux-x86
+            git checkout 3f889f9c9d42bae85728fa89ba5f92a01704fd83
           fi
 
       - name: Prepare KernelSU sources (branch-specific)
@@ -303,12 +312,10 @@ jobs:
             export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
             export CROSS_COMPILE=aarch64-linux-android-
           elif [[ "$tool" == "clang" ]]; then
-            export ARCH=arm64
-            export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+            export CLANG_PREBUILTS_PATH=$(pwd)/linux-x86/clang-r346389c/
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/linux-x86/clang-r346389c/lib64/
             export CROSS_COMPILE=aarch64-linux-android-
-            export KCFLAGS="-Wno-error -D__aarch64__ -fno-pic -no-integrated-as"
-            export AFLAGS="-no-integrated-as"
-            sudo chmod -R 777 $(pwd)/
+            export ARCH=arm64
           fi
 
           if [ "${{ matrix.pm }}" = "true" ]; then
@@ -318,8 +325,14 @@ jobs:
 
           make mrproper
           rm -rf out
-          make ARCH=arm64 O=out "${DEFCONFIG}"
-          make ARCH=arm64 O=out -j$(nproc --all)
+
+          if [[ "$tool" == "gcc" ]]; then
+            make ARCH=arm64 O=out "${DEFCONFIG}"
+            make ARCH=arm64 O=out -j$(nproc --all)
+          elif [[ "$tool" == "clang" ]]; then
+            make ARCH=arm64 O=out CC="ccache clang" "${DEFCONFIG}"
+            make ARCH=arm64 O=out CC="ccache clang" -j$(nproc --all)
+          fi
 
           if grep -q "CONFIG_KPM=y" "out/.config"; then
             echo "==========================================="
