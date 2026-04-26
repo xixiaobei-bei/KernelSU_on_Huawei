@@ -22,7 +22,7 @@ I will expedite the adaptation process.
 
 ## Self-adaptation.
 
-Refer to [How to Build](/en/guide/how-to-intergrate-kernelsu.md) to build a bootable kernel. Then, package it with your GitHub or other platform account and send it to my email address:
+Refer to [How to intergrate KernelSU without SuSFS](/en/guide/how-to-intergrate-kernelsu.md) or [How to intergrate KernelSU with SuSFS](/en/guide/how-to-intergrate-susfs-and-kpm.md) to build a bootable kernel. Then, package it with your GitHub or other platform account and send it to my email address:
 
 jiaxi120516@outlook.com
 

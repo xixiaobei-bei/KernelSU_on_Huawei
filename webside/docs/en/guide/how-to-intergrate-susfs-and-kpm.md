@@ -5,7 +5,7 @@ Supports v4.14.xxx (EMUI 10+) and v4.9.xxx (EMUI 9+).
 
 Currently compatible with ReSukiSU, integrating Susfs v2.0.0 and the backport patch. If using this patch, you don't need to integrate any of the above hooks. Susfs uses its own inline hooks.  
 
-How to integrate Susfs?  
+How to integrate KernelSU with SuSFS?  
 Go to the Susfs_Patches folder in this repository and select the patch according to the corresponding kernel version.  
 
 Copy the patch to the source code root directory. Taking the v4.14 patch as an example, enter the following in the terminal: `git apply --reject 0001-susfs-Add-Susfs-v2.0.0-and-inline-hooks.patch`  
