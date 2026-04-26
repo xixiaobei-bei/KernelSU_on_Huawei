@@ -65,7 +65,7 @@ jobs:
           - STF_EMUI9.0_KernelSU
           - STK_EMUI9.1_RKSU
           - INE_EMUI9.1_RKSU
-          - CDY_HarmonyOS2.0_RKSU
+          - CDY_HarmonyOS2.0_KernelSU
         pm: [false, true]
 
     steps:
@@ -228,7 +228,7 @@ jobs:
               DEFCONFIG="merge_kirin710_defconfig"
               os_version="9"
               tool="gcc" ;;
-            CDY_HarmonyOS2.0_RKSU)
+            CDY_HarmonyOS2.0_KernelSU)
               DEFCONFIG="merge_denver_defconfig"
               os_version="10"
               tool="clang" ;;
