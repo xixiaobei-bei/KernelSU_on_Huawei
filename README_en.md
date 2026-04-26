@@ -80,16 +80,18 @@ After the device reboots, install the corresponding manager to obtain Root acces
 
 # Supported Devices
 
-- [x] Mate 9 series(MHA)
-- [ ] Mate 10 Pro series(BLA)(testing)([More links](https://github.com/Coconutat/android_kernel_huawei_blanc))
-- [ ] Mate 10 series(ALP)(testing)
-- [x] P10 Series (VTR) --- ([More links](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2))
-- [x] HONOR V9 series(DUK)
-- [x] HONOR 9 series(STF)
-- [x] Nova 4 series(VCE)
-- [x] Nova 3i series(INE)
-- [x] Nova Y 9 series(JKM)
-- [x] Nova Y 10 Plus series(STK)
+|Model Name|Model Code|Supported Systems|Support Status|
+|:---:|:---:|:---:|:---:|:---:|
+|Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|None|
+|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
+|Mate10 Series (Under Testing)|ALP|EMUI 9.0|KernelSU|None|
+|P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
+|Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
+|Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
+|Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
+|Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
+|Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
+|Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
   
 ### More devices coming...
 

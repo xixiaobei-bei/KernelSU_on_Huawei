@@ -84,17 +84,18 @@ fastboot flash kernel <内核文件>
 >
 
 # 支持设备
-
-- [x] Mate9 系列(MHA)
-- [ ] Mate10 Pro 系列(BLA)(测试中)([更多链接](https://github.com/Coconutat/android_kernel_huawei_blanc))
-- [ ] Mate10 系列(ALP)(测试中)
-- [x] P10 系列(VTR)([更多链接](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2))
-- [x] 荣耀V9 系列 (DUK)
-- [x] 荣耀9 系列 (STF)
-- [x] Nova4 系列(VCE)
-- [x] Nova3i 系列(INE)
-- [x] 畅想9 Plus系列(JKM)
-- [x] 畅想10 Plus系列(STK)
+|机型名称|机型代码|支持系统|支持情况|更多链接|
+|:---:|:---:|:---:|:---:|:---:|
+|Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
+|Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
+|Mate10 系列(测试中)|ALP|EMUI9.0|KernelSU|无|
+|P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
+|荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
+|荣耀9 系列|STF|EMUI9.0|KernelSU|无|
+|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
+|Nova 3i 系列|INE|EMUI9.1|RKSU|无|
+|畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
+|畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
   
 ### 持续更新中...
 
