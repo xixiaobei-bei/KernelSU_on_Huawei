@@ -170,17 +170,22 @@ jobs:
         if [[ "$tool" == "gcc" ]]; then
           git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
         elif [[ "$tool" == "clang" ]]; then
+          mkdir -p prebuilts/gcc/linux-x86/aarch64
+          mkdir -p prebuilts/gcc/linux-x86/arm
+          mkdir -p prebuilts/clang/host/
+          cd prebuilts/gcc/linux-x86/aarch64
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
           cd aarch64-linux-android-4.9
           git checkout 84fb09fafc92a3d9b4d160f049d46c3c784cc941
-          cd ..
+          cd ../arm
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
           cd arm-linux-androideabi-4.9
           git checkout 5a8beef7b1aa2c8ca0dfe4a00358559d12dfa3b6
-          cd ..
-          git clone https://android.googlesource.com/platform//prebuilts/clang/host/linux-x86
+          cd ../../../clang/host/
+          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86
           cd linux-x86
           git checkout 3f889f9c9d42bae85728fa89ba5f92a01704fd83
+          cd ../../../../
         fi
 
     - name: Prepare KernelSU sources (branch-specific)
