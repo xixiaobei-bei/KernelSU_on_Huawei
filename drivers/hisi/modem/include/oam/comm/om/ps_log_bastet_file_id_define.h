@@ -1,0 +1,176 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2012-2020. All rights reserved.
+ * foss@huawei.com
+ *
+ * If distributed as part of the Linux kernel, the following license terms
+ * apply:
+ *
+ * * This program is free software; you can redistribute it and/or modify
+ * * it under the terms of the GNU General Public License version 2 and
+ * * only version 2 as published by the Free Software Foundation.
+ * *
+ * * This program is distributed in the hope that it will be useful,
+ * * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * * GNU General Public License for more details.
+ * *
+ * * You should have received a copy of the GNU General Public License
+ * * along with this program; if not, write to the Free Software
+ * * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA
+ *
+ * Otherwise, the following license terms apply:
+ *
+ * * Redistribution and use in source and binary forms, with or without
+ * * modification, are permitted provided that the following conditions
+ * * are met:
+ * * 1) Redistributions of source code must retain the above copyright
+ * *    notice, this list of conditions and the following disclaimer.
+ * * 2) Redistributions in binary form must reproduce the above copyright
+ * *    notice, this list of conditions and the following disclaimer in the
+ * *    documentation and/or other materials provided with the distribution.
+ * * 3) Neither the name of Huawei nor the names of its contributors may
+ * *    be used to endorse or promote products derived from this software
+ * *    without specific prior written permission.
+ *
+ * * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+#ifndef PS_LOG_BASTET_FILE_ID_DEFINE_H
+#define PS_LOG_BASTET_FILE_ID_DEFINE_H
+
+#include "ps_log_file_id_base.h"
+
+#ifdef __cplusplus
+#if __cplusplus
+extern "C"{
+#endif
+#endif /* __cplusplus */
+
+typedef enum
+{
+    PS_FILE_ID_BST_SRV_TASKMNG_CPP                  = BST_TEAM_FILE_ID,
+    PS_FILE_ID_BST_SRV_EVENT_CPP,
+    PS_FILE_ID_BST_SRV_ASEVNT_CPP,
+    PS_FILE_ID_BST_SRV_ASCTRL_CPP,
+    PS_FILE_ID_BST_SRV_CHNL_CTRL_CPP,
+    PS_FILE_ID_BST_PLATFORM_C,
+    PS_FILE_ID_BST_PAL_TIMER_C,
+    PS_FILE_ID_BST_PAL_THREAD_C,
+    PS_FILE_ID_BST_PAL_SYNC_C,
+    PS_FILE_ID_BST_PAL_NET_C,
+    PS_FILE_ID_BST_PAL_MEMORY_C,
+    PS_FILE_ID_BST_PAL_AS_C,
+    PS_FILE_ID_BST_PAL_ACOM_C,
+    PS_FILE_ID_BST_PAL_LINK_STA_C,
+    PS_FILE_ID_BST_OS_TIMER_CPP,
+    PS_FILE_ID_BST_OS_THREAD_C,
+    PS_FILE_ID_BST_OS_SYNC_C,
+    PS_FILE_ID_BST_OS_MEMORY_C,
+    PS_FILE_ID_BST_OS_LOG_C,
+    PS_FILE_ID_BST_DRV_NET_C,
+    PS_FILE_ID_BST_DRV_AS_C,
+    PS_FILE_ID_BST_DRV_ACOM_C,
+    PS_FILE_ID_BST_DRV_LINKSTA_C,
+    PS_FILE_ID_BST_DRV_CSFIREWALL_C,
+    PS_FILE_ID_BST_DRV_ASPEN_C,
+    PS_FILE_ID_BST_IP_SOCKETCLONE_C,
+    PS_FILE_ID_BST_IP_PREPROC_C,
+    PS_FILE_ID_BST_IP_SOCKET_CPP,
+    PS_FILE_ID_BST_IP_RCVERMNG_CPP,
+    PS_FILE_ID_BST_IP_LWIPAPI_CPP,
+    PS_FILE_ID_BST_DSPP_TRSLAYER_CPP,
+    PS_FILE_ID_BST_DSPP_REPORT_CPP,
+    PS_FILE_ID_BST_DSPP_LAYERPROCBASE_CPP,
+    PS_FILE_ID_BST_DSPP_CTRLAYER_CPP,
+    PS_FILE_ID_BST_DSPP_APPLAYER_CPP,
+    PS_FILE_ID_BST_LIB_STRINT8U_CPP,
+    PS_FILE_ID_BST_LIB_STRINGCHECK_CPP,
+    PS_FILE_ID_BST_LIB_SN_GENERATE_H,
+    PS_FILE_ID_BST_CORE_TASK_CPP,
+    PS_FILE_ID_BST_CORE_SCHD_CPP,
+    PS_FILE_ID_BST_CORE_PTASK_CPP,
+    PS_FILE_ID_BST_CORE_NPTASK_CPP,
+    PS_FILE_ID_BST_CORE_REGISTRYTBLMNG_CPP,
+    PS_FILE_ID_BST_CORE_REGEDIT_CPP,
+    PS_FILE_ID_BST_APP_HEARTBEAT_CPP,
+    PS_FILE_ID_BST_APP_EMAILPOP3_CPP,
+    PS_FILE_ID_BST_APP_EMAILIMAP_CPP,
+    PS_FILE_ID_BST_APP_EMAILEXCHANGE_CPP,
+    PS_FILE_ID_BST_APP_EMAILEXCGHTTP_CPP,
+    PS_FILE_ID_BST_APP_EMAILBASEPROC_CPP,
+    PS_FILE_ID_BST_APP_MAINTASK_CPP,
+    PS_FILE_ID_BST_LWIP_SYS_ARCH_C,
+    PS_FILE_ID_BST_LWIP_PBUF_C,
+    PS_FILE_ID_BST_PAL_FILE_C,
+    PS_FILE_ID_BST_PAL_LIST_LIB_C,
+    PS_FILE_ID_BST_MSGPROC_C,
+    PS_FILE_ID_CDS_BST_PROC_C,
+    PS_FILE_ID_BST_SYSMNTN_C,
+    PS_FILE_ID_BST_COMM_C,
+    PS_FILE_ID_BST_INIT_C,
+    PS_FILE_ID_BST_OS_OPENSSL_MEM_C,
+    PS_FILE_ID_BST_PAL_OPENSSL_GETSERVBY_C,
+    PS_FILE_ID_BST_PAL_OPENSSL_FILE_C,
+    PS_FILE_ID_BST_PAL_LOG_C,
+    PS_FILE_ID_BST_PAL_EMCOM_C,
+    PS_FILE_ID_MN_BASTET_C,
+    PS_FILE_ID_BST_SRV_HB_DETECTOR_CPP,
+    PS_FILE_ID_BST_OL_OM_C,
+    PS_FILE_ID_BST_OL_MSGPROC_C,
+    PS_FILE_ID_BST_OL_TLV_C,
+    PS_FILE_ID_BST_OL_STRUCTURINGSTREAM_C,
+    PS_FILE_ID_BST_OL_STRINGLIB_C,
+    PS_FILE_ID_BST_OL_STDLIB_C,
+    PS_FILE_ID_BST_POLICYCFG_C,
+    PS_FILE_ID_BST_POLICYSET_C,
+    PS_FILE_ID_BST_OL_DOL_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_UNSOL_C,
+    PS_FILE_ID_BST_OL_DOL_PLCY_AUTH_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_PLCY_ALGO_C,
+    PS_FILE_ID_BST_OL_DOL_PLCY_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_PLCY_COMM_C,
+    PS_FILE_ID_BST_OL_DOL_RRM_CONTROL_C,
+    PS_FILE_ID_BST_OL_DOL_RRM_MANAGER_C,
+    PS_FILE_ID_BST_OL_PAL_MODEM_INFO_C,
+    PS_FILE_ID_BST_OL_PAL_MODEM_PROXY_C,
+    PS_FILE_ID_BST_OL_PAL_MODEM_AUTH_C,
+    PS_FILE_ID_BST_OL_PAL_MODEM_COMM_C,
+    PS_FILE_ID_BST_OL_PAL_GENERAL_MSG_PROXY_C,
+    PS_FILE_ID_BST_OL_DOL_INFO_CTRL_MANAGER_C,
+    PS_FILE_ID_BST_OL_TIMER_C,
+    PS_FILE_ID_BST_OL_PAL_REGISTER_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_DUALCARD_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_STATUS_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_STATUS_PROCESS_C,
+    PS_FILE_ID_BST_OL_DOL_CELLULAR_QOE_MANAGER_C,
+    PS_FILE_ID_BST_OL_DOL_CELLULAR_QOE_PROCESS_C,
+    PS_FILE_ID_BST_OL_DOL_RRM_RF_INFO_PROCESS_C,
+    PS_FILE_ID_BST_OL_DOL_SMARTCURE_MANAGER_C,
+    PS_FILE_ID_BST_OL_STATUS_MANAGER_C,
+    PS_FILE_ID_BST_OL_STATUS_PROCESS_C,
+    PS_FILE_ID_BST_OL_COL_MANAGER_C,
+    PS_FILE_ID_BST_OL_COL_UNSOL_C,
+} BASTET_FILE_ID_DEFINE_ENUM;
+typedef unsigned long  BASTET_FILE_ID_DEFINE_ENUM_UINT32;
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif /* __cplusplus */
+
+
+#endif
+
+

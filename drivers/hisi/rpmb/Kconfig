@@ -1,0 +1,72 @@
+
+menu "RPMB support"
+
+config VENDOR_RPMB
+	bool "rpmb"
+	default n
+	help
+	   config rpmb driver
+
+config RPMB_MMC
+	bool "rpmb mmc"
+	depends on VENDOR_RPMB && ZODIAC_MMC
+	default n
+	help
+	   config mmc rpmb driver
+
+config RPMB_UFS
+	bool "rpmb ufs"
+	depends on VENDOR_RPMB && SCSI_UFS_KIRIN
+	default n
+	help
+	   config ufs rpmb driver
+
+config RPMB_STORAGE_INTERFACE
+	bool "storage interface"
+	depends on VENDOR_RPMB
+	default n
+	help
+	   config rpmb storage interface
+
+config RPMB_SET_MULTI_KEY
+	bool "rpmb set multi key"
+	depends on VENDOR_RPMB
+	default n
+	help
+	   config rpmb set multi key
+
+config RPMB_DEBUG_FS
+	bool "rpmb debugfs"
+	depends on VENDOR_RPMB && HISI_DEBUG_FS
+	default n
+	help
+	   config rpmb debug
+
+config RPMB_TIME_DEBUG
+	bool "rpmb time debug"
+	depends on VENDOR_RPMB && HISI_DEBUG_FS
+	default n
+	help
+	   config rpmb time debug
+
+config RPMB_KEY_ENABLE
+	bool "rpmb key enable"
+	depends on VENDOR_RPMB
+	default n
+	help
+	   config rpmb key enable
+
+config RPMB_DMD_REPORT
+	bool "rpmb dmd report"
+	depends on VENDOR_RPMB
+	default n
+	help
+	   config rpmb dmd report
+
+config RPMB_REQ_LOCK_DISABLE
+	bool "rpmb req lock disable"
+	depends on VENDOR_RPMB
+	default n
+	help
+	   disable rpmb counter lock and cmd lock
+endmenu

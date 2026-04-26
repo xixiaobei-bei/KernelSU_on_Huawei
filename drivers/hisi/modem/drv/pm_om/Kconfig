@@ -1,0 +1,12 @@
+
+config PM_OM_BALONG
+	bool "balong pm om"
+	default n
+	help
+	support for pm om of balong
+
+config C_SR_STRESS_TEST
+	bool "ccore sr stress test"
+	default n
+	help
+	support for ccore sr stress test

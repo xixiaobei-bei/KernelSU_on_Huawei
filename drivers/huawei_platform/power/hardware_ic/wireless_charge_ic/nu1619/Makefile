@@ -1,0 +1,5 @@
+obj-$(CONFIG_WIRELESS_NU1619) += nu1619.o
+
+ifeq ($(TARGET_VERSION_MODE),factory)
+ccflags-y += -DWIRELESS_CHARGER_FACTORY_VERSION
+endif

@@ -1,0 +1,74 @@
+#
+# huawei switch capacitor for direct charge drivers
+#
+
+config SWITCHCAP
+	bool "switch_capacitor"
+	depends on DIRECT_CHARGER
+	default n
+	help
+	  Say Y here to enable switch capacitor driver.
+	  This driver provides a unified interface for switch capacitor.
+	  Support device:
+	  bq25970
+	  ltc7820
+	  rt9759
+
+config BQ25970
+	bool "bq25970_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable bq25970 driver.
+	  BQ25970 is a 97% efficient, 8-A battery charging solution using a
+	  switched cap architecture.
+	  This architecture and the integrated FETs are optimized to enable
+	  a 50% duty cycle.
+
+config RT9759
+	bool "rt9759_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable rt9759 driver.
+	  rt9759 is a high effiency and high charge current charger. The
+	  efficiency is up to 97.8% when VBAT = 4.2V, IBAT = 2.5A and the
+	  maximum charge current is up to 8A.
+
+config LTC7820
+	bool "ltc7820_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable ltc7820 driver.
+	  LTC7820 is a fixed ratio high voltage high power switched capacitor
+	  and charge pump controller.
+	  This device achieves a 2:1 step-down ratio form an input voltage as
+	  high as 72v.
+
+config SC8545
+	  bool "sc8545_for_direct_charge"
+	  depends on SWITCHCAP
+	  default n
+	  help
+	  Say Y here to enable sc8545 driver.
+	  sc8545 is a fixed ratio high voltage high power switched capacitor
+	  and low voltage loadswtich ic.
+
+config SM5450
+	bool "sm5450_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable sm5450 driver.
+	  sm5450 is a fixed ratio high voltage high power switched capacitor
+	  and low voltage loadswtich ic.
+
+config AW32280
+	bool "aw32280_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable aw32280 driver.
+	  aw32280 is a fixed ratio high voltage high power switched capacitor
+	  and low voltage loadswtich ic.

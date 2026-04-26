@@ -1,0 +1,12 @@
+#
+# huawei battery fault driver
+#
+
+config HUAWEI_BATTERY_FAULT
+	bool "huawei battery fault driver"
+	default n
+	help
+	  Say Y here to enable battery fault driver.
+	  This driver detects battery low voltage and other abnormalities,
+	  report corresponding DMD, and provides external interface to
+	  obtain current battery abnormal state.

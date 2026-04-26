@@ -1,0 +1,565 @@
+MODEM_DIR := $(srctree)/drivers/hisi/modem
+-include $(MODEM_DIR)/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config/balong_product_config.mk
+
+CC_USER_FLAGS   := -Werror
+
+ifeq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -Iarch/arm64/include/asm
+else
+EXTRA_CFLAGS += -Iarch/arm/include/asm
+endif
+EXTRA_CFLAGS += -Iinclude/linux
+EXTRA_CFLAGS += -Iinclude/generated
+
+ifeq ($(CFG_EXTRA_MODEM_MODE), FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/inc/
+
+#$(CFG_EXTRA_MODEM_MODE)
+else
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/med
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/tools
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/hing_phy_fs1/fess/bb
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/hing_phy_fs1/fess/comm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/adrv
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/osa
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/om/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/nvim/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/log/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/acore/cbtcpm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/acore/cbtscm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/om/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/ccore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/si/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/usimm/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/errno/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/socp/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/nvim/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/cpm/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/msp
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/msp
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/drv
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/drv
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/pam
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/sys
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/tl_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/tag/apss/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/nrps/ccore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/ltev/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/ltev/ccore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/nas/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/public/
+ifneq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa/
+else
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/msg
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa/fusion
+endif
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/inc/gu/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/comm/acore/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/comm/comm/ppm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/acore/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/acore/cbtcpm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/acore/cbtscm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/taf_api_lib/inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/framework/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/voice/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/test/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/ss/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/sms/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/sim/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/sat/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/phone/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/ltev/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/cdma/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/safety/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/general/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/data/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/stub/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/device/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/at/custom/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/log/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/dms/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/dms/dev/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/tafagent/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/tafapi/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/lib/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/msg_chk/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/rnic/driver/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/rnic/manager/inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/LOGFILTER/Inc/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/common/dms/cmux/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/netlink/
+
+ifneq ($(CFG_EXTRA_MODEM_MODE_MBB), FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/appvcom/inc/
+endif
+
+ifeq ($(CFG_FEATURE_DATA_SERVICE_NEW_PLATFORM), FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/ads_v2/driver/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/ads_v2/manager/inc/
+ifeq ($(CFG_FEATURE_PC5_DATA_CHANNEL), FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/ltev/driver/
+endif
+else
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/ads/inc/
+endif
+
+-include $(MODEM_DIR)/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config/balong_product_config.mk
+ifeq ($(CFG_FEATURE_BASTET), FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/tafnew/acore/bastet/inc/
+EXTRA_CFLAGS += -DCONFIG_HUAWEI_BASTET_COMM
+endif
+
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/lt/comm/sdm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/lt/comm/sda
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/lt/comm/diag
+
+#$(CFG_EXTRA_MODEM_MODE)
+endif
+
+
+ifneq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -D__LINUX_ARM_ARCH__=7 -march=armv7-a -Uarm
+endif
+
+
+EXTRA_CFLAGS +=  -DVOS_LINUX=4 -DOSA_CPU_ACPU=1 -DVOS_OS_VER=VOS_LINUX -DVOS_OSA_CPU=OSA_CPU_ACPU -D__LOG_RELEASE__ \
+				-DBSP_CORE_APP -DGU_MODE -DMSP_SUPPORT_USB_VCOM1 -DMSP_SUPPORT_USB_VCOM2 -DVOS_DOPRA_VER=2 -DNDIS_RELEASE \
+				-DBALONG_PHY_V200=2 -DBALONG_PHY_V300=3 -DBALONG_PHY_VER=BALONG_PHY_V300 -DBALONG_CHIP_V200=2 \
+				-DBALONG_CHIP_V300=3 -DBALONG_CHIP_V500=4 -DBALONG_CHIP_VER=BALONG_CHIP_V500 -DMSP_GUNAS_AT_UNITE -DVERSION_V3R2
+
+ifeq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -DVOS_SUPPORT_TSP
+endif
+
+EXTRA_CFLAGS += -DHAL_DIAG_SDM_USE
+
+
+#编译器相关的宏定义
+EXTRA_CFLAGS += -fsigned-char
+
+ifeq ($(CFG_EXTRA_MODEM_MODE), FEATURE_ON)
+
+taf-objs := acore/rnic/driver/rnic_dev_config.o
+taf-objs += acore/rnic/driver/rnic_dev_handle.o
+taf-objs += acore/rnic/driver/rnic_dev_main.o
+taf-objs += acore/rnic/driver/rnic_policy_manage.o
+
+#$(CFG_EXTRA_MODEM_MODE)
+else
+
+ifeq ($(CFG_FEATURE_DATA_SERVICE_NEW_PLATFORM), FEATURE_ON)
+taf-objs := acore/ads_v2/driver/ads_iface.o
+taf-objs += acore/ads_v2/driver/ads_iface_handle.o
+taf-objs += acore/ads_v2/driver/ads_iface_dpl.o
+taf-objs += acore/ads_v2/driver/ads_iface_filter.o
+ifeq ($(CFG_FEATURE_PC5_DATA_CHANNEL), FEATURE_ON)
+taf-objs += acore/ltev/driver/ltev_iface.o
+endif
+taf-objs += acore/ads_v2/manager/src/ads_iface_mgmt.o
+taf-objs += acore/ads_v2/manager/src/ads_main.o
+taf-objs += acore/ads_v2/manager/src/ads_mntn.o
+taf-objs += acore/ads_v2/manager/src/ads_msg_proc.o
+taf-objs += acore/ads_v2/manager/src/ads_timer.o
+else
+taf-objs := acore/ads/src/ads_ctx.o
+taf-objs += acore/ads/src/ads_down_link.o
+taf-objs += acore/ads/src/ads_init.o
+taf-objs += acore/ads/src/ads_timer_mgmt.o
+taf-objs += acore/ads/src/ads_up_link.o
+taf-objs += acore/ads/src/ads_debug.o
+taf-objs += acore/ads/src/ads_filter.o
+taf-objs += acore/ads/src/ads_mntn.o
+endif
+
+
+ifneq ($(CFG_EXTRA_MODEM_MODE_MBB), FEATURE_ON)
+ifeq ($(CFG_FEATURE_ACORE_MODULE_TO_CCORE), FEATURE_OFF)
+taf-objs += acore/appvcom/src/app_vcom_dev.o
+endif
+taf-objs += acore/rnic/driver/NetMgrCtrlVcom.o
+endif
+
+taf-objs += acore/rnic/driver/rnic_dev_config.o
+taf-objs += acore/rnic/driver/rnic_dev_handle.o
+taf-objs += acore/rnic/driver/rnic_dev_main.o
+taf-objs += acore/rnic/driver/rnic_ondemand.o
+taf-objs += acore/rnic/driver/rnic_policy_manage.o
+taf-objs += acore/rnic/manager/src/rnic_entity.o
+taf-objs += acore/rnic/manager/src/rnic_iface_cfg.o
+taf-objs += acore/rnic/manager/src/rnic_iface_ondemand.o
+taf-objs += acore/rnic/manager/src/rnic_main.o
+taf-objs += acore/rnic/manager/src/rnic_mntn.o
+taf-objs += acore/rnic/manager/src/rnic_msg_proc.o
+taf-objs += acore/rnic/manager/src/rnic_timer_mgmt.o
+taf-objs += common/msg_chk/src/ads_msg_chk.o
+taf-objs += common/msg_chk/src/taf_msg_chk_api.o
+
+ifeq ($(CFG_FEATURE_ACORE_MODULE_TO_CCORE), FEATURE_OFF)
+taf-objs += common/msg_chk/src/taf_msg_chk.o
+taf-objs += common/msg_chk/src/tafagent_msg_chk.o
+taf-objs += common/msg_chk/src/dms_msg_chk.o
+taf-objs += common/lib/src/taf_mmi_str_parse.o
+taf-objs += common/lib/src/taf_msg_decode.o
+taf-objs += common/lib/src/taf_aps_api.o
+taf-objs += common/lib/src/taf_dsm_api.o
+taf-objs += common/lib/src/taf_iface_api.o
+taf-objs += common/lib/src/taf_mtc_api.o
+taf-objs += common/lib/src/taf_mma_api.o
+taf-objs += common/lib/src/taf_mta_api.o
+taf-objs += common/lib/src/taf_ssa_api.o
+taf-objs += common/lib/src/taf_comm_api.o
+taf-objs += common/lib/src/taf_msg_encode.o
+taf-objs += common/lib/src/taf_msg_cb_enc_dec.o
+taf-objs += common/lib/src/hi_list.o
+taf-objs += common/lib/src/taf_std_lib.o
+taf-objs += common/lib/src/gu_nas_log_filter.o
+taf-objs += common/lib/src/taf_log_privacy_match.o
+taf-objs += common/lib/src/taf_ccm_api.o
+taf-objs += common/tafagent/src/taf_agent.o
+taf-objs += common/tafagent/src/taf_agent_ctx.o
+taf-objs += common/log/src/taf_acore_log_privacy.o
+taf-objs += common/at/framework/src/at_basic_cmd.o
+taf-objs += common/at/framework/src/at_check_func.o
+taf-objs += common/at/framework/src/at_cmd_msg_proc.o
+taf-objs += common/at/framework/src/at_cmd_proc.o
+taf-objs += common/at/framework/src/at_combine_cmd.o
+taf-objs += common/at/framework/src/at_data_proc.o
+taf-objs += common/at/framework/src/at_device_cmd.o
+taf-objs += common/at/framework/src/at_event_report.o
+taf-objs += common/at/framework/src/at_cmd_css_proc.o
+taf-objs += common/at/framework/src/at_extend_cmd.o
+taf-objs += common/at/framework/src/at_input_proc.o
+taf-objs += common/at/framework/src/at_mntn.o
+taf-objs += common/at/framework/src/at_msg_print.o
+taf-objs += common/at/framework/src/at_nl_proxy_kernel.o
+taf-objs += common/at/framework/src/at_output_proc.o
+taf-objs += common/at/framework/src/at_parse_basic_cmd.o
+taf-objs += common/at/framework/src/at_parse_cmd.o
+taf-objs += common/at/framework/src/at_parse_core.o
+taf-objs += common/at/framework/src/at_parse_d_cmd.o
+taf-objs += common/at/framework/src/at_parse_dm_cmd.o
+taf-objs += common/at/framework/src/at_parse_extend_cmd.o
+taf-objs += common/at/framework/src/at_parse_para.o
+taf-objs += common/at/framework/src/at_parse_s_cmd.o
+taf-objs += common/at/framework/src/at_query_para_cmd.o
+taf-objs += common/at/framework/src/at_set_para_cmd.o
+taf-objs += common/at/framework/src/at_mt_msg_proc.o
+taf-objs += common/at/framework/src/at_test_para_cmd.o
+taf-objs += common/at/framework/src/at_timer.o
+taf-objs += common/at/framework/src/at_snd_msg.o
+taf-objs += common/at/framework/src/at_ctx.o
+taf-objs += common/at/framework/src/at_init.o
+taf-objs += common/at/framework/src/at_ltev_msg_proc.o
+taf-objs += common/at/framework/src/at_acore_only_cmd.o
+taf-objs += common/at/framework/src/at_mbb_cmd.o
+taf-objs += common/at/framework/src/at_external_module_msg_proc.o
+taf-objs += common/at/framework/src/at_proc_mta_main.o
+taf-objs += common/at/framework/src/at_proc_bbic_main.o
+taf-objs += common/at/framework/src/at_proc_mma_main.o
+taf-objs += common/at/framework/src/at_proc_imsa_main.o
+taf-objs += common/at/framework/src/at_proc_ccm_main.o
+taf-objs += common/at/device/src/at_device_as_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_drv_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_mm_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_pam_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_phy_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_taf_cmd_tbl.o
+taf-objs += common/at/device/src/at_device_as_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_drv_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_mm_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_pam_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_phy_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_taf_set_cmd_proc.o
+taf-objs += common/at/device/src/at_device_as_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_drv_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_mm_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_pam_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_phy_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_taf_qry_cmd_proc.o
+taf-objs += common/at/device/src/at_device_as_rslt_proc.o
+taf-objs += common/at/device/src/at_device_drv_rslt_proc.o
+taf-objs += common/at/device/src/at_device_pam_rslt_proc.o
+taf-objs += common/at/device/src/at_device_phy_rslt_proc.o
+taf-objs += common/at/device/src/at_device_taf_rslt_proc.o
+taf-objs += common/at/device/src/at_device_comm.o
+taf-objs += common/at/custom/src/at_custom_as_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_as_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_as_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_as_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_drv_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_drv_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_drv_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_drv_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_hifi_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_hifi_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_hifi_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_hifi_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_ims_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_ims_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_ims_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_ims_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_l2_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_l2_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_l2_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_lnas_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_lnas_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_lnas_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_lnas_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_mm_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_mm_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_mm_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_mm_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_pam_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_pam_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_pam_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_pam_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_phy_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_phy_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_phy_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_phy_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_taf_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_taf_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_taf_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_taf_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_comm.o
+taf-objs += common/at/custom/src/at_custom_comm_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_rrm_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_lrrc_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_rcm_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_nrmm_cmd_tbl.o
+taf-objs += common/at/custom/src/at_custom_comm_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_rrm_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_lrrc_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_rcm_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_nrmm_set_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_comm_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_nrmm_qry_cmd_proc.o
+taf-objs += common/at/custom/src/at_custom_comm_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_rcm_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_nrmm_rslt_proc.o
+taf-objs += common/at/custom/src/at_custom_event_report.o
+taf-objs += common/at/ltev/src/at_ltev_event_report.o
+taf-objs += common/at/ltev/src/at_ltev_as_cmd_tbl.o
+taf-objs += common/at/ltev/src/at_ltev_as_qry_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_as_rslt_proc.o
+taf-objs += common/at/ltev/src/at_ltev_as_set_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_comm.o
+taf-objs += common/at/ltev/src/at_ltev_mm_cmd_tbl.o
+taf-objs += common/at/ltev/src/at_ltev_mm_qry_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_mm_rslt_proc.o
+taf-objs += common/at/ltev/src/at_ltev_mm_set_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_taf_cmd_tbl.o
+taf-objs += common/at/ltev/src/at_ltev_taf_qry_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_taf_rslt_proc.o
+taf-objs += common/at/ltev/src/at_ltev_taf_set_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_ttf_cmd_tbl.o
+taf-objs += common/at/ltev/src/at_ltev_ttf_qry_cmd_proc.o
+taf-objs += common/at/ltev/src/at_ltev_ttf_rslt_proc.o
+taf-objs += common/at/ltev/src/at_ltev_ttf_set_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_as_cmd_tbl.o
+taf-objs += common/at/phone/src/at_phone_as_qry_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_as_rslt_proc.o
+taf-objs += common/at/phone/src/at_phone_as_set_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_comm.o
+taf-objs += common/at/phone/src/at_phone_event_report.o
+taf-objs += common/at/phone/src/at_phone_ims_cmd_tbl.o
+taf-objs += common/at/phone/src/at_phone_ims_qry_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_ims_rslt_proc.o
+taf-objs += common/at/phone/src/at_phone_ims_set_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_mm_cmd_tbl.o
+taf-objs += common/at/phone/src/at_phone_mm_qry_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_mm_rslt_proc.o
+taf-objs += common/at/phone/src/at_phone_mm_set_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_phy_cmd_tbl.o
+taf-objs += common/at/phone/src/at_phone_phy_set_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_taf_cmd_tbl.o
+taf-objs += common/at/phone/src/at_phone_taf_qry_cmd_proc.o
+taf-objs += common/at/phone/src/at_phone_taf_rslt_proc.o
+taf-objs += common/at/phone/src/at_phone_taf_set_cmd_proc.o
+taf-objs += common/at/sat/src/at_sat_pam_cmd_tbl.o
+taf-objs += common/at/sat/src/at_sat_pam_qry_cmd_proc.o
+taf-objs += common/at/sat/src/at_sat_pam_rslt_proc.o
+taf-objs += common/at/sat/src/at_sat_pam_set_cmd_proc.o
+taf-objs += common/at/sim/src/at_sim_comm.o
+taf-objs += common/at/sim/src/at_sim_event_report.o
+taf-objs += common/at/sim/src/at_sim_pam_cmd_tbl.o
+taf-objs += common/at/sim/src/at_sim_pam_qry_cmd_proc.o
+taf-objs += common/at/sim/src/at_sim_pam_rslt_proc.o
+taf-objs += common/at/sim/src/at_sim_pam_set_cmd_proc.o
+taf-objs += common/at/sms/src/at_sms_comm.o
+taf-objs += common/at/sms/src/at_sms_event_report.o
+taf-objs += common/at/sms/src/at_sms_taf_cmd_tbl.o
+taf-objs += common/at/sms/src/at_sms_taf_qry_cmd_proc.o
+taf-objs += common/at/sms/src/at_sms_taf_rslt_proc.o
+taf-objs += common/at/sms/src/at_sms_taf_set_cmd_proc.o
+taf-objs += common/at/ss/src/at_ss_comm.o
+taf-objs += common/at/ss/src/at_ss_event_report.o
+taf-objs += common/at/ss/src/at_ss_taf_cmd_tbl.o
+taf-objs += common/at/ss/src/at_ss_taf_qry_cmd_proc.o
+taf-objs += common/at/ss/src/at_ss_taf_rslt_proc.o
+taf-objs += common/at/ss/src/at_ss_taf_set_cmd_proc.o
+taf-objs += common/at/test/src/at_test_as_cmd_tbl.o
+taf-objs += common/at/test/src/at_test_as_qry_cmd_proc.o
+taf-objs += common/at/test/src/at_test_as_rslt_proc.o
+taf-objs += common/at/test/src/at_test_as_set_cmd_proc.o
+taf-objs += common/at/test/src/at_test_comm.o
+taf-objs += common/at/test/src/at_test_phy_cmd_tbl.o
+taf-objs += common/at/test/src/at_test_phy_rslt_proc.o
+taf-objs += common/at/test/src/at_test_phy_set_cmd_proc.o
+taf-objs += common/at/test/src/at_test_taf_cmd_tbl.o
+taf-objs += common/at/test/src/at_test_taf_qry_cmd_proc.o
+taf-objs += common/at/test/src/at_test_taf_set_cmd_proc.o
+taf-objs += common/at/test/src/at_test_ttf_cmd_tbl.o
+taf-objs += common/at/test/src/at_test_ttf_qry_cmd_proc.o
+taf-objs += common/at/test/src/at_test_ttf_rslt_proc.o
+taf-objs += common/at/voice/src/at_voice_comm.o
+taf-objs += common/at/voice/src/at_voice_event_report.o
+taf-objs += common/at/voice/src/at_voice_hifi_cmd_tbl.o
+taf-objs += common/at/voice/src/at_voice_hifi_qry_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_hifi_rslt_proc.o
+taf-objs += common/at/voice/src/at_voice_hifi_set_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_ims_cmd_tbl.o
+taf-objs += common/at/voice/src/at_voice_ims_qry_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_ims_rslt_proc.o
+taf-objs += common/at/voice/src/at_voice_ims_set_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_mm_cmd_tbl.o
+taf-objs += common/at/voice/src/at_voice_mm_qry_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_mm_rslt_proc.o
+taf-objs += common/at/voice/src/at_voice_mm_set_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_taf_cmd_tbl.o
+taf-objs += common/at/voice/src/at_voice_taf_qry_cmd_proc.o
+taf-objs += common/at/voice/src/at_voice_taf_rslt_proc.o
+taf-objs += common/at/voice/src/at_voice_taf_set_cmd_proc.o
+taf-objs += common/at/cdma/src/at_cdma_cmd_tbl.o
+taf-objs += common/at/cdma/src/at_cdma_qry_cmd_proc.o
+taf-objs += common/at/cdma/src/at_cdma_rslt_proc.o
+taf-objs += common/at/cdma/src/at_cdma_set_cmd_proc.o
+taf-objs += common/at/safety/src/at_safety_mm_cmd_tbl.o
+taf-objs += common/at/safety/src/at_safety_mm_qry_cmd_proc.o
+taf-objs += common/at/safety/src/at_safety_mm_rslt_proc.o
+taf-objs += common/at/safety/src/at_safety_mm_set_cmd_proc.o
+taf-objs += common/at/safety/src/at_safety_pam_cmd_tbl.o
+taf-objs += common/at/safety/src/at_safety_pam_qry_cmd_proc.o
+taf-objs += common/at/safety/src/at_safety_pam_rslt_proc.o
+taf-objs += common/at/safety/src/at_safety_pam_set_cmd_proc.o
+taf-objs += common/at/cdma/src/at_cdma_event_report.o
+taf-objs += common/at/general/src/at_general_event_report.o
+taf-objs += common/at/data/src/at_data_event_report.o
+taf-objs += common/at/general/src/at_general_drv_cmd_tbl.o
+taf-objs += common/at/general/src/at_general_drv_rslt_proc.o
+taf-objs += common/at/general/src/at_general_drv_set_cmd_proc.o
+taf-objs += common/at/general/src/at_general_lmm_qry_cmd_proc.o
+taf-objs += common/at/general/src/at_general_lmm_rslt_proc.o
+taf-objs += common/at/general/src/at_general_lmm_set_cmd_proc.o
+taf-objs += common/at/general/src/at_general_mm_cmd_tbl.o
+taf-objs += common/at/general/src/at_general_mm_qry_cmd_proc.o
+taf-objs += common/at/general/src/at_general_mm_rslt_proc.o
+taf-objs += common/at/general/src/at_general_mm_set_cmd_proc.o
+taf-objs += common/at/general/src/at_general_pam_cmd_tbl.o
+taf-objs += common/at/general/src/at_general_pam_qry_cmd_proc.o
+taf-objs += common/at/general/src/at_general_pam_rslt_proc.o
+taf-objs += common/at/general/src/at_general_pam_set_cmd_proc.o
+taf-objs += common/at/general/src/at_general_taf_cmd_tbl.o
+taf-objs += common/at/general/src/at_general_taf_qry_cmd_proc.o
+taf-objs += common/at/general/src/at_general_taf_rslt_proc.o
+taf-objs += common/at/general/src/at_general_taf_set_cmd_proc.o
+taf-objs += common/at/data/src/at_data_basic_cmd_tbl.o
+taf-objs += common/at/data/src/at_data_basic_qry_cmd_proc.o
+taf-objs += common/at/data/src/at_data_basic_set_cmd_proc.o
+taf-objs += common/at/data/src/at_data_comm.o
+taf-objs += common/at/data/src/at_data_drv_cmd_tbl.o
+taf-objs += common/at/data/src/at_data_drv_qry_cmd_proc.o
+taf-objs += common/at/data/src/at_data_drv_set_cmd_proc.o
+taf-objs += common/at/data/src/at_data_lnas_qry_cmd_proc.o
+taf-objs += common/at/data/src/at_data_lnas_rslt_proc.o
+taf-objs += common/at/data/src/at_data_lnas_set_cmd_proc.o
+taf-objs += common/at/data/src/at_data_mm_cmd_tbl.o
+taf-objs += common/at/data/src/at_data_mm_qry_cmd_proc.o
+taf-objs += common/at/data/src/at_data_mm_rslt_proc.o
+taf-objs += common/at/data/src/at_data_taf_cmd_tbl.o
+taf-objs += common/at/data/src/at_data_taf_qry_cmd_proc.o
+taf-objs += common/at/data/src/at_data_taf_rslt_proc.o
+taf-objs += common/at/data/src/at_data_taf_set_cmd_proc.o
+taf-objs += common/at/stub/src/at_stub_mm_cmd_tbl.o
+taf-objs += common/at/stub/src/at_stub_mm_qry_cmd_proc.o
+taf-objs += common/at/stub/src/at_stub_mm_set_cmd_proc.o
+taf-objs += common/at/stub/src/at_stub_taf_cmd_tbl.o
+taf-objs += common/at/stub/src/at_stub_taf_set_cmd_proc.o
+taf-objs += common/tafapi/src/taf_call_api.o
+taf-objs += common/tafapi/src/taf_msg_api.o
+taf-objs += common/tafapi/src/taf_ssa_app_remote.o
+taf-objs += common/tafapi/src/taf_tafm_app_remote.o
+taf-objs += common/tafapi/src/taf_vc_api.o
+taf-objs += common/tafapi/src/taf_xsms_api.o
+taf-objs += common/dms/dev/dms_buff.o
+taf-objs += common/dms/dev/dms_debug.o
+taf-objs += common/dms/dev/dms_dev.o
+taf-objs += common/dms/dev/dms_dev_acm.o
+taf-objs += common/dms/dev/dms_dev_app.o
+taf-objs += common/dms/dev/dms_dev_hsuart.o
+taf-objs += common/dms/dev/dms_dev_mdm.o
+taf-objs += common/dms/dev/dms_dev_ncm.o
+taf-objs += common/dms/dev/dms_dev_sock.o
+taf-objs += common/dms/dev/dms_dev_uart.o
+taf-objs += common/dms/dev/dms_dev_cmux.o
+taf-objs += common/dms/src/dms_file_node.o
+taf-objs += common/dms/src/dms_mntn.o
+taf-objs += common/dms/src/dms_port.o
+taf-objs += common/dms/src/dms_port_cmux.o
+taf-objs += common/dms/src/dms_port_msc.o
+taf-objs += common/dms/src/dms_port_trans.o
+taf-objs += common/dms/src/dms_port_event.o
+taf-objs += common/dms/src/dms_task.o
+
+ifeq ($(CFG_FEATURE_IOT_CMUX), FEATURE_ON)
+taf-objs += common/dms/cmux/cmux_api_ifc.o
+taf-objs += common/dms/cmux/cmux_cmd.o
+taf-objs += common/dms/cmux/cmux_drv_ifc.o
+taf-objs += common/dms/cmux/cmux_framer.o
+taf-objs += common/dms/cmux/cmux_tgt_osal.o
+taf-objs += common/dms/cmux/cmux_udi_al.o
+endif
+
+taf-objs += common/at/framework/src/at_lte_common.o
+taf-objs += common/at/framework/src/at_lte_eventreport.o
+taf-objs += common/at/framework/src/at_lte_ms_proc.o
+taf-objs += common/at/framework/src/at_file_handle.o
+
+else
+taf-objs += common/at/framework/src/at_stub.o
+endif
+
+ifeq ($(CFG_FEATURE_BASTET), FEATURE_ON)
+taf-objs += acore/bastet/src/BastetInit.o
+taf-objs += acore/bastet/src/BastetComm.o
+endif
+
+ifeq ($(CFG_FEATURE_IOT_ATNLPROXY), FEATURE_ON)
+taf-objs += acore/netlink/hw_atnetlink.o
+taf-objs += acore/netlink/hw_atnldispatch.o
+endif
+
+#$(CFG_EXTRA_MODEM_MODE)
+
+endif
+
+ifneq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
+obj-y  := taf.o
+endif
+
+

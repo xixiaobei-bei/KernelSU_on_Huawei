@@ -1,0 +1,2 @@
+config SND_SOC_ASP_CODEC
+	tristate "ASP CODEC sound driver"

@@ -1,0 +1,11 @@
+#
+# modem image load
+#
+
+comment "modem image load driver"
+
+config MLOADER
+	tristate "modem image load"
+	default n
+	help
+	  modem image load driver

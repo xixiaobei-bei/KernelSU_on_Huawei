@@ -1,0 +1,6 @@
+config BATT_EIS_PMIC
+	bool "batt eis hardware in pmic"
+	default n
+	depends on BATT_EIS
+	help
+	  hardware in pmic for eis.

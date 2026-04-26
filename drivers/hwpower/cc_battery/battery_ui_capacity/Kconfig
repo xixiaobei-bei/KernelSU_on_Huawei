@@ -1,0 +1,12 @@
+#
+# huawei battery ui capacity driver
+#
+
+config HUAWEI_BATTERY_UI_CAPACTIY
+	bool "huawei battery ui capacity driver"
+	default n
+	help
+	  Say Y here to enable battery ui capacity driver.
+	  It provides basic capacity processing algorithm and
+	  informs capacity change through power supply.In addition,
+	  it provides interface to obtain current capacity.

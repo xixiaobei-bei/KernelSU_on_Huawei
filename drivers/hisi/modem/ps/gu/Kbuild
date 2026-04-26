@@ -1,0 +1,148 @@
+PSDIR = ..
+MODEM_DIR := $(srctree)/drivers/hisi/modem
+-include $(MODEM_DIR)/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config/balong_product_config.mk
+
+ifeq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -Iarch/arm64/include/asm
+else
+EXTRA_CFLAGS += -Iarch/arm/include/asm
+endif
+EXTRA_CFLAGS += -Iinclude/linux
+EXTRA_CFLAGS += -Iinclude/generated
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/med
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/gu/codec
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/gu/phy
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/ccore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/tag/apss
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/public
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/msp
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/msp
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/drv
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/drv
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/pam
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/sys
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/tl_as
+ifneq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/osa
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/si
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/usimm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/acore/cbtcpm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/acore/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/comm/om
+else
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/msg
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa/fusion
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/psp/acore/osa
+endif
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/LINK/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/PSMSG/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/LOGFILTER/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/LOGFILTER/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/IMM/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/NFEXT/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/NDIS/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/ND/IPCOMM/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/ND/NDSERVER/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/PPP/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/PPP/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/STL/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/IP/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/Ltev_Test/Inc
+
+EXTRA_CFLAGS +=  -DVOS_LINUX=4 -DOSA_CPU_ACPU=1 -DVOS_OS_VER=VOS_LINUX -DVOS_OSA_CPU=OSA_CPU_ACPU -DVOS_DOPRA_VER=2 -DNDIS_RELEASE -DMSP_GUNAS_AT_UNITE
+ifneq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -D__LINUX_ARM_ARCH__=7 -march=armv7-a -Uarm
+endif
+
+ifeq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -DVOS_SUPPORT_TSP
+endif
+
+EXTRA_CFLAGS += -fsigned-char
+
+gups-objs :=
+
+ifneq ($(CFG_MODEM_FUSION_VERSION),true)
+
+gups-objs += $(PSDIR)/comm/comm/common/LOGFILTER/Src/ps_logfilter_comm.o
+endif
+
+gups-objs += $(PSDIR)/comm/comm/acore/LOGFILTER/Src/ps_acpu_logfilter.o
+gups-objs += $(PSDIR)/comm/comm/acore/IMM/Src/imm_mem_zc.o
+gups-objs += $(PSDIR)/comm/comm/common/IP/Src/ttf_ip_comm.o
+gups-objs += $(PSDIR)/comm/comm/common/PSMSG/Src/ps_trace_msg.o
+gups-objs += $(PSDIR)/comm/comm/common/LINK/Src/ttf_util.o
+
+ifeq ($(CFG_FEATURE_ACORE_MODULE_TO_CCORE),FEATURE_OFF)
+ifeq ($(CFG_FEATURE_PPP),FEATURE_ON)
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_public.o
+ifeq ($(CFG_FEATURE_HARDWARE_HDLC_FUNC),FEATURE_ON)
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/hdlc_hardware_service.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/hdlc_hardware_driver.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/hdlc_hardware_mntn.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/hdlc_hardware_conf.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/hdlc_hardware.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/hdlc_os_adaptor_acore.o
+else
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/hdlc_software.o
+endif
+
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_atcmd.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_init.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_input.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/pppa_reset.o
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/pppa_task.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/ppp_convert.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/ppp_decode.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/ppp_encode.o
+gups-objs += $(PSDIR)/comm/comm/common/PPP/Src/ppp_fcs.o
+
+ifeq ($(CFG_FEATURE_DATA_SERVICE_NEW_PLATFORM),FEATURE_ON)
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_data_adaptor_ads_v2.o
+else
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/ppp_data_adaptor_ads.o
+endif
+
+else
+gups-objs += $(PSDIR)/comm/comm/acore/PPP/Src/pppa_stub.o
+endif
+endif
+
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/ips_mntn_mini.o
+
+ifeq ($(CFG_FEATURE_NFEXT),FEATURE_ON)
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/netfilter_ex.o
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/netfilter_ex_ctrl.o
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/ips_mntn.o
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/ips_traffic_statistic.o
+gups-objs += $(PSDIR)/comm/comm/acore/NFEXT/netfilter_buffer.o
+endif
+
+ifeq ($(CFG_FEATURE_PC5_DATA_CHANNEL),FEATURE_ON)
+ifeq ($(CFG_TLL2_ENG_VERSION), YES)
+gups-objs += $(PSDIR)/comm/comm/acore/Ltev_Test/Src/ltev_datatest.o
+endif
+endif
+
+ifneq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
+obj-y  := gups.o
+endif
+

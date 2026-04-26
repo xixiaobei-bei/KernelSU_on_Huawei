@@ -1,0 +1,3 @@
+config NPU_DBG_DEVDRV
+	tristate "NPU DBG DEVDRV"
+	default n

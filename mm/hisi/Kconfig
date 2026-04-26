@@ -1,0 +1,55 @@
+menuconfig HISI_MM
+	bool "Hisilicon MM support"
+	---help---
+	  This option add some hisilicon mm codes, needed by following modules.
+
+if HISI_MM
+
+config HISI_SLOW_PATH_COUNT
+	bool "page alloc enter slow path count"
+	default n
+	help
+	  Say 'Y' here is you want to count page alloc slow path.
+
+endif
+
+config HISI_PAGE_TRACE
+	bool "HISI page trace"
+	---help---
+	  This option enables hisi page trace, needed by memleak check modules.
+
+config HISI_PAGE_TRACE_TEST
+	bool "HISI page trace test"
+	depends on HISI_PAGE_TRACE
+	---help---
+	  This option enables hisi page trace test, needed by hisi page trace modules.
+
+config HISI_MEM_OFFLINE
+	bool "Dynamic Memory Region Offline driver"
+	depends on MEMORY_HOTPLUG
+	help
+	  Add support for DDR Self-Refresh power management through the dynamic
+	  memory offline framework. This driver interfaces between the memory
+	  hotplug subsystem and AOP which hot adds or removes memory blocks and
+	  controls the start/stop of self-refresh of these DDR regions. This
+	  helps reduce power consumption during idle mode of the system.
+	  If unsure, say N
+
+config HISI_BOOTMEM_OPTIMIZE
+	bool "Hisi bootmem optimize"
+	default n
+	depends on HAVE_ARCH_PFN_VALID
+	depends on !HAVE_MEMBLOCK_NODE_MAP
+	---help---
+	  Orign bootmem_init in zone init function "memmap_init_zone" waste too much time
+	  in iterate zone [start, end) pfn and judge if the pfn is valid, and when memory
+	  has hole, it will cost too much time. So let it only iterate memory which in memblock.
+	  if unsure, say N
+
+config REFAULT_IO_VMSCAN
+	bool "Refault io vmscan"
+	default n
+	---help---
+	  This is a new vmscan algorithm to balance anon and file lru reclaim ratio by
+	  detect file and anon refault cost. This can more effectivity reclaim memory and
+	  decrease totoal refault count and maybe decrease system cost.

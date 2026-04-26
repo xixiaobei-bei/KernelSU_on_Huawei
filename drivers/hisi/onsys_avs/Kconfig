@@ -1,0 +1,8 @@
+menu "Onsys AVS Options"
+config ONSYS_AVS
+	bool "Onsys avs enable"
+	default n
+	help
+	  onsys avs ctrl enable.
+
+endmenu

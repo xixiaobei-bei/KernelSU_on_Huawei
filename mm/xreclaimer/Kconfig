@@ -1,0 +1,5 @@
+config HW_XRECLAIMER
+	bool "Fast process memory reclaimer implemented by Huawei"
+	depends on MMU
+	help
+	  Say Y here if you want to support fast process memory reclaimer

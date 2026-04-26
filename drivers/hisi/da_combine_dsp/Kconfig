@@ -1,0 +1,5 @@
+config CODEC_DSP_MISC
+     tristate "codec dsp misc device support"
+     default n
+     ---help---
+	codec dsp misc driver

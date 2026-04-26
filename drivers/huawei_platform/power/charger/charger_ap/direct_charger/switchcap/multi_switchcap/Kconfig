@@ -1,0 +1,32 @@
+#
+# huawei multi_switchcap drivers
+#
+
+config MULTI_SWITCHCAP
+	bool "multi_switchcap"
+	default n
+	help
+	  Say Y here to enable multi_sc driver.
+	  This driver provides a unified interface for multi switchcap
+	  Support device:
+	  Multi_hl1506
+
+config MULTI_HL1506
+	bool "multi_hl1506"
+	default n
+	depends on MULTI_SWITCHCAP
+	help
+	  Say Y here to enable hl1506 driver.
+	  HL1506 is 98% Efficient Power Stage for 20W Output
+	  This device is a switched capacitor Architecture Optimized
+	  for 50% Duty Cycle.
+
+config OVP_FOR_SWITCHCAP
+	bool "ovp_for_switchcap"
+	default n
+	depends on MULTI_SWITCHCAP
+	help
+	  Say Y here to enable fpf2283 driver.
+	  Fpf2283 works with switchcap.
+	  Operate over an input voltage range of 2.8V to 28V.
+	  This device is to prevent current inrush.

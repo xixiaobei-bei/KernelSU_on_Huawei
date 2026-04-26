@@ -1,0 +1,6 @@
+config FINGERPRINT_CHANNEL
+	bool "FINGERPRINT_CHANNEL"
+	depends on INPUTHUB_AS
+	help
+	support FINGERPRINT_CHANNEL.
+

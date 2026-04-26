@@ -1,0 +1,22 @@
+menu "NPU Drivers"
+
+menuconfig NPU_DEVDRV
+	bool "NPU support"
+	default n
+	help
+	  Say yes here to support npu
+
+if NPU_DEVDRV
+
+source "drivers/hisi/npu/manager/Kconfig"
+source "drivers/hisi/npu/device/Kconfig"
+source "drivers/hisi/npu/platform/Kconfig"
+source "drivers/hisi/npu/dfx/dbg/Kconfig"
+source "drivers/hisi/npu/dfx/log/Kconfig"
+source "drivers/hisi/npu/dfx/profiling/Kconfig"
+source "drivers/hisi/npu/facility/Kconfig"
+source "drivers/hisi/npu/bbit_debugfs/Kconfig"
+
+endif #NPU_DEVDRV
+
+endmenu

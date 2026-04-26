@@ -1,0 +1,90 @@
+menu "S/R options for old architecture"
+
+config SR
+	bool "Support hi3xxx suspend and resume"
+	depends on SUSPEND
+	default n
+	help
+	   support hi3xxx suspend and resume
+
+config SR_DEBUG
+	bool "Suspend-resume debug interface"
+	depends on PM
+	default n
+	help
+	suspend-resume debug for platform
+
+config SR_DEBUG_LPREG
+	bool "Suspend-resume debug mntn"
+	depends on SR_DEBUG
+	depends on HISI_DEBUG_FS
+	default n
+	help
+	suspend-resume debug for platform
+
+config SR_DEBUG_SLEEP
+	bool "Suspend-resume debug sleep"
+	depends on PM
+	default n
+	help
+	suspend-resume debug sleep for platform
+
+config SR_SYNC
+	bool "Suspend optimization"
+	depends on SUSPEND
+	default n
+	help
+	  Driver for suspend optimization
+
+config PM_SEC_GPIO
+	bool "SEC GPIO"
+	default n
+	help
+	  tell us if this platform have SEC GPIO
+
+config PM_SEC_IO
+	bool "SEC IO"
+	default n
+	help
+	  tell us if this platform have SEC IO
+
+config SR_TICK
+	bool "Sr tick"
+	depends on SUSPEND
+	default n
+	help
+	  mark kernel sr position
+
+config PM_FCM
+	bool "FCM architecture"
+	default n
+	help
+	  FCM architecture
+config PM_LPCTRL
+	bool "Ap kernel can control functions of sr in lpm3"
+	depends on SUSPEND
+	default n
+	help
+	  The ap kernel controls the sr function of lpm3
+
+config SR_SWITCH_32K
+	bool "Switch 32K clock source when the system is suspend or resume for more power saving"
+	depends on PM_LPCTRL
+	default n
+	help
+	  Switch 32K clock source
+
+config PM_CPU_PDC_FEATURE
+	bool "CPU pdc feature"
+	depends on SUSPEND
+	default n
+	help
+	  The cpu has cpu_pdc feature
+
+config SR_PM_DEBUG
+	bool "PM stub"
+	depends on SUSPEND
+	default n
+	help
+	  PM stub
+endmenu

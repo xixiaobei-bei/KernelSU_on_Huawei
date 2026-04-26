@@ -1,0 +1,26 @@
+config SENSOR_CHANNEL
+	bool "SENSOR_CHANNEL"
+	depends on INPUTHUB_AS
+	help
+	support SENSOR_CHANNEL.
+
+config CTXHUB_AS_AR
+	bool "CTXHUB_AS_AR"
+	depends on SENSOR_CHANNEL
+	default n
+	help
+	support ar use sensor channel report data and pass cmd to sensorhub
+
+config CTXHUB_AS_PEDOMETER
+	bool "CTXHUB_AS_PEDOMETER"
+	depends on SENSOR_CHANNEL
+	default n
+	help
+	support pedometer use sensor channel report data and pass cmd to sensorhub
+
+config CTXHUB_AS_GYRO
+	bool "CTXHUB_AS_GYRO"
+	depends on SENSOR_CHANNEL
+	default n
+	help
+	support gyro use sensor channel report data and pass cmd to sensorhub

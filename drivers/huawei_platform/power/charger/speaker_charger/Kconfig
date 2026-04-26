@@ -1,0 +1,6 @@
+config HUAWEI_SPEAKER_CHARGER
+	bool "huawei speaker charger"
+	depends on DIRECT_CHARGER
+	default n
+	help
+	  Say Y here to enable huawei speaker charger.

@@ -1,0 +1,21 @@
+#!/bin/bash
+# chipset component build script encapsulation.
+# Copyright (c) Huawei Technologies Co., Ltd. 2020-2021. All rights reserved.
+
+set -e
+set +e
+
+LOCAL_PATH=$(pwd)
+echo "local path: $LOCAL_PATH"
+
+KUNIT_PATH="$LOCAL_PATH/kunit/"
+DKSM_PATH="$LOCAL_PATH/dksm/"
+CMDLIST_PATH="$LOCAL_PATH/cmdlist/"
+CONNECTOR_PATH="$LOCAL_PATH/connector/"
+DPU_PATH="$LOCAL_PATH/dpu/cetus/"
+
+make -C $KUNIT_PATH "$@"
+make CONFIG_DKMD_DKSM=m -C $DKSM_PATH "$@"
+make CONFIG_DKMD_CMDLIST_ENABLE=m -C $CMDLIST_PATH "$@"
+make CONFIG_DKMD_DPU_CONNECTOR=y CONFIG_DPU_CONNECTOR_TEST=m CONFIG_DKMD_DPU_PANEL=m CONFIG_DKMD_DPU_MIPI_DSI=m CONFIG_DKMD_DPU_DP=m -C $CONNECTOR_PATH "$@"
+make CONFIG_DKMD_DPU_ENABLE=y CONFIG_DKMD_DPU_ENABLE_TEST=m CONFIG_DKMD_DPU_RES_MGR=m CONFIG_DKMD_DPU_DEVICE=m CONFIG_DKMD_DPU_COMPOSER=m CONFIG_DKMD_DPU_COMMON=m -C $DPU_PATH "$@"

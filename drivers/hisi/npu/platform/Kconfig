@@ -1,0 +1,6 @@
+config NPU_DEVDRV_DEVPLATFORM
+	tristate "DEVDRV_DEVPLATFORM"
+	default y
+config HISI_NPU_DEBUG
+    tristate "HISI_NPU_DEBUG"
+	default n

@@ -1,0 +1,2 @@
+config SND_SOC_DA_COMBINE_V5
+	tristate "Soc Smartstar Codec da combine v5 support"

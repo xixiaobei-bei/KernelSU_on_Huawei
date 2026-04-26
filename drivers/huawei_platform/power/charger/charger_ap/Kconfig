@@ -1,0 +1,19 @@
+source "drivers/huawei_platform/power/charger/charger_ap/direct_charger/Kconfig"
+source "drivers/huawei_platform/power/charger/charger_ap/wireless_charger/Kconfig"
+source "drivers/huawei_platform/power/charger/charger_ap/uvdm_charger/Kconfig"
+
+config HUAWEI_CHARGER_AP
+	bool "huawei charger ap"
+	default n
+config DIRECT_CHARGER
+	bool "direct charger"
+	default n
+config WIRELESS_CHARGER
+	bool "wireless charger"
+	default n
+config SERIES_BATT
+	bool "series batt charger"
+	default n
+config BATTERY_BALANCE
+	bool "battery balance"
+	default n

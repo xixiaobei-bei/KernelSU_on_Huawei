@@ -1,0 +1,5 @@
+config INPUTHUB_30
+	bool "INPUTHUB_30"
+	depends on  CONTEXTHUB
+	help
+	support INPUTHUB_30.

@@ -1,0 +1,12 @@
+#
+#vibator ext_vibrator driver configuration
+#
+config HISI_EXT_VIBRATOR
+	bool "Led classdev ext_vibrator hisi driver"
+	depends on LEDS_TRIGGERS && LEDS_TRIGGER_TRANSIENT
+	default n
+	help
+	  Say Y to enable support for the Hisilicon EXT vibrator driver.
+
+	  To compile this driver as a module, choose M here: the module will be
+	  called hisi ext vibrator driver.

@@ -1,0 +1,5 @@
+config DEVFREQ_GOV_NPU_PM_QOS
+	tristate "NPU PM QOS"
+	depends on ARCH_HISI && PM_DEVFREQ
+	select PM_OPP
+	select DEVFREQ

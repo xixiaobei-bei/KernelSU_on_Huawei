@@ -1,0 +1,8 @@
+#
+# Balong nmi driver
+#
+config BALONG_NMI
+    tristate "nmi driver"
+    default n
+    help
+       balong nmi for tsp

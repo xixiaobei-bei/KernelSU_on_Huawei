@@ -1,0 +1,1 @@
+obj-$(CONFIG_HUAWEI_VIBRATOR) += aw8697.o

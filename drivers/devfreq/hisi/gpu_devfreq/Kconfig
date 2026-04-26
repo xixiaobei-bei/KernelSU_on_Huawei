@@ -1,0 +1,15 @@
+config DEVFREQ_GOV_GPU_SCENE_AWARE
+	tristate "GPU Scene Aware"
+	depends on ARCH_HISI && PM_DEVFREQ
+	select PM_OPP
+	select DEVFREQ
+
+config GPU_RT_DEVFREQ
+	bool "force update devfreq when gpu in runtime"
+	default n
+	depends on DEVFREQ_GOV_GPU_SCENE_AWARE
+
+config GPUFREQ_GOV_POLICY_USING_DTSI
+	bool "gpu governor policy using dtsi"
+	default n
+	depends on DEVFREQ_GOV_GPU_SCENE_AWARE

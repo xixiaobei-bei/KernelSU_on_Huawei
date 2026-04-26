@@ -1,0 +1,4 @@
+
+obj-$(CONFIG_HUAWEI_ARMPC_SENSORS_INPUT_INFO) += sensor/
+obj-$(CONFIG_HUAWEI_ARMPC_USB_HUB) += usbhub/
+obj-$(CONFIG_HUAWEI_ARMPC_PCIE_MISC) += pcie_misc/

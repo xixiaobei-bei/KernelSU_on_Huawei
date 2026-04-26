@@ -1,0 +1,25 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2019-2020. All rights reserved.
+# Description: Huawei so protect configuration
+# Create: 2019-08-03
+#
+
+menu "Huawei SOP"
+
+config HUAWEI_SOP
+	bool "enables HUAWEI SOP (so protect)"
+	default n
+	help
+	  The SOP framework is composed of a set of subsystems that
+	  are needed to protect so.
+config HUAWEI_SOP_ENG
+	bool "Huawei SOP for engineering mode debug"
+	depends on HUAWEI_SOP
+	default n
+	help
+	  This option should only be enabled for engineering mode & debug test.
+	  In engineering mode, SOP will be turnoff(default) after init,
+	  tester can use supported interface to turn it on, and do debug test.
+
+endmenu
+#a blank line must be existed

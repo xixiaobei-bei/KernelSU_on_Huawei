@@ -1,0 +1,3 @@
+config NPU_DEVDRV_DEVMANAGER
+	tristate "DEVDRV_DEVMANAGER"
+	default y

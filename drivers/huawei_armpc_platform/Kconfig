@@ -1,0 +1,12 @@
+menu "Huawei Armpc Platform Drivers"
+
+menuconfig HUAWEI_ARMPC_PLATFORM
+       bool "Huawei armpc platform drivers support"
+       default n
+       help
+       Say yes here to support the huawei armpc platform
+
+source "drivers/huawei_armpc_platform/sensor/Kconfig"
+source "drivers/huawei_armpc_platform/usbhub/Kconfig"
+source "drivers/huawei_armpc_platform/pcie_misc/Kconfig"
+endmenu

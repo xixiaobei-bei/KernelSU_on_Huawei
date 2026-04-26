@@ -1,0 +1,5 @@
+config HW_TASK_MEM_STAT
+	bool "Huawei memory stats for every kernel task"
+	default n
+	help
+	  Huawei memory stats for every kernel task, support Slab/Shmem/PageTable.

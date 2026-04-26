@@ -1,0 +1,163 @@
+menu "HHEE options"
+
+config HHEE
+	bool "HHEE support"
+	default n
+	help
+	  Say yes here to support the HHEE
+
+config HKIP_MODULE_ALLOC
+	bool "HKIP overload module_alloc for hhee"
+	depends on HHEE
+	default n
+	help
+	  Say yes when overload is needed
+
+config HHEE_DEBUG
+	bool "HKIP HHEE test support"
+	depends on !UBSAN && !KCOV && !KASAN
+	depends on HHEE
+	depends on HISI_DEBUG_FS
+	default n
+	help
+	  Say yes here to support the HHEE debug
+
+config UEFI_HHEE
+	bool "HHEE support for UEFI boot"
+	depends on HHEE
+	default n
+	help
+	  Say yes here to support HHEE when kernel boot form UEFI
+
+config HKIP_PRMEM
+	bool "Write protect critical data not requiring high write speed."
+	default y
+	help
+	  Selected data can be tagged/allocated in such a way that it
+	  becomes read-only, with the option of allowing for modifications
+	  through specific API. Run-time allocation must also use such API.
+	  Saying No here will revert to basic kernel vmalloc.
+
+config HKIP_PRMEM_BYPASS
+	bool "Disable the write protection provided by prmem"
+	depends on HKIP_PRMEM
+	default n
+	help
+	  Useful for debugging or for testing existing code while it is
+	  being converted to the prmem API.
+	  Saying Yes here will not write protect the allocations.
+
+config DEBUG_HKIP_PRMEM
+	bool "Run self test for protected memory (prmem)"
+	depends on HKIP_PRMEM
+	default y
+	help
+	  Verifies that the protected memory interface works correctly.
+
+config PRMEM_MAX_MEMORY
+	int "Maximum phys memory in MB for prmem, in chunks of 2MB"
+	depends on HKIP_PRMEM
+	range 6 20
+	default 6
+	help
+	  The system will refuse allocations requests beyond the set value.
+
+config HKIP_PRMEM_HARDENED_USERCOPY
+	bool "Detects read / write operations from userspace to prmem"
+	depends on HKIP_PRMEM
+	default y
+	help
+	  Introduces a sanity check every time a read/write operation is
+	  performed from a userspace interface.
+	  Saying Yes here will add a small delay on each such operation.
+
+config HKIP_PROTECT_BPF
+	bool "Harden the basic protection of the BPF filter"
+	depends on BPF
+	depends on HKIP_PRMEM
+	default y
+	help
+	  Harden the basic protection of the BPF filter.
+
+config HKIP_PROTECT_BPF_CAP
+	int "Maximum BPF pool memory in MB for BPF protection"
+	depends on HKIP_PROTECT_BPF
+	default 2
+	help
+	  Limits the maximum memory available for total use by bpf.
+	  Set to 0 for disabling the cap.
+
+config HKIP_PROTECT_POWEROFF_CMD
+	bool "Write protect the poweroff command string"
+	default y
+	depends on HKIP_PRMEM
+	help
+	  The poweroff command will be still programmable through /proc,
+	  but it will be protected agaisnt accidental/malicious direct
+	  overwrites
+
+config HHEE_USING_IPI
+	bool "HKIP HHEE Using IPI interrupt"
+	depends on HHEE
+	default n
+	help
+	  Say yes here to support using IPI not GIC
+
+config HKIP_XOM_CODE
+	bool "HKIP XOM protection of kernel code"
+	depends on HHEE
+	default n
+	help
+	  Say yes here to enable kernel XOM protection
+
+config CFI_CHECK_CACHE_NUM
+	int "Number of modules supported by the CFI mechanism"
+	depends on CFI_CLANG
+	depends on HKIP_PRMEM
+	range 512 2048
+	default 512
+	help
+	  You can specify the maximum number of modules supported by the
+	  CFI protection mechanism. If you are unsure, the default number
+	  of modules is 512.
+
+config HKIP_CFI_HARDEN
+	bool "Additional protection for CFI tables for modules"
+	default y
+	depends on CFI_CLANG
+	depends on HKIP_PRMEM
+	help
+	  If you select this option, it can prevent malicious writing of CFI
+	  data by attackers.
+
+config DEBUG_CFI_HARDEN
+	bool "Test the feature that use prmem API to protect the CFI data"
+	depends on MODULES && CFI_CLANG
+	depends on CFI_CLANG_SHADOW
+	depends on HKIP_PRMEM
+	default n
+	help
+	  Verifies that the protected CFI data works correctly.
+
+config DEBUG_CFI_HARDEN_KO
+	tristate "Test ko for test cfi harden feature"
+	depends on MODULES
+	help
+	  Say m here to support CFI harden feature test.
+
+config HKIP_PROTECT_CRED
+	bool "Support CRED Protect Feature"
+	default y
+	depends on HKIP_PRMEM
+	help
+	  Enable write protection for instances of cred structure against
+	  accidental/malicious modifications.
+
+config HKIP_TASKS_UNITS
+	int "Number of tasks supported by the CRED Protect Feature"
+	default 30000
+	depends on HKIP_PROTECT_CRED
+	help
+	  Max number of tasks supported.
+
+endmenu

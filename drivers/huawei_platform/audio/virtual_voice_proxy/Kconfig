@@ -1,0 +1,13 @@
+# virtual voice proxy driver configuration
+
+config VIRTUAL_VOICE_PROXY
+	tristate "virtual voice proxy drivers support"
+	default n
+	help
+	 Say Y here if you to support the virtual voice proxy drivers
+
+config VIRTUAL_VOICE_PROXY_EXTDEV
+	tristate "Support for virtual voice proxy extend devices"
+	default n
+	help
+	 Say Y here if you want to support  virtual voice proxy extend devices

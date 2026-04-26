@@ -1,0 +1,9 @@
+#
+# huawei temperature control drivers
+#
+
+config HUAWEI_TEMP_CONTROL
+	bool "huawei temperature control"
+	default n
+	help
+	  Say Y here to enable huawei temperature control driver.
