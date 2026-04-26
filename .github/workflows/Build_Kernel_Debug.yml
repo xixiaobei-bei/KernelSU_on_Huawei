@@ -244,9 +244,8 @@ jobs:
           sudo apt update
           sudo apt install gh -y
 
-          if [[ "$tool" == "gcc" ]]; then
-            git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
-          elif [[ "$tool" == "clang" ]]; then
+          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9
+          if [[ "$tool" == "clang" ]]; then
             mkdir -p prebuilts/gcc/linux-x86/aarch64
             mkdir -p prebuilts/gcc/linux-x86/arm
             mkdir -p prebuilts/clang/host/
