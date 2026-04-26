@@ -18,7 +18,7 @@
 
 :::
 
-#### 其他设备可寻找第三方ROM的内核源码或在互联网搜索
+### 其他设备可寻找第三方ROM的内核源码或在互联网搜索
 
 ## 更改内核
 
@@ -27,7 +27,7 @@
 defconfig配置文件在 内核源码目录/arch/arm64/configs 文件夹下的defconfig结尾的文件，可能有多个，根据你的手机型号来
 
 :::
-#### 需要关闭defconfig配置文件的以下选项：
+### 需要关闭defconfig配置文件的以下选项：
 
 ```text
 CONFIG_HISI_PMALLOC=y
@@ -92,7 +92,7 @@ sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 
 将最后的`merge_hi3660_defconfig`替换为你的配置文件
 
-#### 可选部分： 
+### 可选部分： 
 
 把
 
@@ -107,7 +107,7 @@ CONFIG_SECURITY_SELINUX_DEVELOP=y
 ```
 可以让开机的时候手机SELinux为Permissive状态。
 
-#### 关闭AVB验证：
+### 关闭AVB验证：
 
 ```text
 CONFIG_DM_VERITY=y  
@@ -123,7 +123,7 @@ CONFIG_DM_VERITY_AVB=y
 
 ## 集成KernelSU
 
-#### 1.拉取源码
+### 1.拉取源码
 
 ```shell
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
@@ -135,7 +135,7 @@ KernelSU官方的v0.9.5的源码与内核代码冲突，拉取源码要用v0.9.2
 
 :::
 
-#### 2.启用KernelSU
+### 2.启用KernelSU
 
 在你的设备defconfig配置文件最后加入以下几行：
 
@@ -150,7 +150,7 @@ CONFIG_KSU=y
 CONFIG_KSU_DEBUG=y
 ```
 
-#### 3.应用补丁
+### 3.应用补丁
 
 参考[KernelSU官网](https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html##modify-kernel-source-code)修改
 
@@ -160,19 +160,19 @@ CONFIG_KSU_DEBUG=y
 
 :::
 
-#### 4.修改hooks.c以启用模块
+### 4.修改hooks.c以启用模块
 
 参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
 
 ## 集成KernelSU-Next
 
-#### 1.拉取源码
+### 1.拉取源码
 
 ```shell
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 ```
 
-#### 2.启用KernelSU
+### 2.启用KernelSU
 
 在你的设备defconfig配置文件最后加入以下几行：
 
@@ -187,7 +187,7 @@ CONFIG_KSU=y
 CONFIG_KSU_DEBUG=y
 ```
 
-#### 3.应用补丁
+### 3.应用补丁
 
 参考[KernelSU-Next官网](https://kernelsu-next.github.io/webpage/pages/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)修改
 
