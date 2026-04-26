@@ -388,7 +388,7 @@ HOST_LFS_LIBS := $(shell getconf LFS_LIBS 2>/dev/null)
 ifeq ($(strip $(cfi_check)),true)
 CLANG_PREBUILTS_PATH ?= $(srctree)/../../prebuilts/cfi_clang/linux-x86/cfi_clang/
 else
-CLANG_PREBUILTS_PATH ?= $(srctree)/../../prebuilts/clang/host/linux-x86/clang-r353983c/
+CLANG_PREBUILTS_PATH ?= $(srctree)/prebuilts/clang/host/linux-x86/clang-r353983c/
 endif
 CLANG_PREBUILT_BIN := $(CLANG_PREBUILTS_PATH)bin/
 export CLANG_PREBUILTS_PATH
@@ -794,7 +794,7 @@ KBUILD_CFLAGS += $(call cc-option,-Wframe-larger-than=${CONFIG_FRAME_WARN})
 endif
 
 ifdef CONFIG_HUAWEI_CFI
-KBUILD_CFLAGS += -fplugin=$(srctree)/../../prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/libexec/gcc/aarch64-linux-android/4.9.x/cfi.so -fplugin-arg-cfi-abortfn=__cfi_report
+KBUILD_CFLAGS += -fplugin=$(srctree)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/libexec/gcc/aarch64-linux-android/4.9.x/cfi.so -fplugin-arg-cfi-abortfn=__cfi_report
 KBUILD_CFLAGS += -fplugin-arg-cfi-tagvalue=$(CONFIG_HUAWEI_CFI_TAG)
 ifeq ($(CONFIG_HUAWEI_CFI_DEBUG),y)
 KBUILD_CFLAGS += -DHW_SAVE_CFI_LOG
