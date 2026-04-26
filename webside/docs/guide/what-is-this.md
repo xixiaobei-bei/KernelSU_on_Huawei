@@ -22,7 +22,7 @@
 
 ## 构建带SuSFS和KPM的内核 
 
-[集成带SuSFS和KPM的内核](/guide/how-to-build-susfs-and-kpm.md)
+[集成带SuSFS和KPM的内核](/guide/how-to-intergrate-susfs-and-kpm.md)
 
 ## 编译
 

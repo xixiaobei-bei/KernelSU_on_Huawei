@@ -22,7 +22,7 @@ Huawei devices have both the recovery and boot ramdisk located in the recovery_r
 
 ## Interate KernelSU with SuSFS and KPM
 
-[Interate kernel with SuSFS and KPM](/en/guide/how-to-build-susfs-and-kpm.md)  
+[Interate kernel with SuSFS and KPM](/en/guide/how-to-intergrate-susfs-and-kpm.md)  
 
 ## Build
 
