@@ -265,6 +265,7 @@ jobs:
           export ARCH=arm64
           export PATH=$(pwd)/prebuilts/clang/host/linux-x86/clang-r346389c/bin:$PATH
           export PATH=$PATH:$(pwd)/aarch64-linux-android-4.9/bin/
+          export LLVM_IAS=0
         fi
 
         if [ "${{ matrix.pm }}" = "true" ]; then
