@@ -321,6 +321,7 @@ jobs:
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/linux-x86/clang-r346389c/lib64/
             export CROSS_COMPILE=aarch64-linux-android-
             export ARCH=arm64
+            export PATH=$(pwd)/perbuilts/clang/host/linux-x86/clang-r346389c/bin:$PATH
           fi
 
           if [ "${{ matrix.pm }}" = "true" ]; then
