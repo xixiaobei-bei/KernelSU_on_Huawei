@@ -254,7 +254,7 @@ jobs:
             git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
             cd aarch64-linux-android-4.9
             git checkout 84fb09fafc92a3d9b4d160f049d46c3c784cc941
-            cd ../arm
+            cd ../../arm
             git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
             cd arm-linux-androideabi-4.9
             git checkout 5a8beef7b1aa2c8ca0dfe4a00358559d12dfa3b6
