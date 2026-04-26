@@ -16,10 +16,14 @@
 
 [如何适配](/guide/how-to-adapt.md)
 
-## 构建不带SuSFS的内核
+## 集成不带SuSFS的内核
 
-[构建不带SuSFS的内核](/guide/how-to-build.md)
+[集成不带SuSFS的内核](/guide/how-to-intergrate-kernelsu.md)
 
 ## 构建带SuSFS和KPM的内核 
 
-[构建带SuSFS和KPM的内核](/guide/how-to-build-susfs-and-kpm.md)
+[集成带SuSFS和KPM的内核](/guide/how-to-build-susfs-and-kpm.md)
+
+## 编译
+
+[编译](/guide/how-to-build.md)

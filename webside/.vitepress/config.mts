@@ -40,8 +40,9 @@ export default defineConfig({
             { text: '项目介绍', link: '/guide/what-is-this' },
             { text: '如何使用', link: '/guide/how-to-use' },
             { text: '如何适配', link: '/guide/how-to-adapt' },
-            { text: '构建不带SuSFS的内核', link: '/guide/how-to-build' },
-            { text: '构建带SuSFS和KPM的内核', link: '/guide/how-to-build-susfs-and-kpm' }
+            { text: '集成不带SuSFS的内核', link: '/guide/how-to-intergrate-kernelsu' },
+            { text: '集成带SuSFS和KPM的内核', link: '/guide/how-to-build-susfs-and-kpm' },
+            { text: '编译', link: '/guide/how-to-build' }
           ]
         }
       ],
@@ -52,8 +53,9 @@ export default defineConfig({
             { text: 'What is this', link: '/en/guide/what-is-this' },
             { text: 'How to use', link: '/en/guide/how-to-use' },
             { text: 'How to adapt', link: '/en/guide/how-to-adapt' },
-            { text: 'Build kernel without SuSFS', link: '/en/guide/how-to-build' },
-            { text: 'Build kernel with SuSFS and KPM', link: '/en/guide/how-to-build-susfs-and-kpm' }
+            { text: 'Interate KernelSU without SuSFS', link: '/en/guide/how-to-intergrate-kernelsu' },
+            { text: 'Interate KernelSU with SuSFS and KPM', link: '/en/guide/how-to-build-susfs-and-kpm' },
+            { text: 'Build', link: '/en/guide/how-to-build' }
           ]
         }
       ]
