@@ -234,6 +234,7 @@ jobs:
           echo "tool=$tool" >> $GITHUB_ENV
 
       - name: Install dependencies
+        if: steps.should_skip.outputs.skip != 'true'
         run: |
           ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
           apt update -y 
