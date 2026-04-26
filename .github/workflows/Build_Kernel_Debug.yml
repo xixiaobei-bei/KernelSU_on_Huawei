@@ -234,7 +234,7 @@ jobs:
           echo "tool=$tool" >> $GITHUB_ENV
 
       - name: Install GitHub CLI
-        uses: actions/setup-gh@v1   # 或 github/cli/action
+        uses: github/cli@v2
         with:
           version: latest
 
