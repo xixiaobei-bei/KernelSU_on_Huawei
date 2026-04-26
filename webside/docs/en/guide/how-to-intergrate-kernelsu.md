@@ -1,4 +1,4 @@
-# Hot to intergrate kernelsu without SuSFS?
+# How to intergrate kernelsu without SuSFS?
 
 :::warning
 
