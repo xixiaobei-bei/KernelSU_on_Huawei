@@ -258,7 +258,7 @@ jobs:
             git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
             cd arm-linux-androideabi-4.9
             git checkout 5a8beef7b1aa2c8ca0dfe4a00358559d12dfa3b6
-            cd ../../../clang/host/
+            cd ../../../../clang/host/
             git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86
             cd linux-x86
             git checkout 3f889f9c9d42bae85728fa89ba5f92a01704fd83
