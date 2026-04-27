@@ -56,7 +56,7 @@ obj-$(CONFIG_DRG)                     += drg/
 obj-$(CONFIG_HISI_AP_CP_DECOUPL)           += modem_decoupl/
 ifneq ($(link_kernel),false)
 ifneq (,$(findstring $(CONFIG_HISI_BALONG_MODEM),y m))
-obj-y += modem/
+# obj-y += modem/
 endif
 endif
 obj-y += max_power/
