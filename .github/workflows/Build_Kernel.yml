@@ -47,6 +47,7 @@ jobs:
           - STK_EMUI9.1_RKSU
           - INE_EMUI9.1_RKSU
           - CDY_HarmonyOS2.0_KernelSU
+          - ALP_EMUI9.1_RKSU
         pm: [false, true]
     steps:
     - name: Checkout
@@ -165,6 +166,10 @@ jobs:
             DEFCONFIG="merge_denver_defconfig"
             os_version="10"
             tool="clang" ;;
+          ALP_EMUI9.1_RKSU)
+            DEFCONFIG="merge_kirin710_defconfig"
+            os_version="9"
+            tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
