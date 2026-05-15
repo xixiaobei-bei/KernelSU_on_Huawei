@@ -1,0 +1,22 @@
+
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "kirin970_udp_cs_overlay.dtsi"
+
+/ {
+	board_id = <6019>;
+};
+
+&rootparam {
+    hisi,boardid = <6 0 1 9>;
+    hisi,boardname = "kirin970_udp_cs_EVB9";
+};
+

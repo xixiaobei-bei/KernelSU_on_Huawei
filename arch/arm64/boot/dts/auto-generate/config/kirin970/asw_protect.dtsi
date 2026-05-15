@@ -1,0 +1,7 @@
+/ {
+	asw_protect: asw_protect{
+		compatible = "huawei,asw_protect";
+		asw_protect_support = <0>;
+		status = "disable";
+	};
+};
