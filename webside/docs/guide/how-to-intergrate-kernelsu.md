@@ -198,7 +198,7 @@ CONFIG_KSU_DEBUG=y
 ### 1.拉取源码
 
 ```shell
-curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v3.0.0-30-legacy
 ```
 
 ### 2.启用RKSU

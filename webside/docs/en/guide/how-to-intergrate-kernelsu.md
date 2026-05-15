@@ -202,7 +202,7 @@ In addition, you can also backport path_umount via the [KernelSU offical webside
 ### 1. Pull the source code
 
 ```shell
-curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
+curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v3.0.0-30-legacy
 ```
 
 ### 2.Enable RKSU
