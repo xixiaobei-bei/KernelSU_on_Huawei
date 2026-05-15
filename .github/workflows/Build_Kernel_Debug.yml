@@ -11,7 +11,7 @@ on:
         description: 'RKSU自定义集成命令'
         required: false
         type: string
-        default: 'curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash'
+        default: 'curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v3.0.0-30-legacy'
       sukisu_command:
         description: 'SukiSU-Ultra自定义集成命令'
         required: false
