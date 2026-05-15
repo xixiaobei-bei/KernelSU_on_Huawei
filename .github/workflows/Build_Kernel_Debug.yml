@@ -234,7 +234,7 @@ jobs:
               os_version="10"
               tool="clang" ;;
             ALP_EMUI9.1_RKSU)
-              DEFCONFIG="merge_kirin710_defconfig"
+              DEFCONFIG="merge_kirin970_defconfig"
               os_version="9"
               tool="gcc" ;;
           esac
