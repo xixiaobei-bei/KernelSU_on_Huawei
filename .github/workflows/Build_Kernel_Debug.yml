@@ -308,7 +308,7 @@ jobs:
           elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
             echo "Branch contains ReSukiSU: running ReSukiSU setup"
             rm -rf KernelSU
-            ${{ github.event.inputs.sukisu_command }}
+            ${{ github.event.inputs.resukisu_command }}
           else
             echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
           fi
