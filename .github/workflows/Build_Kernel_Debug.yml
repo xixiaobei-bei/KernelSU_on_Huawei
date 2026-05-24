@@ -17,6 +17,11 @@ on:
         required: false
         type: string
         default: 'curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin'
+      resukisu_command:
+        description: 'ReSukiSU自定义集成命令'
+        required: false
+        type: string
+        default: 'curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash'
       selected_branches:
         description: '要编译的分支名称，多个用英文逗号分隔（留空表示全部）'
         required: false
@@ -313,7 +318,7 @@ jobs:
           elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
             echo "Branch contains ReSukiSU: running ReSukiSU setup"
             rm -rf KernelSU
-            curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+            ${{ github.event.inputs.resukisu_command }}
           else
             echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
           fi
