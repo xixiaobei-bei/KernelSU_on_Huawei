@@ -67,6 +67,8 @@ jobs:
           - INE_EMUI9.1_RKSU
           - CDY_HarmonyOS2.0_KernelSU
           - ALP_EMUI9.1_RKSU
+          - GLK_EMUI9.1_RKSU
+          - AGS3_HarmonyOS2.0_RKSU
         pm: [false, true]
 
     steps:
@@ -234,6 +236,14 @@ jobs:
               os_version="10"
               tool="clang" ;;
             ALP_EMUI9.1_RKSU)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+            AGS3_HarmonyOS2.0_RKSU)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="10"
+              tool="clang" ;;
+            GLK_EMUI9.1_RKSU)
               DEFCONFIG="merge_kirin970_defconfig"
               os_version="9"
               tool="gcc" ;;
