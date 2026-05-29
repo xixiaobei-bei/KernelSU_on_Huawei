@@ -32,11 +32,6 @@ on:
         required: false
         type: boolean
         default: false
-      exclude_branches:
-        description: '排除编译的分支名，多个用逗号分隔'
-        required: false
-        type: string
-        default: ''
 
 jobs:
   build:
@@ -109,37 +104,13 @@ jobs:
               echo "skip=true" >> $GITHUB_OUTPUT
             else
               echo "skip=false" >> $GITHUB_OUTPUT
-            endif
-          fi
-
-      - name: Check exclude branches
-        id: check_exclude
-        run: |
-          EXCLUDE_INPUT="${{ github.event.inputs.exclude_branches }}"
-          CURRENT_BRANCH="${{ matrix.branch }}"
-          SKIP=false
-          if [ -n "$EXCLUDE_INPUT" ]; then
-            IFS=',' read -ra EXCLUDED_ARRAY <<< "$EXCLUDE_INPUT"
-            for excluded in "${EXCLUDED_ARRAY[@]}"; do
-              # 去除前后空格
-              excluded=$(echo "$excluded" | xargs)
-              if [ "$CURRENT_BRANCH" = "$excluded" ]; then
-                SKIP=true
-                break
-              fi
-            done
-          fi
-          echo "skip=$SKIP" >> $GITHUB_OUTPUT
-          if [ "$SKIP" = "true" ]; then
-            echo "Branch $CURRENT_BRANCH is excluded by user, will skip."
+            fi
           fi
 
       - name: Combine skip conditions
         id: should_skip
         run: |
-          if [ "${{ steps.check_branch.outputs.skip }}" = "true" ] || \
-             [ "${{ steps.check_pm.outputs.skip }}" = "true" ] || \
-             [ "${{ steps.check_exclude.outputs.skip }}" = "true" ]; then
+          if [ "${{ steps.check_branch.outputs.skip }}" = "true" ] || [ "${{ steps.check_pm.outputs.skip }}" = "true" ]; then
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
@@ -148,7 +119,7 @@ jobs:
       - name: Skip this job due to user selection
         if: steps.should_skip.outputs.skip == 'true'
         run: |
-          echo "Skipping branch ${{ matrix.branch }} (pm=${{ matrix.pm }}) because it does not match user selection or is excluded."
+          echo "Skipping branch ${{ matrix.branch }} (pm=${{ matrix.pm }}) because it does not match user selection."
           exit 0
 
       - name: Checkout
