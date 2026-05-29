@@ -8,6 +8,11 @@ on:
         required: true
         type: string
         default: 'Build_Kernel_Release'
+      exclude_branches:
+        description: '排除编译的分支名，多个用逗号分隔'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
@@ -48,8 +53,31 @@ jobs:
           - ALP_EMUI9.1_RKSU
           - GLK_EMUI9.1_RKSU
         pm: [false, true]
+
     steps:
+    - name: Check exclude branches
+      id: check_exclude
+      run: |
+        EXCLUDE_INPUT="${{ github.event.inputs.exclude_branches }}"
+        CURRENT_BRANCH="${{ matrix.branch }}"
+        SKIP=false
+        if [ -n "$EXCLUDE_INPUT" ]; then
+          IFS=',' read -ra EXCLUDED_ARRAY <<< "$EXCLUDE_INPUT"
+          for excluded in "${EXCLUDED_ARRAY[@]}"; do
+            excluded=$(echo "$excluded" | xargs)
+            if [ "$CURRENT_BRANCH" = "$excluded" ]; then
+              SKIP=true
+              break
+            fi
+          done
+        fi
+        echo "skip=$SKIP" >> $GITHUB_OUTPUT
+        if [ "$SKIP" = "true" ]; then
+          echo "Branch $CURRENT_BRANCH is excluded, skipping all steps for this job."
+        fi
+
     - name: Checkout
+      if: steps.check_exclude.outputs.skip != 'true'
       uses: actions/checkout@v4
       with:
         ref: ${{ matrix.branch }}
@@ -58,6 +86,7 @@ jobs:
         lfs: false
 
     - name: Set build vars
+      if: steps.check_exclude.outputs.skip != 'true'
       run: |
         if [ "${{ matrix.pm }}" = "true" ]; then
           echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
@@ -185,7 +214,7 @@ jobs:
         echo "tool=$tool" >> $GITHUB_ENV
 
     - name: Install dependencies
-      if: steps.should_skip.outputs.skip != 'true'
+      if: steps.check_exclude.outputs.skip != 'true'
       run: |
         ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
         apt update -y 
@@ -215,6 +244,7 @@ jobs:
         fi
 
     - name: Prepare KernelSU sources (branch-specific)
+      if: steps.check_exclude.outputs.skip != 'true'
       run: |
         BRANCH='${{ matrix.branch }}'
         if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
@@ -239,16 +269,15 @@ jobs:
           echo "Branch contains ReSukiSU: running ReSukiSU setup"
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-
         else
           echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
         fi
 
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
+      if: steps.check_exclude.outputs.skip != 'true'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-
         CURRENT_DATE=$(date +'%Y-%m-%d')
         if [ "${{ matrix.pm }}" = "true" ]; then
           SELINUX_MODE="permissive"
@@ -301,25 +330,19 @@ jobs:
         if grep -q "CONFIG_KPM=y" "out/.config"; then
           echo "==========================================="
           echo "检测到 CONFIG_KPM=y，准备进行内核修补..."
-
           cd ./out/arch/arm64/boot/
           gh release download --repo SukiSU-Ultra/SukiSU_KernelPatch_patch --pattern "patch_linux"
           chmod 777 ./patch_linux
-
           echo "正在运行 patch_linux 工具..."
           ./patch_linux
-
           if [ -f "oImage" ]; then
               echo "检测到 oImage，替换原 Image..."
               rm -rf Image.gz
               mv -f oImage Image
           fi
-
           echo "正在重新压缩为 Image.gz..."
           gzip -k Image Image.gz
-
           cd ../../../../
-
           echo "==========================================="
         else
           echo "未检测到 CONFIG_KPM 开启，跳过 KPM 修补流程。"
@@ -334,6 +357,7 @@ jobs:
         fi
 
     - name: Upload Kernel Artifact
+      if: steps.check_exclude.outputs.skip != 'true'
       uses: actions/upload-artifact@v5
       with:
         name: ${{ env.ARTIFACT_NAME }}
