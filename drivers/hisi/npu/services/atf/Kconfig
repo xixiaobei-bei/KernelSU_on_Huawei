@@ -1,0 +1,6 @@
+
+menuconfig NPU_HISI_ATF_SEVICES
+	tristate "NPU_HISI_ATF_SEVICES"
+	default n
+	help
+	  Say yes here to support hisi atf sercies

@@ -1,0 +1,5 @@
+source "drivers/hisi/npu/platform/hi6280/Kconfig"
+
+config NPU_DEVDRV_DEVPLATFORM
+	tristate "DEVDRV_DEVPLATFORM"
+	default m

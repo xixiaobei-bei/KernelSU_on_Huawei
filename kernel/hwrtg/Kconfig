@@ -1,0 +1,6 @@
+config HW_RTG_SCHED
+	bool "iaware 5.0 rtg sched"
+	depends on FRAME_RTG
+	default n
+	help
+	  if set, key thread sched in rtg

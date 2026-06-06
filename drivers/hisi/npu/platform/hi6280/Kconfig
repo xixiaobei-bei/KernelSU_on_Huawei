@@ -1,0 +1,12 @@
+menuconfig PLATFORM_HI6280
+	tristate "PLATFORM_HI6280"
+	default n
+	help
+	  Say yes here to support npu hi6280 platform adapt
+
+config ORLANDO_SUPPORT
+	bool "ORLANDO support"
+	depends on PLATFORM_HI6280
+	default n
+	help
+	  Say yes here to support orlando

@@ -1,0 +1,13 @@
+config USB_DWC3_VBUS_PLT
+	tristate "Hisilicon Platforms USB VBUS usb platform drv intf"
+	depends on HISI_PMIC
+	default n
+	help
+	  Use platform bus register usb insert/pull-out interrupt.
+
+config USB_DWC3_VBUS_SPMI
+	tristate "Hisilicon Platforms USB VBUS usb spmi drv intf"
+	depends on HISI_SPMI
+	default n
+	help
+	  Use spmi bus register usb insert/pull-out interrupt.
