@@ -48,6 +48,7 @@ jobs:
           - JKM_HarmonyOS2.0_KernelSU
           - STF_EMUI9.0_KernelSU
           - STK_EMUI9.1_RKSU
+          - SEA_EMUI9.1_RKSU
           - INE_EMUI9.1_RKSU
           - CDY_HarmonyOS2.0_KernelSU
           - ALP_EMUI9.1_RKSU
@@ -186,6 +187,10 @@ jobs:
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
             tool="gcc" ;;
+          SEA_EMUI9.1_RKSU)
+              DEFCONFIG="merge_orlando_defconfig"
+              os_version="9"
+              tool="gcc" ;;
           INE_EMUI9.1_RKSU)
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
