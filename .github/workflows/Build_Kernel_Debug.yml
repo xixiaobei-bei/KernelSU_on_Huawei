@@ -371,9 +371,6 @@ jobs:
             sed -i 's/^\(CONFIG_LOCALVERSION=".*\)\(_xixiaobei[^"]*@Github"\)$/\1_PM\2/' "${PWD}/arch/arm64/configs/$DEFCONFIG"
           fi
 
-          make mrproper
-          rm -rf out
-
           if [[ "$tool" == "gcc" ]]; then
             make ARCH=arm64 O=out "${DEFCONFIG}"
             make ARCH=arm64 O=out -j$(nproc --all)
