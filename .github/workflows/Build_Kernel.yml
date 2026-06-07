@@ -38,12 +38,15 @@ jobs:
           - MHA_HarmonyOS2.0_SukiSU-Ultra
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
+          - MAR_EMUI10.0_RKSU
           - DUK_HarmonyOS2.0_KernelSU
           - VCE_EMUI9.0_KernelSU
           - VCE_EMUI9.0_SukiSU-Ultra
           - VTR_EMUI9.0_KernelSU
           - VTR_EMUI9.1_KernelSU
           - VTR_HarmonyOS2.0_KernelSU
+          - VKY_EMUI9.0_RKSU
+          - VKY_HarmonyOS2.0_RKSU
           - JKM_EMUI9.1_KernelSU
           - JKM_HarmonyOS2.0_KernelSU
           - STF_EMUI9.0_KernelSU
@@ -147,6 +150,10 @@ jobs:
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
+          MAR_EMUI10.0_RKSU)
+            DEFCONFIG="merge_kirin710_defconfig"
+            os_version="10"
+            tool="gcc" ;;
           DUK_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
@@ -168,6 +175,14 @@ jobs:
             os_version="9"
             tool="gcc" ;;
           VTR_HarmonyOS2.0_KernelSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          VKY_EMUI9.0_RKSU)
+            DEFCONFIG="merge_hi3660_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          VKY_HarmonyOS2.0_RKSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
             tool="gcc" ;;
