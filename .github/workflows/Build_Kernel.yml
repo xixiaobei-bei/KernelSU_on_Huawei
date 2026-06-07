@@ -153,7 +153,7 @@ jobs:
           MAR_EMUI10.0_RKSU)
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="10"
-            tool="gcc" ;;
+            tool="clang" ;;
           DUK_HarmonyOS2.0_KernelSU)
             DEFCONFIG="merge_hi3660_defconfig"
             os_version="9"
