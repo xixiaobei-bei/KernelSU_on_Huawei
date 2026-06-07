@@ -1,0 +1,81 @@
+config USB_DWC3_HISI
+	tristate "Hisilicon Platforms"
+	default USB_DWC3
+	help
+	  Support of USB2/3 functionality in hisilicon platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+if USB_DWC3_HISI
+
+config USB_DWC3_NOV
+       tristate "Hisilicon Platforms NOV USB"
+       default n
+       help
+         Support of USB2 functionality in hisilicon platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_OCT
+       tristate "Hisilicon Platforms OCT USB"
+       default n
+       help
+         Support of USB2 functionality in hisilicon platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_SEP
+       tristate "Hisilicon Platforms SEP USB"
+       default n
+       help
+         Support of USB2 functionality in hisilicon platforms,
+         Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_MAY
+	tristate "Hisilicon Platforms MAY USB"
+	default n
+	select MFD_SYSCON
+	help
+	  Support of USB2/3/3.1 functionality in hisilicon platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_APR
+	tristate "Hisilicon Platforms APR USB"
+	select HISI_USB_XHCI_HUB_PORT_DIS
+	default n
+	select MFD_SYSCON
+	help
+	  Support of USB2/3/3.1 functionality in hisilicon platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_MAR
+	tristate "Hisilicon Platforms MAR USB"
+	select HISI_USB_XHCI_HUB_PORT_DIS
+	default n
+	select MFD_SYSCON
+	help
+	  Support of USB2/3/3.1 functionality in hisilicon platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+config USB_DWC3_FEB
+	tristate "Hisilicon Platforms FEB USB"
+	select HISI_USB_XHCI_HUB_PORT_DIS
+	default n
+	select MFD_SYSCON
+	help
+	  Support of USB2/3 functionality in hisilicon platforms,
+	  Say 'Y' or 'M' here if you have one such device.
+
+source "drivers/usb/dwc3/hisi/hisi_usb_vbus/Kconfig"
+
+config USB_DWC3_NYET_ABNORMAL
+	bool "Enable workaround for receiving NYET bug on hisi dwc3 feb"
+	default n
+	help
+	  There is a Bug that receiving NYET in control transfer
+	  can cause controller abnormal on hisi dwc3 feb.
+
+config CONTEXTHUB_PD
+	bool "Sensor CONTEXTHUB PD driver"
+	default n
+	help
+	  Say yes here if you want to use contexthub pd function
+
+endif # USB_DWC3_HISI

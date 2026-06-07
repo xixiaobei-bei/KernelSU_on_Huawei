@@ -1,0 +1,4 @@
+source "drivers/huawei_platform/power/common_module/power_thermalzone/Kconfig"
+source "drivers/huawei_platform/power/common_module/power_debug/Kconfig"
+source "drivers/huawei_platform/power/common_module/power_mesg/Kconfig"
+source "drivers/huawei_platform/power/common_module/power_devices_info/Kconfig"

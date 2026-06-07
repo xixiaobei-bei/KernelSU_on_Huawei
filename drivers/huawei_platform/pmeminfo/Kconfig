@@ -1,0 +1,10 @@
+menu "Huawei memory info dump"
+
+config HUAWEI_MEMINFO_DUMP
+	bool "Memory info dump for TopN"
+	default n
+	depends on ANDROID_LOW_MEMORY_KILLER
+	help
+	   Dump process info and memory info for TopN
+
+endmenu

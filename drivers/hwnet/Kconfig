@@ -1,0 +1,4 @@
+source "drivers/hwnet/ipv4/Kconfig"
+source "drivers/hwnet/booster/Kconfig"
+source "drivers/hwnet/chr/Kconfig"
+source "drivers/hwnet/hw_dpi_mark/Kconfig"

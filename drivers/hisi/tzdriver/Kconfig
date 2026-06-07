@@ -1,0 +1,90 @@
+menu "TEE OS"
+
+config SECURE_EXTENSION
+	bool "security extension support"
+	default n
+	help
+	  Include Security Extension.
+
+config  TZDRIVER
+	tristate "Secure Execution Communicator driver"
+	default n
+	depends on SECURE_EXTENSION
+	help
+	  Provides a communication interface between userspace and
+	  TrustZone Operating Environment.
+
+config TEELOG
+	tristate "Secure Execution Log driver"
+	default n
+	depends on TZDRIVER
+	help
+	  TEEOS log
+
+config TEE_KTRACE
+	tristate "TEEOS kernel event log driver"
+	default y
+	depends on TEELOG
+	help
+	  TEEOS event trace
+
+config TEE_TUI
+	tristate "Trusted user interface driver"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_TUI_ION
+	tristate "Trusted user interface driver for ION"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_TUI_ION_ADD
+	tristate "Trusted user interface driver for add ION memory"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+config TEE_TUI_FP
+	tristate "Trusted user interface driver for FP"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_CPU_MIGRATION
+	tristate "TEE cpu core migration"
+	default n
+	depends on TZDRIVER
+	help
+	  TEE cpu core migration
+
+config HISI_SPI_SMC
+	bool "hisi spi smc"
+	default n
+
+config HISI_SPI1_SMC
+	bool "hisi spi1 smc"
+	default n
+
+config SECS_POWER_CTRL
+	bool "secs power ctrl"
+	default n
+
+config HISI_SECBOOT_IMG
+    bool "tzdriver split secboot img into modem and ap"
+    default n
+    help
+      Macro defined for splitting modem and ap img
+
+config ASAN_DEBUG
+    bool "hisi ASAN debug version"
+    default n
+    help
+      Macro defined for ASAN debug version
+
+
+endmenu

@@ -1,0 +1,92 @@
+config HISI_FB_FAKE
+	tristate "HISI Framebuffer Fake support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI FB Fake.
+
+config HISI_FB_970
+	tristate "HISI FB 970 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI970 FB.
+
+config HISI_FB_V501
+	tristate "HISI FB V501 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V501 FB.
+
+config HISI_FB_V510
+	tristate "HISI FB V510 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V510 FB.
+
+config HISI_FB_V600
+	tristate "HISI FB V600 Framebuffer support"
+	depends on FB
+	depends on DMA_CMA
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V600 FB.
+
+config HISI_FB_V320
+	tristate "HISI FB V320 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V320 FB.
+
+config HISI_FB_V330
+	tristate "HISI FB V330 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V330 FB.
+
+config HISI_FB_V350
+	tristate "HISI FB V350 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V350 FB.
+
+config HISI_FB_ENG_DBG
+	tristate "HISI FB ENG DEBUG support"
+	depends on FB
+	help
+	  This config only used in eng version.
+
+config FASTBOOT_DISP_ENABLE
+	tristate "HISI fastboot display enable support"
+	depends on FB
+	help
+	  Display system have already initialized in fastboot.
