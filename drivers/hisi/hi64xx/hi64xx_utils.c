@@ -1,3 +1,4 @@
+#include <linux/hisi/hi64xx/hi6405.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/hisi/hi64xx/hi64xx_utils.h>
