@@ -45,6 +45,7 @@ jobs:
 
     timeout-minutes: 480
     strategy:
+      fail-fast: false
       matrix:
         branch:
           - MHA_EMUI9.0_KernelSU
