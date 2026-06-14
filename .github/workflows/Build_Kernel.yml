@@ -38,7 +38,6 @@ jobs:
           - MHA_HarmonyOS2.0_SukiSU-Ultra
           - MHA_HarmonyOS2.0_RKSU
           - MHA_HarmonyOS2.0_ReSukiSU
-          - MAR_EMUI10.0_RKSU
           - DUK_HarmonyOS2.0_KernelSU
           - VCE_EMUI9.0_KernelSU
           - VCE_EMUI9.0_SukiSU-Ultra
@@ -53,7 +52,6 @@ jobs:
           - STK_EMUI9.1_RKSU
           - SEA_EMUI9.1_RKSU
           - INE_EMUI9.1_RKSU
-          - CDY_HarmonyOS2.0_KernelSU
           - ALP_EMUI9.1_RKSU
           - GLK_EMUI9.1_RKSU
         pm: [false, true]
