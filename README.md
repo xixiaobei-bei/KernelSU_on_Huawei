@@ -88,7 +88,7 @@ fastboot flash kernel <内核文件>
 |:---:|:---:|:---:|:---:|:---:|
 |Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
 |Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
-|Mate10 系列|ALP|EMUI9.0|RKSU|无|
+|Mate10 系列|ALP|EMUI9.1|RKSU|无|
 |P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
