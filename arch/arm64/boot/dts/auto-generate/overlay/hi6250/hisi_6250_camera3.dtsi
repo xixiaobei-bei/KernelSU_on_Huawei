@@ -1,0 +1,218 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+/ {
+    huawei,hisi_isp110 {
+        compatible = "huawei,hisi_isp110";
+        hisi,product_name = "hi6250";
+        hisi,is_fpga = <1>;
+
+        clocks = <&aclk_gate_isp>, <&aclk_gate_dss>, <&pclk_gate_dss>;
+        clock-names = "aclk_isp", "aclk_dss", "pclk_dss";
+
+        pinctrl-names = "default", "idle";
+        pinctrl-0 = </*&gpio009_pmx_func*/
+                 /*&gpio010_pmx_func*/
+                 &gpio017_pmx_func
+                 &gpio018_pmx_func
+                 &gpio019_pmx_func
+                 &gpio022_pmx_func
+                 &gpio023_pmx_func
+                 /*&gpio024_pmx_func*/
+                 &gpio025_pmx_func
+                 &gpio026_pmx_func
+                 &gpio027_pmx_func
+                 &gpio028_pmx_func
+                 /*&gpio029_pmx_func*/
+                 /*&gpio030_pmx_func*/
+                 /*&gpio009_cfg_func*/
+                 /*&gpio010_cfg_func*/
+                 &gpio017_cfg_func
+                 &gpio018_cfg_func
+                 &gpio019_cfg_func
+                 &gpio022_cfg_func
+                 &gpio023_cfg_func
+                 /*&gpio024_cfg_func*/
+                 &gpio025_cfg_func
+                 &gpio026_cfg_func
+                 &gpio027_cfg_func
+                 &gpio028_cfg_func
+                 /*&gpio029_cfg_func*/
+                 /*&gpio030_cfg_func*/
+                 >;
+        pinctrl-1 = </*&gpio009_pmx_idle*/
+                 /*&gpio010_pmx_idle*/
+                 &gpio017_pmx_idle
+                 &gpio018_pmx_idle
+                 &gpio019_pmx_idle
+                 &gpio022_pmx_idle
+                 &gpio023_pmx_idle
+                 /*&gpio024_pmx_idle*/
+                 &gpio025_pmx_idle
+                 &gpio026_pmx_idle
+                 &gpio027_pmx_idle
+                 &gpio028_pmx_idle
+                 /*&gpio029_pmx_idle*/
+                 /*&gpio030_pmx_idle*/
+                 /*&gpio009_cfg_idle*/
+                 /*&gpio010_cfg_idle*/
+                 &gpio017_cfg_idle
+                 &gpio018_cfg_idle
+                 &gpio019_cfg_idle
+                 &gpio022_cfg_idle
+                 &gpio023_cfg_idle
+                 /*&gpio024_cfg_idle*/
+                 &gpio025_cfg_idle
+                 &gpio026_cfg_idle
+                 &gpio027_cfg_idle
+                 &gpio028_cfg_idle
+                 /*&gpio029_cfg_idle*/
+                 /*&gpio030_cfg_idle*/
+                 >;
+
+        status = "ok";
+    };
+	
+    histarisp: isp@e8400000 {
+        compatible          = "hisilicon,isp";
+        status              = "okay";       /* ("okay"/"disabled") When Disable Enumerating Device, Repace by "disabled". */
+
+        /* Resource Items */
+        reg-num             = <9>;          /* Resource Number of reg */
+        reg = <0 0xFFF35000 0 0x1000>,      /* Resource Register 01 PERI_CRG */
+              <0 0xE8400000 0 0x200000>,    /* Resource Register 02 ISP_Core_CFG */
+              <0 0xFFF31000 0 0x1000>,      /* Resource Register 03 PMC */
+              <0 0xE8A09000 0 0x1000>,      /* Resource Register 04 PCTRL */
+              <0 0xFFF0A000 0 0x1000>,      /* Resource Register 05 SCTRL */
+              <0 0xE86D0000 0 0x1000>,      /* Resource Register 06 NOC_ISP_Service_Target */
+              <0 0xEC050000 0 0x2000>,      /* Resource Register 07 CSSYS */
+              <0 0xE8583000 0 0x1000>,      /* Resource Register 08 ISP_SUB_CTRL */
+              <0 0xE8580000 0 0x1000>;      /* Resource Register 09 ISP_WDT */
+        interrupts          = <0 272 4>;    /* Resource IRQ */
+
+        /* Switch Items */
+        hisi,use_secisp     = <0>;          /* Switch 01 for Whether Support Trusted-Nontrus ISP or Not */
+        useclockdep         = <0>;          /* Switch 02 for Whether Clock Enable Depend on Powerup or Not */
+        useisptop           = <0>;          /* Switch 03 for Whether Use Top-powerup or Not */
+        usedvfs             = <0>;          /* Switch 04 for Whether Use DVFS or Not */
+        usepowerdn_clockdn  = <0>;          /* Switch 05 for Whether Need Clock Down When Power Down */
+        sec-verify          = <0>;          /* Switch 06 for Whether Need Trusted Verify or Not */
+        isp-reset-flag      = <0>;          /* Switch 07 for Whether Use ispCPU Reset or Not */
+        isppd-adb-flag      = <0>;          /* Switch 08 for Whether Use ADB or Not */
+        isp-wdt-flag        = <0>;          /* Switch 09 for Whether Use Watch Dog or Not */
+        ispsmmu-init-byap   = <0>;          /* Switch 10 for Whether Smmu Init by AP or Not */
+        isp-mdc-flag        = <0>;          /* Switch 11 for Whether Use MDC or Not */
+        isp-efuse-flag      = <0>;          /* Switch 12 for Whether Use efuse_deskew or Not */
+        useloadbin          = <0>;          /* Switch 13 for Whether Use load binary image or Not */
+
+        /* Misc Items */
+        isp-names           = "isp_a7";     /* Name of ISP */
+        firmware-names      = "isp_fw.elf"; /* Name of isp firmware */
+        bootware-names      = "isp_bw.elf"; /* Name of isp bootware */
+        mailbox-names       = "isp_mailbox";/* Name of isp IPC */
+        isp-remap-addr      = <0x34B00000>; /* Base Address for MPU Remap */
+        isp-ipc-addr        = <0xC2020000>; /* Base Address for IPC Buffers(VA) */
+		ispa7-default-clk   = <800000000>;
+		isp_local_timer     = <19200000>;
+        isp-seckthread-nice = <10>;         /* ISP sec kthread nice value*/
+
+        /* Regulator Items */
+        isp-core-supply     = <&ispsubsys>; /* Regulator for Core */
+
+        /* Clock Items */
+        clock-num           = <2>;                      /* Clock Number */
+		clocks              = <&clk_gate_ispa7>,        /* Clock Gate 01 for ispa7 */
+                              <&clk_gate_isp_timer>;    /* Clock Gate 02 for isp_timer */
+		clock-names         = "clk_ispa7", "isp_timer"; /* Clock Names */
+        clock-value         = <800000000 19200000>;     /* Clock Values for CLKLVL_TURBO */
+
+        /* QOS Items */
+        qos-num         = <8>;
+        qos-offset      = <0x0008 0x000C 0x0088 0x008C 0x0108 0x010C 0x0188 0x018C>;
+        qos-value       = <0x0302 0x0002 0x0202 0x0002 0x0202 0x0000 0x0000 0x0000>;
+
+        /* Definition for Smmu/Iommu Driver */
+        iommu_info {
+            start-addr      = <0xc0000000>;
+            size            = <0x3ffffc00>;
+        };
+    };
+
+    histarispsmmu: ispsmmu@e8406000 {
+        compatible = "hisilicon,smmu-irq";
+        reg = <0xe8406000 0x1000>;
+            isp-smmu-addr = <0xe8406000>;
+            isp-dss-addr = <0xe8608000>;
+        interrupts = <0 267 4>,<0 268 4>;
+        status = "ok";
+    };
+
+/* begin for hwcam arch  */
+
+	huawei,camcfgdev {
+			compatible = "huawei,camcfgdev";		
+            huawei,binderized = <1>;
+			status = "ok";
+	};
+
+	huawei,hicam_buf {
+		compatible = "huawei,hicam_buf";
+		status = "ok";
+		/* when upgrading to linux-4.14, add iommus here. */
+	};
+
+    huawei,scharger_flash {
+        compatible = "huawei,scharger_flash";
+
+        huawei,flash-name = "scharger_flash";
+        huawei,flash-index = <0>;
+        huawei,flash-type = <0>;
+        huawei,slave-address = <0x67>;
+
+        pvdd-classd-supply = <&schg_boost3>;
+        flash-led-supply = <&schg_source1>;
+        torch-led-supply = <&schg_source2>;
+
+        huawei,flash_led_num = <16>;
+        huawei,flash_led = <125000 250000 375000 500000 625000 750000 875000 1000000 1125000 1250000 1375000 1500000 1500000 1500000 1500000 1500000>;
+        huawei,torch_led_num = <8>;
+        huawei,torch_led = <50000 100000 150000 200000 250000 300000 350000 400000>;
+
+        hisi,is_fpga = <0>;
+        huawei,audio_codec_mute_flag = <0>;
+        status = "disabled";
+    };
+
+    amba{
+        i2c4: i2c@FDF0D000 {
+
+            huawei,lm3646@67{
+                compatible = "huawei,lm3646";
+                reg = <0x67>;
+                huawei,flash-name = "lm3646";
+                huawei,flash-index = <0>;
+                huawei,flash-type = <0>;
+                huawei,slave-address = <0x67>;
+                huawei,flash-ctrltype = <1>;
+                huawei,need-wakelock = <0>;
+                huawei,flash-chipid = <0x11>;
+                huawei,flash_led_num = <11>;
+                huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+                huawei,torch_led_num = <8>;
+                huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+                huawei,led-type = <1>; /* 1, dual tempature; 0, dual white */
+                huawei,flash-current = <0x7c 0x7f 0x0>;
+                status = "disabled";
+            };
+        };
+    };
+};

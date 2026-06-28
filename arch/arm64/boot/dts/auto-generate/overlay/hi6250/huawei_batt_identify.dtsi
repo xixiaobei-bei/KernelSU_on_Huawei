@@ -1,0 +1,6 @@
+/{
+	huawei_batt_identify: huawei_batt_identify {
+		compatible = "huawei,battery-identify";
+		status = "disabled";
+	};
+};

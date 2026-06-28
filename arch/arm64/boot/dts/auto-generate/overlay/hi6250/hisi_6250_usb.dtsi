@@ -1,0 +1,36 @@
+
+
+  /{
+		hisi_usb2phy:usb@fe000000 {
+                          compatible = "hisilicon,hisi-usb2phy";
+                          reg = <0x0 0xfe000000 0x0 0x100000>;
+                };//address is not right,the phy address would be given by chenliang
+
+		hisi_usb:hisi_usb@ff100000 {
+			compatible = "hisilicon,dec-usb-otg";
+			reg = <0x0 0xff100000 0x0 0x40000>;
+			interrupts = <0 159 4>;
+			interrupt-names = "irq";
+			otgdebugsubsys-supply = <&usbotg>;
+			eye_diagram_param = <0x059066DB>;
+			host_eye_diagram_param = <0x059066DB>;
+			bc_again_flag = <1>;
+			bc_unknown_again_flag = <2>;
+
+			clocks = <&clk_gate_abb_usb &hclk_gate_usb2otg>;
+			clock-names = "clk_abb_192", "hclk_usb2otg";
+		};
+
+		usbotg_by_id {
+			compatible = "huawei,usbotg-by-id";
+			otg_adc_channel = <6>;
+			otg-gpio = <&gpio25 0 0>;
+            sampling_time_optimize = <0>;
+			status = "disable";
+		};
+
+		usb_otg_ahbif@ff200000 {
+			compatible = "hisilicon,usb-otg-ahbif";
+			reg = <0x0 0xff200000 0x0 0x40000>;
+		};
+  };

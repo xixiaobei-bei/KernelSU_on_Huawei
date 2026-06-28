@@ -1,0 +1,38 @@
+#
+# (C) COPYRIGHT 2016-2017 ARM Limited. All rights reserved.
+#
+# This program is free software and is provided to you under the terms of the
+# GNU General Public License version 2 as published by the Free Software
+# Foundation, and any use by you of this program is subject to the terms
+# of such GNU licence.
+#
+# A copy of the licence is included with the program, and can also be obtained
+# from Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301, USA.
+#
+#
+
+MALI_GMC ?= 1
+MALI_GMC_COMPRESS_SIZE ?= 250
+
+ifeq ($(CONFIG_GPU_GMC_GENERIC),)
+MALI_GMC = 0
+endif
+
+ifeq ($(MALI_GMC),1)
+# Set up our defines, which will be passed to gcc
+DEFINES += \
+	-DMALI_GMC=$(MALI_GMC) \
+	-DMALI_GMC_COMPRESS_SIZE=$(MALI_GMC_COMPRESS_SIZE)
+
+ccflags-y += $(DEFINES) \
+        -I$(src)/$(MALI_PLATFORM_DIR)/gmc
+
+subdir-ccflags-y += $(DEFINES) \
+        -I$(src)/$(MALI_PLATFORM_DIR)/gmc
+
+SRC += $(MALI_PLATFORM_DIR)/gmc/mali_kbase_gmc.c
+
+mali_kbase-y += \
+	$(MALI_PLATFORM_DIR)/gmc/mali_kbase_gmc.o
+endif

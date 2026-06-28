@@ -1,0 +1,32 @@
+#ifndef __HI6555C_DEBUG_H__
+#define __HI6555C_DEBUG_H__
+
+#include "hicodec_debug.h"
+
+#define PAGE_SocCODEC_BASE_ADDR  0x0000
+#define PAGE_PmuCODEC_BASE_ADDR  0x1000
+#define PAGE_PmuCTRL_BASE_ADDR  0x4000
+
+#define HI6555C_DBG_SOC_CODEC_START (PAGE_SocCODEC_BASE_ADDR + 0x00)
+#define HI6555C_DBG_SOC_CODEC_END   (PAGE_SocCODEC_BASE_ADDR + 0x8c)
+#define HI6555C_DBG_FIFO_CODEC_START   (PAGE_SocCODEC_BASE_ADDR + 0xe8)
+#define HI6555C_DBG_FIFO_CODEC_END (PAGE_SocCODEC_BASE_ADDR + 0xfc)
+#define HI6555C_DBG_PMU_CODEC_START (PAGE_PmuCODEC_BASE_ADDR + 0x260)
+#define HI6555C_DBG_PMU_CODEC_END   (PAGE_PmuCODEC_BASE_ADDR + 0x298)
+#define HI6555C_DBG_PMU_CTRL_START (PAGE_PmuCTRL_BASE_ADDR + 0x000)
+#define HI6555C_DBG_PMU_CTRL_END   (PAGE_PmuCTRL_BASE_ADDR + 0x1a2)
+
+#ifdef CONFIG_SND_SOC_HICODEC_DEBUG
+static struct hicodec_dump_reg_entry hi6555c_dump_table[] = {
+	{"SOC CODEC", HI6555C_DBG_SOC_CODEC_START, HI6555C_DBG_SOC_CODEC_END, 4},
+	{"FIFO CODEC", HI6555C_DBG_FIFO_CODEC_START, HI6555C_DBG_FIFO_CODEC_END, 4},
+	{"PMU CODEC", HI6555C_DBG_PMU_CODEC_START, HI6555C_DBG_PMU_CODEC_END, 1},
+	{"PMU CTRL", HI6555C_DBG_PMU_CTRL_START, HI6555C_DBG_PMU_CTRL_END, 1},
+};
+
+static struct hicodec_dump_reg_info hi6555c_dump_info = {
+	.entry = hi6555c_dump_table,
+	.count = sizeof(hi6555c_dump_table) / sizeof(struct hicodec_dump_reg_entry),
+};
+#endif
+#endif

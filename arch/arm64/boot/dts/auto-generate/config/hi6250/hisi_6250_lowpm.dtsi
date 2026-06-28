@@ -1,0 +1,1387 @@
+
+
+/{
+	lowpm_func {
+		compatible = "hisilicon,lowpm_func";
+		reg = <0x0 0xfff32000 0x0 0x1000>;
+		plat-name = "hi6250";
+		ao-gpio-irq = <138 139 140 141 142 143>;
+		ao-gpio-group-idx=<22 23 24 25 26 27>;
+		pmu-addr-end = <0x253>;
+		status = "ok";
+		ap-irq-table = "IPI_RESCHEDULE",
+		            "IPI_CALL_FUNC",
+		            "IPI_CALL_FUNC_SINGLE",
+		            "IPI_CPU_STOP",
+		            "IPI_TIMER",
+		            "IPI_SECURE_RPMB",
+		            "IPI_MNTN_INFORM",
+		            "IPI_CPU_BACKTRACE",
+					"NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "Virtual maintenance interrupt",
+		            "Hypervisor timer",
+		            "Virtual timer",
+		            "Legacy FIQ signal",
+		            "Secure physical timer",
+		            "Non-secure physical timer",
+		            "Legacy IRQ signal",
+		            "A53_B_interr",
+		            "A53_B_exterr",
+		            "A53_B_pmu0",
+		            "A53_B_pmu1",
+		            "A53_B_pmu2",
+		            "A53_B_pmu3",
+		            "A53_B_cti0",
+		            "A53_B_cti1",
+		            "A53_B_cti2",
+		            "A53_B_cti3",
+		            "A53_B_COMMRX0",
+		            "A53_B_COMMRX1",
+		            "A53_B_COMMRX2",
+		            "A53_B_COMMRX3",
+		            "A53_B_COMMTX0",
+		            "A53_B_COMMTX1",
+		            "A53_B_COMMTX2",
+		            "A53_B_COMMTX3",
+		            "A53_B_COMMIRQ0",
+		            "A53_B_COMMIRQ1",
+		            "A53_B_COMMIRQ2",
+		            "A53_B_COMMIRQ3",
+		            "A53_L_interr",
+		            "A53_L_exterr",
+		            "A53_L_pmu0",
+		            "A53_L_pmu1",
+		            "A53_L_pmu2",
+		            "A53_L_pmu3",
+		            "A53_L_cti0",
+		            "A53_L_cti1",
+		            "A53_L_cti2",
+		            "A53_L_cti3",
+		            "A53_L_COMMRX0",
+		            "A53_L_COMMRX1",
+		            "A53_L_COMMRX2",
+		            "A53_L_COMMRX3",
+		            "A53_L_COMMTX0",
+		            "A53_L_COMMTX1",
+		            "A53_L_COMMTX2",
+		            "A53_L_COMMTX3",
+		            "A53_L_COMMIRQ0",
+		            "A53_L_COMMIRQ1",
+		            "A53_L_COMMIRQ2",
+		            "A53_L_COMMIRQ3",
+		            "WatchDog0",
+		            "WatchDog1",
+		            "RTC0",
+		            "RTC1",
+		            "TIME00",
+		            "TIME01",
+		            "TIME10",
+		            "TIME11",
+		            "TIME20",
+		            "TIME21",
+		            "TIME30",
+		            "TIME31",
+		            "TIME40",
+		            "TIME41",
+		            "TIME50",
+		            "TIME51",
+		            "TIME60",
+		            "TIME61",
+		            "TIME70",
+		            "TIME71",
+		            "TIME80",
+		            "TIME81",
+		            "TIME90",
+		            "TIME91",
+		            "TIME100",
+		            "TIME101",
+		            "TIME110",
+		            "TIME111",
+		            "TIME120",
+		            "TIME121",
+		            "UART0",
+		            "UART1",
+		            "UART2",
+		            "UART4",
+		            "UART5",
+		            "UART6",
+		            "SPI1",
+		            "I2C3",
+		            "I2C4",
+		            "PMU_I2C",
+		            "GPIO0",
+		            "GPIO1",
+		            "GPIO2",
+		            "GPIO3",
+		            "GPIO4",
+		            "GPIO5",
+		            "GPIO6",
+		            "GPIO7",
+		            "GPIO8",
+		            "GPIO9",
+		            "GPIO10",
+		            "GPIO11",
+		            "GPIO12",
+		            "GPIO13",
+		            "GPIO14",
+		            "GPIO15",
+		            "GPIO16",
+		            "GPIO17",
+		            "GPIO18",
+		            "GPIO19",
+		            "GPIO20",
+		            "GPIO21",
+		            "GPIO22",
+		            "GPIO23",
+		            "GPIO24",
+		            "GPIO25",
+		            "GPIO26",
+		            "GPIO27",
+		            "IOMCU_WD",
+		            "IOMCU_SPI",
+		            "IOMCU_UART3",
+		            "IOMCU_UART8",
+		            "IOMCU_SPI2",
+		            "IOMCU_I2C3",
+		            "IOMCU_I2C0",
+		            "Reserved",
+		            "IOMCU_I2C2",
+		            "IOMCU_GPIO0_INT1",
+		            "IOMCU_GPIO1_INT1",
+		            "IOMCU_GPIO2_INT1",
+		            "IOMCU_GPIO3_INT1",
+		            "IOMCU_DMAC_INT0",
+		            "IOMCU_DMAC_NS_INT0",
+		            "PERF_STAT",
+		            "IOMCU_COMB",
+		            "IOMCU_BLPWM",
+		            "NOC-comb",
+		            "intr_dmss",
+		            "intr_ddrc_err",
+		            "Reserved",
+		            "PMCTRL",
+		            "SECENG_P",
+		            "SECENG_S",
+		            "EMMC0",
+		            "Reserved",
+		            "SD3",
+		            "SDIO0",
+		            "Reserved",
+		            "DMAC_int0",
+		            "DMAC_NS_int0",
+		            "CLK_MONITOR",
+		            "TSENSOR_ A53_B",
+		            "TSENSOR_A53_L",
+		            "TSENSOR_G3D",
+		            "ASP-IPC-CBBE16",
+		            "ASP_ARM_SECURE",
+		            "ASP_ARM",
+		            "VDM_INT2",
+		            "VDM_INT0",
+		            "VDM_INT1",
+		            "MODEM_IPC0[0],MDM_IPC_APPCPU_intr0",
+		            "{MODEM_IPC1[0],MDM_IPC_APPCPU_intr1}",
+		            "MDM_bus_err",
+		            "Reserved",
+		            "edmac_mdm_intr_ns[0]",
+		            "intr_usbotg2",
+		            "intr_modem_ipc0_s[0]",
+		            "intr_modem_ipc1_s[0]",
+		            "GPIO28[]",
+		            "GPIO29[]",
+		            "GPIO30[]",
+		            "PMC-DVFS-A53_B",
+		            "PMC-DVFS-A53_L",
+		            "PMC-DVFS-G3D",
+		            "PMC-AVS-A53_B",
+		            "PMC-AVS-A53_L",
+		            "PMC-AVS-G3D",
+		            "PMC-AVS-IDLE-A53_B",
+		            "PMC-AVS-IDLE-A53_L",
+		            "PMC-AVS-IDLE-G3D",
+		            "M3_LP_wd",
+		            "CCI500_err",
+		            "CCI500_overflow[6:0]",
+		            "CCI500_overflow[7]",
+		            "IPC_S_int0",
+		            "IPC_S_int1",
+		            "IPC_S_int4",
+		            "IPC_S_mbx0",
+		            "IPC_S_mbx1",
+		            "IPC_S_mbx2",
+		            "IPC_S_mbx3",
+		            "IPC_S_mbx4",
+		            "IPC_S_mbx5",
+		            "IPC_S_mbx6",
+		            "IPC_S_mbx7",
+		            "IPC_S_mbx8",
+		            "IPC_S_mbx9",
+		            "IPC_S_mbx18",
+		            "IPC_NS_int0",
+		            "IPC_NS_int1",
+		            "IPC_NS_int4",
+		            "IPC_NS_int5",
+		            "IPC_NS_int6",
+		            "IPC_NS_mbx0",
+		            "IPC_NS_mbx1",
+		            "IPC_NS_mbx2",
+		            "IPC_NS_mbx3",
+		            "IPC_NS_mbx4",
+		            "IPC_NS_mbx5",
+		            "IPC_NS_mbx6",
+		            "IPC_NS_mbx7",
+		            "IPC_NS_mbx8",
+		            "IPC_NS_mbx9",
+		            "IPC_NS_mbx18",
+		            "aximon_soc_intr",
+		            "MDM_WDOG_intr",
+		            "ASP-IPC-ARM",
+		            "ASP-IPC-MCPU",
+		            "ASP-IPC-BBE16",
+		            "ASP_WD	245",
+		            "ASP_AXI_DLOCK",
+		            "ASP_DMA_SECURE",
+		            "ASP_DMA_SECURE_N",
+		            "SCI0",
+		            "SCI1",
+		            "SOCP0",
+		            "SOCP1",
+		            "MDM_IPF_intr0",
+		            "MDM_IPF_intr1",
+		            "ddrc_fatal_int",
+		            "mdm_axi_dlock_int",
+		            "MDM_WDOG1_intr",
+		            "GIC_IRQ_OUT[0]",
+		            "GIC_IRQ_OUT[1]",
+		            "GIC_IRQ_OUT[2]",
+		            "GIC_IRQ_OUT[3]",
+		            "GIC_IRQ_OUT[4]",
+		            "GIC_IRQ_OUT[5]",
+		            "GIC_IRQ_OUT[6]",
+		            "GIC_IRQ_OUT[7]",
+		            "GIC_FIQ_OUT[0]",
+		            "GIC_FIQ_OUT[1]",
+		            "GIC_FIQ_OUT[2]",
+		            "GIC_FIQ_OUT[3]",
+		            "GIC_FIQ_OUT[4]",
+		            "GIC_FIQ_OUT[5]",
+		            "GIC_FIQ_OUT[6]",
+		            "GIC_FIQ_OUT[7]",
+		            "NANDC",
+		            "CoreSight_ETR_Full",
+		            "CoreSight_ETF_Full",
+		            "DSS-pdp",
+		            "DSS-offline",
+		            "DSS_mcu_pdp",
+		            "DSS_mcu_offline",
+		            "DSS_dsi0",
+		            "ipf_psam_intr0",
+		            "ipf_psam_intr1",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "VENC",
+		            "VDEC",
+		            "G3D_JOB",
+		            "G3D_MMU",
+		            "G3D_GPU",
+					"isp_irq[0]",
+		            "isp_irq[1]",
+		            "isp_irq[2]",
+		            "isp_irq[3]",
+		            "isp_irq[4]",
+		            "isp_irq[5]",
+		            "isp_irq[6]",
+		            "isp_irq[7]",
+		            "isp_a7_to_gic_mbx_int[0]",
+		            "isp_a7_to_gic_mbx_int[1]",
+		            "isp_a7_to_gic_ipc_int",
+		            "isp_a7_watchdog_int",
+		            "isp_axi_dlcok",
+		            "isp_axi_irq_out",
+		            "mmbuf_asc0",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved",
+		            "Reserved";
+		lpmcu-irq-table = "{A53_B_pmu3,A53_B_pmu2,A53_B_pmu1,A53_B_pmu0}",
+					"{MODEM_IPC0[1],MDM_IPC_MODCPU_intr0}",
+					"{MODEM_IPC1[1],MDM_IPC_MODCPU_intr1}",
+					"{A53_L_pmu3,A53_L_pmu2,A53_L_pmu1,A53_L_pmu0}",
+					"{MODEM_IPC0[3],MDM_IPC_DSP0_intr0}",
+					"{MODEM_IPC1[3],MDM_IPC_DSP0_intr1}",
+					"{MODEM_IPC0[0],MDM_IPC_APPCPU_intr0}",
+					"{MODEM_IPC1[0],MDM_IPC_APPCPU_intr1}",
+					"WatchDog0",
+					"WatchDog1",
+					"RTC0",
+					"RTC1",
+					"TIME00",
+					"TIME01",
+					"TIME10",
+					"TIME11",
+					"TIME20",
+					"TIME21",
+					"TIME30",
+					"TIME31",
+					"TIME40",
+					"TIME41",
+					"TIME50",
+					"TIME51",
+					"TIME60",
+					"TIME61",
+					"TIME70",
+					"TIME71",
+					"TIME80",
+					"TIME81",
+					"TIME90",
+					"TIME91",
+					"TIME100",
+					"TIME101",
+					"TIME110",
+					"TIME111",
+					"TIME120",
+					"TIME121",
+					"UART0",
+					"UART1",
+					"UART2",
+					"UART4",
+					"UART5",
+					"UART6",
+					"SPI1",
+					"I2C3",
+					"I2C4",
+					"I2C5",
+					"GPIO0",
+					"GPIO1",
+					"GPIO2",
+					"GPIO3",
+					"GPIO4",
+					"GPIO5",
+					"GPIO6",
+					"GPIO7",
+					"GPIO8",
+					"GPIO9",
+					"GPIO10",
+					"GPIO11",
+					"GPIO12",
+					"GPIO13",
+					"GPIO14",
+					"GPIO15",
+					"GPIO16",
+					"GPIO17",
+					"GPIO18",
+					"GPIO19",
+					"GPIO20",
+					"GPIO21",
+					"GPIO22",
+					"GPIO23",
+					"GPIO24",
+					"GPIO25",
+					"GPIO26",
+					"GPIO27",
+					"MDM_WDOG_intr",
+					"IOMCU_WD",
+					"IOMCU_WAKEUP",
+					"IOMCU_DMAC_INT2",
+					"IOMCU_DMAC_NS_INT2",
+					"IOMCU_UART3",
+					"IOMCU_SPI",
+					"IOMCU_BLPWM",
+					"IOMCU_COMB",
+					"IOMCU_I2C0",
+					"MDM_WDOG1_intr",
+					"IOMCU_I2C2",
+					"IOMCU_I2C3",
+					"IOMCU_UART8",
+					"IOMCU_SPI2",
+					"IOMCU_GPIO0_INT2",
+					"IOMCU_GPIO1_INT2",
+					"IOMCU_GPIO2_INT2",
+					"IOMCU_GPIO3_INT2",
+					"PERF_STAT",
+					"isp_a7_to_mcu_mbx_int[0]",
+					"isp_a7_to_mcu_mbx_int[1]",
+					"isp_a7_to_mcu_ipc_int",
+					"isp_a7_watchdog",
+					"NOC-comb",
+					"intr_dmss",
+					"intr_ddrc_err",
+					"ddrc_fatal_int",
+					"PMCTRL",
+					"intr_tds_hifi",
+					"{MODEM_IPC0[4],MDM_IPC_HIFI_intr0}",
+					"{MODEM_IPC1[4],MDM_IPC_HIFI_intr1}",
+					"SECENG_P",
+					"SECENG_S",
+					"EMMC0",
+					"SD",
+					"SDIO0",
+					"{MODEM_IPC0[5],MDM_IPC_CBBE_intr0}",
+					"{MODEM_IPC1[5],MDM_IPC_CBBE_intr1}",
+					"DMAC_int2",
+					"DMAC_ns_int2",
+					"CLK_MONITOR",
+					"TSENSOR_A53_B",
+					"TSENSOR_A53_L",
+					"TSENSOR_G3D",
+					"ASP-IPC-CBBE16",
+					"ASP_ARM_SECURE",
+					"ASP_ARM",
+					"{A53_L_0_CORE3_PWR,A53_L_0_CORE2_PWR,A53_L_0_CORE1_PWR,A53_L_0_CORE0_PWR}",
+					"{A53_L_1_CORE3_PWR,A53_L_1_CORE2_PWR,A53_L_1_CORE1_PWR,A53_L_1_CORE0_PWR}",
+					"VDM_INT2",
+					"VDM_INT0",
+					"VDM_INT1",
+					"DSS_mcu_pdp",
+					"DSS_mcu_offline",
+					"intr_usbotg2",
+					"{MODEM_IPC0[2],MDM_IPC_CM3_intr0}",
+					"{MODEM_IPC1[2],MDM_IPC_CM3_intr1}",
+					"MDM_EDMAC_NS[2]",
+					"MDM_bus_err",
+					"intr_modem_ipc0_s[0]",
+					"intr_modem_ipc1_s[0]",
+					"intr_modem_ipc0_s[1]",
+					"intr_modem_ipc1_s[1]",
+					"intr_modem_ipc0_s[2]",
+					"intr_modem_ipc1_s[2]",
+					"intr_modem_ipc0_s[3]",
+					"intr_modem_ipc1_s[3]",
+					"PMC-DVFS-A53_B",
+					"PMC-DVFS-A53_L",
+					"PMC-DVFS-G3D",
+					"PMC-AVS-A53_B",
+					"PMC-AVS-A53_L",
+					"PMC-AVS-G3D",
+					"PMC-AVS-IDLE-A53_B",
+					"PMC-AVS-IDLE-A53_L",
+					"PMC-AVS-IDLE-G3D",
+					"M3_LP_wd",
+					"CCI500_overflow[7:0]",
+					"IPC_S_int3",
+					"IPC_S_int4",
+					"IPC_S_int5",
+					"IPC_S_mbx13",
+					"IPC_S_mbx14",
+					"IPC_S_mbx15",
+					"IPC_S_mbx16",
+					"IPC_S_mbx17",
+					"IPC_S_mbx18",
+					"{IPC_S_mbx[20:19]}",
+					"IPC_S_mbx23",
+					"IPC_S_mbx24",
+					"IPC_NS_int3",
+					"IPC_NS_int4",
+					"IPC_NS_int5",
+					"IPC_NS_int6",
+					"IPC_NS_mbx13",
+					"IPC_NS_mbx14",
+					"IPC_NS_mbx15",
+					"IPC_NS_mbx16",
+					"IPC_NS_mbx17",
+					"IPC_NS_mbx18",
+					"{IPC_NS_mbx[21:19]}",
+					"{IPC_NS_mbx[24:22]}",
+					"IPC_NS_mbx27",
+					"IPC_NS_mbx28",
+					"{ipc[1:0]ipc_mbx[9:0],ipc_ns[1:0],ipc_ns_mbx[9:0]}",
+					"{intr_ipc[2],intr_ipc_mbx[12:10],intr_ipc_ns[2],intr_ipc_ns_mbx[12:10]}",
+					"{intr_ipc[6],intr_ipc_mbx[22:21],intr_ipc_ns[7],intr_ipc_ns_mbx[26:25]}",
+					"aximon_cpufast_intr|aximon_soc_intr",
+					"ASP-IPC-ARM",
+					"ASP-IPC-MCPU",
+					"ASP-IPC-BBE16",
+					"ASP_WD",
+					"{ASP_AXI_DLOCK,ASP_DMA_SECURE,ASP_DMA_SECURE_N}",
+					"SCI0",
+					"SCI1",
+					"SOCP0",
+					"SOCP1",
+					"ldrx2arm_times_int",
+					"ldrx2arm_wakeup_int",
+					"tdrx2arm_wakeup_int",
+					"tdrx2arm_times_int",
+					"g1_bbp_to_cpu_clkswitch",
+					"g1_bbp_to_cpu_32k_wakeup",
+					"g1_bbp_to_dsp_32k_wakeup",
+					"g2_bbp_to_cpu_clkswitch",
+					"g2_bbp_to_cpu_32k_wakeup",
+					"g2_bbp_to_dsp_32k_wakeup",
+					"w_arm_int02_wakeup",
+					"w_arm_int03_clkswitch",
+					"ipf_psam_intr0",
+					"ipf_psam_intr1",
+					"MDM_IPF_intr0",
+					"MDM_IPF_intr1",
+					"MDM_EDMAC_intr[2]",
+					"(GIC_IRQ_OUT[0]&GIC_FIQ_OUT[0])",
+					"(GIC_IRQ_OUT[1]&GIC_FIQ_OUT[1])",
+					"(GIC_IRQ_OUT[2]&GIC_FIQ_OUT[2])",
+					"(GIC_IRQ_OUT[3]&GIC_FIQ_OUT[3])",
+					"(GIC_IRQ_OUT[4]&GIC_FIQ_OUT[4])",
+					"(GIC_IRQ_OUT[5]&GIC_FIQ_OUT[5])",
+					"(GIC_IRQ_OUT[6]&GIC_FIQ_OUT[6])",
+					"(GIC_IRQ_OUT[7]&GIC_FIQ_OUT[7])",
+					"CBBP_INT01",
+					"NANDC",
+					"mmbuf_asc0",
+					"intr_modem_ipc0_s[5]",
+					"intr_modem_ipc1_s[5]",
+					"edmac_ch12_mdm_intr_ns[2]",
+					"edmac_ch12_mdm_intr[2]",
+					"GPIO28[]",
+					"GPIO29[]",
+					"GPIO30[]",
+					"Reserved";
+
+			pmu_buck0 {
+				compatible = "hisilicon, lp_pmu0";
+				lp-pmu-name = "BUCK0";
+				lp-pmu-module = "<peri core phy core>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x10>;
+				mask = <0x01>;
+			};
+
+			pmu_buck1 {
+				compatible = "hisilicon, lp_pmu1";
+				lp-pmu-name = "BUCK1";
+				lp-pmu-module = "<DDRPHY IO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x11>;
+				mask = <0x01>;
+			};
+
+			pmu_buck2 {
+				compatible = "hisilicon, lp_pmu2";
+				lp-pmu-name = "BUCK2";
+				lp-pmu-module = "<1.35V Power plane>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x12>;
+				mask = <0x01>;
+			};
+
+			pmu_buck3 {
+				compatible = "hisilicon, lp_pmu3";
+				lp-pmu-name = "BUCK3";
+				lp-pmu-module = "<2.0V Power plane>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x13>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo0 {
+				compatible = "hisilicon, lp_pmu4";
+				lp-pmu-name = "LDO0_2";
+				lp-pmu-module = "<sys core PLL>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x15>;
+				mask = <0x01>;
+			};
+
+			/* ccore */
+			pmu_ldo1 {
+				compatible = "hisilicon, lp_pmu5";
+				lp-pmu-name = "LDO1";
+				lp-pmu-module = "<main sim for Hi6362 Analog 1>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x16>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo2 {
+				compatible = "hisilicon, lp_pmu6";
+				lp-pmu-name = "LDO2";
+				lp-pmu-module = "<1.8V IO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x17>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo3 {
+				compatible = "hisilicon, lp_pmu7";
+				lp-pmu-name = "LDO3";
+				lp-pmu-module = "<RFIC0&1 AVDD2 1.85V>>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x18>;
+				mask = <0x01>;
+			};
+
+			/* support gesture-->eco */
+			pmu_ldo4 {
+				compatible = "hisilicon, lp_pmu8";
+				lp-pmu-name = "LDO4";
+				lp-pmu-module = "<LCD &TP 1.8V I/O>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x19>;
+				mask = <0x01>;
+			};
+
+			/* with LDO23 */
+			pmu_ldo5 {
+				compatible = "hisilicon, lp_pmu9";
+				lp-pmu-name = "LDO5";
+				lp-pmu-module = "<LPDDR3 PHY Tsensor 1.8V HKADC REF>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1a>;
+				mask = <0x01>;
+			};
+
+			/* close on init of dallas */
+			pmu_ldo7 {
+				compatible = "hisilicon, lp_pmu10";
+				lp-pmu-name = "LDO7";
+				lp-pmu-module = "<AVDDH_ABB>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1b>;
+				mask = <0x01>;
+			};
+
+			/* mcore: hi6402 always on */
+			pmu_ldo8 {
+				compatible = "hisilicon, lp_pmu11";
+				lp-pmu-name = "LDO8";
+				lp-pmu-module = "<Codec  Hi6402 1.8V>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x1c>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo9 {
+				compatible = "hisilicon, lp_pmu12";
+				lp-pmu-name = "LDO9";
+				lp-pmu-module = "<SD IO>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1d>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo10 {
+				compatible = "hisilicon, lp_pmu13";
+				lp-pmu-name = "LDO10";
+				lp-pmu-module = "<USB PHY3.0 RF PA BIAS>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1e>;
+				mask = <0x01>;
+			};
+
+			/* ccore */
+			pmu_ldo11 {
+				compatible = "hisilicon, lp_pmu14";
+				lp-pmu-name = "LDO11";
+				lp-pmu-module = "<sim0>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x1f>;
+				mask = <0x01>;
+			};
+
+			/* ccore */
+			pmu_ldo12 {
+				compatible = "hisilicon, lp_pmu15";
+				lp-pmu-name = "LDO12";
+				lp-pmu-module = "<sim1>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x20>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo13 {
+				compatible = "hisilicon, lp_pmu16";
+				lp-pmu-name = "LDO13";
+				lp-pmu-module = "<Camera Analog>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x21>;
+				mask = <0x01>;
+			};
+
+			/* ccore */
+			pmu_ldo14 {
+				compatible = "hisilicon, lp_pmu17";
+				lp-pmu-name = "LDO14";
+				lp-pmu-module = "<RF FEM VCC 2.8V>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x22>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo15 {
+				compatible = "hisilicon, lp_pmu18";
+				lp-pmu-name = "LDO15";
+				lp-pmu-module = "<eMMC Flash>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x23>;
+				mask = <0x01>;
+			};
+
+			/* SD on-->eco */
+			pmu_ldo16 {
+				compatible = "hisilicon, lp_pmu19";
+				lp-pmu-name = "LDO16";
+				lp-pmu-module = "<SDR104>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x24>;
+				mask = <0x01>;
+			};
+
+			/* support gesture-->eco */
+			pmu_ldo17 {
+				compatible = "hisilicon, lp_pmu20";
+				lp-pmu-name = "LDO17";
+				lp-pmu-module = "<LCD &TP AVDD>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x25>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo19 {
+				compatible = "hisilicon, lp_pmu21";
+				lp-pmu-name = "LDO19";
+				lp-pmu-module = "<M_Camera Analog>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x26>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo20 {
+				compatible = "hisilicon, lp_pmu22";
+				lp-pmu-name = "LDO20";
+				lp-pmu-module = "<M_Camera Core>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x27>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo21 {
+				compatible = "hisilicon, lp_pmu23";
+				lp-pmu-name = "LDO21";
+				lp-pmu-module = "<BISR Fuse>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x28>;
+				mask = <0x01>;
+			};
+
+			/* ccore */
+			pmu_ldo22 {
+				compatible = "hisilicon, lp_pmu24";
+				lp-pmu-name = "LDO22";
+				lp-pmu-module = "<Hi6362 Analog 1>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x29>;
+				mask = <0x01>;
+			};
+
+			/* with LDO5 */
+			pmu_ldo23 {
+				compatible = "hisilicon, lp_pmu25";
+				lp-pmu-name = "LDO23";
+				lp-pmu-module = "<HKADC>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x2a>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo24 {
+				compatible = "hisilicon, lp_pmu26";
+				lp-pmu-name = "LDO24";
+				lp-pmu-module = "<X Sensor AVDD>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x2b>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo25 {
+				compatible = "hisilicon, lp_pmu27";
+				lp-pmu-name = "LDO25";
+				lp-pmu-module = "<Camera  AFVDD>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x2c>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo26 {
+				compatible = "hisilicon, lp_pmu28";
+				lp-pmu-name = "LDO26";
+				lp-pmu-module = "<DCXO_XO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x2d>;
+				mask = <0x01>;
+			};
+
+			/* sensor hub open buffer */
+			pmu_ldo27 {
+				compatible = "hisilicon, lp_pmu29";
+				lp-pmu-name = "LDO27";
+				lp-pmu-module = "<PMU CLK Buffer Hi6362 AVDD3>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x2e>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo28 {
+				compatible = "hisilicon, lp_pmu30";
+				lp-pmu-name = "LDO28";
+				lp-pmu-module = "<RF MIPI VIO 1.8V>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x2f>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo29 {
+				compatible = "hisilicon, lp_pmu31";
+				lp-pmu-name = "LDO29";
+				lp-pmu-module = "<Hi6402 1.2v>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x30>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo31 {
+				compatible = "hisilicon, lp_pmu32";
+				lp-pmu-name = "LDO31";
+				lp-pmu-module = "<Vibrator>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x31>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo32 {
+				compatible = "hisilicon, lp_pmu33";
+				lp-pmu-name = "LDO32";
+				lp-pmu-module = "<S_Camera Core>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x32>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo33 {
+				compatible = "hisilicon, lp_pmu34";
+				lp-pmu-name = "LDO33";
+				lp-pmu-module = "<M&S CAM IO>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x33>;
+				mask = <0x01>;
+			};
+
+			pmu_ldo34 {
+				compatible = "hisilicon, lp_pmu35";
+				lp-pmu-name = "LDO34";
+				lp-pmu-module = "<PMU_H MICBIAS>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x34>;
+				mask = <0x01>;
+			};
+
+			lp_clk0 {
+				compatible = "hisilicon, lp_clk0";
+				lp-clk-name = "gt_clk_ref_crc",
+							  "gt_pclk_rtc",
+							  "gt_pclk_rtc1",
+							  "gt_pclk_timer0",
+							  "gt_clk_timer0",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_timer2",
+							  "gt_clk_timer2",
+							  "gt_pclk_timer3",
+							  "gt_clk_timer3",
+							  "gt_pclk_ao_gpio0",
+							  "gt_pclk_ao_gpio1",
+							  "gt_pclk_ao_gpio2",
+							  "gt_pclk_ao_gpio3",
+							  "gt_pclk_ao_ioc",
+							  "gt_clk_out0",
+							  "gt_clk_out1",
+							  "gt_clk_jtag_auth",
+							  "gt_pclk_syscnt",
+							  "gt_clk_syscnt",
+							  "gt_pclk_ao_gpio4",
+							  "gt_pclk_ao_gpio5",
+							  "gt_clk_sci0",
+							  "gt_clk_sci1",
+							  "reserved",
+							  "gt_clk_asp_subsys",
+							  "gt_clk_asp_tcxo",
+							  "gt_clk_bbpdrx",
+							  "gt_clk_aobus",
+							  "gt_pclk_efusec",
+							  "gt_clk_ppll0_sscg";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <3 3 3 6 6 3 3 6 6 6 6 4 4 4 4 4 1 1 2 2 2 3 0 6 6 4 2 2 6 3 3 0>;
+				offset = <0x168>;
+				bit-num = <32>;
+			};
+
+			lp_clk1 {
+				compatible = "hisilicon, lp_clk1";
+				lp-clk-name = "gt_clk_asp_dw_axi",
+							  "gt_clk_asp_x2h",
+							  "gt_clk_asp_h2p",
+							  "gt_asp_cfg",
+							  "gt_clk_bbpdrx_oth",
+							  "gt_clk_aobus_noc",
+							  "gt_clk_noc_aobus2mmbuf",
+							  "ddr_loopback_en",
+							  "gt_aclk_asc",
+							  "gt_clk_fll_frc_tp",
+							  "gt_pclk_timer4",
+							  "gt_clk_timer4",
+							  "gt_pclk_timer5",
+							  "gt_clk_timer5",
+							  "gt_pclk_timer6",
+							  "gt_clk_timer6",
+							  "gt_pclk_timer7",
+							  "gt_clk_timer7",
+							  "gt_pclk_timer8",
+							  "gt_clk_timer8",
+							  "gt_timerclk_refh",
+							  "reserved",
+							  "gt_aclk_mmbuf",
+							  "gt_pclk_mmbuf",
+							  "gt_clk_mmbuf_dss",
+							  "gt_pclk_mmbufcfg",
+							  "gt_auto_aclk_mmbuf_sw",
+							  "reserved",
+							  "gt_clk_autodiv_aobus",
+							  "gt_clk_autodiv_aobus_fll";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 6 3 3 5 3 5 3 3 3 3 3 3 3 3 3 3 3 5 3 3 3 5 5 5 5 5>;
+				offset = <0x188>;
+				bit-num = <30>;
+			};
+
+			lp_clk2 {
+				compatible = "hisilicon, lp_clk2";
+				lp-clk-name = "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_ao_gpio6",
+							  "gt_pclk_ao_gpio7",
+							  "gt_pclk_ao_gpio8",
+							  "gt_clk_mdm2aspcodec";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 2 2 2 2>;
+				offset = <0x198>;
+				bit-num = <21>;
+			};
+
+			lp_clk3 {
+				compatible = "hisilicon, lp_clk3";
+				lp-clk-name = "gt_clk_asp_subsys",
+							  "gt_hifidsp_clk_div",
+							  "gt_clk_sci",
+							  "gt_clk_aobus",
+							  "gt_asp_hclk_div",
+							  "gt_sclk_tp",
+							  "gt_pll_clk_mmbuf",
+							  "gt_pclk_mmbuf",
+							  "sel_clk_mmbuf",
+							  "sel_clk_mmbuf",
+							  "sc_div2_mmbuf",
+							  "sc_div2_mmbuf",
+							  "sc_div4_mmbuf",
+							  "sc_div4_mmbuf",
+							  "sc_div4_mmbuf",
+							  "sc_div4_mmbuf";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 6 4 2 3 3 3 5 5 5 5 5 5 5 5>;
+				offset = <0x258>;
+				bit-num = <16>;
+			};
+
+			lp_clk4 {
+				compatible = "hisilicon, lp_clk4";
+				lp-clk-name = "reserved",
+							  "gt_clk_ddrbyp_ckp0",
+							  "gt_clk_ddrc",
+							  "reserved",
+							  "gt_clk_ddrphy_ref",
+							  "gt_clk_vcodeccfg",
+							  "gt_clk_vcodecbus",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_sysbus",
+							  "gt_clk_cfgbus",
+							  "gt_clk_sys2cfgbus",
+							  "gt_clk_vivobus2ddrc",
+							  "gt_hclk_emmc0",
+							  "gt_clk_mmc1peri2sysbus",
+							  "gt_clk_mmc1_peribus",
+							  "gt_clk_vivobus",
+							  "gt_clk_mmc0peri2sysbus",
+							  "gt_clk_mmc0_peribus",
+							  "gt_hclk_sdio0",
+							  "gt_clk_lpm32cfgbus",
+							  "reserved",
+							  "gt_clk_dmabus",
+							  "gt_clk_dma2cfgbus",
+							  "reserved",
+							  "gt_clk_dbgsechsicbus",
+							  "gt_clk_dbgsechsic2sysbus",
+							  "gt_clk_pack_dfi",
+							  "reserved",
+							  "reserved",
+							  "gt_hclk_sd",
+							  "gt_clk_socp_hifi";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <4 4 4 5 4 1 1 5 5 4 4 2 0 1 3 3 1 1 1 1 1 1 4 4 3 2 2 1 5 1 1 1>;
+				offset = <0x008>;
+				bit-num = <32>;
+			};
+
+			lp_clk5 {
+				compatible = "hisilicon, lp_clk5";
+				lp-clk-name = "gt_pclk_gpio0",
+							  "gt_pclk_gpio1",
+							  "gt_pclk_gpio2",
+							  "gt_pclk_gpio3",
+							  "gt_pclk_gpio4",
+							  "gt_pclk_gpio5",
+							  "gt_pclk_gpio6",
+							  "gt_pclk_gpio7",
+							  "gt_pclk_gpio8",
+							  "gt_pclk_gpio9",
+							  "gt_pclk_gpio10",
+							  "gt_pclk_gpio11",
+							  "gt_pclk_gpio12",
+							  "gt_pclk_gpio13",
+							  "gt_pclk_gpio14",
+							  "gt_pclk_gpio15",
+							  "gt_pclk_gpio16",
+							  "gt_pclk_gpio17",
+							  "gt_pclk_gpio18",
+							  "gt_pclk_gpio19",
+							  "gt_pclk_gpio20",
+							  "gt_pclk_gpio21",
+							  "gt_pclk_timer9",
+							  "gt_pclk_timer10",
+							  "gt_pclk_timer11",
+							  "gt_pclk_timer12",
+							  "gt_clk_socp_lpm3",
+							  "gt_clk_djtag",
+							  "gt_clk_socp_acpu",
+							  "gt_clk_socp_mcpu",
+							  "gt_clk_socp_tlbbe16",
+							  "gt_clk_socp_cbbe16";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 6 6 3 2 4 4 4 4>;
+				offset = <0x018>;
+				bit-num = <32>;
+			};
+
+			lp_clk6 {
+				compatible = "hisilicon, lp_clk6";
+				lp-clk-name = "gt_clk_pwm",
+							  "gt_clk_hkadcssi1",
+							  "gt_clk_ipc0",
+							  "gt_clk_ipc1",
+							  "gt_clk_60m",
+							  "gt_clk_loadmonitor0",
+							  "gt_clk_loadmonitor1",
+							  "gt_clk_i2c3",
+							  "reserved",
+							  "gt_clk_spi1",
+							  "gt_clk_uart0",
+							  "gt_clk_uart1",
+							  "gt_clk_uart2",
+							  "reserved",
+							  "gt_clk_uart4",
+							  "gt_clk_uart5",
+							  "gt_pclk_wd0",
+							  "gt_pclk_wd1",
+							  "gt_pclk_tzpc",
+							  "gt_pclk_loadmonitor",
+							  "gt_pclk_ipc_mdm",
+							  "gt_clk_adb_mst_a53",
+							  "gt_clk_adb_mst_a57",
+							  "gt_clk_gic",
+							  "gt_clk_hkadcssi",
+							  "gt_pclk_ioc",
+							  "gt_clk_codecssi",
+							  "gt_clk_i2c4",
+							  "gt_pclk_ipc_mdm_s",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_pctrl";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <1 3 3 3 1 1 1 1 5 1 3 5 5 5 5 6 1 3 3 1 1 1 1 3 1 4 1 0 4 5 5 4>;
+				offset = <0x028>;
+				bit-num = <32>;
+			};
+
+			lp_clk7 {
+				compatible = "hisilicon, lp_clk7";
+				lp-clk-name = "gt_clk_dmac_lpm3",
+							  "gt_clk_dmac_acpu",
+							  "gt_clk_dmac_mcpu",
+							  "gt_pclk_g3d",
+							  "gt_clk_g3dmt",
+							  "gt_clk_g3d",
+							  "sc_abb_pll_gps_en",
+							  "sc_abb_pll_gps_en",
+							  "sc_abb_pll_audio_en",
+							  "sc_abb_pll_audio_en",
+							  "gt_clk_venc",
+							  "gt_clk_vdec",
+							  "gt_pclk_dss",
+							  "gt_aclk_dss",
+							  "sc_abb_pll_audio_gt_en1",
+							  "gt_clk_ldi0",
+							  "reserved",
+							  "gt_clk_edc0",
+							  "sc_abb_pll_gps_gt_en0",
+							  "sc_abb_pll_audio_gt_en0",
+							  "gt_clk_rxdphy0_cfg",
+							  "gt_clk_rxdphy1_cfg",
+							  "sc_abb_pll_gps_gt_en1",
+							  "gt_aclk_isp",
+							  "gt_hclk_isp",
+							  "gt_clk_ispfunc",
+							  "reserved",
+							  "gt_clk_ispa7cfg",
+							  "gt_clk_txdphy0_cfg",
+							  "gt_clk_txdphy0_ref";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <4 4 2 2 2 2 1 1 1 1 1 1 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5>;
+				offset = <0x038>;
+				bit-num = <30>;
+			};
+
+			lp_clk8 {
+				compatible = "hisilicon, lp_clk8";
+				lp-clk-name = "reserved",
+							  "gt_hclk_usb2otg",
+							  "gt_clk_usb2phy_ref",
+							  "gt_clk_ipf0",
+							  "gt_clk_ipf1",
+							  "reserved",
+							  "gt_clk_usb2phy_ref_pll",
+							  "reserved",
+							  "gt_clk_perf_stat",
+							  "gt_pclk_perf_stat",
+							  "gt_aclk_perf_stat",
+							  "reserved",
+							  "gt_clk_secp",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_emmc0",
+							  "reserved",
+							  "gt_clk_sd",
+							  "gt_clk_sdio0",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_a57_tsensor",
+							  "gt_clk_a53_tsensor",
+							  "gt_clk_apll0_sscg",
+							  "gt_clk_apll1_sscg",
+							  "gt_clk_apll2_sscg",
+							  "gt_clk_ppll1_sscg",
+							  "gt_clk_ppll2_sscg",
+							  "gt_clk_ppll3_sscg",
+							  "gt_clk_ppll4_sscg",
+							  "gt_clk_ppll5_sscg",
+							  "gt_clk_a53_tp";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <5 1 1 1 1 5 1 5 1 1 1 5 1 5 5 1 5 1 1 5 5 2 2 0 1 1 1 1 1 1 1 0>;
+				offset = <0x048>;
+				bit-num = <32>;
+			};
+
+			lp_clk9 {
+				compatible = "hisilicon, lp_clk9";
+				lp-clk-name = "gt_clk_sysbus2hkmem",
+							  "gt_clk_modem_sys",
+							  "gt_clk_modem_subsys",
+							  "gt_clk_noc_timeout_extref",
+							  "gt_clk_ispa7",
+							  "gt_clk_g3d_tsensor",
+							  "reserved",
+							  "gt_clk_slimbus",
+							  "gt_clk_lpmcu",
+							  "gt_clk_a57_hpm",
+							  "gt_clk_cci2sysbus_asyn",
+							  "gt_clk_ao_hpm",
+							  "gt_clk_peri_hpm",
+							  "gt_clk_a53_hpm",
+							  "gt_clk_cci400",
+							  "gt_clk_gpu_hpm",
+							  "gt_clk_isp_snclk",
+							  "gt_clk_isp_snclk",
+							  "gt_clk_isp_snclk",
+							  "gt_clk_isp_timer",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_modem_mcpu_tp",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_ddrphy_apb_dfi_a",
+							  "gt_pclk_dsi0",
+							  "reserved",
+							  "gt_clk_lpmcu_tp",
+							  "gt_clk_sysbus_tp";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <1 3 2 2 1 1 5 2 2 2 4 4 2 2 2 0 0 0 0 1 5 5 5 1 5 5 5 1 1 5 1 1>;
+				offset = <0x058>;
+				bit-num = <32>;
+			};
+
+			lp_clk10 {
+				compatible = "hisilicon, lp_clk10";
+				lp-clk-name = "gt_clk_g3daxi0",
+							  "gt_clk_g3daxi1",
+							  "gt_clk_ddrc",
+							  "gt_clk_loadmonitor0",
+							  "gt_clk_lpmcu",
+							  "reserved",
+							  "gt_clk_ldi0",
+							  "reserved",
+							  "gt_clk_edc0",
+							  "reserved",
+							  "gt_clk_out0",
+							  "gt_clk_out1",
+							  "gt_clk_rxdphy_cfg",
+							  "gt_clk_ispfunc1",
+							  "reserved",
+							  "gt_clk_vdec";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 5 1 5 1 5 1 1 1 1 5 1>;
+				offset = <0x0f0>;
+				bit-num = <16>;
+			};
+
+			lp_clk11 {
+				compatible = "hisilicon, lp_clk11";
+				lp-clk-name = "gt_clk_venc",
+							  "reserved",
+							  "gt_clk_emmc0",
+							  "gt_clk_sd",
+							  "gt_clk_sdio0",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_a53hpm",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_uarth",
+							  "gt_clk_uartl",
+							  "gt_clk_spi",
+							  "reserved",
+							  "gt_clk_slimbus";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <1 5 1 1 1 5 5 3 5 5 5 1 1 1 5 2>;
+				offset = <0x0f4>;
+				bit-num = <16>;
+			};
+
+			lp_clk12 {
+				compatible = "hisilicon, lp_clk12";
+				lp-clk-name = "gt_clk_i2c",
+							  "gt_clk_vivobus",
+							  "gt_clk_vcodecbus",
+							  "reserved",
+							  "gt_clk_ispa7",
+							  "gt_clk_ptp",
+							  "gt_clk_modem_mcpu",
+							  "gt_clk_modem_bbe16",
+							  "gt_clk_modem_bbe16_tdl";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <3 1 6 5 6 6 6 6 6>;
+				offset = <0x0f8>;
+				bit-num = <9>;
+			};
+	};
+
+   lowpm_func_gic {
+		   compatible = "arm,lp_gic";
+		   #address-cells = <2>;
+		   #size-cells = <2>;
+		   reg = <0x0 0xe82b0000 0x0 0x2000>;
+		   enable-offset = <0x1100>;
+		   pending-offset = <0x1200>;
+   };
+
+    lowpm_func_ipc {
+		   compatible = "lowpm,ipc";
+		   #address-cells = <2>;
+		   #size-cells = <2>;
+		   reg = <0x0 0xe896b000 0x0 0x1000>;
+   };
+
+};

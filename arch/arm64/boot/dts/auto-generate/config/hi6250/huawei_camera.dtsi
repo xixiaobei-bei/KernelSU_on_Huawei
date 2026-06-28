@@ -1,0 +1,582 @@
+/*
+  Camera sensor driver dtsi setting, which are used by PUD3 products and HISI UDP
+*/
+
+ /{
+        huawei,ov8856 {
+                compatible = "huawei,ov8856";
+                huawei,sensor_name = "OV8856_SUNNY";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+        huawei,ov8856BND {
+                compatible = "huawei,ov8856BND";
+                huawei,sensor_name = "OV8856BND_SUNNY";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+        huawei,ov8856FIG {
+                compatible = "huawei,ov8856FIG";
+                huawei,sensor_name = "OV8856FIG_SUNNY";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+        huawei,imx298 {
+                compatible = "huawei,imx298";
+                huawei,sensor_name = "IMX298_VENDOR";
+                huawei,sensor_index = <0>;
+                huawei,i2c_index = <0>;
+                huawei,csi_index = <0>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+        
+        huawei,gc2375BND {
+                compatible = "huawei,gc2375BND";
+                huawei,sensor_name = "GC2375BND_VENDOR";
+                huawei,sensor_index = <2>;
+                huawei,i2c_index = <2>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+                hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+        huawei,gc2375FIG {
+                compatible = "huawei,gc2375FIG";
+                huawei,sensor_name = "GC2375FIG";
+                huawei,sensor_index = <2>;
+                huawei,i2c_index = <2>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+                hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+
+        huawei,hi259BND {
+                compatible = "huawei,hi259BND";
+                huawei,sensor_name = "HI259BND_FOXCONN";
+                huawei,sensor_index = <2>;
+                huawei,i2c_index = <2>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+                hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+
+        huawei,hi259FIG {
+                compatible = "huawei,hi259FIG";
+                huawei,sensor_name = "HI259FIG_SUNNY";
+                huawei,sensor_index = <2>;
+                huawei,i2c_index = <2>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+                hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+        huawei,hi843 {
+                compatible = "huawei,hi843";
+                huawei,sensor_name = "HI843_OFILM";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+
+	huawei,hi843BND {
+                compatible = "huawei,hi843BND";
+                huawei,sensor_name = "HI843BND_VENDOR";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+    huawei,hi843FIG {
+                compatible = "huawei,hi843FIG";
+                huawei,sensor_name = "HI843FIG_VENDOR";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+        };
+
+    huawei,imx219 {
+                compatible = "huawei,imx219";
+                huawei,sensor_name = "IMX219_VENDOR";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+    };
+
+    huawei,imx219BND {
+                compatible = "huawei,imx219BND";
+                huawei,sensor_name = "IMX219BND_LITEON";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+    };
+
+    huawei,imx219FIG {
+                compatible = "huawei,imx219FIG";
+                huawei,sensor_name = "IMX219FIG_LITEON";
+                huawei,sensor_index = <1>;
+                huawei,i2c_index = <1>;
+                huawei,csi_index = <1>;
+                huawei,pd_valid = <1>;
+                huawei,reset_valid = <1>;
+                huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+                status = "disabled";
+    };
+
+	huawei,imx214 {/*left for dallas udp using*/
+		compatible = "huawei,imx214";
+		huawei,sensor_name = "IMX214_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <1>;
+		status = "ok";
+	};
+
+	huawei,imx386E3 {
+		compatible = "huawei,imx386E3";
+		huawei,sensor_name = "IMX386E3_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov12870E3 {
+		compatible = "huawei,ov12870E3";
+		huawei,sensor_name = "OV12870E3_LITEON";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov12a10 {
+		compatible = "huawei,ov12a10";
+		huawei,sensor_name = "OV12A10_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov12a10PIC {
+		compatible = "huawei,ov12a10PIC";
+		huawei,sensor_name = "OV12A10PIC";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov12a10hybird {
+		compatible = "huawei,ov12a10hybird";
+		huawei,sensor_name = "OV12A10HYBIRD";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+	huawei,imx486 {
+		compatible = "huawei,imx486";
+		huawei,sensor_name = "IMX486_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx486hybird {
+		compatible = "huawei,imx486hybird";
+		huawei,sensor_name = "IMX486HYBIRD";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx486PIC {
+		compatible = "huawei,imx486PIC";
+		huawei,sensor_name = "IMX486PIC";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov20880 {
+		compatible = "huawei,ov20880";
+		huawei,sensor_name = "OV20880";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,ov20880BAC {
+		compatible = "huawei,ov20880BAC";
+		huawei,sensor_name = "OV20880";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx376 {
+		compatible = "huawei,imx376";
+		huawei,sensor_name = "IMX376";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx376BAC {
+		compatible = "huawei,imx376BAC";
+		huawei,sensor_name = "IMX376";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+	
+	huawei,ov8858 {
+		compatible = "huawei,ov8858";
+		huawei,sensor_name = "OV8858_FOXCONN";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx219HDN_BACK {
+		compatible = "huawei,imx219HDN_BACK";
+		huawei,sensor_name = "IMX219HDN_BACK_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,hi846BACH2_BACK {
+		compatible = "huawei,hi846BACH2_BACK";
+		huawei,sensor_name = "HI846BACH2_BACK_VENDOR";
+		huawei,sensor_index = <0>;
+		huawei,i2c_index = <0>;
+		huawei,csi_index = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,hi846BACH2_FRONT {
+		compatible = "huawei,hi846BACH2_FRONT";
+		huawei,sensor_name = "HI846BACH2_FRONT_VENDOR";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+
+	huawei,imx219HDN {
+		compatible = "huawei,imx219HDN";
+		huawei,sensor_name = "IMX219HDN_VENDOR";
+		huawei,sensor_index = <1>;
+		huawei,i2c_index = <1>;
+		huawei,csi_index = <1>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+		status = "disabled";
+	};
+    huawei,ov13855FIG {
+        compatible = "huawei,ov13855FIG";
+        huawei,sensor_name = "OV13855FIG_LITEON";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+
+    huawei,imx258FIG {
+        compatible = "huawei,imx258FIG";
+        huawei,sensor_name = "IMX258FIG";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+
+    huawei,hi1333FIG {
+        compatible = "huawei,hi1333FIG";
+        huawei,sensor_name = "HI1333FIG_SUNNY";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+
+    huawei,imx498 {
+        compatible = "huawei,imx498";
+        huawei,sensor_name = "IMX498_VENDOR";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,ov16b10BND {
+        compatible = "huawei,ov16b10BND";
+        huawei,sensor_name = "OV16B10BND_VENDOR";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,sp2509AGASSI2 {
+        compatible = "huawei,sp2509AGASSI2";
+        huawei,sensor_name = "sp2509AGASSI2";
+        huawei,sensor_index = <1>;
+        huawei,i2c_index = <1>;
+        huawei,csi_index = <1>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,gc2375AGASSI2 {
+        compatible = "huawei,gc2375AGASSI2";
+        huawei,sensor_name = "gc2375AGASSI2";
+        huawei,sensor_index = <1>;
+        huawei,i2c_index = <1>;
+        huawei,csi_index = <1>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,gc5025AGASSI2BACK {
+        compatible = "huawei,gc5025AGASSI2BACK";
+        huawei,sensor_name = "gc5025AGASSI2BACK";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,hi556AGASSI2BACK {
+        compatible = "huawei,hi556AGASSI2BACK";
+        huawei,sensor_name = "hi556AGASSI2BACK";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+    huawei,hi846AGASSI2BACK {
+        compatible = "huawei,hi846AGASSI2BACK";
+        huawei,sensor_name = "hi846AGASSI2BACK_VENDOR";
+        huawei,sensor_index = <0>;
+        huawei,i2c_index = <0>;
+        huawei,csi_index = <0>;
+        huawei,pd_valid = <1>;
+        huawei,reset_valid = <1>;
+        huawei,vcmpd_valid = <0>;
+        hisi,is_fpga = <0>;
+        status = "disabled";
+    };
+};
