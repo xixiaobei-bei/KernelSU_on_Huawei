@@ -54,6 +54,8 @@ jobs:
           - INE_EMUI9.1_RKSU
           - ALP_EMUI9.1_RKSU
           - GLK_EMUI9.1_RKSU
+          - ALP_EMUI9.0_RKSU
+          - BND_EMUI9.1_RKSU
         pm: [false, true]
 
     steps:
@@ -218,6 +220,14 @@ jobs:
             tool="gcc" ;;
           GLK_EMUI9.1_RKSU)
             DEFCONFIG="merge_kirin710_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          ALP_EMUI9.1_RKSU)
+            DEFCONFIG="merge_kirin970_defconfig"
+            os_version="9"
+            tool="gcc" ;;
+          BND_EMUI9.1_RKSU)
+            DEFCONFIG="merge_hi6250_defconfig"
             os_version="9"
             tool="gcc" ;;
         esac
