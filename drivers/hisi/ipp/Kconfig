@@ -1,0 +1,10 @@
+menu "Hisilicon ISP IPP"
+
+config HISPIPP
+	tristate "Hisilicon ISP IPP Drivers"
+	depends on IOMMU_API
+	help
+		Hisilicon isp IPP drivers.
+
+endmenu
+
