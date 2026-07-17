@@ -81,6 +81,7 @@ jobs:
           - AGS3_HarmonyOS2.0_RKSU、
           - ALP_EMUI9.0_RKSU
           - BND_EMUI9.1_RKSU
+          - CPN_LineageOS17.1_KernelSU-Next
         pm: [false, true]
 
     steps:
@@ -279,6 +280,10 @@ jobs:
               DEFCONFIG="merge_hi6250_defconfig"
               os_version="9"
               tool="gcc" ;;
+            CPN_LineageOS17.1_KernelSU-Next)
+              DEFCONFIG="bach_defconfig"
+              os_version="10"
+              tool="gcc" ;;
           esac
 
           if [ -z "$DEFCONFIG" ]; then
@@ -295,7 +300,7 @@ jobs:
         run: |
           ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
           apt update -y 
-          apt install --no-install-recommends bash sudo binutils binutils-aarch64-linux-gnu wget tar make python2 flex unzip ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
+          apt install --no-install-recommends bash sudo gcc-arm-linux-gnueabi binutils binutils-aarch64-linux-gnu wget tar make python2 flex unzip ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs bc bison build-essential ccache curl flex g++-9 gcc-9 git git-lfs gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev -y
           curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
           sudo apt update
@@ -397,8 +402,8 @@ jobs:
             make ARCH=arm64 O=out "${DEFCONFIG}"
             make ARCH=arm64 O=out -j$(nproc --all)
           elif [[ "$tool" == "clang" ]]; then
-            make ARCH=arm64 O=out CC="ccache clang" LLVM_IAS=0 "${DEFCONFIG}"
-            make ARCH=arm64 O=out CC="ccache clang" LLVM_IAS=0 -j$(nproc --all)
+            make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out CC="ccache clang" LLVM_IAS=0 "${DEFCONFIG}"
+            make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out CC="ccache clang" LLVM_IAS=0 -j$(nproc --all)
           fi
 
           if grep -q "CONFIG_KPM=y" "out/.config"; then
