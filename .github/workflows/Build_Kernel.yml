@@ -222,7 +222,7 @@ jobs:
             DEFCONFIG="merge_kirin710_defconfig"
             os_version="9"
             tool="gcc" ;;
-          ALP_EMUI9.1_RKSU)
+          ALP_EMUI9.0_RKSU)
             DEFCONFIG="merge_kirin970_defconfig"
             os_version="9"
             tool="gcc" ;;

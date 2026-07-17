@@ -267,15 +267,11 @@ jobs:
               DEFCONFIG="merge_kirin970_defconfig"
               os_version="9"
               tool="gcc" ;;
-            AGS3_HarmonyOS2.0_RKSU)
-              DEFCONFIG="merge_kirin710_defconfig"
-              os_version="10"
-              tool="clang" ;;
             GLK_EMUI9.1_RKSU)
               DEFCONFIG="merge_kirin710_defconfig"
               os_version="9"
               tool="gcc" ;;
-            ALP_EMUI9.1_RKSU)
+            ALP_EMUI9.0_RKSU)
               DEFCONFIG="merge_kirin970_defconfig"
               os_version="9"
               tool="gcc" ;;
