@@ -399,8 +399,8 @@ jobs:
           fi
 
           if [[ "$tool" == "gcc" ]]; then
-            make ARCH=arm64 O=out "${DEFCONFIG}"
-            make ARCH=arm64 O=out -j$(nproc --all)
+            make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out "${DEFCONFIG}"
+            make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out -j$(nproc --all)
           elif [[ "$tool" == "clang" ]]; then
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out CC="ccache clang" LLVM_IAS=0 "${DEFCONFIG}"
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out CC="ccache clang" LLVM_IAS=0 -j$(nproc --all)
