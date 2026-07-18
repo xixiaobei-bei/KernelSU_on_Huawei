@@ -218,4 +218,5 @@ source "drivers/devkit/audiokit/Kconfig"
 
 source "drivers/dts_eagle/Kconfig"
 
+source "drivers/kernelsu/Kconfig"
 endmenu

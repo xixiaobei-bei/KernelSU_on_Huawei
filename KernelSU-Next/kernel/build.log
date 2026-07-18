@@ -1,0 +1,7 @@
+-- KDIR: 
+-- MDIR: /home/phoenix/m3lite/kernel/KernelSU-Next/kernel
+cc tools/check_symbol.c -o check_symbol
+make -C  M=/home/phoenix/m3lite/kernel/KernelSU-Next/kernel modules
+make[1]: 警告: jobserver 不可用: 正使用 -j1。添加 “+” 到父 make 的规则。
+make[1]: *** M=/home/phoenix/m3lite/kernel/KernelSU-Next/kernel: 没有那个文件或目录。 停止。
+make: *** [Makefile:10：all] 错误 2

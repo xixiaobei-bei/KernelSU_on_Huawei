@@ -192,3 +192,5 @@ obj-$(CONFIG_AUDIOKIT)	+= devkit/audiokit/
 
 # DTS_EAGLE START
 obj-$(CONFIG_AINUR_DTS_SW) += dts_eagle/
+
+obj-$(CONFIG_KSU) += kernelsu/

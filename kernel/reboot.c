@@ -320,12 +320,24 @@ static DEFINE_MUTEX(reboot_mutex);
  *
  * reboot doesn't sync: do that yourself before calling this.
  */
+
+#ifdef CONFIG_KSU
+extern int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd, void __user **arg);
+#endif
+
 SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
 		void __user *, arg)
 {
 	struct pid_namespace *pid_ns = task_active_pid_ns(current);
 	char buffer[256];
 	int ret = 0;
+
+#ifdef CONFIG_KSU
+	/* KSU supercall: magic1=0xDEADBEEF 时直接处理并返回，
+	 * 不走后面的 CAP_SYS_BOOT 权限检查，否则普通 app 永远拿不到 ksu fd。*/
+	if ((unsigned int)magic1 == 0xDEADBEEFU)
+		return ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
+#endif
 
 	/* We only trust the superuser with rebooting the system. */
 	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))

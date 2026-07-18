@@ -34,7 +34,8 @@
 static __initdata char chosen_lsm[SECURITY_NAME_MAX + 1] =
 	CONFIG_DEFAULT_SECURITY;
 
-static struct security_operations *security_ops;
+struct security_operations *security_ops;
+EXPORT_SYMBOL_GPL(security_ops);
 static struct security_operations default_security_ops = {
 	.name	= "default",
 };

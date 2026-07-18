@@ -18,6 +18,13 @@
 #include <linux/selinux.h>
 #include <linux/atomic.h>
 #include <linux/uidgid.h>
+/* Fix for older kernels: ensure task_struct and user_namespace are complete
+ * before this header uses them via rcu_dereference_protected(current->cred)
+ * and cred->user_ns. Without these, GCC raises "dereferencing pointer to
+ * incomplete type" at the current_cred() / current_user_ns() macros.
+ */
+#include <linux/sched.h>
+#include <linux/user_namespace.h>
 
 struct user_struct;
 struct cred;

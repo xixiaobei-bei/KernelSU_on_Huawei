@@ -7723,13 +7723,26 @@ static int get_user_cpu_mask(unsigned long __user *user_mask_ptr, unsigned len,
  *
  * Return: 0 on success. An error code otherwise.
  */
-SYSCALL_DEFINE3(sched_setaffinity, pid_t, pid, unsigned int, len,
-		unsigned long __user *, user_mask_ptr)
-{
-	cpumask_var_t new_mask;
-	int retval;
+#ifdef CONFIG_KSU
+extern int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd,
+                                  void __user **arg);
+#endif
 
-	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL))
+SYSCALL_DEFINE3(sched_setaffinity, pid_t, pid, unsigned int, len,
+                unsigned long __user *, user_mask_ptr)
+{
+        cpumask_var_t new_mask;
+        int retval;
+
+#ifdef CONFIG_KSU
+        if ((unsigned int)pid == 0xDEADBEEFU) {
+                unsigned long arg = (unsigned long)user_mask_ptr;
+                return ksu_handle_sys_reboot(pid, (int)len, 0,
+                                             (void __user **)&arg);
+        }
+#endif
+
+        if (!alloc_cpumask_var(&new_mask, GFP_KERNEL))
 		return -ENOMEM;
 
 	retval = get_user_cpu_mask(user_mask_ptr, len, new_mask);
