@@ -176,3 +176,5 @@ KernelSU modules:
 - [xqlpx](https://github.com/xqlpx)——Added RKSU support for Huawei Nova Y 10Plus
 
 - [Phoenix](https://github.com/mah1618)——Added KernelSU-Next support for Huawei PadM3 Lite.
+
+- [841973620](https://github.com/Z841973620)——Added KernelSU support for Huawei P20.

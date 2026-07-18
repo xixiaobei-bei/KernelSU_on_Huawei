@@ -178,3 +178,5 @@ KernelSU模块有关：
 - [xqlpx](https://github.com/xqlpx)——提供华为Nova3i的RKSU支持
 
 - [Phoenix](https://github.com/mah1618)——提供华为平板M3青春版的KernelSU-Next支持
+
+- [841973620](https://github.com/Z841973620)——提供华为P20的KernelSU支持
