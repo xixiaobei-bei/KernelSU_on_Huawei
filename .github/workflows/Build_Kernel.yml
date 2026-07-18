@@ -86,7 +86,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: ${{ matrix.branch }}
-        submodules: false
+        submodules: 'recursive'
         fetch-depth: 1
         lfs: false
 
