@@ -176,3 +176,5 @@ KernelSU模块有关：
 - [xfy2412](https://github.com/xfy2412)——提供华为Nova4的KernelSU和SukiSU-Ultra支持
 
 - [xqlpx](https://github.com/xqlpx)——提供华为Nova3i的RKSU支持
+
+- [Phoenix](https://github.com/mah1618)——提供华为平板M3青春版的KernelSU-Next支持
