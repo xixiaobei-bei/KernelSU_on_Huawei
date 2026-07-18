@@ -94,9 +94,10 @@ fastboot flash kernel <内核文件>
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
 |Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
+|Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
+|Nova 5 Pro 系列|SEA|EMUI9.1|RKSU|无|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
 |畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
-|Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
 
 ### 持续更新中...
 

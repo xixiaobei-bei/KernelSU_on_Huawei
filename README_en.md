@@ -90,9 +90,10 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
 |Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
 |Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
+|Nova 5i Series|GLK|EMUI9.0|None|
+|Nova 5 Pro Series|SEA|EMUI9.1|None|
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
 |Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
-|Nova 5i Series|GLK|EMUI9.0|None|
   
 ### More devices coming...
 
