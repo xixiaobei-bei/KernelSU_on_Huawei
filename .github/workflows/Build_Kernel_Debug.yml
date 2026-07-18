@@ -409,7 +409,6 @@ jobs:
           fi
 
           if [[ "$tool" == "gcc" ]]; then
-            rm -rf drivers/kernelsu
             ln -sf KernelSU-Next/kernel drivers/kernelsu
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out "${DEFCONFIG}"
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out -j$(nproc --all)
