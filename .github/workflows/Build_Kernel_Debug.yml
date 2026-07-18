@@ -129,6 +129,12 @@ jobs:
           echo "Skipping branch ${{ matrix.branch }} (pm=${{ matrix.pm }}) because it does not match user selection."
           exit 0
 
+      - name: Install Git for checkout
+        if: steps.check_exclude.outputs.skip != 'true'
+        run: |
+          apt-get update
+          apt-get install -y git
+
       - name: Checkout
         if: steps.should_skip.outputs.skip != 'true'
         uses: actions/checkout@v4

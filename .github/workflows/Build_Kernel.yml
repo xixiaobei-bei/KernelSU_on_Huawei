@@ -81,6 +81,12 @@ jobs:
           echo "Branch $CURRENT_BRANCH is excluded, skipping all steps for this job."
         fi
 
+    - name: Install Git for checkout
+      if: steps.check_exclude.outputs.skip != 'true'
+      run: |
+        apt-get update
+        apt-get install -y git
+
     - name: Checkout
       if: steps.check_exclude.outputs.skip != 'true'
       uses: actions/checkout@v4
