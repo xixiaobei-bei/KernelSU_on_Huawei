@@ -409,6 +409,7 @@ jobs:
           fi
 
           if [[ "$tool" == "gcc" ]]; then
+            ls -l KernelSU-Next/kernel/manager/manager_observer.h
             ln -sf KernelSU-Next/kernel drivers/kernelsu
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out "${DEFCONFIG}"
             make ARCH=arm64 CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out -j$(nproc --all)
