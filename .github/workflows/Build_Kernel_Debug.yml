@@ -491,8 +491,9 @@ jobs:
             echo "使用 tools/mkbootimg 生成镜像..."
             tools/mkbootimg "${cmdline[@]}"
           else
-            echo "未找到 tools/mkbootimg，使用系统mkbootimg..."
-            mkbootimg "${cmdline[@]}"
+            echo "未找到 tools/mkbootimg，下载mkbootimg..."
+            git clone https://android.googlesource.com/platform/system/tools/mkbootimg/
+            mkbootimg/mkbootimg.py "${cmdline[@]}"
           fi
 
       - name: Upload Kernel Artifact
