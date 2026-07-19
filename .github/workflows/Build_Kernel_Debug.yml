@@ -444,7 +444,7 @@ jobs:
             fi
 
             echo "正在重新压缩为 Image.gz..."
-            gzip -k Image Image.gz
+            gzip -k Image
 
             cd ../../../../
 
