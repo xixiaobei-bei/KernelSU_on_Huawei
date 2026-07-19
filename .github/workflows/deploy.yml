@@ -5,12 +5,12 @@ on:
     branches:
       - KernelSU_on_Huawei
     paths:
-      - 'webside/**'
+      - 'website/**'
   pull_request:
     branches:
       - KernelSU_on_Huawei
     paths:
-      - 'webside/**'
+      - 'website/**'
 
 jobs:
   build-and-deploy:
@@ -35,8 +35,8 @@ jobs:
         with:
           path: |
             ~/.npm
-            webside/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('webside/package-lock.json') }}
+            website/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('website/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -44,30 +44,30 @@ jobs:
         run: |
           echo "=== 检查文件结构 ==="
           echo "当前目录: $(pwd)"
-          echo "webside 目录内容:"
-          ls -la webside/ || echo "webside 目录不存在"
+          echo "website 目录内容:"
+          ls -la website/ || echo "website 目录不存在"
           echo "=== 检查 package-lock.json ==="
-          if [ -f "webside/package-lock.json" ]; then
+          if [ -f "website/package-lock.json" ]; then
             echo "✓ 找到 package-lock.json"
           else
             echo "✗ 未找到 package-lock.json，尝试生成..."
-            cd webside && npm init -y && npm install vitepress --save-dev
+            cd website && npm init -y && npm install vitepress --save-dev
           fi
 
       - name: Install dependencies
         run: |
-          cd webside
+          cd website
           npm ci
 
       - name: Build with VitePress
         run: |
-          cd webside
+          cd website
           npm run docs:build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: webside/.vitepress/dist
+          path: website/.vitepress/dist
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
