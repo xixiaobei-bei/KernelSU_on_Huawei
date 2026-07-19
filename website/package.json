@@ -4,7 +4,7 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
   },
-  "name": "webside",
+  "name": "website",
   "version": "1.0.0",
   "main": "index.js",
   "keywords": [],
