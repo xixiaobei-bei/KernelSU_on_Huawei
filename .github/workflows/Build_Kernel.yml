@@ -13,6 +13,36 @@ on:
         required: false
         type: string
         default: ''
+      ksunext_command:
+        description: 'KernelSU-Next自定义集成命令'
+        required: false
+        type: string
+        default: 'curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy'
+      rksu_command:
+        description: 'RKSU自定义集成命令'
+        required: false
+        type: string
+        default: 'curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v3.0.0-30-legacy'
+      sukisu_command:
+        description: 'SukiSU-Ultra自定义集成命令'
+        required: false
+        type: string
+        default: 'curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin'
+      resukisu_command:
+        description: 'ReSukiSU自定义集成命令'
+        required: false
+        type: string
+        default: 'curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash'
+      selected_branches:
+        description: '要编译的分支名称，多个用英文逗号分隔（留空表示全部）'
+        required: false
+        type: string
+        default: ''
+      enable_pm:
+        description: '是否编译PM版本'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -294,31 +324,31 @@ jobs:
           echo "✅ 发现 .ksu-clone_skip，跳过命令执行。"
         else
           echo "🔧 未发现 .ksu-clone_skip，执行命令……"
-          if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
-            echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
-            rm -rf KernelSU-Next
-            curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/dev/kernel/setup.sh" | bash -s legacy
-          elif [[ "$BRANCH" == *"KernelSU"* ]]; then
-            echo "Branch contains KernelSU: running KernelSU main setup"
-            rm -rf KernelSU
-            curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
-          elif [[ "$BRANCH" == *"RKSU"* ]]; then
-            echo "Branch contains RKSU: running RKSU setup"
-            rm -rf KernelSU
-            curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v3.0.0-30-legacy
-          elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
-            echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
-            rm -rf KernelSU
-            curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
-            cd KernelSU
-            git reset --hard 4a0c01e
-          elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
-            echo "Branch contains ReSukiSU: running ReSukiSU setup"
-            rm -rf KernelSU
-            curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-          else
-            echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
-          fi
+            if [[ "$BRANCH" == *"KernelSU-Next"* ]]; then
+              echo "Branch contains KernelSU-Next: running KernelSU-Next setup"
+              rm -rf KernelSU-Next
+              ${{ github.event.inputs.ksunext_command }}
+            elif [[ "$BRANCH" == *"KernelSU"* ]]; then
+              echo "Branch contains KernelSU: running KernelSU main setup"
+              rm -rf KernelSU
+              curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
+            elif [[ "$BRANCH" == *"RKSU"* ]]; then
+              echo "Branch contains RKSU: running RKSU setup"
+              rm -rf KernelSU
+              ${{ github.event.inputs.rksu_command }}
+            elif [[ "$BRANCH" == *"SukiSU-Ultra"* ]]; then
+              echo "Branch contains SukiSU-Ultra: running SukiSU-Ultra setup"
+              rm -rf KernelSU
+              ${{ github.event.inputs.sukisu_command }}
+              cd KernelSU
+              git reset --hard 4a0c01e
+            elif [[ "$BRANCH" == *"ReSukiSU"* ]]; then
+              echo "Branch contains ReSukiSU: running ReSukiSU setup"
+              rm -rf KernelSU
+              ${{ github.event.inputs.resukisu_command }}
+            else
+              echo "No KernelSU-related branch pattern matched; skipping vendor kernel setup"
+            fi
         fi
 
     - name: Build Kernel for ${{ matrix.branch }} (pm=${{ matrix.pm }})
