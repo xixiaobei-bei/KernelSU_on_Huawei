@@ -455,11 +455,11 @@ jobs:
             cmdline="--kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline \"loglevel=4 page_tracker=on ssbd=kernel printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=${SELINUX_MODE} unmovable_isolate1=2:192M,3:224M,4:256M buildvariant=user\" --tags_offset 0x66000000 --kernel_offset 0x00080000 --ramdisk_offset 0x66200000 --header_version 1 --os_version 10 --os_patch_level $CURRENT_DATE --output ${ARTIFACT_NAME}.img"
           fi
 
-          if [ -f "tool/mkbootimg" ]; then
-            echo "使用 tool/mkbootimg 生成镜像..."
-            tool/mkbootimg $cmdline
+          if [ -f "tools/mkbootimg" ]; then
+            echo "使用 tools/mkbootimg 生成镜像..."
+            tools/mkbootimg $cmdline
           else
-            echo "未找到 tool/mkbootimg，使用系统mkbootimg..."
+            echo "未找到 tools/mkbootimg，使用系统mkbootimg..."
             mkbootimg $cmdline
           fi
 
