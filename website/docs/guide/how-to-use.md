@@ -8,20 +8,22 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 
 首先，您应该阅读支持设备列表：
 
-|机型名称|机型代码|支持系统|支持情况|
-|:---:|:---:|:---:|:---:|
-|Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|
-|Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|
-|Mate10 系列|ALP|EMUI9.1|RKSU|
-|P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|
-|荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|
-|荣耀9 系列|STF|EMUI9.0|KernelSU|
-|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|
-|Nova 3i 系列|INE|EMUI9.1|RKSU|
-|Nova 5i 系列|GLK|EMUI9.1|RKSU|
-|Nova 5 Pro 系列|SEA|EMUI9.1|RKSU|
-|畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|
-|畅享10 Plus 系列|STK|EMUI9.1|RKSU|
+|机型名称|机型代码|支持系统|支持情况|所需要求|
+|:---:|:---:|:---:|:---:|:---:|
+|Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
+|Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](无|
+|Mate10 系列|ALP|EMUI9.1|RKSU|无|
+|P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|无|
+|P20 系列|EML|EMUI9.1|KernelSU|无|
+|荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
+|荣耀9 系列|STF|EMUI9.0|KernelSU|无|
+|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
+|Nova 3i 系列|INE|EMUI9.1|RKSU|无|
+|Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
+|Nova 5 Pro 系列|SEA|EMUI9.1|RKSU|无|
+|畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
+|畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
+|华为平板M3青春版 系列|CPN|LineageOS17.1|KernelSU-Next|[所需底包](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ## 下载内核映像文件
 

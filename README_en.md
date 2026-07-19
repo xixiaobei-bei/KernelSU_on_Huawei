@@ -83,9 +83,10 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |Model Name|Model Code|Supported Systems|Support Status|More Links|
 |:---:|:---:|:---:|:---:|:---:|
 |Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|None|
-|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
+|Mate10 Pro Series|BLA|EMUI 9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
 |Mate10 Series|ALP|EMUI 9.1|RKSU|None|
 |P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
+|P20 Series|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
 |Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
@@ -94,7 +95,8 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |Nova 5 Pro Series|SEA|EMUI9.1|None|
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
 |Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
-  
+|Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Original kernel](https://github.com/Huawei-Dev/android_kernel_huawei_bach)、[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
+
 ### More devices coming...
 
 ## Roadmap / Future Plans

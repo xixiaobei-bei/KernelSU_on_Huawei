@@ -8,20 +8,22 @@ Root your device may void your warranty and cause permanent damage if done impro
 
 First, you should read the list of supported devices:
 
-|Model Name|Model Code|Supported Systems|Support Status|
-|:---:|:---:|:---:|:---:|
-|Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|
-|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|
-|Mate10 Series|ALP|EMUI 9.1|RKSU|
-|P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|
-|Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|
-|Honor 9 Series|STF|EMUI 9.0|KernelSU|
-|Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |
-|Nova 3i Series | INE | EMUI 9.1 | RKSU |
-|Nova 5i Series|GLK|EMUI9.0|RKSU|
-|Nova 5 Pro Series|SEA|EMUI9.1|RKSU|
-|Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |
-|Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |
+|Model Name|Model Code|Supported Systems|Support Status|Requirements|
+|:---:|:---:|:---:|:---:|:---:|
+|Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|None|
+|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|None|
+|Mate10 Series|ALP|EMUI 9.1|RKSU|None|
+|P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|None|
+|P20 Series|EML|EMUI9.1|KernelSU|None|
+|Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
+|Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
+|Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
+|Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
+|Nova 5i Series|GLK|EMUI9.0|RKSU|None|
+|Nova 5 Pro Series|SEA|EMUI9.1|RKSU|None|
+|Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
+|Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
+|Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ## Download Kernel Image File
 

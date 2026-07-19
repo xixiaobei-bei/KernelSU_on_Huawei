@@ -87,9 +87,10 @@ fastboot flash kernel <内核文件>
 |机型名称|机型代码|支持系统|支持情况|更多链接|
 |:---:|:---:|:---:|:---:|:---:|
 |Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
-|Mate10 Pro(测试中)|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
+|Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
 |Mate10 系列|ALP|EMUI9.1|RKSU|无|
 |P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
+|P20 系列|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
 |Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
@@ -98,6 +99,7 @@ fastboot flash kernel <内核文件>
 |Nova 5 Pro 系列|SEA|EMUI9.1|RKSU|无|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
 |畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
+|华为平板M3青春版 系列|CPN|LineageOS17.1|KernelSU-Next|[源内核](https://github.com/Huawei-Dev/android_kernel_huawei_bach)、[所需底包](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ### 持续更新中...
 
