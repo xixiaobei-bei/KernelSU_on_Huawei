@@ -75,7 +75,7 @@ fastboot flash kernel <内核文件>
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
 |RKSU|v3.0.0-30-legacy|[GithubReleases](https://github.com/rsuntk/KernelSU/releases/download/v3.0.0-30-legacy/KernelSU_v3.0.0-30-legacy_32334-release.apk)
 |KernelSU-Next|最新版|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
-|SukiSU-Ultra|4.1.2|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases/download/v4.1.2/SukiSU_v4.1.2_40545-release.apk)|
+|SukiSU-Ultra|最新版|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)|
 |ReSukiSU|最新版|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
 
 > [!NOTE]
@@ -108,12 +108,12 @@ fastboot flash kernel <内核文件>
 - [x] 添加官方网站
 - [x] 添加GithubAction自动编译功能
 - [x] 添加对SukiSU-Ultra的支持
-- [ ] 添加ManualHooks自动集成的支持
+- [x] 添加ManualHooks自动集成的支持
 - [x] 添加对RKSU的支持
 - [x] 添加对ReSukiSU的支持
 - [x] 添加对SUSFS的支持
 - [x] 添加对KPM的支持(仅兼容基于EMUI9设备的内核)
-- [ ] 添加对ReSukiSU的多管理器支持
+- [x] 添加对ReSukiSU的多管理器支持
   
 # 贡献项目
 

@@ -70,7 +70,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |KernelSU|v0.9.2|[GithubRelease](https://github.com/tiann/KernelSU/releases/download/v0.9.2/KernelSU_v0.9.2_11682-release.apk)|
 |RKSU|v3.0.0-30-legacy|[GithubReleases](https://github.com/rsuntk/KernelSU/releases/download/v3.0.0-30-legacy/KernelSU_v3.0.0-30-legacy_32334-release.apk)
 |KernelSU-Next|Lastest|[GithubReleases](https://github.com/KernelSU-Next/KernelSU-Next/releases)|
-|SukiSU-Ultra|4.1.2|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases/download/v4.1.2/SukiSU_v4.1.2_40545-release.apk)|
+|SukiSU-Ultra|Lastest|[GithubReleases](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases/)|
 |ReSukiSU|Lastest|[GithubActions](https://github.com/ReSukiSU/ReSukiSU/actions/workflows/build-manager.yml)
 
 > [!NOTE]
@@ -104,12 +104,12 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Add an official website
 - [x] Add GitHub Actions for automatic builds
 - [x] Add support for SukiSU-Ultra
-- [ ] Add automatic ManualHooks integration
+- [x] Add automatic ManualHooks integration
 - [x] Add support for RKSU
 - [x] Add support for ReSukiSU
 - [x] Add support for SUSFS
 - [x] Add support for KPM(Only Support Based EMUI 9 OS Devices's Kernel)
-- [ ] Add support for ReSukiSU's multi-manager.
+- [x] Add support for ReSukiSU's multi-manager.
 
 # Contributing
 
