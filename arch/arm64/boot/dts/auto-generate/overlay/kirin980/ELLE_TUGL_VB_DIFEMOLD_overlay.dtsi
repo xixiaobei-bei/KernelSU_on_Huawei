@@ -1,0 +1,48 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "ELLE_LX9_VA_DPDT_overlay.dtsi"
+
+/ {
+    board_id = <8483>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 4 8 3>;
+		hisi,boardname = "ELLE_TUGL_VB_DIFEMOLD";
+		hisi,modem_id = <0x37040C00>;
+		hisi,product_id = <0x37040C00>;
+		hisi,product_name = "ELE-AL00";
+	};
+
+	&dp_aux_switch {
+		cs-gpios = <&gpio17 1 0>, <&gpio26 0 0>;
+	};
+
+	&huawei_lcd_panel{
+		product_id = <5001>;
+		gpio_id = <16 231>; /*ID0 ID1*/
+	};
+   &amba {
+       i2c@FDF0D000 {
+           nfc@28 {
+               clk_status ="pmu_hi6421v700";
+           };
+       };
+   };
+
+   &sensorhub{
+       sar{
+           sar1{
+               status = "disabled";
+           };
+           sar2{
+               status = "disabled";
+           };
+       };
+   };

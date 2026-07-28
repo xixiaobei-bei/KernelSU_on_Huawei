@@ -1,0 +1,19 @@
+
+
+/{
+	gic: interrupt-controller@ea000000 {
+		compatible = "arm,gic-v3";
+		#interrupt-cells = <3>;
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+		interrupt-controller;
+		redistributor-stride = <0x0 0x20000>;
+		redistributor-region = <1>;
+
+		reg = <0x0 0xea000000 0x0 0x10000>,      /* GICD */
+		      <0x0 0xea040000 0x0 0x100000>;      /* GICR */
+
+		interrupts = <1 9 4>;
+	};
+};

@@ -1,0 +1,27 @@
+  /{
+	pmu {
+		compatible = "arm,armv8-pmuv3";
+		status = "okay";
+		interrupts = <0 18 4>,
+			     <0 19 4>,
+			     <0 20 4>,
+			     <0 21 4>,
+			     <0 22 4>,
+			     <0 23 4>,
+			     <0 24 4>,
+			     <0 25 4>;
+	};
+	dsu-pmu-0 {
+			compatible = "arm,dsu-pmu";
+			interrupts = <0 26 4>;
+			cpus = <&little0>,
+				   <&little1>,
+				   <&little2>,
+				   <&little3>,
+				   <&middle0>,
+				   <&middle1>,
+				   <&big0>,
+				   <&big1>;
+			status="ok";
+	};
+};

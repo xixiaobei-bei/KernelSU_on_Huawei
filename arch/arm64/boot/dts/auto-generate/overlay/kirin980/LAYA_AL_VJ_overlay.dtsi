@@ -1,0 +1,68 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "LAYA_TUGL_VH_overlay.dtsi"
+
+/ {
+    board_id = <8441>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 4 1>;
+		hisi,boardname = "LAYA_AL_VJ";
+		hisi,modem_id = <0x37011800>;
+	};
+
+	/*ts kit*/
+	&ts_kit {
+		touchscreen@70 {
+			compatible = "synaptics";
+			LAYA171300{
+				producer = "BOE";
+				compatible = "synaptics-LAYA171300";
+				supported_func_indicater = <0x0>;
+				huawei,support_forcekey_cap_value_test = <0>;
+			};
+			LAYA171000{
+				producer = "LG";
+				compatible = "synaptics-LAYA171000";
+				supported_func_indicater = <0x0>;
+				huawei,support_forcekey_cap_value_test = <0>;
+			};
+			LAYA171010{
+				producer = "LG";
+				compatible = "synaptics-LAYA171010";
+				supported_func_indicater = <0x0>;
+				huawei,support_forcekey_cap_value_test = <0>;
+			};
+			LAYA171020{
+				producer = "LG";
+				compatible = "synaptics-LAYA171020";
+				supported_func_indicater = <0x0>;
+				huawei,support_forcekey_cap_value_test = <0>;
+			};
+		};
+	};
+	&sensorhub{
+		fingerprint_ud {
+			finger1 {
+				compatible="goodix,goodixBaikal";
+				status = "disabled";
+			};
+
+			finger2 {
+				compatible="syna,steller";
+				status = "disabled";
+			};
+		};
+	};
+
+	&fingerprint {
+		compatible = "fpc,fingerprint";
+		status = "disabled";
+	};

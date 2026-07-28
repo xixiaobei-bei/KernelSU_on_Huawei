@@ -1,0 +1,2106 @@
+
+
+/{
+	lowpm_func: lowpm_func {
+		compatible = "hisilicon,lowpm_func";
+		reg = <0x0 0xfff32000 0x0 0x1000>;
+		plat-name = "kirin980";
+		fpga_flag = <0>;
+		ao-gpio-irq = <138 139 140 141 142 143 173 134 135 243 244 384 385 386>;
+		ao-gpio-group-idx=<22 23 24 25 26 27 28 18 19 29 30 31 32 33>;
+		pmu-addr-end = <0x29E>;
+		mg-sec-reg = <0xE896C700 0xE896C728 0xFFF11700 0xFFF11750>;
+		cg-sec-reg = <0xE896CF00 0xE896CF28 0xFFF11F00 0xFFF11F50>;
+		status = "ok";
+		ap-irq-table = "IPI_RESCHEDULE",
+		            "IPI_CALL_FUNC",
+		            "IPI_CALL_FUNC_SINGLE",
+		            "IPI_CPU_STOP",
+		            "IPI_TIMER",
+		            "IPI_SECURE_RPMB",
+		            "IPI_MNTN_INFORM",
+		            "IPI_CPU_BACKTRACE",
+					"NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "NULL",
+		            "Virtual maintenance",
+		            "Hypervisor timer",
+		            "Virtual timer",
+		            "Legacy FIQ signal",
+		            "Secure physical timer",
+		            "Non-secure physical timer",
+		            "Legacy IRQ signal",
+					"L3 errirq",
+					"core0 errirq",
+					"core1 errirq",
+					"core2 errirq",
+					"core3 errirq",
+					"core4 errirq",
+					"core5 errirq",
+					"core6 errirq",
+					"core7 errirq",
+					"L3 faultirq",
+					"core0 faultirq",
+					"core1 faultirq",
+					"core2 faultirq",
+					"core3 faultirq",
+					"core4 faultirq",
+					"core5 faultirq",
+					"core6 faultirq",
+					"core7 faultirq",
+					"core0 pmuirq",
+					"core1 pmuirq",
+					"core2 pmuirq",
+					"core3 pmuirq",
+					"core4 pmuirq",
+					"core5 pmuirq",
+					"core6 pmuirq",
+					"core7 pmuirq",
+					"L3 pmuirq",
+					"commirq,core0",
+					"commirq,core1",
+					"commirq,core2",
+					"commirq,core3",
+					"commirq,core4",
+					"commirq,core5",
+					"commirq,core6",
+					"commirq,core7",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"reserved",
+					"WatchDog0",
+					"WatchDog1",
+					"RTC0",
+					"RTC1",
+					"TIME00",
+					"TIME01",
+					"TIME10",
+					"TIME11",
+					"TIME20",
+					"TIME21",
+					"TIME30",
+					"TIME31",
+					"TIME40",
+					"TIME41",
+					"TIME50",
+					"TIME51",
+					"TIME60",
+					"TIME61",
+					"TIME70",
+					"TIME71",
+					"TIME80",
+					"TIME81",
+					"TIME90",
+					"TIME91",
+					"TIME100",
+					"TIME101",
+					"TIME110",
+					"TIME111",
+					"TIME120",
+					"TIME121",
+					"UART0",
+					"UART1",
+					"UART2",
+					"UART4",
+					"UART5",
+					"UART6",
+					"SPI1",
+					"I2C3",
+					"I2C4",
+					"I2C5(PMU_I2C)",
+					"GPIO0_INTR1",
+					"GPIO1_INTR1",
+					"GPIO2_INTR1",
+					"GPIO3_INTR1",
+					"GPIO4_INTR1",
+					"GPIO5_INTR1",
+					"GPIO6_INTR1",
+					"GPIO7_INTR1",
+					"GPIO8_INTR1",
+					"GPIO9_INTR1",
+					"GPIO10_INTR1",
+					"GPIO11_INTR1",
+					"GPIO12_INTR1",
+					"GPIO13_INTR1",
+					"GPIO14_INTR1",
+					"GPIO15_INTR1",
+					"GPIO16_INTR1",
+					"GPIO17_INTR1",
+					"GPIO18_INTR1",
+					"GPIO19_INTR1",
+					"GPIO20_INTR1",
+					"GPIO21_INTR1",
+					"GPIO22_INTR1",
+					"GPIO23_INTR1",
+					"GPIO24_INTR1",
+					"GPIO25_INTR1",
+					"GPIO26_INTR1",
+					"GPIO27_INTR1",
+					"IOMCU_WD",
+					"IOMCU_SPI",
+					"IOMCU_UART3",
+					"IOMCU_UART8",
+					"IOMCU_SPI2",
+					"IOMCU_I3C2",
+					"IOMCU_I2C0",
+					"IOMCU_I2C1",
+					"IOMCU_I3C1",
+					"IOMCU_GPIO0_INT1",
+					"IOMCU_GPIO1_INT1",
+					"IOMCU_GPIO2_INT1",
+					"IOMCU_GPIO3_INT1",
+					"IOMCU_DMAC_INT0",
+					"IOMCU_DMAC_ns_INT0",
+					"PERF_STAT",
+					"IOMCU_COMB",
+					"PERI_SIG_MISC",
+					"NOC-comb",
+					"intr_dmss",
+					"intr_ddrc_err",
+					"intr_ddrc_inband_ecc_err",
+					"PMCTRL",
+					"SECENG_P",
+					"SECENG_S",
+					"ufs_sc_timeout_int",
+					"PMUI2C1",
+					"SD3",
+					"SDIO/EMMC",
+					"GPIO28_INTR1",
+					"PERI_DMAC_int0",
+					"PERI_DMAC_ns_int0",
+					"reserved",
+					"TSENSOR_Artemis",
+					"TSENSOR_A53",
+					"TSENSOR_G3D",
+					"TSENSOR_Modem",
+					"ASP_ARM_SECURE",
+					"ASP_ARM",
+					"iomcu_tcp_soft_irq2_gic",
+					"intr_i3c",
+					"ASP USB2_OTG",
+					"MODEM_IPC_NS_INTR0",
+					"MODEM_IPC_NS_INTR1",
+					"MDM_bus_err",
+					"intr_ao_wd",
+					"MDM_EDMAC0_INTR_NS[0]",
+					"USB3[0]",
+					"USB3[1]",
+					"USB3_OTG",
+					"USB3_BC",
+					"GPIO1_SE_INTR1",
+					"GPIO0_SE_INTR1",
+					"intr_dvfs_cpu_big",
+					"intr_dvfs_cpu_little",
+					"PMC-DVFS-G3D",
+					"intr_spmi[0]",
+					"intr_spmi[1]",
+					"AO_IPC_S_mbx6",
+					"AO_IPC_S_int2",
+					"AO_IPC_NS_mbx1",
+					"AO_IPC_NS_int1",
+					"LPM3_WDT",
+					"CCI400_err",
+					"CCI400_overflow[6:0]",
+					"CCI400_overflow[7]",
+					"IPC_S_int0",
+					"IPC_S_int1",
+					"IPC_S_int4",
+					"IPC_S_mbx0",
+					"IPC_S_mbx1",
+					"IPC_S_mbx2",
+					"IPC_S_mbx3",
+					"IPC_S_mbx4",
+					"IPC_S_mbx5",
+					"IPC_S_mbx6",
+					"IPC_S_mbx7",
+					"IPC_S_mbx8",
+					"IPC_S_mbx9",
+					"IPC_S_mbx18",
+					"IPC_NS_int0",
+					"IPC_NS_int1",
+					"IPC_NS_int4",
+					"IPC_NS_int5",
+					"IPC_NS_int6",
+					"IPC_NS_mbx0",
+					"IPC_NS_mbx1",
+					"IPC_NS_mbx2",
+					"IPC_NS_mbx3",
+					"IPC_NS_mbx4",
+					"IPC_NS_mbx5",
+					"IPC_NS_mbx6",
+					"IPC_NS_mbx7",
+					"IPC_NS_mbx8",
+					"IPC_NS_mbx9",
+					"IPC_NS_mbx18",
+					"MDM_TLDSP_WDT",
+					"MDM_CCPU_WDT",
+					"ASP-IPC-ARM",
+					"GPIO29_INTR1",
+					"GPIO30_INTR1",
+					"ASP_WDT",
+					"ASP_AXI_DLOCK",
+					"ASP_DMA_SECURE",
+					"ASP_DMA_SECURE_N",
+					"MDM_DFC_INT[0]",
+					"MDM_DFC_INT[6]",
+					"SOCP0",
+					"SOCP1",
+					"IPF_intr0",
+					"IPF_intr1",
+					"ddrc_fatal_int[3:0]",
+					"MDM_AXI_DLOCK_INT",
+					"intr_i2c6",
+					"GIC_IRQ_OUT[0]",
+					"GIC_IRQ_OUT[1]",
+					"GIC_IRQ_OUT[2]",
+					"GIC_IRQ_OUT[3]",
+					"GIC_IRQ_OUT[4]",
+					"GIC_IRQ_OUT[5]",
+					"GIC_IRQ_OUT[6]",
+					"GIC_IRQ_OUT[7]",
+					"GIC_FIQ_OUT[0]",
+					"GIC_FIQ_OUT[1]",
+					"GIC_FIQ_OUT[2]",
+					"GIC_FIQ_OUT[3]",
+					"GIC_FIQ_OUT[4]",
+					"GIC_FIQ_OUT[5]",
+					"GIC_FIQ_OUT[6]",
+					"GIC_FIQ_OUT[7]",
+					"DSS-protect_pdp",
+					"DSS-protect_sdp",
+					"DSS-protect_offline",
+					"DSS-pdp",
+					"DSS-sdp",
+					"DSS-offline",
+					"DSS_mcu_pdp",
+					"DSS_mcu_sdp",
+					"DSS_mcu_offline",
+					"DSS_dsi0",
+					"DSS_dsi1",
+					"IVP32_SMMU_irpt_s",
+					"IVP32_SMMU_irpt_ns",
+					"IVP32_WATCH_DOG",
+					"ATGC",
+					"G3D_IRQEVENT",
+					"G3D_JOB",
+					"G3D_MMU",
+					"G3D_GPU",
+					"isp_irq[0]",
+					"isp_irq[1]",
+					"isp_irq[2]",
+					"isp_irq[3]",
+					"isp_irq[4]",
+					"isp_irq[5]",
+					"isp_irq[6]",
+					"isp_irq[7]",
+					"isp_cpu_to_gic_mbx_int[0]",
+					"isp_cpu_to_gic_mbx_int[1]",
+					"isp_cpu_to_gic_ipc_int",
+					"isp_cpu_watchdog_int",
+					"isp_axi_dlcok",
+					"isp_cpu_irq_out",
+					"ivp32_dwaxi_dlock_irq",
+					"mmbuf_asc0",
+					"mmbuf_asc1",
+					"UFS",
+					"pcie_link_down_int",
+					"pcie_edma_int",
+					"pcie_pm_int",
+					"pcie_radm_inta",
+					"pcie_radm_intb",
+					"pcie_radm_intc",
+					"pcie_radm_intd",
+					"psam_intr[0]",
+					"intr_gic_mdc",
+					"intr_lpmcu_mdc",
+					"intr_prot_mdc",
+					"intr_vdec_norm",
+					"intr_vdec_prot",
+					"intr_vdec_safe",
+					"intr_ics_norm",
+					"intr_ics_prot",
+					"intr_ics_safe",
+					"intr_venc_norm",
+					"intr_venc_prot",
+					"intr_venc_safe",
+					"jpg_subsys_irq[0]",
+					"jpg_subsys_irq[1]",
+					"jpg_subsys_irq[2]",
+					"jpg_subsys_irq[3]",
+					"jpg_subsys_irq[4]",
+					"jpg_subsys_irq[5]",
+					"jpg_subsys_irq[6]",
+					"jpg_subsys_irq[7]",
+					"jpg_subsys_irq[8]",
+					"jpg_subsys_irq[9]",
+					"jpg_axi_dlock_irq",
+					"intr0_mdm_ipc_gic_s",
+					"intr1_mdm_ipc_gic_s",
+					"SPI3",
+					"SPI4",
+					"I2C7",
+					"intr_uceX_wdog",
+					"intr_ddrphy[3:0]",
+					"intr_qosbufX",
+					"intr_dmss_normal",
+					"intr_exmbist",
+					"intr_hisee_wdog",
+					"intr_hisee_ipc_mbx_gic[0]",
+					"intr_hisee_ipc_mbx_gic[1]",
+					"intr_hisee_ipc_mbx_gic[2]",
+					"intr_hisee_ipc_mbx_gic[3]",
+					"vbat_drop_protect_db",
+					"reserved",
+					"reserved",
+					"reserved",
+					"intr_hisee_alarm[0]",
+					"intr_hisee_alarm[1]",
+					"intr_dp",
+					"intr_dp_hpi",
+					"IOMCU_I3C3",
+					"intr_hisee_as2ap_irq",
+					"intr_hisee_ds2ap_irq",
+					"intr_hisee_senc2ap_irq[0]",
+					"intr_hisee_senc2ap_irq[1]",
+					"CoreSight_ETR_Full",
+					"CoreSight_ETF_Full",
+					"intr_hisee_tsensor[0]",
+					"intr_hisee_tsensor[1]",
+					"intr_hisee_lockup",
+					"intr_hisee_rst",
+					"reserved",
+					"reserved",
+					"reserved",
+					"Reserved",
+					"Reserved",
+					"Reserved",
+					"Reserved",
+					"intr_repair",
+					"GPIO31_INTR1",
+					"GPIO32_INTR1",
+					"GPIO33_INTR1",
+					"intr_dss_prot_dp",
+					"intr_dss_dp",
+					"intr_dss_mcu_dp",
+					"dss_wb_err_int",
+					"intr_cpu_big_aps_dpm",
+					"intr_cpu_middle_aps_dpm",
+					"intr_cpu_little_aps_dpm";
+
+		lpmcu-irq-table = "intr_big_pmuirq",
+					"PSAM_GIC_INT",
+					"PSAM_CCPU_INT",
+					"intr_middle_pmuirq",
+					"intr_dss_mcu_dp",
+					"MDM_TLDSP_WDT",
+					"intr_little_pmuirq",
+					"PMU_I2C0",
+					"WatchDog0",
+					"WatchDog1",
+					"RTC0",
+					"RTC1",
+					"TIME00",
+					"TIME01",
+					"TIME10",
+					"TIME11",
+					"TIME20",
+					"TIME21",
+					"TIME30",
+					"TIME31",
+					"TIME40",
+					"TIME41",
+					"TIME50",
+					"TIME51",
+					"TIME60",
+					"TIME61",
+					"TIME70",
+					"TIME71",
+					"TIME80",
+					"TIME81",
+					"INTR_HISEE_ALARM0",
+					"INTR_HISEE_ALARM1",
+					"HISEE_AS2AP_IRQ",
+					"HISEE_DS2AP_IRQ",
+					"HISEE_SENC2AP_IRQ0",
+					"HISEE_SENC2AP_IRQ1",
+					"HISEE_IPC_LPM3_MBX_INT0",
+					"HISEE_IPC_LPM3_MBX_INT1",
+					"UART0",
+					"GPIO0_SE_INTR2",
+					"GPIO1_SE_INTR2",
+					"GPIO28_INTR2",
+					"UART5",
+					"UART6",
+					"intr_uce0_ipc0",
+					"intr_uce0_ipc1",
+					"intr_uce0_ipc0_mbx",
+					"intr_uce0_ipc1_mbx",
+					"intr_uce1_ipc0",
+					"intr_uce1_ipc1",
+					"intr_uce1_ipc0_mbx",
+					"intr_uce1_ipc1_mbx",
+					"intr_uce2_ipc0",
+					"intr_uce2_ipc1",
+					"intr_uce2_ipc0_mbx",
+					"intr_uce2_ipc1_mbx",
+					"intr_uce3_ipc0",
+					"intr_uce3_ipc1",
+					"intr_uce3_ipc0_mbx",
+					"intr_uce3_ipc1_mbx",
+					"intr_uceX_wdog",
+					"DDRC_INBAND_ECC_ERR_INT_COMB",
+					"DDRC_ERR_INT_COMB",
+					"DDRPHY_INT_COMB",
+					"UCE_RTACTIVE0",
+					"UCE_RTACTIVE1",
+					"UCE_RTACTIVE2",
+					"UCE_RTACTIVE3",
+					"QOSBUF_INT_COMB",
+					"DDRC_FATAL_INT_COMB",
+					"GPIO22_INTR2",
+					"GPIO23_INTR2",
+					"GPIO24_INTR2",
+					"GPIO25_INTR2",
+					"GPIO26_INTR2",
+					"GPIO27_INTR2",
+					"MDM_CCPU_WDT",
+					"IOMCU_WDT",
+					"IOMCU_WAKEUP",
+					"MDM_IPCM_GIC_COMB",
+					"MDM_IPCM_CCPU_COMB",
+					"INTR0_AP_MDM_IPCM_S_LPM3",
+					"MDM_DFC_INT2",
+					"MDM_IPCM_HIFI_COMB",
+					"MDM_IPCM_CDSP_COMB",
+					"INTR1_AP_MDM_IPCM_S_LPM3",
+					"INTR_HISEE_LOCK",
+					"INTR_HISEE_RST",
+					"intr_cpu_little_pwr",
+					"intr_hisee_tsensor0",
+					"intr_hisee_tsensor1",
+					"intr_hisee_wdog",
+					"intr_ao_tsen",
+					"INTR0_MDM_IPCM_LPM3",
+					"INTR1_MDM_IPCM_LPM3",
+					"PERF_STAT",
+					"ISP_TO_LPM3_IPC_MBX_INT0",
+					"ISP_TO_LPM3_IPC_MBX_INT1",
+					"ISP_TO_LPM3_IPC_INT",
+					"ISP_R8_WDT",
+					"NOC_COMB",
+					"INTR_DMSS",
+					"INTR_DMSS_NORMAL",
+					"intr_ao_wd",
+					"PMCTRL",
+					"UFS",
+					"INTR_SPMI2",
+					"UFS_SC_TIMEOUT_INT",
+					"SECENG_P",
+					"SECENG_S",
+					"SDIO_EMMC",
+					"PCIE_LINKDOWN",
+					"PCIE_PM",
+					"PCIE_RADM_INTA",
+					"lpmcu_pctrl_timeout_int",
+					"PERI_DMAC_int2",
+					"PERI_DMAC_ns_int2",
+					"reserved",
+					"TSENSOR_Artemis",
+					"TSENSOR_A53",
+					"TSENSOR_G3D",
+					"TSENSOR_MDM",
+					"ASP_ARM_SECURE",
+					"ASP_ARM",
+					"intr_cpu_big_pwr",
+					"intr_cpu_middle_pwr",
+					"iomcu_tcp_task_done_irq_2_lpm3",
+					"iomcu_tcp_err_irq_2_lpm3",
+					"iomcu_tcp_soft_irq2_lpm3",
+					"DSS_mcu_pdp",
+					"DSS_mcu_sdp",
+					"DSS_mcu_offline",
+					"GPIO29_INTR2",
+					"INTR0_MDM_IPC_NS_LPM3",
+					"GPIO18_INTR2",
+					"GPIO19_INTR2",
+					"INTR1_MDM_IPC_NS_LPM3",
+					"PMUI2C1",
+					"MDM_IPC_TLDSP_COMB",
+					"lbus_err_int",
+					"USB30",
+					"USB31",
+					"USB3_OTG",
+					"USB3_PME_GENERATION",
+					"intr_dvfs_cpu_big",
+					"intr_dvfs_cpu_little",
+					"PMC-DVFS-G3D",
+					"intr_asp_powerup",
+					"intr_asp_powerdn",
+					"vbat_drop_protect_db",
+					"GPIO31_INTR2",
+					"GPIO32_INTR2",
+					"GPIO33_INTR2",
+					"LPM3_WDT",
+					"CCI_OVERDLOW_COMB",
+					"IPC_S_int3",
+					"IPC_S_int4",
+					"GPIO30_INTR2",
+					"IPC_S_mbx13",
+					"IPC_S_mbx14",
+					"IPC_S_mbx15",
+					"IPC_S_mbx16",
+					"IPC_S_mbx17",
+					"IPC_S_mbx18",
+					"intr_cpu_aps_dpm_comb",
+					"IPC_S_mbx23",
+					"IPC_S_mbx24",
+					"IPC_NS_int3",
+					"IPC_NS_int4",
+					"AO_IPC_S_mbx4",
+					"AO_IPC_S_mbx5",
+					"IPC_NS_mbx13",
+					"IPC_NS_mbx14",
+					"IPC_NS_mbx15",
+					"IPC_NS_mbx16",
+					"IPC_NS_mbx17",
+					"IPC_NS_mbx18",
+					"AO_IPC_S_int1",
+					"IPC_R8_INT_COMB",
+					"IPC_NS_mbx27",
+					"IPC_NS_mbx28",
+					"IPC_GIC_INT_COMB",
+					"IPC_IOMCU_INT_COMB",
+					"IPC_IVP_INT_COMB",
+					"Reserved",
+					"ASP_IPC_ARM",
+					"AO_IPC_S_ASP_INT_COMB",
+					"Reserved",
+					"ASP_WDT",
+					"ASP_COMB_INT",
+					"SCI0",
+					"SCI1",
+					"SOCP0",
+					"SOCP1",
+					"lte_drx_arm_times_int",
+					"lte_drx_arm_wakeup_int",
+					"tds_drx_arm_wakeup_int",
+					"tds_drx_arm_times_int",
+					"g1_bbp_to_cpu_on",
+					"g2_bbp_to_cpu_on",
+					"g3_bbp_to_cpu_on",
+					"lte2_drx_arm_wakeup_int",
+					"w_arm_int02_2",
+					"w_arm_int03_2",
+					"w_arm_int02",
+					"w_arm_int03",
+					"CBBP_INT01_2",
+					"lte2_drx_arm_times_int",
+					"IPF_intr0",
+					"IPF_intr1",
+					"MDM_EDMAC01_INTR2_COMB",
+					"GIC_IRQ_FIQ_OUT0",
+					"GIC_IRQ_FIQ_OUT1",
+					"GIC_IRQ_FIQ_OUT2",
+					"GIC_IRQ_FIQ_OUT3",
+					"GIC_IRQ_FIQ_OUT4",
+					"GIC_IRQ_FIQ_OUT5",
+					"GIC_IRQ_FIQ_OUT6",
+					"GIC_IRQ_FIQ_OUT7",
+					"INTR_ICS_LPM3",
+					"BIST_REPAIR_ERR",
+					"IVP32_WATCH_DOG",
+					"mmbuf_asc0",
+					"mmbuf_asc1",
+					"Reserved",
+					"intr_lpmcu_mdc",
+					"isp_dfs_ok_irq",
+					"intr_exmbist",
+					"intr_atgc",
+					"dss_dfs_ok",
+					"Reserved",
+					"Reserved",
+					"Reserved",
+					"PLL_UNLOCK",
+					"intr_nocbus_nonidle_pend",
+					"int_frequency_vote",
+					"LPMCU_TIMER1",
+					"LPMCU_TIMER2",
+					"CTI2",
+					"CTI3";
+
+
+
+			pmu_buck00 {
+				compatible = "hisilicon, lp_pmu0";
+				lp-pmu-name = "BUCK00";
+				lp-pmu-module = "<VDD_PERI AVDD_PLL_PERI AVDD_PLL_CPU>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x0A>;
+				mask = <0x02>;
+			};
+
+			pmu_buck01 {
+				compatible = "hisilicon, lp_pmu1";
+				lp-pmu-name = "BUCK01";
+				lp-pmu-module = "<LPDDR4x VDD1_DDR DDRPHYD_IO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x0B>;
+				mask = <0x02>;
+			};
+
+			pmu_buck02 {
+				compatible = "hisilicon, lp_pmu2";
+				lp-pmu-name = "BUCK02";
+				lp-pmu-module = "<LPDDR4x VDD1_DDR DDRPHYD_IO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x0C>;
+				mask = <0x02>;
+			};
+
+			pmu_buck1 {
+				compatible = "hisilicon, lp_pmu3";
+				lp-pmu-name = "BUCK1";
+				lp-pmu-module = "<1.12V plane/LPDDR4x/SOC PHY/VDD11>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x0D>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2 {
+				compatible = "hisilicon, lp_pmu4";
+				lp-pmu-name = "BUCK2";
+				lp-pmu-module = "<1.3V Power plane>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x0E>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3 {
+				compatible = "hisilicon, lp_pmu5";
+				lp-pmu-name = "BUCK3";
+				lp-pmu-module = "<1.95V Power plane CODEC PVDD HI1103>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x0F>;
+				mask = <0x02>;
+			};
+
+			pmu_buck4 {
+				compatible = "hisilicon, lp_pmu6";
+				lp-pmu-name = "BUCK4";
+				lp-pmu-module = "<modem>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x10>;
+				mask = <0x02>;
+			};
+
+			pmu_buck5 {
+				compatible = "hisilicon, lp_pmu7";
+				lp-pmu-name = "BUCK5";
+				lp-pmu-module = "<GPU_L2_MEM>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "LPM3_DIS";
+				offset = <0x11>;
+				mask = <0x02>;
+			};
+
+			pmu_buck6 {
+				compatible = "hisilicon, lp_pmu8";
+				lp-pmu-name = "BUCK6";
+				lp-pmu-module = "<DDR DMC/PHY CORE>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "LPM3_DIS";
+				offset = <0x12>;
+				mask = <0x02>;
+			};
+
+			pmu_buck7 {
+				compatible = "hisilicon, lp_pmu9";
+				lp-pmu-name = "BUCK7";
+				lp-pmu-module = "<LPDDR4 DDR_PHY_IO LPDDR4X VDDQ>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x13>;
+				mask = <0x02>;
+			};
+
+			pmu_buck8 {
+				compatible = "hisilicon, lp_pmu10";
+				lp-pmu-name = "BUCK8";
+				lp-pmu-module = "<SOCIO UFS LPDDR4x HI6403VIO TPIO>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x14>;
+				mask = <0x02>;
+			};
+
+			pmu_buck9 {
+				compatible = "hisilicon, lp_pmu11";
+				lp-pmu-name = "BUCK9";
+				lp-pmu-module = "<AO plane power 0.9v>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x15>;
+				mask = <0x02>;
+			};
+
+			pmu_buck9_ldo0 {
+				compatible = "hisilicon, lp_pmu12";
+				lp-pmu-name = "BUCK1_LDO0";
+				lp-pmu-module = "<SYS CORE DSP IOMCU>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x16>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo1 {
+				compatible = "hisilicon, lp_pmu13";
+				lp-pmu-name = "BUCK2_LDO1";
+				lp-pmu-module = "<Hi6363 Analog 1 RF1>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x17>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo2_1 {
+				compatible = "hisilicon, lp_pmu14";
+				lp-pmu-name = "BUCK3_LDO2_1";
+				lp-pmu-module = "<EFUSE Hisee 1.8V>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "LPM3_DIS";
+				offset = <0x18>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo2_2 {
+				compatible = "hisilicon, lp_pmu15";
+				lp-pmu-name = "BUCK3_LDO2_2";
+				lp-pmu-module = "<EFUSE Hisee 1.8V>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "LPM3_DIS";
+				offset = <0x19>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo3 {
+				compatible = "hisilicon, lp_pmu16";
+				lp-pmu-name = "BUCK3_LDO3";
+				lp-pmu-module = "<hi6363 avdd2 LNA>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x1A>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo4 {
+				compatible = "hisilicon, lp_pmu17";
+				lp-pmu-name = "BUCK3_LDO4";
+				lp-pmu-module = "<LCD&TP 1.8V IO>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x1B>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo5 {
+				compatible = "hisilicon, lp_pmu18";
+				lp-pmu-name = "BUCK3_LDO5";
+				lp-pmu-module = "<1.8V LDO: PHY Tsensor 1.8V HKADC>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1C>;
+				mask = <0x02>;
+			};
+
+			pmu_buck1_ldo6 {
+				compatible = "hisilicon, lp_pmu19";
+				lp-pmu-name = "BUCK1_LDO6";
+				lp-pmu-module = "<ABB analog>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1D>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo7 {
+				compatible = "hisilicon, lp_pmu20";
+				lp-pmu-name = "BUCK3_LDO7";
+				lp-pmu-module = "<AVDDH_ABB AVDD1P8_PLL>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x1E>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo8 {
+				compatible = "hisilicon, lp_pmu21";
+				lp-pmu-name = "BUCK3_LDO8";
+				lp-pmu-module = "<Hi6403analog/HI6363VIO>";
+				lp-pmu-status-value = <0x40>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x1F>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo9 {
+				compatible = "hisilicon, lp_pmu22";
+				lp-pmu-name = "BOOST_LDO9";
+				lp-pmu-module = "<vdd of sd card io>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x20>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo11 {
+				compatible = "hisilicon, lp_pmu23";
+				lp-pmu-name = "BOOST_LDO11";
+				lp-pmu-module = "<SIM0>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x21>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo12 {
+				compatible = "hisilicon, lp_pmu24";
+				lp-pmu-name = "BOOST_LDO12";
+				lp-pmu-module = "<SIM1>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x22>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo14 {
+				compatible = "hisilicon, lp_pmu25";
+				lp-pmu-name = "BOOST_LDO14";
+				lp-pmu-module = "<AUX_DAC RF Switch>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x23>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo15 {
+				compatible = "hisilicon, lp_pmu26";
+				lp-pmu-name = "BOOST_LDO15";
+				lp-pmu-module = "<UFS>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x24>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo16 {
+				compatible = "hisilicon, lp_pmu27";
+				lp-pmu-name = "BOOST_LDO16";
+				lp-pmu-module = "<SD>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x25>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo17 {
+				compatible = "hisilicon, lp_pmu28";
+				lp-pmu-name = "BOOST_LDO17";
+				lp-pmu-module = "<LCD &TP AVDD 2.8V>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x26>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo18 {
+				compatible = "hisilicon, lp_pmu29";
+				lp-pmu-name = "BUCK3_LDO18";
+				lp-pmu-module = "<NFC Sensor Connect Codec TP>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x27>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo21 {
+				compatible = "hisilicon, lp_pmu30";
+				lp-pmu-name = "BUCK3_LDO21";
+				lp-pmu-module = "<Camera IO>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x28>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo22 {
+				compatible = "hisilicon, lp_pmu31";
+				lp-pmu-name = "BUCK2_LDO22";
+				lp-pmu-module = "<hi6363 analog1 RF2>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x29>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo23 {
+				compatible = "hisilicon, lp_pmu32";
+				lp-pmu-name = "BOOST_LDO23";
+				lp-pmu-module = "<RF PA Bias USB20>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x2A>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo24 {
+				compatible = "hisilicon, lp_pmu33";
+				lp-pmu-name = "BOOST_LDO24";
+				lp-pmu-module = "<X_Sensor AVDD Digital>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x2B>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo25 {
+				compatible = "hisilicon, lp_pmu34";
+				lp-pmu-name = "BOOST_LDO25";
+				lp-pmu-module = "<Camera AFVDD Motor>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x2C>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo26 {
+				compatible = "hisilicon, lp_pmu35";
+				lp-pmu-name = "BUCK3_LDO26";
+				lp-pmu-module = "<DCXO_XO>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "CLK_EN_ECO";
+				offset = <0x2D>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo27 {
+				compatible = "hisilicon, lp_pmu36";
+				lp-pmu-name = "BOOST_LDO27";
+				lp-pmu-module = "<XO ADC+HKADC>";
+				lp-pmu-status-value = <0x10>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x2E>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo28 {
+				compatible = "hisilicon, lp_pmu37";
+				lp-pmu-name = "BUCK3_LDO28";
+				lp-pmu-module = "<RF MIPI Tuner 1.8V>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x2F>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_ldo29 {
+				compatible = "hisilicon, lp_pmu38";
+				lp-pmu-name = "BUCK3_LDO29";
+				lp-pmu-module = "<SOC+PMU CLk>";
+				lp-pmu-status-value = <0x2>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x30>;
+				mask = <0x02>;
+			};
+
+			pmu_buck9_ldo30 {
+				compatible = "hisilicon, lp_pmu39";
+				lp-pmu-name = "BUCK1_LDO30";
+				lp-pmu-module = "<SOC USB PHY>";
+				lp-pmu-status-value = <0x1>;
+				lp-pmu-status = "PERI_EN_CLOSE";
+				offset = <0x31>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo32 {
+				compatible = "hisilicon, lp_pmu40";
+				lp-pmu-name = "BUCK2_LDO32";
+				lp-pmu-module = "<s_camera core>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "AP_DIS";
+				offset = <0x32>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_ldo34 {
+				compatible = "hisilicon, lp_pmu41";
+				lp-pmu-name = "BOOST_LDO34";
+				lp-pmu-module = "<Finger Pr AVDD Codec>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x33>;
+				mask = <0x02>;
+			};
+
+			pmu_boost_pmuh {
+				compatible = "hisilicon, lp_pmu42";
+				lp-pmu-name = "BOOST_PMUH";
+				lp-pmu-module = "<PMUH>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "PERI_EN_ECO";
+				offset = <0x34>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo36 {
+				compatible = "hisilicon, lp_pmu43";
+				lp-pmu-name = "BUCK3_LDO36";
+				lp-pmu-module = "<UFS IO SYS_CLK>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x35>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo37 {
+				compatible = "hisilicon, lp_pmu44";
+				lp-pmu-name = "BUCK3_LDO37";
+				lp-pmu-module = "<PCIE PHY/PLL DSI/CSI PHY>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x36>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo38 {
+				compatible = "hisilicon, lp_pmu45";
+				lp-pmu-name = "BUCK3_LDO38";
+				lp-pmu-module = "<UFS VDDQ>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x37>;
+				mask = <0x02>;
+			};
+
+			pmu_buck9_ldo39 {
+				compatible = "hisilicon, lp_pmu46";
+				lp-pmu-name = "BUCK3_LDO39";
+				lp-pmu-module = "<PERI MEM>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x38>;
+				mask = <0x02>;
+			};
+
+			pmu_buck9_ldo40 {
+				compatible = "hisilicon, lp_pmu47";
+				lp-pmu-name = "BUCK3_LDO40";
+				lp-pmu-module = "<VDDC_MEM_MODEM>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x39>;
+				mask = <0x02>;
+			};
+
+			pmu_buck2_ldo41 {
+				compatible = "hisilicon, lp_pmu48";
+				lp-pmu-name = "BUCK3_LDO41";
+				lp-pmu-module = "<codec DVDD>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x3A>;
+				mask = <0x02>;
+			};
+
+			pmu_buck3_pmua {
+				compatible = "hisilicon, lp_pmu49";
+				lp-pmu-name = "BUCK3_PMUA";
+				lp-pmu-module = "<PMUA>";
+				lp-pmu-status-value = <0x8>;
+				lp-pmu-status = "SOFT_ECO";
+				offset = <0x3B>;
+				mask = <0x02>;
+			};
+
+			lp_clk0 {
+				compatible = "hisilicon, lp_clk0";
+				lp-clk-name = "gt_clk_ref_crc",
+							  "gt_pclk_rtc",
+							  "gt_pclk_rtc1",
+							  "gt_pclk_timer0",
+							  "gt_clk_timer0",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_timer2",
+							  "gt_clk_timer2",
+							  "gt_pclk_timer3",
+							  "gt_clk_timer3",
+							  "gt_pclk_ao_gpio0",
+							  "gt_pclk_ao_gpio1",
+							  "gt_pclk_ao_gpio2",
+							  "gt_pclk_ao_gpio3",
+							  "gt_pclk_ao_ioc",
+							  "gt_clk_out0",
+							  "gt_clk_out1",
+							  "gt_clk_jtag_auth",
+							  "gt_pclk_syscnt",
+							  "gt_clk_syscnt",
+							  "gt_pclk_ao_gpio4",
+							  "gt_pclk_ao_gpio5",
+							  "gt_clk_sci0",
+							  "gt_clk_sci1",
+							  "gt_pclk_ao_gpio6",
+							  "gt_clk_asp_subsys_lpmcu",
+							  "gt_clk_asp_tcxo",
+							  "gt_clk_bbpdrx",
+							  "gt_clk_aobus",
+							  "reserved",
+							  "gt_clk_ppll0_sscg";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <3 3 3 6 6 3 3 6 6 6 6 4 4 4 4 4 1 1 2 2 2 3 0 6 6 4 2 2 6 3 3 0>;
+				offset = <0x168>;
+				bit-num = <32>;
+			};
+
+			lp_clk1 {
+				compatible = "hisilicon, lp_clk1";
+				lp-clk-name = "gt_clk_asp_dw_axi",
+							  "gt_clk_asp_x2h",
+							  "gt_clk_asp_h2p",
+							  "gt_asp_cfg",
+							  "gt_clk_asp_subsys_acpu",
+							  "gt_clk_noc_aobus2sysbusddrc",
+							  "gt_clk_asp_subsys_peri_acpu",
+							  "ddr_loopback_en",
+							  "gt_clk_asp_subsys_peri_lpmcu",
+							  "gt_clk_fll_src_tp",
+							  "gt_pclk_timer4",
+							  "gt_clk_timer4",
+							  "gt_pclk_timer5",
+							  "gt_clk_timer5",
+							  "gt_pclk_timer6",
+							  "gt_clk_timer6",
+							  "gt_pclk_timer7",
+							  "gt_clk_timer7",
+							  "gt_pclk_timer8",
+							  "gt_clk_timer8",
+							  "gt_timerclk_refh",
+							  "ddr_reset_en",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_noc_aobus2aspbus",
+							  "gt_clk_noc_aobus2iomcubus",
+							  "gt_clk_ppll0_peri",
+							  "reserved",
+							  "gt_clk_autodiv_aonoc_pll",
+							  "gt_clk_autodiv_aonoc_fll",
+							  "reserved",
+							  "wait_ddr_selfreflash_done_bypass";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 6 3 3 5 3 5 3 3 3 3 3 3 3 3 3 3 3 5 3 3 3 5 5 5 5 5 5 5>;
+				offset = <0x178>;
+				bit-num = <32>;
+			};
+
+			lp_clk2 {
+				compatible = "hisilicon, lp_clk2";
+				lp-clk-name = "ocbc_bus_clk_clkoff_sys_n",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "ppll0_en_cbbe16",
+							  "ppll0_en_bbe16",
+							  "ppll0_gt_cbbe16",
+							  "ppll0_gt_bbe16",
+							  "fll_gt_soft",
+							  "ppll0_gt_cpu",
+							  "ppll0_gt_modem",
+							  "fll_bp_cpu",
+							  "fll_bp_mdm",
+							  "fll_gt_cpu",
+							  "fll_gt_mdm",
+							  "gt_pclk_ao_wd",
+							  "reserved",
+							  "reserved",
+							  "gt_pclkdbg_to_iomcu",
+							  "reserved",
+							  "ppll0_en_cpu",
+							  "ppll0_en_mdm",
+							  "fll_en_cpu",
+							  "fll_en_mdm",
+							  "reserved";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x198>;
+				bit-num = <31>;
+			};
+
+			lp_clk3 {
+				compatible = "hisilicon, lp_clk3";
+				lp-clk-name = "gt_clk_memrepair",
+							  "reserved",
+							  "gt_pclk_ao_tzpc",
+							  "gt_pclk_ao_ipc_ns",
+							  "gt_pclk_ao_loadmonitor",
+							  "gt_clk_ao_loadmonitor",
+							  "gt_clk_ppll0_media",
+							  "gt_clk_dp_audio_pll",
+							  "gt_pclk_gpio19",
+							  "gt_pclk_gpio18",
+							  "gt_clk_spi3",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_autodiv_ufs_subsys",
+							  "gt_clk_ufs_subsys",
+							  "gt_pclk_ao_gpio30",
+							  "gt_pclk_ao_gpio29",
+							  "gt_clk_ao_atb_brg",
+							  "gt_clk_usb2phy_ref",
+							  "gt_pclk_ao_gpio31",
+							  "gt_pclk_ao_gpio32",
+							  "gt_pclk_ao_gpio33",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_ufs_ref_test";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x1B8>;
+				bit-num = <26>;
+			};
+
+			lp_clk4 {
+				compatible = "hisilicon, lp_clk4";
+				lp-clk-name = "sc_gt_clk_asp_subsys",
+							  "gt_hifidsp_clk_div",
+							  "sc_gt_clk_sci",
+							  "sc_gt_clk_aobus",
+							  "gt_asp_hclk_div",
+							  "sc_gt_sclk_tp",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote",
+							  "gt_clk_spmi_mst_vote";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x258>;
+				bit-num = <16>;
+			};
+
+			lp_clk5 {
+				compatible = "hisilicon, lp_clk5";
+				lp-clk-name = "div_aobus_noc",
+							  "div_aobus_noc",
+							  "div_aobus_noc",
+							  "div_aobus_noc",
+							  "sel_clk_aobus_noc",
+							  "sel_clk_aobus_noc",
+							  "sc_gt_aonoc_pll",
+							  "sc_gt_aonoc_fll",
+							  "sc_div_asp_hclk",
+							  "sc_div_asp_hclk",
+							  "sc_gt_aonoc_sys",
+							  "div_sec",
+							  "div_sec",
+							  "div_sec",
+							  "div_sec",
+							  "div_sec";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x260>;
+				bit-num = <16>;
+			};
+
+			lp_clk6 {
+				compatible = "hisilicon, lp_clk6";
+				lp-clk-name = "div_aobus",
+							  "div_aobus",
+							  "div_aobus",
+							  "div_aobus",
+							  "div_aobus",
+							  "div_aobus",
+							  "div_clkout0_tcxo",
+							  "div_clkout0_tcxo",
+							  "div_clkout0_tcxo",
+							  "div_clkout1_tcxo",
+							  "div_clkout1_tcxo",
+							  "div_clkout1_tcxo",
+							  "sel_clk_out0",
+							  "sel_clk_out0",
+							  "sel_clk_out1",
+							  "sel_clk_out1";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x254>;
+				bit-num = <16>;
+			};
+
+			lp_clk7 {
+				compatible = "hisilicon, lp_clk7";
+				lp-clk-name = "aobus_div_auto_reduce_bypass",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_auto_waitcfg_in",
+							  "aobus_clk_sw_req_cfg",
+							  "aobus_clk_sw_req_cfg",
+							  "sel_syscnt",
+							  "sel_usb2phy_ref",
+							  "sc_gt_clk_sec";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x264>;
+				bit-num = <16>;
+			};
+
+			lp_clk8 {
+				compatible = "hisilicon, lp_clk8";
+				lp-clk-name = "sc_gt_clk_memrepair",
+							  "sel_memrepair",
+							  "div_memrepair",
+							  "div_memrepair",
+							  "div_memrepair",
+							  "div_memrepair",
+							  "div_memrepair",
+							  "div_memrepair",
+							  "sel_ao_loadmonitor",
+							  "sc_gt_clk_ao_loadmonitor",
+							  "div_ao_loadmonitor",
+							  "div_ao_loadmonitor",
+							  "div_ao_loadmonitor",
+							  "div_ao_loadmonitor";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x26C>;
+				bit-num = <14>;
+			};
+
+			lp_clk9 {
+				compatible = "hisilicon, lp_clk9";
+				lp-clk-name = "div_ufs_subsys_pll",
+							  "div_ufs_subsys_pll",
+							  "div_ufs_subsys_pll",
+							  "div_ufs_subsys_pll",
+							  "div_ufs_subsys_pll",
+							  "div_ufs_subsys_pll",
+							  "div_sys_ufs_subsys",
+							  "div_sys_ufs_subsys",
+							  "sel_ufs_subsys_pll",
+							  "ufsbus_div_auto_reduce_bypass_acpu",
+							  "ufsbus_div_auto_reduce_bypass_mcpu",
+							  "ao_wd_soft_en",
+							  "ao_wd_en_ov",
+							  "sel_clk_sys_ini_src";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x274>;
+				bit-num = <14>;
+			};
+
+			lp_clk10 {
+				compatible = "hisilicon, lp_clk10";
+				lp-clk-name = "ufsbus_div_auto_reduce_bypass_lpm3",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_in",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_auto_waitcfg_out",
+							  "ufsbus_div_auto_cfg",
+							  "ufsbus_div_auto_cfg",
+							  "ufsbus_div_auto_cfg",
+							  "ufsbus_div_auto_cfg",
+							  "ufsbus_div_auto_cfg",
+							  "ufsbus_div_auto_cfg",
+							  "reserved",
+							  "ufs_bus_bypass",
+							  "ufs_hibernate_bypass";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x278>;
+				bit-num = <30>;
+			};
+
+			lp_clk11 {
+				compatible = "hisilicon, lp_clk11";
+				lp-clk-name = "sc_aonoc_ufs_i_mainnopendingtrans_bp",
+							  "sc_aonoc_asp_mst_i_mainnopendingtrans_bp",
+							  "sc_aonoc_ufs_emmc_i_mainnopendingtrans_bp",
+							  "sc_aonoc_ufshc_hibernate_ind_bp";
+				lp-clk-base = <0xfff0a000>;
+				lp-clk-status-value = <2 2 2 2>;
+				offset = <0x1A4>;
+				bit-num = <4>;
+			};
+
+			lp_clk12 {
+				compatible = "hisilicon, lp_clk12";
+				lp-clk-name = "reserved",
+							  "reserved",
+							  "gt_clk_ddrc",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_vcodecbus2ddrc",
+							  "gt_pclk_mmc1_sysctrl",
+							  "gt_clk_ipf",
+							  "gt_clk_ipf_psam",
+							  "gt_clk_sysbus",
+							  "gt_clk_cfgbus",
+							  "gt_clk_sys2cfgbus",
+							  "gt_pclk_mmc0_sysctrl",
+							  "gt_clk_dp_audio_pll_ao",
+							  "reserved",
+							  "gt_clk_mmc1_peribus",
+							  "reserved",
+							  "gt_clk_mmc0peri2sysbus",
+							  "gt_clk_mmc0_peribus",
+							  "gt_clk_dmss_free",
+							  "gt_clk_lpmcu2cfgbus",
+							  "reserved",
+							  "gt_clk_dmabus",
+							  "gt_clk_dma2sysbus",
+							  "reserved",
+							  "gt_hclk_usb3otg_misc",
+							  "gt_clk_ao_asp",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_hclk_sd";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x008>;
+				bit-num = <31>;
+			};
+
+			lp_clk13 {
+				compatible = "hisilicon, lp_clk13";
+				lp-clk-name = "gt_pclk_gpio0",
+							  "gt_pclk_gpio1",
+							  "gt_pclk_gpio2",
+							  "gt_pclk_gpio3",
+							  "gt_pclk_gpio4",
+							  "gt_pclk_gpio5",
+							  "gt_pclk_gpio6",
+							  "gt_pclk_gpio7",
+							  "gt_pclk_gpio8",
+							  "gt_pclk_gpio9",
+							  "gt_pclk_gpio10",
+							  "gt_pclk_gpio11",
+							  "gt_pclk_gpio12",
+							  "gt_pclk_gpio13",
+							  "gt_pclk_gpio14",
+							  "gt_pclk_gpio15",
+							  "gt_pclk_gpio16",
+							  "gt_pclk_gpio17",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_gpio20",
+							  "gt_pclk_gpio21",
+							  "gt_pclk_timer9",
+							  "gt_pclk_timer10",
+							  "gt_pclk_timer11",
+							  "gt_pclk_timer12",
+							  "gt_clk_socp_lpm3",
+							  "gt_clk_djtag",
+							  "gt_clk_socp_acpu",
+							  "gt_clk_socp_mcpu",
+							  "gt_clk_i2c6",
+							  "gt_clk_i2c7";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x018>;
+				bit-num = <32>;
+			};
+
+			lp_clk14 {
+				compatible = "hisilicon, lp_clk14";
+				lp-clk-name = "gt_pclk_pwm",
+							  "gt_pclk_ctf",
+							  "gt_pclk_ipc0",
+							  "gt_pclk_ipc1",
+							  "gt_pclk_blpwm_peri",
+							  "gt_clk_loadmonitor",
+							  "gt_pclk_loadmonitor",
+							  "gt_clk_i2c3",
+							  "reserved",
+							  "gt_clk_spi1",
+							  "gt_clk_uart0",
+							  "gt_clk_uart1",
+							  "gt_clk_uart2",
+							  "gt_clk_adb_mst_mdm",
+							  "gt_clk_uart4",
+							  "gt_clk_uart5",
+							  "gt_pclk_wd0",
+							  "gt_pclk_wd1",
+							  "gt_pclk_tzpc",
+							  "reserved",
+							  "gt_pclk_ipc_mdm",
+							  "gt_clk_adb_mst_fcm0",
+							  "gt_clk_adb_mst_fcm1",
+							  "gt_clk_gic",
+							  "gt_clk_adb_slv_acp",
+							  "gt_pclk_ioc",
+							  "gt_clk_codecssi",
+							  "gt_clk_i2c4",
+							  "gt_clk_loadmonitor_1",
+							  "gt_pclk_loadmonitor_1",
+							  "reserved",
+							  "gt_pclk_pctrl";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x028>;
+				bit-num = <32>;
+			};
+
+			lp_clk15 {
+				compatible = "hisilicon, lp_clk15";
+				lp-clk-name = "gt_aclk_dmac_lpm3",
+							  "gt_aclk_dmac_acpu",
+							  "gt_aclk_dmac_mcpu",
+							  "gt_aclk_g3d_cfg",
+							  "gt_clk_g3dmt",
+							  "gt_aclk_g3d",
+							  "sc_abb_pll_gps_en0",
+							  "sc_abb_pll_gps_en1",
+							  "sc_abb_pll_audio_en0",
+							  "sc_abb_pll_audio_en1",
+							  "gt_clk_noc_mdm_mst",
+							  "gt_clk_noc_mdm_cfg",
+							  "gt_pclk_mmc1_pcie",
+							  "gt_clk_pll_unlock_detect",
+							  "gt_clk_adb_mst_mdm2sys",
+							  "gt_clk_sysbus2mdm",
+							  "reserved",
+							  "gt_clk_rxdphy3_cfg",
+							  "sc_abb_pll_gps_gt_en0",
+							  "sc_abb_pll_audio_gt_en0",
+							  "gt_clk_rxdphy0_cfg",
+							  "gt_clk_rxdphy1_cfg",
+							  "gt_clk_rxdphy2_cfg",
+							  "gt_clk_usb_pipe_trans",
+							  "gt_clk_csi_trans",
+							  "gt_clk_dsi_trans",
+							  "gt_clk_isp_i2c_media",
+							  "gt_clk_ufs_trans",
+							  "gt_clk_txdphy0_cfg",
+							  "gt_clk_txdphy0_ref",
+							  "gt_clk_txdphy1_cfg",
+							  "gt_clk_txdphy1_ref";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x038>;
+				bit-num = <32>;
+			};
+
+			lp_clk16 {
+				compatible = "hisilicon, lp_clk16";
+				lp-clk-name = "gt_clk_usb3otg_ref",
+							  "gt_aclk_usb3otg",
+							  "gt_clk_isp_snclk3",
+							  "gt_clk_socp_bbe2",
+							  "gt_clk_spi4",
+							  "gt_clk_ppll4_sscg",
+							  "gt_clk_media_tcxo",
+							  "gt_clk_mpll3_sscg",
+							  "gt_clk_perf_stat",
+							  "gt_pclk_perf_stat",
+							  "gt_aclk_perf_stat",
+							  "gt_clk_socp_bbe1",
+							  "gt_clk_x2j_func_mbist",
+							  "gt_pclk_mmc0_ioc",
+							  "gt_clk_socp_bbe0",
+							  "gt_clk_socp_hifi",
+							  "gt_clk_mpll2_sscg",
+							  "gt_clk_sd",
+							  "sc_abb_pll_gps_gt_en1",
+							  "gt_clk_sdio",
+							  "sc_abb_pll_audio_gt_en1",
+							  "gt_clk_a57_tsensor",
+							  "gt_clk_a53_tsensor",
+							  "gt_clk_apll0_sscg",
+							  "gt_clk_apll1_sscg",
+							  "gt_clk_apll2_sscg",
+							  "gt_clk_ppll1_sscg",
+							  "gt_clk_ppll2_sscg",
+							  "gt_clk_ppll3_sscg",
+							  "gt_clk_mpll0_sscg",
+							  "gt_clk_mpll1_sscg",
+							  "gt_clk_cpu_little_tp";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x048>;
+				bit-num = <32>;
+			};
+
+			lp_clk17 {
+				compatible = "hisilicon, lp_clk17";
+				lp-clk-name = "gt_clk_jittermon_wmux_cpub",
+							  "gt_clk_modem_tcxo",
+							  "gt_clk_modem_subsys",
+							  "gt_clk_noc_timeout_extref",
+							  "gt_clk_mmc1_pcie_axi",
+							  "gt_clk_g3d_tsensor",
+							  "gt_clk_modem_tsensor",
+							  "gt_clk_gpu_tp",
+							  "gt_clk_lpmcu",
+							  "gt_clk_cpu_middle_tp",
+							  "gt_clk_cci2sysbus_asyn",
+							  "gt_clk_ao_hpm",
+							  "gt_clk_peri_hpm",
+							  "gt_clk_fcm_monitor_sensor",
+							  "gt_clk_cci",
+							  "gt_clk_gpuhpm",
+							  "gt_clk_isp_snclk0",
+							  "gt_clk_isp_snclk1",
+							  "gt_clk_isp_snclk2",
+							  "gt_clk_mmc0_subsys",
+							  "gt_clk_mmc1_subsys",
+							  "gt_clk_cpu_big_tp",
+							  "gt_clk_abb_backup",
+							  "gt_clk_modem_ccpu_tp",
+							  "gt_clk_mmc_dpctrl",
+							  "gt_pclk_atgc",
+							  "gt_pclk_atgm_media",
+							  "gt_pclk_atgs_mdm",
+							  "gt_pclk_dsi0",
+							  "gt_pclk_dsi1",
+							  "gt_clk_lpmcu_tp",
+							  "gt_clk_sysbus_tp";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x058>;
+				bit-num = <32>;
+			};
+
+			lp_clk18 {
+				compatible = "hisilicon, lp_clk18";
+				lp-clk-name = "sc_gt_clk_g3d_ppll0_div",
+							  "sc_gt_clk_time_stamp_div",
+							  "sc_gt_clk_ddrc_pll",
+							  "gt_clk_perf_stat_div",
+							  "sc_gt_clk_lpmcu_pll",
+							  "sc_gt_clk_loadmonitor",
+							  "sc_gt_clk_sysbus_pll",
+							  "sc_gt_clk_mmc_dpctrl",
+							  "sc_gt_clk_vcodecbus",
+							  "sc_gt_clk_venc",
+							  "gt_clk_out0",
+							  "gt_clk_out1",
+							  "gt_clk_rxdphy_cfg",
+							  "sc_gt_clk_vdec",
+							  "sc_gt_clk_ics",
+							  "sc_gt_clk_sysbus_sys";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x0f0>;
+				bit-num = <16>;
+			};
+
+			lp_clk19 {
+				compatible = "hisilicon, lp_clk19";
+				lp-clk-name = "reserved",
+							  "sc_gt_clk_dsi_trans",
+							  "sc_gt_clk_usb_pipe_trans",
+							  "sc_gt_clk_sd",
+							  "sc_gt_clk_ao_asp_pll",
+							  "sc_gt_clk_sd_sys",
+							  "sc_gt_clk_sdio1_sys",
+							  "sc_gt_clk_a53hpm",
+							  "sc_gt_clk_sdio1",
+							  "sc_gt_clk_uart0",
+							  "sc_gt_clk_uartl",
+							  "sc_gt_clk_uarth",
+							  "reserved",
+							  "sc_gt_clk_spi",
+							  "sc_gt_clk_csi_dsi_trans",
+							  "reserved";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x0f4>;
+				bit-num = <16>;
+			};
+
+			lp_clk20 {
+				compatible = "hisilicon, lp_clk20";
+				lp-clk-name = "sc_gt_clk_i2c",
+							  "sc_gt_clk_modem_bbp0",
+							  "sc_gt_clk_modem_bbp1",
+							  "sc_gt_clk_cfgbus",
+							  "sc_gt_clk_isp_i2c",
+							  "sc_gt_clk_ptp",
+							  "sc_gt_clk_modem_ccpu",
+							  "sc_gt_clk_modem_dsp",
+							  "sc_gt_clk_modem_peri",
+							  "sc_gt_clk_noc_mdm_mst",
+							  "sc_gt_clk_320m_pll",
+							  "sc_gt_clk_pll_test",
+							  "sc_gt_clk_atgc",
+							  "sc_gt_pclk_pcie",
+							  "sc_gt_clk_ufs_pcie_trans",
+							  "sc_gt_clk_dp_audio_pll_ao";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x0f8>;
+				bit-num = <16>;
+			};
+
+			lp_clk21 {
+				compatible = "hisilicon, lp_clk21";
+				lp-clk-name = "gt_clk_peri_avs_mon",
+							  "gt_clk_autofs_ddrsys_mon",
+							  "gt_clk_fnpll_cfg",
+							  "gt_clk_media2cfgbus",
+							  "gt_clk_autogt_dmc_peri",
+							  "gt_pclk_media_crg",
+							  "gt_pclk_autodiv_sysbus",
+							  "gt_pclk_autodiv_cfgbus",
+							  "gt_pclk_autodiv_dmabus",
+							  "gt_clk_cfgbus_media2",
+							  "gt_pclk_autodiv_mmc0bus",
+							  "gt_pclk_autodiv_mmc1bus",
+							  "gt_pclk_autodiv_lpmcu",
+							  "gt_clk_cfgbus_media",
+							  "gt_clk_atgs_mon_ddrc",
+							  "gt_clk_autogt_ddrc",
+							  "gt_pclk_media2_crg",
+							  "gt_pclk_autodiv_ics",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_ppll6_sscg",
+							  "gt_clk_ppll7_sscg",
+							  "gt_clk_apll6_sscg",
+							  "gt_clk_apll5_sscg",
+							  "gt_clk_apll4_sscg",
+							  "gt_clk_apll3_sscg",
+							  "gt_clk_ppll4_media",
+							  "gt_clk_ppll2_media",
+							  "gt_clk_ppll3_media",
+							  "gt_clk_ppll7_media";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x418>;
+				bit-num = <30>;
+			};
+
+			lp_clk22 {
+				compatible = "hisilicon, lp_clk22";
+				lp-clk-name = "gt_clk_ddrc_acp_rs_peri",
+							  "sc_abb_pll_gps_gt_en2",
+							  "sc_abb_pll_audio_gt_en2",
+							  "sc_abb_pll_gps_en2",
+							  "sc_abb_pll_audio_en2",
+							  "gt_clk_dmss_to_vcodec_rs",
+							  "gt_clk_dmss_to_vivo_rs",
+							  "gt_clk_dmss_to_ivp_rs",
+							  "gt_clk_pcieaux",
+							  "reserved",
+							  "gt_clk_noc_hiseebus",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_cpu_gic";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x428>;
+				bit-num = <16>;
+			};
+
+			lp_clk23 {
+				compatible = "hisilicon, lp_clk23";
+				lp-clk-name = "gt_aclk_ddrphy_dfi_r",
+							  "gt_aclk_ddrphy_dfi_l",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_peri_dmc_l",
+							  "gt_clk_peri_dmc_r",
+							  "gt_clk_ddrc_pipereg_wr_a_0",
+							  "gt_clk_ddrc_pipereg_rd_a_0",
+							  "gt_clk_ddrc_pipereg_wr_a_1",
+							  "gt_clk_ddrc_pipereg_rd_a_1",
+							  "gt_clk_ddrc_pipereg_wr_a_2",
+							  "gt_clk_ddrc_pipereg_rd_a_2",
+							  "gt_clk_ddrc_pipereg_wr_a_peri",
+							  "gt_clk_ddrc_pipereg_rd_a_peri",
+							  "gt_clk_ddrc_pipereg_wr_b_0",
+							  "gt_clk_ddrc_pipereg_rd_b_0",
+							  "gt_clk_ddrc_pipereg_wr_b_1",
+							  "gt_clk_ddrc_pipereg_rd_b_1",
+							  "gt_hclk_dmc",
+							  "gt_hclk_dmc_a",
+							  "gt_hclk_dmc_b",
+							  "gt_hclk_dmc_c",
+							  "gt_hclk_dmc_d",
+							  "gt_clk_ddrc_a_sys",
+							  "gt_clk_ddrc_b_sys",
+							  "gt_clk_ddrc_c_sys",
+							  "gt_clk_ddrc_d_sys",
+							  "gt_clk_ddrc_pipereg_wr_b_2",
+							  "gt_clk_ddrc_pipereg_rd_b_2",
+							  "gt_clk_ddrc_pipereg_wr_b_peri",
+							  "gt_clk_ddrc_pipereg_rd_b_peri";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x438>;
+				bit-num = <31>;
+			};
+
+			lp_clk24 {
+				compatible = "hisilicon, lp_clk24";
+				lp-clk-name = "gt_clk_p2p_m_a",
+							  "gt_clk_ddrc_pipereg_wr_a_3",
+							  "gt_clk_ddrc_pipereg_rd_a_3",
+							  "gt_clk_ddrc_pipereg_wr_b_3",
+							  "gt_clk_ddrc_pipereg_rd_b_3",
+							  "gt_clk_ddrc_pipereg_wr_c_3",
+							  "gt_clk_ddrc_pipereg_rd_c_3",
+							  "gt_clk_ddrc_pipereg_wr_d_3",
+							  "gt_clk_ddrc_pipereg_rd_d_3",
+							  "reserved",
+							  "gt_clk_p2p_s_a",
+							  "gt_clk_uce_subsys_a",
+							  "gt_clk_ddrc_a_ref",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_p2p_m_b",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_p2p_s_b",
+							  "gt_clk_uce_subsys_b",
+							  "gt_clk_ddrc_b_ref",
+							  "reserved",
+							  "reserved";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x448>;
+				bit-num = <31>;
+			};
+
+			lp_clk25 {
+				compatible = "hisilicon, lp_clk25";
+				lp-clk-name = "gt_clk_p2p_m_c",
+							  "atgs_lp_ack_bypass_sysbus",
+							  "atgs_lp_ack_bypass_mdm",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_p2p_s_c",
+							  "gt_clk_uce_subsys_c",
+							  "gt_clk_ddrc_c_ref",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_p2p_m_d",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_p2p_s_d",
+							  "gt_clk_uce_subsys_d",
+							  "gt_clk_ddrc_d_ref",
+							  "reserved",
+							  "reserved";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x458>;
+				bit-num = <31>;
+			};
+
+			lp_clk26 {
+				compatible = "hisilicon, lp_clk26";
+				lp-clk-name = "gt_clk_ddrc_pipereg_wr_c_0",
+							  "gt_clk_ddrc_pipereg_rd_c_0",
+							  "gt_clk_ddrc_pipereg_wr_c_1",
+							  "gt_clk_ddrc_pipereg_rd_c_1",
+							  "gt_clk_ddrc_pipereg_wr_c_2",
+							  "gt_clk_ddrc_pipereg_rd_c_2",
+							  "gt_clk_ddrc_pipereg_wr_c_peri",
+							  "gt_clk_ddrc_pipereg_rd_c_peri",
+							  "gt_clk_ddrc_pipereg_wr_d_0",
+							  "gt_clk_ddrc_pipereg_rd_d_0",
+							  "gt_clk_ddrc_pipereg_wr_d_1",
+							  "gt_clk_ddrc_pipereg_rd_d_1",
+							  "gt_clk_ddrc_pipereg_wr_d_2",
+							  "gt_clk_ddrc_pipereg_rd_d_2",
+							  "gt_clk_ddrc_pipereg_wr_d_peri",
+							  "gt_clk_ddrc_pipereg_rd_d_peri",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "peri_auto_bypass_a",
+							  "peri_auto_bypass_b",
+							  "peri_auto_bypass_c",
+							  "peri_auto_bypass_d",
+							  "ddrc_autogt_bypass";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x468>;
+				bit-num = <31>;
+			};
+
+
+			lp_clk27 {
+				compatible = "hisilicon, lp_clk27";
+				lp-clk-name = "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_pclk_atgs_sys",
+							  "gt_pclk_dpctrl",
+							  "gt_aclk_dpctrl",
+							  "reserved",
+							  "gt_clk_pimon",
+							  "gt_pclk_pimon",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_dpctrl_16m";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x478>;
+				bit-num = <22>;
+			};
+
+
+			lp_clk28 {
+				compatible = "hisilicon, lp_clk28";
+				lp-clk-name = "gt_clk_process_monitor0",
+							  "gt_clk_process_monitor1",
+							  "gt_clk_process_monitor2",
+							  "gt_clk_process_monitor3",
+							  "gt_clk_process_monitor4",
+							  "gt_clk_process_monitor5",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "reserved",
+							  "gt_clk_lpm_cpu_big",
+							  "gt_clk_lpm_cpu_middle",
+							  "gt_clk_lpm_cpu_little",
+							  "gt_clk_tidm_gpu",
+							  "gt_clk_pa_gpu";
+				lp-clk-base = <0xfff35000>;
+				lp-clk-status-value = <2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2>;
+				offset = <0x488>;
+				bit-num = <16>;
+			};
+
+	};
+
+	lowpm_func_gic: lowpm_func_gic {
+		   compatible = "arm,lp_gic";
+		   #address-cells = <2>;
+		   #size-cells = <2>;
+		   reg = <0x0 0xEA000000 0x0 0x300>;
+		   enable-offset = <0x100>;
+		   pending-offset = <0x200>;
+	};
+
+	lowpm_func_ipc: lowpm_func_ipc {
+		   compatible = "lowpm,ipc";
+		   #address-cells = <2>;
+		   #size-cells = <2>;
+		   reg = <0x0 0xe896b000 0x0 0x1000>;
+	};
+
+	lowpm_func_ao_ipc: lowpm_func_ao_ipc {
+		   compatible = "lowpm,ao_ipc";
+		   #address-cells = <2>;
+		   #size-cells = <2>;
+		   reg = <0x0 0xFFF22000 0x0 0x1000>;
+	};
+
+};

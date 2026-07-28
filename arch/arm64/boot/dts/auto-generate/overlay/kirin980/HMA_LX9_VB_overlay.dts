@@ -1,0 +1,77 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "HMA_TUGL_VC_overlay.dtsi"
+/include/ "HMA_LX9_VB_pin.dtsi"
+/include/ "HMA_LX9_VB_modem_pin.dtsi"
+
+/ {
+    board_id = <8405>;
+};
+    &sensorhub{
+             rpc{
+                     rpc{
+                                compatible = "huawei,rpc";
+                                file_id = <0x18>;
+                                sensor_list_info_id = <24>;
+                                sensor_type = "rpc";
+                                sensorlist_name = "rpc";
+                                mask = <0xFFFF 0x63F 0x63F 0x63F 0x63E 0x63C 0x63E 0x63C
+                                        0x63E 0x63C 0xC20F 0xC20F 0x20F 0x20F 0x20F 0x20F
+                                        0x20F 0x20F 0x20F 0x20F 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                        0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xF 0xFFFF 0xFFFF>;
+                                table = <0xFFFF 0x217 0x227 0x207 0x212 0x214 0x222 0x224
+                                         0x202 0x204 0x8002 0x8005 0x2 0x3 0x4 0x5
+                                         0x6 0x7 0x201 0x1 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                         0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0x0 0xFFFF 0xFFFF>;
+                                default_value = <0x1D>;
+                                status = "ok";
+                        };
+                 };
+          };
+	&rootparam{
+		hisi,boardid = <8 4 0 5>;
+		hisi,boardname = "HMA_LX9_VB";
+		hisi,modem_id = <0x37001000>;
+		hisi,product_name = "HMA-LX9";
+	};
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_hma_lx9_va.ini";
+    };
+
+	/*nfc*/
+	&nfc_exist {
+		hisee_exist_flag = "0";
+		status = "ok";
+	};
+
+	&sensorhub{
+                sar{
+                        sar1{
+                               status = "ok";
+                        };
+                        sar2{
+                                status = "disabled";
+                        };
+                };
+        };
+        &audio_hw_config {
+                audio_capability {
+                        /*
+                                use hisilicon wakeup engine.
+                                true: use hisilicon wakeup engine.
+                                false: DO NOT use hisilicon wakeup engine.
+                        */
+                        wakeup_hisiengine = "false";
+                        asr_enhance_mic_choose = "1";
+                };
+        };

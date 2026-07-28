@@ -1,0 +1,24 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin980_fpga_cs_060_overlay.dtsi"
+
+/ {
+    board_id = <8043>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 0 4 3>;
+		hisi,boardname = "kirin980_fpga_cs_071";
+		hisi,product_id = <0x37F5FC13>;
+	};
+
+	&hisi_isp{
+        compatible = "hisilicon,isplogic";
+        hisi,isplogic = <1>;
+    };

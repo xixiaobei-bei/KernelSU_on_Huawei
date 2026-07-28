@@ -1,0 +1,54 @@
+
+
+
+/{
+	l3_cache: l3_cache {
+		compatible = "hisilicon,l3cache";
+		#reg = <0x0 0xfff32000 0x0 0x1000>;
+		plat-name = "kirin980";
+		#fpga_flag = <0>;
+		status = "ok";
+
+	};
+
+	dsu_pctrl: dsu_pctrl {
+		compatible = "arm,dsu_pctrl_r0";
+		size = <4096>; /* size in KB */
+		line-size = <64>;
+		static-leakage-per-mb = <87500>; /*uW/MiB */
+		dram-energy-per-mb = <103>; /* uJ/MiB */
+		polling = <10>; /* milliseconds */
+		down-interval = <1>;
+		downsize-portion-threshold = <90>;
+		upsize-portion-threshold = <95>;
+	};
+
+	l3c_devfreq: l3c_devfreq {
+		compatible = "hisi,l3c_devfreq";
+		hv-supported = <1>;
+		polling = <20>;  /* milliseconds */
+		load-map = <0 40>,
+				<0 60>,
+				<0 80>,
+				<0 100>,
+				<0 120>,
+				<0 150>,
+				<0 1000>;
+		init-freq = <1287000>;
+		boost-freq = <999000>;
+		little-link-freq = <1056000>;
+		big-link-freq = <2208000>;
+		l3c-bw-max = <0 3>;
+		l3-bus-ratio = <0 7>;
+		operating-points = <
+				554000	600000
+				830000	700000
+				907000	700000
+				999000	700000
+				1095000	800000
+				1191000	800000
+				1287000	800000
+		>;
+	};
+
+};

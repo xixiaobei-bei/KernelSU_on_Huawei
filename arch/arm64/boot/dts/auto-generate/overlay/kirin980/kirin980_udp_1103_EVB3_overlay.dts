@@ -1,0 +1,82 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "hi11xx_connectivity_dto.dtsi"
+/include/ "kirin980_udp_default_overlay.dtsi"
+/include/ "kirin980_udp_1103_EVB3_pin.dtsi"
+/include/ "kirin980_udp_1103_EVB3_modem_pin.dtsi"
+
+/ {
+    board_id = <8084>;
+};
+
+    &rootparam{
+        hisi,boardid = <8 0 8 4>;
+        hisi,boardname = "kirin980_udp_1103_EVB3";
+        hisi,product_id = <0x37F5FC84>;
+    };
+
+    &hw_connectivity {
+        /*hisi configuration*/
+        chip_type = "hisi";
+        status = "ok";
+    };
+    &bcm_wifi {
+        wifi_fw_test_name;
+        wifi_fw_ap_name;
+        wifi_fw_name;
+        wifi_nvram_name;
+    };
+
+    /*hisi power*/
+    &hi110x {
+        hi110x,subchip_type="hi1103";
+        hi110x,gpio_power_on = <&gpio32 2 0>;                /*GPIO_258*/
+        hi110x,gpio_bfgx_power_on = <&gpio25 2 0>;           /*GPIO_202*/
+        hi110x,gpio_wlan_power_on = <&gpio25 0 0>;           /*GPIO_200*/
+        huawei,pmu_clk32b = "clk_pmu32kb";
+        hi110x,asic_version;
+    };
+
+    /*hisi wifi*/
+    &hisi_wifi {
+        hi110x,gpio_wlan_wakeup_host =  <&gpio29 5 0>;       /*GPIO_237*/
+        hi110x,gpio_host_wakeup_wlan =  <&gpio32 7 0>;       /*GPIO_263*/
+    };
+
+    /*hisi bfgx*/
+    &hisi_bfgx {
+        hi110x,gpio_bfgx_wakeup_host = <&gpio22 1 0>;      /*GPIO_177*/
+        hi110x,uart_port = "/dev/ttyAMA4";
+        hi110x,uart_pclk_normal;
+    };
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_udp_1103_mpw2.ini";
+    };
+
+    /*hisi gps*/
+    &hisi_gps {
+        clocks = <&clk_gate_gps_ref>, <&clk_mux_gps_ref>, <&clk_gate_mdm2gps0>, <&clk_gate_mdm2gps1>, <&clk_gate_mdm2gps2>;
+        clock-names = "ref_clk", "mux_clk", "mdm_clk0", "mdm_clk1", "mdm_clk2";
+        /*hisi gps iomux config*/
+        pinctrl-names = "default", "idle";
+        pinctrl-0 = <&gpio248_pmx_func &gpio248_cfg_func>;
+        pinctrl-1 = <&gpio248_pmx_idle &gpio248_cfg_idle>;
+    };
+
+    /*hisi gps sync*/
+    &hisi_gps_sync {
+        version = <1>;
+        /*sync register configuration*/
+        addr_base = <0xfff11000>;
+        addr_offset = <0x0b8>;
+    };

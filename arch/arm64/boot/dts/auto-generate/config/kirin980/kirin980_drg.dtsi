@@ -1,0 +1,26 @@
+/*
+ * Hisilicon Ltd. Kirin980 SoC
+ *
+ * Copyright (C) 2018-2019 Hisilicon Ltd.
+ * Author: Tao Wang <kevin.wangtao@hisilicon.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	hisi-drg {
+		compatible = "hisilicon,hisi-drg";
+		hisi-drg0 {
+			hisi,divider-cells = <1>;
+			hisi,drg-master = <&big0 2420000>;
+			hisi,drg-slave = <&little0 1709000
+					  &middle0 1805000
+					  &l3c_devfreq 1288000>;
+			up_limit_enable;
+			down_limit_enable;
+			thermal_enable;
+		};
+	};
+};

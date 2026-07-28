@@ -1,0 +1,435 @@
+
+  /{
+		cpus {
+		#address-cells = <2>;
+		#size-cells = <0>;
+
+		little0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53", "arm,armv8";
+			reg = <0x0 0x0>;
+			clocks = <&clk_cluster0 0>;
+			clock-names = "cpu-cluster.0";
+			freq-vote-channel = "little-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+			operating-points-v2 = <&cluster0_opp_table>;
+			sched-energy-costs = <&CPU_COST_Ananke &CLUSTER_COST_Ananke>;
+		};
+		little1:cpu@100 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53", "arm,armv8";
+			reg = <0x0 0x100>;
+			clocks = <&clk_cluster0 0>;
+			clock-names = "cpu-cluster.0";
+			freq-vote-channel = "little-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+			operating-points-v2 = <&cluster0_opp_table>;
+			sched-energy-costs = <&CPU_COST_Ananke &CLUSTER_COST_Ananke>;
+		};
+		little2:cpu@200 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53", "arm,armv8";
+			reg = <0x0 0x200>;
+			clocks = <&clk_cluster0 0>;
+			clock-names = "cpu-cluster.0";
+			freq-vote-channel = "little-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+			operating-points-v2 = <&cluster0_opp_table>;
+			sched-energy-costs = <&CPU_COST_Ananke &CLUSTER_COST_Ananke>;
+		};
+		little3:cpu@300 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53", "arm,armv8";
+			reg = <0x0 0x300>;
+			clocks = <&clk_cluster0 0>;
+			clock-names = "cpu-cluster.0";
+			freq-vote-channel = "little-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+			operating-points-v2 = <&cluster0_opp_table>;
+			sched-energy-costs = <&CPU_COST_Ananke &CLUSTER_COST_Ananke>;
+		};
+
+
+		middle0:cpu@400 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x400>;
+			clocks = <&clk_cluster1 0>;
+			clock-names = "cpu-cluster.1";
+			freq-vote-channel = "middle-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_1>;
+			operating-points-v2 = <&cluster1_opp_table>;
+			sched-energy-costs = <&CPU_COST_Enyo_M &CLUSTER_COST_Enyo_M>;
+		};
+		middle1:cpu@500 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x500>;
+			clocks = <&clk_cluster1 0>;
+			clock-names = "cpu-cluster.1";
+			freq-vote-channel = "middle-freq", "vote-src-1";
+			clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_1>;
+			operating-points-v2 = <&cluster1_opp_table>;
+			sched-energy-costs = <&CPU_COST_Enyo_M &CLUSTER_COST_Enyo_M>;
+			enable-method = "psci";
+		};
+		big0:cpu@600 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x600>;
+			clocks = <&clk_cluster1 0>;
+			clock-names = "cpu-cluster.1";
+			freq-vote-channel = "big-freq", "vote-src-1";
+			clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_1>;
+			operating-points-v2 = <&cluster2_opp_table>;
+			sched-energy-costs = <&CPU_COST_Enyo_B &CLUSTER_COST_Enyo_B>;
+			enable-method = "psci";
+		};
+		big1:cpu@700 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x700>;
+			clocks = <&clk_cluster1 0>;
+			clock-names = "cpu-cluster.1";
+			freq-vote-channel = "big-freq", "vote-src-1";
+			clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_1>;
+			operating-points-v2 = <&cluster2_opp_table>;
+			sched-energy-costs = <&CPU_COST_Enyo_B &CLUSTER_COST_Enyo_B>;
+			enable-method = "psci";
+		};
+
+		cluster0_opp_table: opp_table0 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp0 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <596000000>;
+				opp-microvolt = <650000>;
+				opp-microamp = <7000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp1 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <999000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <12000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp2 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1095000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <14000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp3 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1191000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <16000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp4 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1306000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <19000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp5 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1402000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <22000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp6 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1498000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <26000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp7 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1594000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <30000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp8 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1690000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <35000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp9 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1786000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <40000>;
+				clock-latency-ns = <2000000>;
+			};
+		};
+
+		cluster1_opp_table: opp_table1 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp0 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <404000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <20000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp1 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <807000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <35000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp2 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <903000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <40000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp3 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <999000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <46000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp4 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1114000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <54000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp5 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1229000000>;
+				opp-microvolt = <700000>;
+				opp-microamp = <63000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp6 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1325000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <72000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp7 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1421000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <82000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp8 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1517000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <94000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp9 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1632000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <114000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp10 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1824000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <145000>;
+				clock-latency-ns = <2000000>;
+			};
+		};
+
+		cluster2_opp_table: opp_table2 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp0 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1786000000>;
+				opp-microvolt = <800000>;
+				opp-microamp = <140000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp1 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1940000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <174000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp2 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <2074000000>;
+				opp-microvolt = <900000>;
+				opp-microamp = <210000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp3 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <2170000000>;
+				opp-microvolt = <1000000>;
+				opp-microamp = <240000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp4 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <2266000000>;
+				opp-microvolt = <1000000>;
+				opp-microamp = <275000>;
+				clock-latency-ns = <2000000>;
+			};
+		};
+
+		idle-states {
+			entry-method = "arm,psci";
+
+			CPU_NAP_0: cpu-nap-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x0000000>;
+				entry-latency-us = <7>;
+				exit-latency-us = <2>;
+				min-residency-us = <15>;
+			};
+
+			CPU_SLEEP_0: cpu-sleep-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x0010000>;
+				entry-latency-us = <40>;
+				exit-latency-us = <70>;
+				min-residency-us = <3000>;
+				local-timer-stop;
+			};
+
+			CLUSTER_SLEEP_0: cluster-sleep-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x1010000>;
+				entry-latency-us = <500>;
+				exit-latency-us = <5000>;
+				min-residency-us = <20000>;
+				local-timer-stop;
+			};
+			CLUSTER_SLEEP_1: cluster-sleep-1 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x1010000>;
+				entry-latency-us = <1000>;
+				exit-latency-us = <5000>;
+				min-residency-us = <20000>;
+				local-timer-stop;
+			};
+		};
+		cpu-map {
+			cluster0: cluster0 {
+				#cooling-cells = <3>; /* min followed by max */
+				core0 {
+					cpu = <&little0>;
+				};
+				core1 {
+					cpu = <&little1>;
+				};
+				core2 {
+					cpu = <&little2>;
+				};
+				core3 {
+					cpu = <&little3>;
+				};
+			};
+			cluster1: cluster1 {
+				#cooling-cells = <2>; /* min followed by max */
+				core0 {
+					cpu = <&middle0>;
+				};
+				core1 {
+					cpu = <&middle1>;
+				};
+			};
+			cluster2: cluster2 {
+				#cooling-cells = <2>; /* min followed by max */
+				core0 {
+					cpu = <&big0>;
+				};
+				core1 {
+					cpu = <&big1>;
+				};
+			};
+		};
+
+		/include/ "kirin980_sched_energy.dtsi"
+	};
+
+	target-cpu {
+		compatible = "hisi,targetcpu";
+		target_cpu = "Kirin 980";
+	};
+
+	/* cpufreq  device */
+	cpufreq: cpufreq-bL {
+		compatible = "arm,generic-bL-cpufreq";
+		status = "ok";
+	};
+
+	cpu-idle-flag {
+		compatible = "hisilicon,cpu-idle-flag";
+		idle-reg-base = <0xfff0a000>;
+		core-0-flag = <0x42c 0x0>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-1-flag = <0x42c 0x1>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-2-flag = <0x42c 0x2>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-3-flag = <0x42c 0x3>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-4-flag = <0x42c 0x4>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-5-flag = <0x42c 0x5>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-6-flag = <0x42c 0x6>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		core-7-flag = <0x42c 0x7>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+	};
+
+	menu-switch {
+		compatible = "hisi,menu-switch";
+		cpu-mask = <0x0>, <0xC0>;
+		switch-profile = <1786000>;
+	};
+
+	support-target {
+		compatible = "hisi,supportedtarget";
+		support_name = "Kirin 980","Kirin 985";
+		support_value = <1931000>, <1931000>;
+		support_efuse = "false";
+	};
+  };
+

@@ -1,0 +1,21 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "ELLE_LX9_VA_overlay.dtsi"
+
+/ {
+    board_id = <8481>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 4 8 1>;
+		hisi,boardname = "ELLE_LX9_VA_DPDT";
+		hisi,modem_id = <0x37040800>;
+		hisi,product_id = <0x37040800>;
+		hisi,product_name = "ELE-LX9";
+	};

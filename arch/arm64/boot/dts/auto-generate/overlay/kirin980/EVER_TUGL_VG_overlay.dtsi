@@ -1,0 +1,57 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+
+/include/ "EVER_TUGL_VF_overlay.dtsi"
+
+/ {
+    board_id = <8460>;
+};
+	&rootparam{
+		hisi,boardid = <8 4 6 0>;
+		hisi,boardname = "EVER_TUGL_VG";
+		hisi,modem_id = <0x37021000>;
+	};
+	&deviceboxID {
+		gpio_receiverID = <&gpio16 3 0>;
+		pinctrl-0 = <&gpio242_pmx_func &gpio242_cfg_func &gpio131_pmx_func &gpio131_cfg_func>;
+		pinctrl-1 = <&gpio242_pmx_idle &gpio242_cfg_idle &gpio131_pmx_idle &gpio131_cfg_idle>;
+		status = "ok";
+	};
+
+	&usb_short_circuit_protect {
+		gpio_usb_short_circuit_protect = <&gpio16 6 0>;
+		status = "ok";
+	};
+	&huawei_imx600hybrid {
+		gpios = <&gpio1 4 0 &gpio17 0 0>;
+	};
+	&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		product_id = <4001>;
+		detect_type = <2>; /*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <16 132>; /*ID0 ID1*/
+		support_lcd_type = "LCD_KIT";
+		lcd_panel_type = "auo_otm1901a_5p2_1080p_video";
+	};
+	&spmi {
+		pmic@0 {
+				pmic_led@a0 {
+					status = "ok";
+				};
+		};
+	};
+	&amba {
+            i2c@FDF0D000 {
+                    nfc@28{
+                            nfc_chip_type = "pn80t";
+                            nfc_ese_type = "p61";
+			    nfc_ese_num = <0x2>;
+                };
+            };
+    }; 

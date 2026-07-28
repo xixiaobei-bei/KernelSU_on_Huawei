@@ -1,0 +1,53 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "HMA_TUGL_VD_overlay.dtsi"
+
+/ {
+    board_id = <8407>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 0 7>;
+		hisi,boardname = "HMA_TUGL_VE";
+		hisi,modem_id = <0x37001400>;
+	};
+
+
+&spmi {
+    pmic@0 {
+        sim0 {
+            pmu_ldo12_pull_down = <0>;
+        };
+
+        sim1 {
+            pmu_ldo12_pull_down = <0>;
+        };
+    };
+};
+
+
+	&sensorhub_io_power{
+		use_ldo12 = <1>;
+	};
+
+	&sensorhub{
+		light{
+			als1{
+				als_phone_version = <12>;
+			};
+		};
+		proximity{
+			ps1{
+				pwindows_value=<105>;
+				pwave_value=<51>;
+				threshold_value=<60>;
+				max_oily_add_pdata=<280>;
+			};
+		};
+	};

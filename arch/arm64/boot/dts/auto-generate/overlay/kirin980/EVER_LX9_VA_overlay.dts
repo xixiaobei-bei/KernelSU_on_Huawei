@@ -1,0 +1,72 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/include/ "EVER_TUGL_VD_overlay.dtsi"
+/include/ "EVER_LX9_VA_pin.dtsi"
+/include/ "EVER_LX9_VA_modem_pin.dtsi"
+
+/ {
+    board_id = <8454>;
+};
+	&rootparam{
+		hisi,boardid = <8 4 5 4>;
+		hisi,boardname = "EVER_LX9_VA";
+		hisi,modem_id = <0x37020400>;
+		hisi,product_name = "EVR-LX9";
+	};
+
+	/*nfc*/
+	&nfc_exist {
+		hisee_exist_flag = "0";
+		status = "ok";
+	};
+
+	&audio_hw_config {
+		audio_capability {
+			/*
+				use hisilicon wakeup engine.
+				true: use hisilicon wakeup engine.
+				false: DO NOT use hisilicon wakeup engine.
+			*/
+			wakeup_hisiengine = "false";
+			asr_enhance_mic_choose = "1";
+		};
+	};
+
+	&sensorhub{
+                sar{
+                        sar1{
+                               status = "ok";
+                        };
+                        sar2{
+                                status = "disabled";
+                        };
+                };
+              	rpc{
+                       rpc{
+                             compatible = "huawei,rpc";
+                             file_id = <0x18>;
+                             sensor_list_info_id = <24>;
+                             sensor_type = "rpc";
+                             sensorlist_name = "rpc";
+                             mask = <0xFFFF 0x60F 0x60F 0x60F 0x60F 0x20F 0x20F 0x20F
+                                     0x20F 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                     0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                     0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xF 0xFFFF 0xFFFF>;
+                            table = <0xFFFF 0x201 0x202 0x203 0x207 0x1 0x2 0x3
+                                     0x7 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                     0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+                                     0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0x0 0xFFFF 0xFFFF>;
+                            default_value = <0x1D>;
+                            status = "ok";
+                         };
+                 };
+        };

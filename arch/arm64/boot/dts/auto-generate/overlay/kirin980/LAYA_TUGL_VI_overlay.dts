@@ -1,0 +1,99 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "LAYA_TUGL_VG_overlay.dtsi"
+/include/ "LAYA_TUGL_VI_pin.dtsi"
+/include/ "LAYA_TUGL_VI_modem_pin.dtsi"
+
+/ {
+    board_id = <8440>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 4 0>;
+		hisi,boardname = "LAYA_TUGL_VI";
+		hisi,modem_id = <0x37011C00>;
+	};
+    /* audio device beg */
+    &codec_controller {
+        hi64xx_irq@0 {
+            hi6403_codec@0 {
+                micbias_modify = <1>; //MICBIAS output 2.7V factory test, change from MAINMIC to MIC4.
+                hisilicon,rcv_tdd_gpio = <56>;
+            };
+        };
+    };
+
+	&audio_hw_config {
+		product_name = "LAYA";
+		audio_capability {
+			music_region_enable = "true";
+			voice_region_enable = "true";
+		};
+	};
+
+    &fingerprint {
+        fingerprint,power_en_gpio = <53>;
+    };
+
+    &devcheck {
+        airpress = <1>;
+    };
+    &wireless_sc {
+        status = "ok";
+    };
+    &ncp3902_channel_switch {
+        gpio_chgsw_flag_n = <&gpio33 0 0>;
+    };
+
+&spmi {
+    pmic@0 {
+        sim0 {
+            pmu_ldo12_pull_down = <0>;
+        };
+
+        sim1 {
+            pmu_ldo12_pull_down = <0>;
+        };
+    };
+};
+
+&amba {
+    i2c@FDF0A000 {
+    status = "ok";
+        wireless_idtp9221_i2c6@61 {
+            gpio_en_valid_val = <1>;
+            status = "ok";
+        };
+    };
+		i2c@FDF0D000 {
+			smartpa@34{
+				chip_model = "tfa9874";
+			};
+
+			smartpa@36{
+				chip_model = "tfa9874";
+			};
+			smartpa@50{
+				chip_model = "cs35l36";
+			};
+			smartpa@52{
+				chip_model = "cs35l36";
+			};
+		};
+};
+
+	&sensorhub{
+		light{
+			als1{
+				als_phone_version = <12>;
+			};
+		};
+	};

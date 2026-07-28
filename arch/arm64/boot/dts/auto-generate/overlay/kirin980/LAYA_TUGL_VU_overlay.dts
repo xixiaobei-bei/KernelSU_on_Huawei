@@ -1,0 +1,24 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "LAYA_TUGL_VP_overlay.dtsi"
+/include/ "LAYA_TUGL_VU_pin.dtsi"
+/include/ "LAYA_TUGL_VU_modem_pin.dtsi"
+
+/ {
+    board_id = <8422>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 2 2>;
+		hisi,boardname = "LAYA_TUGL_VU";
+		hisi,modem_id = <0x37014000>;
+	};
+

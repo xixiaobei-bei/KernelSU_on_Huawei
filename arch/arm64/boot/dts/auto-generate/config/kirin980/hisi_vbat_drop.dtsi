@@ -1,0 +1,17 @@
+ / {
+    hisi_vbat_drop_protect:vbat_drop {
+        compatible = "hisi,vbat_drop_protect";
+        interrupt-parent       = <&gic>;
+	interrupts             = <0 325 1>;
+	vbat_drop_vol_mv       = <3200>;
+	big_cpu_auto_div_en    = <1>;
+	middle_cpu_auto_div_en = <1>;
+	little_cpu_auto_div_en = <1>;
+	l3_cpu_auto_div_en     = <1>;
+	gpu_auto_div_en        = <1>;
+	bigfreq-limit-channel     = "big-freq", "vote-src-2";
+	middlefreq-limit-channel  = "middle-freq", "vote-src-2";
+	gpufreq-limit-channel     = "gpu-freq", "vote-src-2";
+        status = "disabled";
+    };
+};

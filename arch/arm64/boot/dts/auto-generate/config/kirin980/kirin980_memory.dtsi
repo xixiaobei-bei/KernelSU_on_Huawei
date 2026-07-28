@@ -1,0 +1,225 @@
+/{
+	smmu_lpae{
+		compatible = "hisi,hisi-smmu-lpae";
+		status = "ok";
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x00400000 0x0 0xBFE00000>;
+	};
+
+	/* static-region */
+	rsvmem:reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		app_no_allocate{
+			reg = <0x0 0x0 0x0 0x1000>;
+		};
+
+		modem-share-mem {
+			reg = <0x0 0x10000000 0x0 0xB00000>;
+			no-map;
+		};
+
+		modem-mntn {
+			reg = <0x0 0x10B00000 0x0 0x100000>;
+			no-map;
+			status = "ok";
+		};
+
+		pgtable_mem:iommu_pgtable {
+			reg = <0x0 0x10D00000 0x0 0x200000>;
+			no-map;
+		};
+
+		hhee {
+			reg = <0x0 0x10F00000 0x0 0x600000>;
+			no-map;
+			status = "ok";
+		};
+
+		/*fastboot kernel android reserve mem; non secure;no map*/
+		fka-mem{
+			reg = <0x0 0x11500000 0x0 0xFF000>;
+			no-map;
+		};
+
+		/* At the end of fka-mem */
+		mntndump {
+			reg = <0x0 0x115FF000 0x0 0x1000>;
+			no-map;
+		};
+
+		ivp {
+			reg = <0x0 0x11600000 0x0 0x100000>;
+			no-map;
+		};
+
+		/* sensorhub share mem for new feature */
+		sensorhub-shmemext{
+			reg = <0x0 0x11700000 0x0 0x200000>;
+			no-map;
+		};
+
+		/* sensorhub share mem part1 */
+		sensorhub-shmem{
+			reg = <0x0 0x11900000 0x0 0x40000>;
+			no-map;
+		};
+
+		/* sensorhub share mem part2 */
+		sensorhub-share-mem {
+			reg = <0x0 0x11940000 0x0 0x80000>;
+			no-map;
+		};
+
+		lpmx-core {
+			reg = <0x0 0x119C0000 0x0 0x100000>;
+			no-map;
+		};
+
+		lpmcu {
+			reg = <0x0 0x11AC0000 0x0 0x40000>;
+			no-map;
+		};
+
+		sensorhub-s {
+			reg = <0x0 0x11B00000 0x0 0x700000>;
+			no-map;
+		};
+
+		bl31 {
+			reg = <0x0 0x12200000 0x0 0x600000>;
+			no-map;
+		};
+
+		secos {
+			reg = <0x0 0x12800000 0x0 0x3000000>;
+			no-map;
+		};
+
+		voiceid: voiceid {
+			reg = <0x0 0x15800000 0x0 0x500000>;
+			compatible = "hisi-voiceid";
+			no-map;
+		};
+
+		secfacedetect: secfacedetect {
+			reg = <0x0 0x15D00000 0x0 0x3900000>;
+			compatible = "hisi-secfacedetect";
+			no-map;
+			status = "disabled";
+		};
+
+		modem-s {
+			reg = <0x0 0x20000000 0x0 0xAC80000>;
+			no-map;
+		};
+
+		/* for supersonic */
+		supersonic {
+			reg = <0x0 0x2C400000 0x0 0xA00000>;
+			compatible = "hisi-supersonic";
+			no-map;
+			status = "disabled";
+		};
+
+		sec_camera {
+			reg = <0x0 0x2CE00000 0x0 0xC00000>;
+			no-map;
+		};
+
+		hifi-base {
+			reg = <0x0 0x2DA00000 0x0 0xF80000>;
+			no-map;
+		};
+
+		hifi-data {
+			reg = <0x0 0x2E980000 0x0 0x580000>;
+			no-map;
+		};
+
+		dp-dhcp {
+			reg = <0x0 0x2EF00000 0x0 0x100000>;
+			no-map;
+		};
+
+		mntn_mem:bbox-mem {
+			reg = <0x0 0x2F000000 0x0 0x800000>;
+			no-map;
+		};
+
+		ramoops_ram:pstore-mem{
+			reg = <0x0 0x2F800000 0x0 0x100000>;
+		};
+
+		logo-buffer {
+			reg = <0x0 0x36500000 0x0 0x3F00000>;
+			status = "disabled";
+		};
+
+		/*Please modify HISEE_LOG_SPACE_ADDR_MIN and HISEE_LOG_SPACE_ADDR_MAX defined in atf for hisee mntn,
+		if you modify any value here!!!*/
+		fastboot_cma: fastboot-cma-mem {
+			reg = <0x0 0x3A400000 0x0 0x5C00000>;
+			compatible = "shared-dma-pool";
+			hisi,cma-sec;
+			sec-attr = <0x0 0x0>;
+			linux,cma-default;
+			reusable;
+			status = "ok";
+		};
+
+		kerneldump {
+			reg = <0x0 0x80000000 0x0 0x20000000>;
+			status = "disabled";
+		};
+
+		modem-socp {
+			reg = <0x0 0xA0000000 0x0 0x2000000>;
+			no-map;
+			status = "disabled";
+		};
+
+		modem-sa {
+			reg = <0x0 0xA2000000 0x0 0x8000000>;
+			no-map;
+			status = "disabled";
+		};
+
+		/* fastboot gcov gcda region only for gcov version */
+		fastboot-gcda {
+			reg = <0x0 0xAA000000 0x0 0x100000>;
+			no-map;
+			status = "disabled";
+		};
+	};
+
+	/* dynamic-region */
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		modem_xmode_memory: xmode-data {
+			size = <0x0 0x1F400000>;
+			alignment = <0x0 0x100000>;
+			alloc-ranges = <0x0 0x0 0x1 0x0>;
+			compatible = "modem_xmode_region";
+			region-name = "xmode-data";
+			status = "disabled";
+		};
+
+		dmss_pt{
+			compatible = "dmsspt_trace_buffer";
+			reg = <0x1 0x40000000 0x0 0x80000000>;
+			no-map;
+			fama_offset = <0x0 0x0>;
+			status = "disable";
+		};
+
+	};
+};

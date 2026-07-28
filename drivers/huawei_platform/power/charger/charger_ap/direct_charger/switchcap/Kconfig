@@ -1,0 +1,4 @@
+config BQ25970
+	bool "bq25970"
+	default n
+

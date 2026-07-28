@@ -1,0 +1,213 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "HMA_TUGL_V1_overlay.dtsi"
+/include/ "HMA_TUGL_VB_pin.dtsi"
+/include/ "HMA_TUGL_VB_modem_pin.dtsi"
+
+/ {
+    board_id = <8403>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 0 3>;
+		hisi,boardname = "HMA_TUGL_VB";
+		hisi,modem_id = <0x37000400>;
+	};
+
+	&huawei_lcd_panel {
+		product_id = <1002>;
+        };
+
+    /*hisi bfgx*/
+    &hisi_bfgx {
+        hi110x,gpio_bfgx_wakeup_host = <&gpio28 5 0>;      /*GPIO_229*/
+    };
+
+	&amba {
+		i2c@FDF0D000 {
+			huawei,vl53l0@29{
+				compatible = "huawei,vl53l0_970";
+				huawei,laser_name = "vl53l0_970";
+				reg = <0x29>;
+				product_name = "HMA_LASER";
+				huawei,i2c_index = <4>;
+				gpios = <&gpio4 3 0 &gpio28 6 0>;
+				huawei,gpio-ctrl-types = "xsdn","intr";
+				/*pinctrl-names = "default", "idle";
+				pinctrl-0 = <&gpio035_pmx_func &gpio035_cfg_func>;
+				pinctrl-1 = <&gpio035_pmx_idle &gpio035_cfg_idle>;
+				*/
+				status = "ok";
+			};
+
+			smartpa@36{
+				status = "ok";
+				irq_handler {
+					gpio_irq = <&gpio28 7 0>;
+				};
+			};
+
+			smartpa@52{
+				status = "ok";
+				irq_handler {
+					gpio_irq = <&gpio28 7 0>;
+				};
+			};
+
+			smartpa@4E{
+				status = "ok";
+				irq_handler {
+					gpio_irq = <&gpio28 7 0>;
+				};
+			};
+		};
+		spi@ffd70000 {
+			status = "disabled";
+		};
+		spi@fff2a000 {
+			hardware-mutex = <0x01>;
+			smc-flag = <0x01>;
+			status = "ok";
+			huawei_thp@10 {
+				compatible = "huawei,thp";
+				spi-max-frequency = <10000000>;
+				spi-bus-id = <3>;
+				reg = <0>;
+				pl022,com-mode = <2>;
+				pl022,interface = <0>;
+				pl022,rx-level-trig = <3>;
+				pl022,tx-level-trig = <3>;
+				pl022,ctrl-len = <7>;
+				pl022,wait-state = <0>;
+				pl022,duplex = <0>;
+				pl022,slave-tx-disable = <0>;
+				irq_gpio = <&gpio26 4 0>;
+				cs_gpio = <&gpio29 4 0>;
+				rst_gpio = <&gpio1 7 0>;
+				boot_reset_hi_delay_ms = <1>;
+				boot_reset_low_delay_ms = <0>;
+				boot_reset_after_delay_ms = <0>;
+				resume_reset_after_delay_ms = <1>;
+				suspend_reset_after_delay_ms = <0>;
+				spi_sync_cs_hi_delay_ns = <200>;
+				spi_sync_cs_low_delay_ns = <10>;
+				support_pinctrl = <1>;
+				pinctrl-1 = <&gpio212_cfg_idle>;
+				pinctrl-0 = <&gpio212_cfg_func>;
+				pinctrl-names = "default", "idle";
+				thp_input_dev {
+					compatible = "huawei,thp_input";
+					abs_max_x = <1080>;
+					abs_max_y = <2244>;
+				};
+
+				synaptics_thp {
+					spi_sync_cs_hi_delay_ns = <20>;
+					spi_sync_cs_low_delay_ns = <20>;
+					spi-mode = <3>;
+					bits-per-word = <8>;
+					need_huge_memory_in_spi = <1>;
+				};
+
+				novatech {
+					spi_sync_cs_hi_delay_ns = <200>;
+					spi_sync_cs_low_delay_ns = <200>;
+				};
+
+				himax-hx83112 {
+					spi_sync_cs_hi_delay_ns = <20>;
+					spi_sync_cs_low_delay_ns = <20>;
+					get_frame_optimized_method = <1>;
+				};
+
+			};
+		};
+	};
+
+    /* SD */
+	/*
+	while set mux-sdsim as 1,driver_strength for clk,cmd,data must be specified in dts,check config table below to make sure right value
+
+	2MA_0   0x00
+	4MA_0   0x10
+	6MA_0   0x20
+	8MA_0   0x30
+	10MA_0  0x40
+	12MA_0  0x50
+	14MA_0  0x60
+	16MA_0  0x70
+	5MA_1   0x00
+	7MA_1   0x10
+	9MA_1   0x20
+	11MA_1  0x30
+	14MA_1  0x40
+	16MA_1  0x50
+	18MA_1  0x60
+	20MA_1  0x70
+	22MA_1  0x80
+	25MA_1  0x90
+	27MA_1  0xA0
+	29MA_1  0xB0
+	32MA_1  0xC0
+	34MA_1  0xD0
+	36MA_1  0xE0
+	38MA_1  0xF0
+	*/
+	&dwmmc1 {
+		caps2-mmc-hs200-1_8v;
+		caps2-mmc-cache-ctrl;
+		vmmc-supply = <&ldo16>;
+		vqmmc-supply = <&ldo9>;
+		cs_sd_timing_config_cancer;
+		use_samdly_range = <5 8>;
+		mux-sdsim = <1>;
+		/*25MA_1 for sd clk*/
+		driverstrength_clk = <0x90>;
+		/*25MA_1 for sd cmd*/
+		driverstrength_cmd = <0x90>;
+		/*11MA_1 for sd data*/
+		driverstrength_data = <0x30>;
+		enable_shift_range = <4 8>;
+		cd-vol = <1>;
+		cd-gpio = <&gpio22 7 0>;
+		shared-irq = <1>;
+		status = "ok";
+	};
+
+
+&spmi {
+    pmic@0 {
+        sim0 {
+            status = "ok";
+            det_normal_direction = "closed";
+            allocate_gpio = <0>;
+            shared_det_irq = <1>;
+            card_tray_style = <1>;
+            det_high_debounce_wait_time = <400>;
+            det_low_debounce_wait_time = <300>;
+            factory_send_msg_to_cp = <1>;
+            mux_sdsim = <0>;
+        };
+
+        sim1 {
+            status = "ok";
+            det_normal_direction = "closed";
+            allocate_gpio = <0>;
+            shared_det_irq = <1>;
+            card_tray_style = <1>;
+            det_high_debounce_wait_time = <400>;
+            det_low_debounce_wait_time = <300>;
+            factory_send_msg_to_cp = <1>;
+            mux_sdsim = <1>;
+        };
+    };
+};
+

@@ -1,0 +1,42 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "ELLE_LX4_VB_overlay.dtsi"
+
+/ {
+    board_id = <8486>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 4 8 6>;
+		hisi,boardname = "ELLE_TUGL_VB_DIFEMNEW";
+		hisi,modem_id = <0x37041800>;
+		hisi,product_id = <0x37041800>;
+		hisi,product_name = "ELE-AL00";
+	};
+
+    &amba {
+        i2c@FDF0D000 {
+            nfc@28{
+                clk_status ="pmu_hi6421v700";
+            };
+        };
+    };
+
+    &sensorhub{
+        sar{
+            sar1{
+                status = "disabled";
+            };
+            sar2{
+                status = "disabled";
+            };
+        };
+    };

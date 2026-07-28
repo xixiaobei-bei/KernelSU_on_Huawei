@@ -1,0 +1,8 @@
+/ {
+	hisi_timekeeper@fff1b000{
+		compatible = "hisilicon,hisi-timekeeper";
+		reg = <0x0 0xfff1b000 0x0 0x1000>;
+		interrupts = <0 63 1>;
+		status = "ok";
+	};
+};

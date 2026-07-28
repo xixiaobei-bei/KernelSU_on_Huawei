@@ -1,0 +1,246 @@
+/******************************************************************************
+
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+
+  This is an AUTO GENERATED file ! DON'T MODIFY MANUAL!
+  文 件 名   : %(filename)s
+  生成日期   : %(year)d年%(month)d月%(day)d日
+
+******************************************************************************/
+
+/ {
+	spmi: spmi@FFF24000 {
+		pmic: pmic@0 {
+			pmic_mntn: pmic_mntn@a0 {
+				compatible = "hisilicon-hisi-pmic-mntn-spmi";
+				interrupt-parent = <&pmic>;
+				interrupts = <0 0>, <8 0>;
+				interrupt-names = "otmp", "ocp";
+				hisilicon,data-width = <8>;
+				hisilicon,ocp-reg-num = <8>;
+				hisilicon,ocp-regs = <0x2B5 0x2B6 0x2B7 0x2B8 0x2B9 0x2BA 0x2BB 0x2BC>;
+				hisilicon,record-reg-num = <15>;
+				hisilicon,record-regs = <0x2C4 0x2C5 0x2C6 0x2C7 0x2C8 0x2C9 0x2CA 0x2CB 0x2CC 0x2CD 0x2CE 0x2CF 0x2D0 0x2D1 0x2D2>;
+				hisilicon,ocp-error-dmd-offset-number = <64>;
+				hisilicon,ocp-error-dmd-offset = <
+							62 63 64 6  5  4  3  47
+							15 0  1  2  46 45 48 65
+							23 8  10 11 12 49 13 14
+							29 30 31 59 18 19 20 21
+							36 38 39 24 25 26 27 28
+							66 67 68 69 61 53 60 34
+							70 71 43 42 41 40 56 55
+							54 57 72 58 73 99 99 99
+							>;
+				/* this para is up to PDU, for different products may have different values */
+				hisilicon,dsm-record-regs-mask = <0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x00 0x00 0x00 0x00 0x00 0x00 0x00>;
+				hisilicon,dsm-ocp-reset-mask = <0xFF 0xFF 0xF8 0xDF 0xFF 0xFF 0xFF 0x1F 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF>;
+				hisilicon,ocp-mold-set-switch = <0>;
+				hisilicon,ocp-ctrl-num = <17>;
+				hisilicon,ocp-ctrl-regs = <0x16F 0x170 0x171 0x172 0x173 0x174 0x175 0x176 0x177 0x178 0x179 0x17A 0x17B 0x17C 0x17D 0x17E 0x17F>;
+				hisilicon,ocp-ctrl-value = <0xDF 0xF7 0x3F 0xD5 0x75 0x55 0x55 0x57 0x5F 0x55 0x55 0x15 0x03 0xDF 0xF7 0x3F 0x00>;
+				hisilicon,pmu-record-reg-num = <13>;
+				hisilicon,pmu-record-regs = <0x181 0x182 0x48 0x4A 0x4C 0x4D 0x4F 0x51 0x52 0x53 0x54 0x55 0x57>;
+
+				OTMP@a1 {
+					compatible = "hisilicon-pmic-mntn-otmp";
+					/*otmp threshold value: 0x0->95, 0x1->105, 0x2->115, 0x3->125*/
+					hisilicon,otmp-threshold-val = <0x3>;
+					hisilicon,otmp-threshold-reg = <0x193 0x0 0x2>;
+					/*chip bug:do cold reset if pwrdown-flag == 1 && pwrdown-val == 0x0;do hot reset if pwrdown-flag == 0*/
+					hisilicon,otmp-hreset-pwrdown-flag = <0>;
+					hisilicon,otmp-hreset-pwrdown-reg = <0x2E7 0x0 0x1>;
+					hisilicon,otmp-hreset-pwrdown-val = <0x0>;
+				};
+
+				SMPL@a1 {
+					compatible = "hisilicon-pmic-mntn-smpl";
+					hisilicon,smpl-ctrl-en = <0x1>;
+					hisilicon,smpl-ctrl-en-reg = <0x2E8 0x0 0x1>;
+					/*smpl ctrl time: 0x0->0.5s, 0x1->1.0s, 0x2->1.5s, 0x3->2.0s*/
+					hisilicon,smpl-ctrl-time = <0x2>;
+					hisilicon,smpl-ctrl-time-reg = <0x2E8 0x1 0x2>;
+				};
+
+				VSYS_PWROFF_ABS_PD@a1 {
+					compatible = "hisilicon-vsys-pwroff-abs-pd";
+					hisilicon,vsys-pwroff-abs-pd-ctrl-en = <0x0>;
+					hisilicon,vsys-pwroff-abs-pd-ctrl-dis = <0x1>;
+					hisilicon,vsys-pwroff-abs-pd-ctrl-reg = <0x2EF 0x0 0x1>;
+				};
+
+				OCP@2B5 {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2B5";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x00>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "buck00","buck01","buck02","buck1","buck2","buck3","buck4","buck5";
+					hisilicon,event-ops-reg = <0x0A 0x0B 0x0C 0x0D 0x0E 0x0F 0x10 0x11>;
+				};
+
+				OCP@2B6 {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2B6";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x00>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "ldo3","ldo2","ldo1","ldo0","buck6","buck7","buck8","buck9";
+					hisilicon,event-ops-reg = <0x1A 0x18 0x17 0x16 0x12 0x13 0x14 0x15>;
+				};
+
+				OCP@2B7 {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2B7";
+					hisilicon,inacceptable-event = <0xF8>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x80>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "ldo12","ldo11","ldo9","ldo8","ldo7","ldo6","ldo5","ldo4";
+					hisilicon,event-ops-reg = <0x22 0x21 0x20 0x1F 0x1E 0x1D 0x1C 0x1B>;
+				};
+
+				OCP@2B8 {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2B8";
+					hisilicon,inacceptable-event = <0xDF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x1D>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x3 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "ldo23","ldo22","ldo21","ldo18","ldo17","ldo16","ldo15","ldo14";
+					hisilicon,event-ops-reg = <0x2A 0x29 0x28 0x27 0x26 0x25 0x24 0x23>;
+				};
+
+				OCP@2B9 {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2B9";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0xC1>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x3>;
+					hisilicon,event-bit-name = "ldo32","ldo30","ldo29","ldo28","ldo27","ldo26","ldo25","ldo24";
+					hisilicon,event-ops-reg = <0x32 0x31 0x30 0x2F 0x2E 0x2D 0x2C 0x2B>;
+				};
+
+				OCP@2BA {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2BA";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x81>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "ldo41","ldo40","ldo39","ldo38","ldo37","ldo36","pmuh","ldo34";
+					hisilicon,event-ops-reg = <0x3A 0x39 0x38 0x37 0x36 0x35 0x34 0x33>;
+				};
+
+				OCP@2BB {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2BB";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x00>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "buck00","buck02","buck1","buck2","buck3","buck4","buck5","buck6";
+					hisilicon,event-ops-reg = <0x0A 0x0C 0x0D 0x0E 0x0F 0x10 0x11 0x12>;
+				};
+
+				OCP@2BC {
+					compatible = "hisilicon-pmic-mntn-ocp-reg0x2BC";
+					hisilicon,inacceptable-event = <0x1F>;
+					hisilicon,check_ocp_reset = <0x00>;
+					hisilicon,check_ocp_nofify = <0x00>;
+					hisilicon,check_ocp_num = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+					hisilicon,event-bit-name = "buck7","buck8","buck9","ldobuff","acr","reserved","reserved","reserved";
+					hisilicon,event-ops-reg = <0x13 0x14 0x15 0xDEAD 0xDEAD 0xDEAD 0xDEAD 0xDEAD>;
+				};
+
+				RECORD@2C4 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C4";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "ocp_buck00","ocp_buck01","ocp_buck02","ocp_buck1","ocp_buck2","ocp_buck3","ocp_buck4","ocp_buck5";
+				};
+
+				RECORD@2C5 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C5";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "ocp_ldo3","ocp_ldo2","ocp_ldo1","ocp_ldo0_2","ocp_buck6","ocp_buck7","ocp_buck8","ocp_buck9";
+				};
+
+				RECORD@2C6 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C6";
+					hisilicon,inacceptable-event = <0xF8>;
+					hisilicon,event-bit-name = "ocp_ldo12","ocp_ldo11","ocp_ldo9","ocp_ldo8","ocp_ldo7","ocp_ldo6","ocp_ldo5","ocp_ldo4";
+				};
+
+				RECORD@2C7 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C7";
+					hisilicon,inacceptable-event = <0xDF>;
+					hisilicon,event-bit-name = "ocp_ldo23","ocp_ldo22","ocp_ldo21","ocp_ldo18","ocp_ldo17","ocp_ldo16","ocp_ldo15","ocp_ldo14";
+				};
+
+				RECORD@2C8 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C8";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "ocp_ldo32","ocp_ldo30","ocp_ldo29","ocp_ldo28","ocp_ldo27","ocp_ldo26","ocp_ldo25","ocp_ldo24";
+				};
+
+				RECORD@2C9 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2C9";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "ocp_ldo41","ocp_ldo40","ocp_ldo39","ocp_ldo38","ocp_ldo37","ocp_ldo36","ocp_pmuh","ocp_ldo34";
+				};
+
+				RECORD@2CA {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CA";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "scp_buck00","scp_buck02","scp_buck1","scp_buck2","scp_buck3","scp_buck4","scp_buck5","scp_buck6";
+				};
+
+				RECORD@2CB {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CB";
+					hisilicon,inacceptable-event = <0x1F>;
+					hisilicon,event-bit-name = "scp_buck7","scp_buck8","scp_buck9","scp_ldobuff","ocp_acr","reserved","reserved","reserved";
+				};
+
+				RECORD@2CC {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CC";
+					hisilicon,inacceptable-event = <0xDF>;
+					hisilicon,event-bit-name = "vsys_ov","vsys_pwroff_abs","vsys_pwroff_deb","thsd_otmp140","thsd_otmp125","hresetn","avdd_osc_vld","19m2_dis";
+				};
+
+				RECORD@2CD {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CD";
+					hisilicon,inacceptable-event = <0x07>;
+					hisilicon,event-bit-name = "press8s_restart","pwrhold_shutdown","press8s_shutdown","pwrhold_pwrup","alarm_pwrup","vbus_pwrup","press40ms_pwrup","fast_pwrup";
+				};
+
+				RECORD@2CE {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CE";
+					hisilicon,inacceptable-event = <0x78>;
+					hisilicon,event-bit-name = "dcxo_sel_r","dcxo_sel_f","vsys_vcoin_sel","smpl","core_io_vld_f","sys_nrst_4s","pwron_hrst","pwrup_nfc";
+				};
+
+				RECORD@2CF {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2CF";
+					hisilicon,inacceptable-event = <0x0F>;
+					hisilicon,event-bit-name = "pmua_short_f","ldo35_short_f","vin_ldoh_shutdown","pwronexp_shutdown","reserved","reserved","reserved","reserved";
+				};
+
+				RECORD@2D0 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2D0";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "cali_pmuh_ocp","cali_ldo26_ocp","cali_buck3_scp","cali_buck3_ocp","cali_pmuh_short","cali_pmua_short","cali_vsyspwroff_deb","cali_vsyspwroff_abs";
+				};
+
+				RECORD@2D1 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2D1";
+					hisilicon,inacceptable-event = <0x1F>;
+					hisilicon,event-bit-name = "cali_avdd_osc_vld","cali_thsd_otmp140","cali_thsd_otmp125","cali_vsys_ov","cali_19m2_dis","reserved","reserved","reserved";
+				};
+
+				RECORD@2D2 {
+					compatible = "hisilicon-pmic-mntn-record-reg0x2D2";
+					hisilicon,inacceptable-event = <0xFF>;
+					hisilicon,event-bit-name = "ramp_buck00","ramp_buck02","ramp_buck4","ramp_buck5","ramp_buck6","ramp_ldo0","ramp_ldo39","ramp_ldo40";
+				};
+			};
+		};
+	};
+};

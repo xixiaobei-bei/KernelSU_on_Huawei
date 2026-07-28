@@ -1,0 +1,8 @@
+&batt_acr_detect {
+	compatible = "huawei,batt_acr_detect";
+	acr_rt_support = <0>;
+	acr_rt_threshold = <100>;
+	acr_rt_fmd_min = <40>;
+	acr_rt_fmd_max = <90>;
+	status = "disable";
+};

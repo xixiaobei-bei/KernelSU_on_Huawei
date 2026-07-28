@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+/ {
+    hisiipp: hisi-ipp@e8300000 {
+        compatible = "hisilicon,ipp";
+        reg = <0 0xE8304000 0 0x1000>, /* IPP TOP */
+              <0 0xE8305000 0 0x1000>, /* IPP CMDLST */
+              <0 0xE8306000 0 0x2000>, /* IPP CVDR */
+              <0 0xE830A000 0 0x1000>, /* IPP MCF */
+              <0 0xE830B000 0 0x1000>, /* IPP MFNR */
+              <0 0xE830C000 0 0x1000>, /* IPP SLAM */
+              <0 0xe8320000 0 0x20000>;/* IPP SMMU */
+        interrupts = <0 303 4>, <0 304 4>;
+        ipp-cpe-supply = <&ispsubsys>;
+        clocks = <&clk_gate_jpg_func>;
+        clock-names = "clk_jpg_func";
+		clock-value = <600000000>;
+        clock-low-frequency = <300000000>;
+        power-off-frequency = <238000000>;
+        reg-num = <6>;
+        irq-num = <2>;
+        status = "ok";
+    };
+
+   hisiippcom: hisi-ipp-com@8320000 {
+        compatible = "hisilicon,ippcom";
+        reg = <0 0xe8320000 0 0x20000>;
+        interrupts = <0 308 4>;
+        clk-name = "clk_jpg_func";
+        clocks = <&clk_gate_jpg_func>;
+        clk-tur = <600000000>;
+        clk-nor = <400000000>;
+        clk-svs = <300000000>;
+        clk-dis = <238000000>;
+        drv-num = <6>;
+        drv-names = "hisi-cpe", "hisi-orb", "hisi-jpeg-encoder", "hisi-jpeg-decoder", "hisi-fd", "hisi-hifd";
+        status = "ok";
+    };
+};

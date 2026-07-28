@@ -1,0 +1,21 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_TL00_VA_overlay.dtsi"
+
+/ {
+    board_id = <8902>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 0 2>;
+		hisi,boardname = "PCT_LX9_VA";
+		hisi,modem_id = <0x37610C00>;
+		hisi,product_id = <0x37610C00>;
+		hisi,product_name = "PCT-LX9";
+	};

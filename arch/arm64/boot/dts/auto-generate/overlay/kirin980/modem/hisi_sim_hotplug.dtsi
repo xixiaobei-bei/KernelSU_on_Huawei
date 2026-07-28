@@ -1,0 +1,79 @@
+
+
+/{
+spmi: spmi@FFF24000 {
+pmic: pmic@0 {
+        sim0 {
+            compatible = "hisilicon-sim-hotplug0";
+            gpios = <&gpio22 7 0>;
+            sim_id = <0>;
+            /*
+            pinctrl-names = "default", "idle";
+            pinctrl-0 = <&gpio83_pmx_func &gpio84_pmx_func &gpio85_pmx_func
+                    &gpio83_cfg_func &gpio84_cfg_func &gpio85_cfg_func>;
+            pinctrl-1 = <&gpio83_pmx_idle &gpio84_pmx_idle &gpio85_pmx_idle
+                    &gpio83_cfg_idle &gpio84_cfg_idle &gpio85_cfg_idle>;
+            */
+            status = "ok";
+            func_sel_state = "not_use_multi_func";
+            send_msg_to_cp = <1>;
+            hpd_interrupt_to_close_ldo = <0x0A>;
+            hpd_debounce_wait_time = <0x00>;
+            interrupt-parent = <&pmic>;
+            interrupts = <11 0>;
+            interrupt-names = "hpd0_falling";
+            pmu_status1_address = <0x007>;
+            pmu_ldo11_onoff_eco_address = <0x0021>;
+            pmu_ldo11_vset_address = <0x0064>;
+            pmu_ldo12_onoff_eco_address = <0x0022>;
+            pmu_ldo12_vset_address = <0x0065>;
+            pmu_sim_ctrl_address = <0x0244>;
+            pmu_sim_deb_ctrl_address = <0x0246>;
+            pmu_irq_mask_address = <0x02A3>;
+            pmu_irq_address = <0x02B4>;
+            pmu_ldo11_onoff_value = <0x03>;
+            pmu_ldo11_vset_value = <0x04>;
+            pmu_ldo12_onoff_value = <0x03>;
+            pmu_ldo12_vset_value = <0x04>;
+            send_card_out_msg_when_init = <0>;
+        };
+
+		
+        sim1 {
+            compatible = "hisilicon-sim-hotplug1";
+            gpios = <&gpio22 7 0>;
+            sim_id = <1>;
+            /*
+            pinctrl-names = "default", "idle";
+            pinctrl-0 = <&gpio86_pmx_func &gpio87_pmx_func &gpio88_pmx_func
+                    &gpio86_cfg_func &gpio87_cfg_func &gpio88_cfg_func>;
+            pinctrl-1 = <&gpio86_pmx_idle &gpio87_pmx_idle &gpio88_pmx_idle
+                    &gpio86_cfg_idle &gpio87_cfg_idle &gpio88_cfg_idle>;
+            */
+            status = "ok";
+            func_sel_state = "not_use_multi_func";
+            send_msg_to_cp = <1>;
+            hpd_interrupt_to_close_ldo = <0x0A>;
+            hpd_debounce_wait_time = <0x00>;
+            interrupt-parent = <&pmic>;
+            interrupts = <13 0>;
+            interrupt-names = "hpd1_falling";
+            pmu_status1_address = <0x007>;
+            pmu_ldo11_onoff_eco_address = <0x0021>;
+            pmu_ldo11_vset_address = <0x0064>;
+            pmu_ldo12_onoff_eco_address = <0x0022>;
+            pmu_ldo12_vset_address = <0x0065>;
+            pmu_sim_ctrl_address = <0x0244>;
+            pmu_sim_deb_ctrl_address = <0x0246>;
+            pmu_irq_mask_address = <0x02A3>;
+            pmu_irq_address = <0x02B4>;
+            pmu_ldo11_onoff_value = <0x03>;
+            pmu_ldo11_vset_value = <0x04>;
+            pmu_ldo12_onoff_value = <0x03>;
+            pmu_ldo12_vset_value = <0x04>;
+            send_card_out_msg_when_init = <0>;
+        };
+
+    };
+};
+};

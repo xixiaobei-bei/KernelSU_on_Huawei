@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "LAYA_TUGL_VR_overlay.dtsi"
+
+/ {
+    board_id = <8428>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 2 8>;
+		hisi,boardname = "LAYA_TUGL_VV";
+		hisi,modem_id = <0x37014400>;
+	};

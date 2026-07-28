@@ -1,0 +1,128 @@
+/**
+ * Note: any file.dtsi or node in this file will be compile into all config.dts
+ *so, if your node or file.dtsi will not use on some products, please don't put it here
+ */
+
+/{
+	kirin_pcie {
+		rc_num = <0x1>;
+	};
+
+	kirin_pcie_rc@0xf4000000 {
+		compatible = "hisilicon,kirin-pcie";
+		reg =  <0x0 0xf4000000 0x0 0x1000000>, <0x0 0xfc180000 0x0 0x1000>, <0x0 0xfc000000 0x0 0x80000>, <0x0 0xF4000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks = <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		interrupts = <0 282 4>, <0 283 4>, <0 284 4>, <0 285 4>, <0 279 4>;
+		interrupt-names = "INTa", "INTb", "INTc", "INTd", "link_down";
+		#address-cells = <3>;
+		#size-cells = <2>;
+		device_type = "pci";
+
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <2>;
+
+		/*eco = 0 -- no eco, eco = 1 -- choose eco, eco = 2 -- eco test*/
+		eco = <1>;
+
+		ranges = <0x02000000 0x0 0xf5000000 0x0 0xf5000000 0x0 0x02000000>;
+
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x30000 0x40000>;
+
+		num-lanes = <1>;
+		rc-id = <0>;
+		iso_info = <0x40 0x20>;
+		bus-range = <0x0 0xff>;
+		#interrupt-cells = <1>;
+		interrupt-map-mask = <0 0 0 7>;
+		interrupt-map = <0 0 0 1 &gic 0 0 0 282 4>,
+				<0 0 0 2 &gic 0 0 0 283 4>,
+				<0 0 0 3 &gic 0 0 0 284 4>,
+				<0 0 0 4 &gic 0 0 0 285 4>;
+
+		/* reset-gpio here is for ASIC, while the one for fpga is rewriten in fpga/config.dts */
+		reset-gpio = <&gpio33 4 0 >;
+		assert_info = <0x310 0x1c>;
+
+		/* ltr latency is only used in EP, set in config.dts if neccessary */
+		ep_ltr_latency = <0x0>;
+
+		/* T_poweron: use default(0x5/0x0) 10us */
+		ep_l1ss_ctrl2 = <0x0>;
+
+		/* lower_16(l1ss_ctrl1): T_common_mode for Host: 50us, and enable aspm/pci-pm L1ss */
+		/* upper_16(l1ss_ctrl1): The l1.2_threshold value and scale, defined by EP */
+		l1ss_ctrl1 = <0x370F>;
+
+		/*ldo offset normal_val low_val*/
+		ldo5 = <0x79 0x5 0x2>;   /* ldo37: normal-1.2V hi6421V700 */
+		ldo30 = <0x74 0x4 0x2>;
+
+		/* Time-delay params, defined by EP */
+		t_ref2perst = <1 1>;
+		t_perst2access = <1 1>;
+		t_perst2rst = <1 1>;
+
+		/* <reg_addr mask_bits new_val>, new_val: 0xFFFF means using the default value */
+		eye_param_nums = <0x7>;
+		eye_param_name = "iboost", "vboost", "pre&post", "main", "plat related cfg0/cfg1/cfg...";
+		eye_param_details = <0x3001 0x1F00 0xFFFF>, <0x21 0xF0 0xFFFF>, <0x1003 0x3FFF 0x2000>,
+				<0x1002 0x3F0 0x7E0>, <0x81 0x38 0x2C>, <0x200a 0xFFFF 0x30>, <0x200a 0xFFFF 0x0>;
+		io_driver = <0x54 0xFFFFFFFF 0x20001180>;
+
+		/* aspm(L0s/L1) config: 0x2--only enable asmp-L1 */
+		aspm_state = <0x2>;
+
+		iatu_base_offset = <0x2FFFFC>;
+		num-viewport = <16>;
+
+		/* pll_source: select the source of pll for 100MHz, 0x1-fnpll, 0x2-hppll, default fnpll */
+		pll_source = <0x1>;
+
+		/* ioref_clk_source: 100MHz for EP routine, 0x1-from PCIePHY, 0x2-from PLL, default from PLL */
+		ioref_clk_source = <0x2>;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x16>;
+
+		/*ES chip_bug fix flag*/
+		phy_cal = <0>;
+
+		/* slt test connected device: 0x1-BCM, 0x2-hi110x, 0x3-NVMe, 0x4-Modem, ... */
+		slt_device_type = <0x2>;
+		status = "disabled";
+	};
+
+	kirin_pcie_ep@0xf4000000 {
+		compatible = "hisilicon,kirin-pcie-ep";
+		reg =  <0x0 0xf4000000 0x0 0x1000000>, <0x0 0xfc180000 0x0 0x1000>, <0x0 0xfc000000 0x0 0x80000>, <0x0 0xF4000000 0 0x2000>;
+		reg-names = "dbi","apb","phy", "config";
+		clocks =  <&clk_gate_pciephy_ref>, <&clk_gate_pcieaux>, <&pclk_gate_pcie_phy>, <&pclk_gate_pcie_sys>, <&aclk_gate_pcie>;
+		clock-names = "pcie_phy_ref", "pcie_aux", "pcie_apb_phy", "pcie_apb_sys", "pcie_aclk";
+		/* natural_phy_offset sram_phy_offset apb_phy_offset*/
+		phy_layout_info = <0x0 0x30000 0x40000>;
+		rc-id = <0>;
+		iso_info = <0x40 0x20>;
+		ep_flag;
+		device_type = "pci";
+		/*chip_type = 1 -- ES, chip_type = 2 -- CS*/
+		chip_type = <2>;
+		assert_info = <0x310 0x1c>;
+		/* pll_source: select the source of pll for 100MHz, 0x1-fnpll, 0x2-hppll, default fnpll */
+		pll_source = <0x2>;
+		/* ioref_clk_source: 100MHz for EP routine, 0x1-from PCIePHY, 0x2-from PCIeIO, default from PCIeIO */
+		ioref_clk_source = <0x2>;
+		iatu_base_offset = <0x2FFFFC>;
+		num-viewport = <16>;
+		reset-gpio = <&gpio33 4 0 >;
+
+		/* NOC Target ID, for pcie dump mntn when PCIe NOC happens*/
+		noc_target_id = <0x16>;
+
+		/*ES chip_bug fix flag*/
+		phy_cal = <0>;
+		status = "disabled";
+	};
+};

@@ -1,0 +1,136 @@
+/*
+ * Atlanta specific energy cost model data. There are no unit requirements for
+ * the data. Data can be normalized to any reference point, but the
+ * normalization must be consistent. That is, one bogo-joule/watt must be the
+ * same quantity for all data, but we don't care what it is.
+ */
+
+energy-costs {
+	CPU_COST_Enyo_B: core-cost2 {
+		busy-cost-data = <
+			581	336
+			630	391
+			659	423
+			694	461
+			729	500
+			765	540
+			793	571
+			821	642
+			855	731
+			889	821
+			941	1132
+			976	1191
+			1024	1271
+		>;
+		idle-cost-data = <
+			20
+			20
+			0
+		>;
+		static-cost-data = <
+			17
+			18
+			19
+			21
+			22
+			24
+			25
+			27
+			30
+			33
+			37
+			42
+			54
+		>;
+	};
+	CPU_COST_Enyo_M: core-cost1 {
+		busy-cost-data = <
+			334	144
+			364	158
+			409	178
+			446	195
+			484	212
+			521	229
+			557	261
+			600	300
+			629	326
+			658	352
+			713	458
+			752	534
+		>;
+		idle-cost-data = <
+			4
+			4
+			0
+			0
+		>;
+		static-cost-data = <
+			4
+			4
+			4
+			4
+			5
+			5
+			6
+			6
+			7
+			7
+			8
+			10
+		>;
+	};
+	CPU_COST_Ananke: core-cost0 {
+		busy-cost-data = <
+			146	55
+			173	67
+			187	75
+			204	83
+			221	92
+			234	103
+			251	116
+			267	130
+			283	143
+			300	183
+			317	223
+		>;
+		idle-cost-data = <
+			3
+			3
+			0
+			0
+		>;
+	};
+	CLUSTER_COST_Enyo_B: cluster-cost2 {
+		busy-cost-data = <
+			1024	0
+		>;
+		idle-cost-data = <
+			0
+			0
+			0
+			0
+		>;
+	};
+	CLUSTER_COST_Enyo_M: cluster-cost1 {
+		busy-cost-data = <
+			752	0
+		>;
+		idle-cost-data = <
+			0
+			0
+			0
+			0
+		>;
+	};
+	CLUSTER_COST_Ananke: cluster-cost0 {
+		busy-cost-data = <
+			317	0
+		>;
+		idle-cost-data = <
+			0
+			0
+			0
+			0
+		>;
+	};
+};

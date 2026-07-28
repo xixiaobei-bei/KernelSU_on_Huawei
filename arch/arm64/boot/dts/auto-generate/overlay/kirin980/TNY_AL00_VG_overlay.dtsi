@@ -1,0 +1,65 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "TNY_AL00_VF_overlay.dtsi"
+
+/ {
+    board_id = <8990>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 9 0>;
+		hisi,boardname = "TNY_AL00_VG";
+		hisi,modem_id = <0x37600C00>;
+	};
+
+	&sensorhub{
+		light{
+			als1{
+				compatible="huawei,A";
+				als_phone_version = <12>;
+				sensorlist_name="als-A";
+				vendor="A";
+			};
+			als2{
+				compatible="huawei,B";
+				als_phone_version = <11>;
+				sensorlist_name="als-b";
+				vendor="B";
+			};
+			als3{
+				compatible="huawei,A";
+				als_phone_version = <12>;
+				sensorlist_name="als-A";
+				vendor="A";
+			};
+		};
+		proximity{
+			ps1{
+				compatible="huawei,txc-pa224";
+				reg=<0x1e>;
+				chip_id_register=<0x7F>;
+				chip_id_value=<0x11>;
+				file_id=<116>;
+				min_proximity_value=<220>;
+				pwindows_value=<10>;
+				pwave_value=<10>;
+				threshold_value=<31>;
+				gpio_int1=<&gpio27 1 0>;
+				poll_interval = <80>;
+				ps_oily_threshold = <2>;
+				oily_max_near_pdata=<230>;
+				max_oily_add_pdata=<50>;
+				max_near_pdata_loop=<4>;
+				oily_count_size=<12>;
+				status = "ok";
+				sensorlist_name="proximity-pa224";
+				vendor="txc";
+			};
+		};
+	};

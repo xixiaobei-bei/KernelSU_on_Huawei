@@ -1,0 +1,33 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "LAYA_LX9_VC_overlay.dtsi"
+
+/ {
+    board_id = <8446>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 4 6>;
+		hisi,boardname = "LAYA_LX9_VD";
+		hisi,modem_id = <0x37013000>;
+	};
+
+	&amba {
+            i2c@FDF0D000 {
+		secure-mode = <1>;
+                    nfc@28{
+                            nfc_chip_type = "pn80t";
+                            nfc_ese_type = "p61";
+			    nfc_ese_num = <0x2>;
+                    };
+            };
+	    gpio@e8a0e000 {
+		secure-mode = <1>;
+	    };
+    }; 

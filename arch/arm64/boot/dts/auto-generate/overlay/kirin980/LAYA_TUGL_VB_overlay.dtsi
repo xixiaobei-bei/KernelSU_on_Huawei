@@ -1,0 +1,54 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "LAYA_TUGL_VA_overlay.dtsi"
+
+/ {
+    board_id = <8431>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 3 1>;
+		hisi,boardname = "LAYA_TUGL_VB";
+		hisi,modem_id = <0x37010400>;
+	};
+
+	&amba {
+		i2c@FDF0A000 {
+			hi6523_charger_i2c6: hi6523_charger_i2c6@6B{
+				scp_need_extra_power = <0>;
+			};
+		};
+	};
+
+	&direct_charge_ps {
+		boost_5v_support_scp_power = <0>;
+		huawei_charger_support_scp_power = <1>;
+		status = "ok";
+	};
+
+	&usb_audio_power {
+		compatible = "huawei,usb_audio_power";
+		gpio_type = <0>;
+		gpio_chg_vbst_ctrl = <&gpio31 3 0>;
+		gpio_ear_power_en = <&gpio3 7 0>;
+		using_superswitch = <0>;
+		using_wireless_charger = <1>;
+		using_boost_5v = <1>;
+		status = "ok";
+	};
+	&sensorhub{
+                light{
+                        als1{
+                               als_phone_version = <11>;
+                        };
+                        als2{
+                               als_phone_version = <11>;
+                        };
+                };
+	};
