@@ -13,6 +13,7 @@ First, you should read the list of supported devices:
 |Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|None|
 |Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|None|
 |Mate10 Series|ALP|EMUI 9.1|RKSU|None|
+|Mate20 Pro Series|LYA|EMUI 9.0|RKSU|None|
 |P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|None|
 |P20 Series|EML|EMUI9.1|KernelSU|None|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|

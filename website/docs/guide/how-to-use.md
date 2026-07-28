@@ -13,6 +13,7 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 |Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
 |Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](无|
 |Mate10 系列|ALP|EMUI9.1|RKSU|无|
+|Mate20 Pro 系列|LYA|EMUI9.0|RKSU|无|
 |P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|无|
 |P20 系列|EML|EMUI9.1|KernelSU|无|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
