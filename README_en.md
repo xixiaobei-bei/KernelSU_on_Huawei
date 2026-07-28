@@ -181,3 +181,5 @@ KernelSU modules:
 - [Phoenix](https://github.com/mah1618)——Added KernelSU-Next support for Huawei PadM3 Lite.
 
 - [841973620](https://github.com/Z841973620)——Added KernelSU support for Huawei P20.
+
+- [zknsmsw](https://github.com/zknsmsw)——Added RKSU support for Huawei Mate 20 Pro.
