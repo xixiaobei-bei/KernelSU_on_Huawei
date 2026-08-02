@@ -21,7 +21,8 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 |Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
 |Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
-|Nova 5 Pro 系列|SEA|EMUI9.1|RKSU|无|
+|Nova 5 系列|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|无|
+|Nova 5 Pro 系列|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|RKSU|无|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
 |畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
 |华为平板M3青春版 系列|CPN|LineageOS17.1|KernelSU-Next|[所需底包](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
