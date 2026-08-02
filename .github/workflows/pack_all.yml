@@ -1,0 +1,121 @@
+name: Pack Release Assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Release version/tag to package"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  pack-release-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare variables
+        id: vars
+        shell: bash
+        run: |
+          set -euo pipefail
+          safe_name=$(echo "${{ github.event.inputs.release_version }}" | sed 's/[^A-Za-z0-9._-]/-/g')
+          echo "safe_name=${safe_name}" >> "$GITHUB_OUTPUT"
+
+      - name: Download non-source release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ github.event.inputs.release_version }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release_assets
+
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.request
+          from pathlib import Path
+
+          repo = os.environ["REPOSITORY"]
+          tag = os.environ["RELEASE_VERSION"].strip()
+          token = os.environ["GH_TOKEN"]
+
+          api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
+          req = urllib.request.Request(
+              api_url,
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {token}",
+                  "User-Agent": "pack-release-assets",
+              },
+          )
+
+          with urllib.request.urlopen(req) as response:
+              release = json.load(response)
+
+          assets = release.get("assets", [])
+          if not assets:
+              print(f"No assets found for release {tag}")
+              sys.exit(1)
+
+          output_dir = Path("release_assets")
+          skipped = []
+          downloaded = []
+
+          for asset in assets:
+              name = asset["name"]
+              if "source code" in name.lower():
+                  skipped.append(name)
+                  continue
+
+              asset_url = asset["browser_download_url"]
+              target = output_dir / name
+              print(f"Downloading {name}")
+              asset_req = urllib.request.Request(
+                  asset_url,
+                  headers={
+                      "Accept": "application/octet-stream",
+                      "Authorization": f"Bearer {token}",
+                      "User-Agent": "pack-release-assets",
+                  },
+              )
+              with urllib.request.urlopen(asset_req) as response, open(target, "wb") as fh:
+                  fh.write(response.read())
+              downloaded.append(name)
+
+          if not downloaded:
+              print("No non-source assets were downloaded")
+              sys.exit(1)
+
+          print("Downloaded:")
+          for item in downloaded:
+              print(f" - {item}")
+          print("Skipped source code assets:")
+          for item in skipped:
+              print(f" - {item}")
+          PY
+
+      - name: Create zip and tar archives
+        env:
+          SAFE_NAME: ${{ steps.vars.outputs.safe_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release_assets
+          zip -r "../${SAFE_NAME}.zip" .
+          tar -cf "../${SAFE_NAME}.tar" .
+          cd ..
+          ls -lh "${SAFE_NAME}.zip" "${SAFE_NAME}.tar"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets-${{ steps.vars.outputs.safe_name }}
+          path: |
+            ${{ steps.vars.outputs.safe_name }}.zip
+            ${{ steps.vars.outputs.safe_name }}.tar
