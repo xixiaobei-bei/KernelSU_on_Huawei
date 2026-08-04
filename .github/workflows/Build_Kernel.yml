@@ -423,6 +423,12 @@ jobs:
           echo "未检测到 CONFIG_KPM 开启，跳过 KPM 修补流程。"
         fi
 
+        if [ -f "tools/mkbootimg" ]; then
+          cp ./out/arch/arm64/boot/Image.gz ./tools/
+          sed -i 's/--kernel[[:space:]]\+kernel/--kernel Image.gz/g' tools/pack_kernerimage_cmd.sh
+          sed -i 's/--output[[:space:]]\+.*$/--output "${ARTIFACT_NAME}.img"/g' tools/pack_kernerimage_cmd.sh
+        fi
+
         if [ "$os_version" = "9" ]; then
             cmdline=(
                 --kernel out/arch/arm64/boot/Image.gz
@@ -465,7 +471,10 @@ jobs:
 
         if [ -f "tools/mkbootimg" ]; then
           echo "使用 tools/mkbootimg 生成镜像..."
-          tools/mkbootimg "${cmdline[@]}"
+          cd tools
+          bash ./pack_kernerimage_cmd.sh
+          cd ..
+          cp tools/"${ARTIFACT_NAME}.img" ./
         else
           echo "未找到 tools/mkbootimg，下载mkbootimg..."
           git clone https://android.googlesource.com/platform/system/tools/mkbootimg/
