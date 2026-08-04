@@ -429,6 +429,7 @@ jobs:
           sed -i 's/--output[[:space:]]\+.*$/--output "${ARTIFACT_NAME}.img"/g' tools/pack_kernerimage_cmd.sh
           sed -i 's/androidboot.selinux=enforcing/androidboot.selinux=${SELINUX_MODE}/g' tools/pack_kernerimage_cmd.sh
           sed -i 's/androidboot.selinux=permissive/androidboot.selinux=${SELINUX_MODE}/g' tools/pack_kernerimage_cmd.sh
+          sed -i 's/\(--os_patch_level\)[[:space:]]\+[^[:space:]]\+[[:space:]]\+\(--output[[:space:]]\+"${ARTIFACT_NAME}\.img"\)/\1 "$CURRENT_DATE" \2/g' tools/pack_kernerimage_cmd.sh
         fi
 
         if [ "$os_version" = "9" ]; then
