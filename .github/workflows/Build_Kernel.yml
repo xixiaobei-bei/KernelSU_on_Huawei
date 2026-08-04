@@ -428,6 +428,7 @@ jobs:
           sed -i 's/--kernel[[:space:]]\+kernel/--kernel Image.gz/g' tools/pack_kernerimage_cmd.sh
           sed -i 's/--output[[:space:]]\+.*$/--output "${ARTIFACT_NAME}.img"/g' tools/pack_kernerimage_cmd.sh
           sed -i 's/androidboot.selinux=enforcing/androidboot.selinux=${SELINUX_MODE}/g' tools/pack_kernerimage_cmd.sh
+          sed -i 's/androidboot.selinux=permissive/androidboot.selinux=${SELINUX_MODE}/g' tools/pack_kernerimage_cmd.sh
         fi
 
         if [ "$os_version" = "9" ]; then
