@@ -74,7 +74,7 @@ jobs:
           - STF_EMUI9.0_KernelSU
           - STK_EMUI9.1_RKSU
           - SEA-AL00-TL00_EMUI9.1_RKSU
-          - SEA-AL10-TL10-TL10HKA_EMUI9.1_RKSU
+          - SEA-AL10-TL10-TL10HKA_EMUI9.1_ReSukiSU
           - INE_EMUI9.1_RKSU
           - CDY_HarmonyOS2.0_KernelSU
           - ALP_EMUI9.1_RKSU
@@ -299,7 +299,7 @@ jobs:
               DEFCONFIG="merge_kirin980_defconfig"
               os_version="9"
               tool="gcc" ;;
-            SEA-AL10-TL10-TL10HKA_EMUI9.1_RKSU)
+            SEA-AL10-TL10-TL10HKA_EMUI9.1_ReSukiSU)
               DEFCONFIG="merge_kirin980_defconfig"
               os_version="9"
               tool="gcc" ;;
