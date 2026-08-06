@@ -1,0 +1,7 @@
+source "drivers/huawei_platform/power/hardware_monitor/smpl/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/cpu_buck/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/lga_check/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/acr_detect/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/uscp/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/water_check/Kconfig"
+source "drivers/huawei_platform/power/hardware_monitor/soc_control/Kconfig"

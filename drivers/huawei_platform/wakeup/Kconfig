@@ -1,0 +1,10 @@
+#
+# wakeup report configuration
+#
+
+config WAKEUP
+    tristate "Wakeup"
+    default y
+    help
+      add this to support wakeup
+

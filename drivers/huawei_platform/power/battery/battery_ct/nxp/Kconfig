@@ -1,0 +1,10 @@
+config CERTIFICATION_IC_A1007
+	bool
+	prompt "Support NXP A1007 as certification IC."
+	depends on HUAWEI_BATTERY_INFORMATION
+	default n
+	help
+	  It needs a onewire physical controller to work.
+	  Currently, only ONEWIRE_PHY_PL061_GPIO_V2 supports it.
+	  Now, if you open this, please open ONEWIRE_PHY_PL061_GPIO_V2.
+	  Otherwise, this driver will be failed to probe.
