@@ -237,25 +237,7 @@ In addition, you can also backport path_umount via the [KernelSU offical webside
 curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 ```
 
-### 2.Revert the commit
-
-Due to SukiSU-Ultra's abandonment of the 4.x kernel, since commit [68d04cb](https://github.com/SukiSU-Ultra/SukiSU-Ultra/commit/68d04cb6c82463a010106c196f7dff805ccf620f), SukiSU-Ultra can no longer be compiled into NonGKI kernels, so we need to revert the commit.
-
-In the kernel source directory, enter the following command:
-
-Navigate to the KernelSU directory:
-
-```shell
-cd KernelSU
-```
-
-Revert the commit:
-
-```shell
-git reset --hard 4a0c01e
-```
-
-### 3.Apply patches
+### 2.Apply patches
 
 :::code-group
 
