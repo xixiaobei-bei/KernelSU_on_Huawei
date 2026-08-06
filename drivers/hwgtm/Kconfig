@@ -1,0 +1,9 @@
+#
+# huawei global task manager
+#
+
+menuconfig HUAWEI_GLOBAL_TASK_MANAGER
+	bool "Huawei global task manager"
+	default n
+	help
+	  Support for huawei global task manager.

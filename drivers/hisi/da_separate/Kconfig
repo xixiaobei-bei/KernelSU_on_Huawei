@@ -1,0 +1,2 @@
+config SND_SOC_DA_SEPARATE_MBHC
+	tristate "Soc Smartstar Codec da separate serise support"

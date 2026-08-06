@@ -1,0 +1,5 @@
+config DKMD_DKSM
+	bool "DKMD dksm driver support"
+	default n
+	help
+	  This feature supports dksm driver.

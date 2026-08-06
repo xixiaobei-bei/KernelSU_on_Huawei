@@ -1,0 +1,19 @@
+config HKIP_ATKINFO
+	bool "Upload HKIP attack information"
+	depends on HHEE || HUAWEI_HKIP
+	default n
+	help
+	  Say yes to enable HKIP attack information to Huawei server.
+	  the attacked type is included disable WXN, disable MMU,
+	  modify kernel code, modify kernel page table.
+	  if you not sure, choose n.
+
+config HKIP_ATKINFO_DEBUGFS
+	bool "Upload HKIP attack information debugfs"
+	depends on HKIP_ATKINFO
+	default n
+	help
+	  Say yes to support the debug fs
+	  of HKIP_ATKINFO feature.
+	  the debugfs is /sys/d/hkip_atkinfo.
+	  if you are not sure, choose n.

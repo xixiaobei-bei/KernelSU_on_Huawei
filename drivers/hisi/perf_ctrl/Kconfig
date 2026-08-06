@@ -1,0 +1,9 @@
+menu "Performace Control"
+
+config PERF_CTRL
+        tristate "Performance Control Drivers"
+	default n
+        help
+	  Performance Control Drivers
+
+endmenu

@@ -1,0 +1,9 @@
+menu "ATF BL2 LOG"
+
+config ATF_KERNEL_BL2_LOG
+	bool "ATF kernel dump bl2 log support"
+	default n
+	help
+	  Say yes here to support dump bl2 log in kernel
+
+endmenu

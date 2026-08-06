@@ -1,0 +1,12 @@
+#ext sensorhub Driver
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_channel.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_api.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_route.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_frame.o
+obj-$(CONFIG_EXT_INPUTHUB) += crc16.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_commu.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_sdio.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_spi.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_uart.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_sensorhub_debug.o
+obj-$(CONFIG_EXT_INPUTHUB) += ext_motion_channel.o

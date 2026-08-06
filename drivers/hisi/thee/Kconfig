@@ -1,0 +1,6 @@
+config THEED
+	bool "THEE support"
+	depends on HAVE_ARM_SMCCC
+	default n
+	help
+	  thee linux kernel despitch

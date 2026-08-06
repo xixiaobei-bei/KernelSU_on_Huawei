@@ -1,0 +1,28 @@
+menuconfig DIG_HS_MODULE
+	bool "USB digital headset drivers support"
+	default n
+	help
+	Say yes here to support the USB digital headset module
+
+if DIG_HS_MODULE
+config DIG_HS
+	tristate "Support for DIG_HS"
+	default n
+	---help---
+	 Say Y here if you want to support DIG_HS
+config DIG_HS_POWER
+	tristate "Support for digital headset with DIG_HS_POWER"
+	default n
+	---help---
+	 Say Y here if you want to support digital headset with DIG_HS_POWER
+config DIG_HS_POWER_V600
+	tristate "Support for digital headset with DIG_HS_POWER_V600"
+	default n
+	---help---
+	 Say Y here if you want to support digital headset with DIG_HS_POWER_V600
+config DIG_HS_CORE
+	tristate "Support for digital headset with DIG_HS_CORE"
+	default n
+	---help---
+	 Say Y here if you want to support digital headset with DIG_HS_CORE
+endif #DIG_HS_MODULE

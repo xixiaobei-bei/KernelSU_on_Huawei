@@ -1,0 +1,2479 @@
+﻿/*
+ * da_separate_v5_driver codec driver.
+ *
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#ifndef __DA_SEPARATE_V5_ASP_REG_DEF_H__
+#define __DA_SEPARATE_V5_ASP_REG_DEF_H__
+
+/* ALSA dapm control reg bit[31] negative  = no direct dapm */
+#define ALSA_REG_MASK           0x7FFFFFFF
+#define ASP_CODEC_REG_BASE      0xFA552000
+#define ASP_CFG_REG_BASE        0xFA54E000
+#define ASP_AO_IOC_BASE         0xFA89C000
+#define ASP_CODEC_BASE          (ASP_CODEC_REG_BASE & ALSA_REG_MASK)
+#define ASP_CFG_BASE            (ASP_CFG_REG_BASE & ALSA_REG_MASK)
+
+#define VERSION_REG                        (ASP_CODEC_BASE + 0x0)             /* CODEC版本号寄存器 */
+#define VERSION_LEN    32
+#define VERSION_OFFSET 0
+#ifdef CONFIG_SND_SOC_CODEC_DA_SEPARATE_V6L
+#define CODEC_CLK_EN0_REG                  (ASP_CODEC_BASE + 0x4)
+#define SDM_R_CLKEN_LEN                    1
+#define SDM_R_CLKEN_OFFSET                 31
+#define SDM_L_CLKEN_LEN                    1
+#define SDM_L_CLKEN_OFFSET                 30
+#define DACR_UP16_CLKEN_LEN                1
+#define DACR_UP16_CLKEN_OFFSET             29
+#define DACL_UP16_CLKEN_LEN                1
+#define DACL_UP16_CLKEN_OFFSET             28
+#define DACR_FILTER_CLKEN_LEN              1
+#define DACR_FILTER_CLKEN_OFFSET           27
+#define DACL_FILTER_CLKEN_LEN              1
+#define DACL_FILTER_CLKEN_OFFSET           26
+#define DACR_SRCUP_CLKEN_LEN               1
+#define DACR_SRCUP_CLKEN_OFFSET            25
+#define DACL_SRCUP_CLKEN_LEN               1
+#define DACL_SRCUP_CLKEN_OFFSET            24
+#define DACR_MIXER4_CLKEN_LEN              1
+#define DACR_MIXER4_CLKEN_OFFSET           23
+#define DACL_MIXER4_CLKEN_LEN              1
+#define DACL_MIXER4_CLKEN_OFFSET           22
+#define AUDIO_R_DN_PGA_CLKEN_LEN           1
+#define AUDIO_R_DN_PGA_CLKEN_OFFSET        20
+#define AUDIO_L_DN_PGA_CLKEN_LEN           1
+#define AUDIO_L_DN_PGA_CLKEN_OFFSET        19
+#define BT_TX_MIXER2_CLKEN_LEN             1
+#define BT_TX_MIXER2_CLKEN_OFFSET          17
+#define BT_R_RX_SRCDN_CLKEN_LEN            1
+#define BT_R_RX_SRCDN_CLKEN_OFFSET         15
+#define BT_L_RX_SRCDN_CLKEN_LEN            1
+#define BT_L_RX_SRCDN_CLKEN_OFFSET         14
+#define BT_R_RX_SRCUP_CLKEN_LEN            1
+#define BT_R_RX_SRCUP_CLKEN_OFFSET         13
+#define BT_L_RX_SRCUP_CLKEN_LEN            1
+#define BT_L_RX_SRCUP_CLKEN_OFFSET         12
+#define BT_R_RX_PGA_CLKEN_LEN              1
+#define BT_R_RX_PGA_CLKEN_OFFSET           11
+#define BT_L_RX_PGA_CLKEN_LEN              1
+#define BT_L_RX_PGA_CLKEN_OFFSET           10
+#define MIC3_UP_AFIFO_CLKEN_LEN            1
+#define MIC3_UP_AFIFO_CLKEN_OFFSET         9
+#define VOICE_R_UP_AFIFO_CLKEN_LEN         1
+#define VOICE_R_UP_AFIFO_CLKEN_OFFSET      8
+#define VOICE_L_UP_AFIFO_CLKEN_LEN         1
+#define VOICE_L_UP_AFIFO_CLKEN_OFFSET      7
+#define AUDIO_R_UP_AFIFO_CLKEN_LEN         1
+#define AUDIO_R_UP_AFIFO_CLKEN_OFFSET      6
+#define AUDIO_L_UP_AFIFO_CLKEN_LEN         1
+#define AUDIO_L_UP_AFIFO_CLKEN_OFFSET      5
+#define AUDIO_R_DN_AFIFO_CLKEN_LEN         1
+#define AUDIO_R_DN_AFIFO_CLKEN_OFFSET      4
+#define AUDIO_L_DN_AFIFO_CLKEN_LEN         1
+#define AUDIO_L_DN_AFIFO_CLKEN_OFFSET      3
+#define VOICE_L_DN_AFIFO_CLKEN_LEN         1
+#define VOICE_L_DN_AFIFO_CLKEN_OFFSET      2
+#define VOICE_R_DN_AFIFO_CLKEN_LEN         1
+#define VOICE_R_DN_AFIFO_CLKEN_OFFSET      1
+
+#define CODEC_CLK_EN1_REG                  (ASP_CODEC_BASE + 0x8)
+#define I2S2_PCM_CLKEN_LEN                 1
+#define I2S2_PCM_CLKEN_OFFSET              31
+#define I2S1_TDM_CLKEN_LEN                 1
+#define I2S1_TDM_CLKEN_OFFSET              30
+#define MIC3_UP_PGA_CLKEN_LEN              1
+#define MIC3_UP_PGA_CLKEN_OFFSET           29
+#define MIC3_UP_SRCDN_CLKEN_LEN            1
+#define MIC3_UP_SRCDN_CLKEN_OFFSET         28
+#define VOICE_R_UP_SRCDN_CLKEN_LEN         1
+#define VOICE_R_UP_SRCDN_CLKEN_OFFSET      27
+#define VOICE_L_UP_SRCDN_CLKEN_LEN         1
+#define VOICE_L_UP_SRCDN_CLKEN_OFFSET      26
+#define AUDIO_R_UP_SRCUP_CLKEN_LEN         1
+#define AUDIO_R_UP_SRCUP_CLKEN_OFFSET      25
+#define AUDIO_L_UP_SRCUP_CLKEN_LEN         1
+#define AUDIO_L_UP_SRCUP_CLKEN_OFFSET      24
+#define AUDIO_R_UP_PGA_CLKEN_LEN           1
+#define AUDIO_R_UP_PGA_CLKEN_OFFSET        23
+#define AUDIO_L_UP_PGA_CLKEN_LEN           1
+#define AUDIO_L_UP_PGA_CLKEN_OFFSET        22
+#define SIDETONE_PGA_CLKEN_LEN             1
+#define SIDETONE_PGA_CLKEN_OFFSET          21
+#define ADC_MIC3_FILTER_CLKEN_LEN          1
+#define ADC_MIC3_FILTER_CLKEN_OFFSET       20
+#define ADCR_FILTER_CLKEN_LEN              1
+#define ADCR_FILTER_CLKEN_OFFSET           19
+#define ADCL_FILTER_CLKEN_LEN              1
+#define ADCL_FILTER_CLKEN_OFFSET           18
+#define SIF_MST_CLKEN_LEN                  1
+#define SIF_MST_CLKEN_OFFSET               17
+#define ECHO_R_UP_SRCDN_CLKEN_LEN          1
+#define ECHO_R_UP_SRCDN_CLKEN_OFFSET       16
+#define ECHO_L_UP_SRCDN_CLKEN_LEN          1
+#define ECHO_L_UP_SRCDN_CLKEN_OFFSET       15
+#define ECHO_R_UP_AFIFO_CLKEN_LEN          1
+#define ECHO_R_UP_AFIFO_CLKEN_OFFSET       14
+#define ECHO_L_UP_AFIFO_CLKEN_LEN          1
+#define ECHO_L_UP_AFIFO_CLKEN_OFFSET       13
+#define VOICE_L_DN_SRCUP_CLKEN_LEN         1
+#define VOICE_L_DN_SRCUP_CLKEN_OFFSET      10
+#define I2S3_PCM_CLKEN_LEN                 1
+#define I2S3_PCM_CLKEN_OFFSET              9
+#define VOICE_R_DN_SRCUP_CLKEN_LEN         1
+#define VOICE_R_DN_SRCUP_CLKEN_OFFSET      8
+#define VOICE_R_DN_PGA_CLKEN_LEN           1
+#define VOICE_R_DN_PGA_CLKEN_OFFSET        7
+#define CODEC3_R_DN_AFIFO_CLKEN_LEN        1
+#define CODEC3_R_DN_AFIFO_CLKEN_OFFSET     6
+#define CODEC3_L_DN_AFIFO_CLKEN_LEN        1
+#define CODEC3_L_DN_AFIFO_CLKEN_OFFSET     5
+#define VOICE_L_DN_PGA_CLKEN_LEN           1
+#define VOICE_L_DN_PGA_CLKEN_OFFSET        4
+#define SW_RST_N_LEN                       1
+#define SW_RST_N_OFFSET                    3
+#define RST_3MIC_VOICE_IRQ_LEN             1
+#define RST_3MIC_VOICE_IRQ_OFFSET          2
+#define RST_3MIC_AUDIO_IRQ_LEN             1
+#define RST_3MIC_AUDIO_IRQ_OFFSET          1
+#define SLV_MODE_441_LEN                   1
+#define SLV_MODE_441_OFFSET                0
+#else
+#define CODEC_CLK_EN0_REG                  (ASP_CODEC_BASE + 0x4)            /* CODEC子模块时钟门控寄存器0 */
+#define SDM_R_CLKEN_LEN               1
+#define SDM_R_CLKEN_OFFSET            31
+#define SDM_L_CLKEN_LEN               1
+#define SDM_L_CLKEN_OFFSET            30
+#define DACR_UP16_CLKEN_LEN           1
+#define DACR_UP16_CLKEN_OFFSET        29
+#define DACL_UP16_CLKEN_LEN           1
+#define DACL_UP16_CLKEN_OFFSET        28
+#define DACR_FILTER_CLKEN_LEN         1
+#define DACR_FILTER_CLKEN_OFFSET      27
+#define DACL_FILTER_CLKEN_LEN         1
+#define DACL_FILTER_CLKEN_OFFSET      26
+#define DACR_SRCUP_CLKEN_LEN          1
+#define DACR_SRCUP_CLKEN_OFFSET       25
+#define DACL_SRCUP_CLKEN_LEN          1
+#define DACL_SRCUP_CLKEN_OFFSET       24
+#define DACR_MIXER4_CLKEN_LEN         1
+#define DACR_MIXER4_CLKEN_OFFSET      23
+#define DACL_MIXER4_CLKEN_LEN         1
+#define DACL_MIXER4_CLKEN_OFFSET      22
+#define VOICE_L_DN_SRCUP_CLKEN_LEN    1
+#define VOICE_L_DN_SRCUP_CLKEN_OFFSET 21
+#define AUDIO_R_DN_PGA_CLKEN_LEN      1
+#define AUDIO_R_DN_PGA_CLKEN_OFFSET   20
+#define AUDIO_L_DN_PGA_CLKEN_LEN      1
+#define AUDIO_L_DN_PGA_CLKEN_OFFSET   19
+#define VOICE_L_DN_PGA_CLKEN_LEN      1
+#define VOICE_L_DN_PGA_CLKEN_OFFSET   18
+#define BT_TX_MIXER2_CLKEN_LEN        1
+#define BT_TX_MIXER2_CLKEN_OFFSET     17
+#define BT_R_RX_SRCDN_CLKEN_LEN       1
+#define BT_R_RX_SRCDN_CLKEN_OFFSET    15
+#define BT_L_RX_SRCDN_CLKEN_LEN       1
+#define BT_L_RX_SRCDN_CLKEN_OFFSET    14
+#define BT_R_RX_SRCUP_CLKEN_LEN       1
+#define BT_R_RX_SRCUP_CLKEN_OFFSET    13
+#define BT_L_RX_SRCUP_CLKEN_LEN       1
+#define BT_L_RX_SRCUP_CLKEN_OFFSET    12
+#define BT_R_RX_PGA_CLKEN_LEN         1
+#define BT_R_RX_PGA_CLKEN_OFFSET      11
+#define BT_L_RX_PGA_CLKEN_LEN         1
+#define BT_L_RX_PGA_CLKEN_OFFSET      10
+#define MIC3_UP_AFIFO_CLKEN_LEN       1
+#define MIC3_UP_AFIFO_CLKEN_OFFSET    9
+#define VOICE_R_UP_AFIFO_CLKEN_LEN    1
+#define VOICE_R_UP_AFIFO_CLKEN_OFFSET 8
+#define VOICE_L_UP_AFIFO_CLKEN_LEN    1
+#define VOICE_L_UP_AFIFO_CLKEN_OFFSET 7
+#define AUDIO_R_UP_AFIFO_CLKEN_LEN    1
+#define AUDIO_R_UP_AFIFO_CLKEN_OFFSET 6
+#define AUDIO_L_UP_AFIFO_CLKEN_LEN    1
+#define AUDIO_L_UP_AFIFO_CLKEN_OFFSET 5
+#define AUDIO_R_DN_AFIFO_CLKEN_LEN    1
+#define AUDIO_R_DN_AFIFO_CLKEN_OFFSET 4
+#define AUDIO_L_DN_AFIFO_CLKEN_LEN    1
+#define AUDIO_L_DN_AFIFO_CLKEN_OFFSET 3
+#define VOICE_L_DN_AFIFO_CLKEN_LEN    1
+#define VOICE_L_DN_AFIFO_CLKEN_OFFSET 2
+
+#define CODEC_CLK_EN1_REG            (ASP_CODEC_BASE + 0x8)   /* CODEC子模块时钟门控寄存器1 */
+#define I2S2_PCM_CLKEN_LEN             1
+#define I2S2_PCM_CLKEN_OFFSET          31
+#define I2S1_TDM_CLKEN_LEN             1
+#define I2S1_TDM_CLKEN_OFFSET          30
+#define MIC3_UP_PGA_CLKEN_LEN          1
+#define MIC3_UP_PGA_CLKEN_OFFSET       29
+#define MIC3_UP_SRCDN_CLKEN_LEN        1
+#define MIC3_UP_SRCDN_CLKEN_OFFSET     28
+#define VOICE_R_UP_SRCDN_CLKEN_LEN     1
+#define VOICE_R_UP_SRCDN_CLKEN_OFFSET  27
+#define VOICE_L_UP_SRCDN_CLKEN_LEN     1
+#define VOICE_L_UP_SRCDN_CLKEN_OFFSET  26
+#define AUDIO_R_UP_SRCUP_CLKEN_LEN     1
+#define AUDIO_R_UP_SRCUP_CLKEN_OFFSET  25
+#define AUDIO_L_UP_SRCUP_CLKEN_LEN     1
+#define AUDIO_L_UP_SRCUP_CLKEN_OFFSET  24
+#define AUDIO_R_UP_PGA_CLKEN_LEN       1
+#define AUDIO_R_UP_PGA_CLKEN_OFFSET    23
+#define AUDIO_L_UP_PGA_CLKEN_LEN       1
+#define AUDIO_L_UP_PGA_CLKEN_OFFSET    22
+#define SIDETONE_PGA_CLKEN_LEN         1
+#define SIDETONE_PGA_CLKEN_OFFSET      21
+#define ADC_MIC3_FILTER_CLKEN_LEN      1
+#define ADC_MIC3_FILTER_CLKEN_OFFSET   20
+#define ADCR_FILTER_CLKEN_LEN          1
+#define ADCR_FILTER_CLKEN_OFFSET       19
+#define ADCL_FILTER_CLKEN_LEN          1
+#define ADCL_FILTER_CLKEN_OFFSET       18
+#define SIF_MST_CLKEN_LEN              1
+#define SIF_MST_CLKEN_OFFSET           17
+#define ECHO_R_UP_SRCDN_CLKEN_LEN      1
+#define ECHO_R_UP_SRCDN_CLKEN_OFFSET   16
+#define ECHO_L_UP_SRCDN_CLKEN_LEN      1
+#define ECHO_L_UP_SRCDN_CLKEN_OFFSET   15
+#define ECHO_R_UP_AFIFO_CLKEN_LEN      1
+#define ECHO_R_UP_AFIFO_CLKEN_OFFSET   14
+#define ECHO_L_UP_AFIFO_CLKEN_LEN      1
+#define ECHO_L_UP_AFIFO_CLKEN_OFFSET   13
+#define I2S3_PCM_CLKEN_LEN             1
+#define I2S3_PCM_CLKEN_OFFSET          9
+#define VOICE_R_DN_SRCUP_CLKEN_LEN     1
+#define VOICE_R_DN_SRCUP_CLKEN_OFFSET  8
+#define VOICE_R_DN_PGA_CLKEN_LEN       1
+#define VOICE_R_DN_PGA_CLKEN_OFFSET    7
+#define CODEC3_R_DN_AFIFO_CLKEN_LEN    1
+#define CODEC3_R_DN_AFIFO_CLKEN_OFFSET 6
+#define CODEC3_L_DN_AFIFO_CLKEN_LEN    1
+#define CODEC3_L_DN_AFIFO_CLKEN_OFFSET 5
+#define VOICE_R_DN_AFIFO_CLKEN_LEN     1
+#define VOICE_R_DN_AFIFO_CLKEN_OFFSET  4
+#define SW_RST_N_LEN                   1
+#define SW_RST_N_OFFSET                3
+#define RST_3MIC_VOICE_IRQ_LEN         1
+#define RST_3MIC_VOICE_IRQ_OFFSET      2
+#define RST_3MIC_AUDIO_IRQ_LEN         1
+#define RST_3MIC_AUDIO_IRQ_OFFSET      1
+#define SLV_MODE_441_LEN               1
+#define SLV_MODE_441_OFFSET            0
+#endif
+
+#define I2S1_CTRL_REG                (ASP_CODEC_BASE + 0xC)   /* I2S1_PCM接口控制寄存器 */
+#define I2S1_RX_CLK_SEL_LEN             1
+#define I2S1_RX_CLK_SEL_OFFSET          31
+#define I2S1_TX_CLK_SEL_LEN             1
+#define I2S1_TX_CLK_SEL_OFFSET          30
+#define I2S1_CODEC_IO_WORDLENGTH_LEN    2
+#define I2S1_CODEC_IO_WORDLENGTH_OFFSET 28
+#define I2S1_CODEC_DATA_FORMAT_LEN      1
+#define I2S1_CODEC_DATA_FORMAT_OFFSET   27
+#define I2S1_CHNNL_MODE_LEN             1
+#define I2S1_CHNNL_MODE_OFFSET          26
+#define I2S1_LRCLK_MODE_LEN             1
+#define I2S1_LRCLK_MODE_OFFSET          25
+#define I2S1_FRAME_MODE_LEN             1
+#define I2S1_FRAME_MODE_OFFSET          24
+#define I2S1_FUNC_MODE_LEN              3
+#define I2S1_FUNC_MODE_OFFSET           21
+#define I2S1_DIRECT_LOOP_LEN            2
+#define I2S1_DIRECT_LOOP_OFFSET         19
+#define I2S1_MST_SLV_LEN                1
+#define I2S1_MST_SLV_OFFSET             18
+#define I2S1_IF_RX_ENA_LEN              1
+#define I2S1_IF_RX_ENA_OFFSET           17
+#define I2S1_IF_TX_ENA_LEN              1
+#define I2S1_IF_TX_ENA_OFFSET           16
+#define FS_I2S1_LEN                     3
+#define FS_I2S1_OFFSET                  13
+
+#define I2S1_TDM_CTRL0_REG           (ASP_CODEC_BASE + 0x10)  /* I2S1_TDM接口控制寄存器0 */
+#define S1_TDM_RX_SLOT_SEL_I1_LEN    3
+#define S1_TDM_RX_SLOT_SEL_I1_OFFSET 27
+#define S1_TDM_RX_SLOT_SEL_V1_LEN    3
+#define S1_TDM_RX_SLOT_SEL_V1_OFFSET 24
+#define S1_TDM_RX_CLK_SEL_LEN        1
+#define S1_TDM_RX_CLK_SEL_OFFSET     23
+#define S1_TDM_TX_CLK_SEL_LEN        1
+#define S1_TDM_TX_CLK_SEL_OFFSET     22
+#define S1_TDM_RX_SLOT_SEL_I0_LEN    3
+#define S1_TDM_RX_SLOT_SEL_I0_OFFSET 19
+#define S1_TDM_RX_SLOT_SEL_V0_LEN    3
+#define S1_TDM_RX_SLOT_SEL_V0_OFFSET 16
+#define S1_TDM_TX_CH0_SEL_LEN        2
+#define S1_TDM_TX_CH0_SEL_OFFSET     14
+#define S1_TDM_TX_CH1_SEL_LEN        2
+#define S1_TDM_TX_CH1_SEL_OFFSET     12
+#define S1_TDM_TX_CH2_SEL_LEN        2
+#define S1_TDM_TX_CH2_SEL_OFFSET     10
+#define S1_TDM_TX_CH3_SEL_LEN        2
+#define S1_TDM_TX_CH3_SEL_OFFSET     8
+#define S1_TDM_IF_EN_LEN             1
+#define S1_TDM_IF_EN_OFFSET          7
+#define S1_TDM_DIRECT_LOOP_LEN       2
+#define S1_TDM_DIRECT_LOOP_OFFSET    5
+#define S1_TDM_FRAME_MODE_LEN        3
+#define S1_TDM_FRAME_MODE_OFFSET     2
+#define S1_MEM_ICG_BP_EN_LEN         1
+#define S1_MEM_ICG_BP_EN_OFFSET      1
+#define S1_FIFO_CLR_LEN              1
+#define S1_FIFO_CLR_OFFSET           0
+
+#define I2S1_TDM_CTRL1_REG           (ASP_CODEC_BASE + 0x14)  /* I2S1_TDM接口控制寄存器1 */
+#define S1_TDM_ERR_STAT_LEN          2
+#define S1_TDM_ERR_STAT_OFFSET       18
+#define S1_I2S_TDM_MODE_LEN          1
+#define S1_I2S_TDM_MODE_OFFSET       17
+#define S1_TDM_MST_SLV_LEN           1
+#define S1_TDM_MST_SLV_OFFSET        16
+#define S1_TDM_RX_SLOT_SEL_I3_LEN    3
+#define S1_TDM_RX_SLOT_SEL_I3_OFFSET 11
+#define S1_TDM_RX_SLOT_SEL_V3_LEN    3
+#define S1_TDM_RX_SLOT_SEL_V3_OFFSET 8
+#define S1_TDM_RX_SLOT_SEL_I2_LEN    3
+#define S1_TDM_RX_SLOT_SEL_I2_OFFSET 3
+#define S1_TDM_RX_SLOT_SEL_V2_LEN    3
+#define S1_TDM_RX_SLOT_SEL_V2_OFFSET 0
+
+#define I2S2_PCM_CTRL_REG            (ASP_CODEC_BASE + 0x18)  /* I2S1_PCM接口控制寄存器 */
+#define I2S2_RX_CLK_SEL_LEN             1
+#define I2S2_RX_CLK_SEL_OFFSET          31
+#define I2S2_TX_CLK_SEL_LEN             1
+#define I2S2_TX_CLK_SEL_OFFSET          30
+#define I2S2_CODEC_IO_WORDLENGTH_LEN    2
+#define I2S2_CODEC_IO_WORDLENGTH_OFFSET 28
+#define I2S2_CODEC_DATA_FORMAT_LEN      1
+#define I2S2_CODEC_DATA_FORMAT_OFFSET   27
+#define I2S2_CHNNL_MODE_LEN             1
+#define I2S2_CHNNL_MODE_OFFSET          26
+#define I2S2_LRCLK_MODE_LEN             1
+#define I2S2_LRCLK_MODE_OFFSET          25
+#define I2S2_FRAME_MODE_LEN             1
+#define I2S2_FRAME_MODE_OFFSET          24
+#define I2S2_FUNC_MODE_LEN              3
+#define I2S2_FUNC_MODE_OFFSET           21
+#define I2S2_DIRECT_LOOP_LEN            2
+#define I2S2_DIRECT_LOOP_OFFSET         19
+#define I2S2_MST_SLV_LEN                1
+#define I2S2_MST_SLV_OFFSET             18
+#define I2S2_IF_RX_ENA_LEN              1
+#define I2S2_IF_RX_ENA_OFFSET           17
+#define I2S2_IF_TX_ENA_LEN              1
+#define I2S2_IF_TX_ENA_OFFSET           16
+#define FS_I2S2_LEN                     3
+#define FS_I2S2_OFFSET                  13
+
+#define PGA_THRE_CTRL0_REG           (ASP_CODEC_BASE + 0x1C)  /* PGA/MIXER阈值控制寄存器0 */
+#define PGA_MIXER_THRE_CTRL0_LEN    32
+#define PGA_MIXER_THRE_CTRL0_OFFSET 0
+
+#define PGA_THRE_CTRL1_REG           (ASP_CODEC_BASE + 0x20)  /* PGA/MIXER阈值控制寄存器1 */
+#define PGA_MIXER_THRE_CTRL1_LEN    32
+#define PGA_MIXER_THRE_CTRL1_OFFSET 0
+
+#define PGA_THRE_CTRL2_REG           (ASP_CODEC_BASE + 0x24)  /* PGA/MIXER阈值控制寄存器2 */
+#define PGA_MIXER_THRE_CTRL2_LEN    32
+#define PGA_MIXER_THRE_CTRL2_OFFSET 0
+
+#define PGA_GAINOFFSET_CTRL0_REG     (ASP_CODEC_BASE + 0x28)  /* PGA GAINOFFSET配置寄存器0 */
+#define VOICE_L_DN_PGA_GAINOFFSET_LEN    8
+#define VOICE_L_DN_PGA_GAINOFFSET_OFFSET 24
+#define AUDIO_L_DN_PGA_GAINOFFSET_LEN    8
+#define AUDIO_L_DN_PGA_GAINOFFSET_OFFSET 16
+#define AUDIO_R_DN_PGA_GAINOFFSET_LEN    8
+#define AUDIO_R_DN_PGA_GAINOFFSET_OFFSET 8
+#define SIDETONE_PGA_GAINOFFSET_LEN      8
+#define SIDETONE_PGA_GAINOFFSET_OFFSET   0
+
+#define PGA_GAINOFFSET_CTRL1_REG     (ASP_CODEC_BASE + 0x2C)  /* PGA GAINOFFSET配置寄存器1 */
+#define AUDIO_L_UP_PGA_GAINOFFSET_LEN    8
+#define AUDIO_L_UP_PGA_GAINOFFSET_OFFSET 24
+#define AUDIO_R_UP_PGA_GAINOFFSET_LEN    8
+#define AUDIO_R_UP_PGA_GAINOFFSET_OFFSET 16
+#define BT_L_RX_PGA_GAINOFFSET_LEN       8
+#define BT_L_RX_PGA_GAINOFFSET_OFFSET    8
+#define BT_R_RX_PGA_GAINOFFSET_LEN       8
+#define BT_R_RX_PGA_GAINOFFSET_OFFSET    0
+
+#define PGA_GAINOFFSET_CTRL2_REG     (ASP_CODEC_BASE + 0x30)  /* PGA GAINOFFSET配置寄存器2 */
+#define MIC3_UP_PGA_GAINOFFSET_LEN       8
+#define MIC3_UP_PGA_GAINOFFSET_OFFSET    24
+#define VOICE_R_DN_PGA_GAINOFFSET_LEN    8
+#define VOICE_R_DN_PGA_GAINOFFSET_OFFSET 16
+
+#define VOICE_L_DN_PGA_CTRL_REG      (ASP_CODEC_BASE + 0x34)  /* VOICE下行PGA控制寄存器 */
+#define VOICE_L_DN_PGA_GAIN_LEN          8
+#define VOICE_L_DN_PGA_GAIN_OFFSET       24
+#define VOICE_L_DN_PGA_CFG_LEN           3
+#define VOICE_L_DN_PGA_CFG_OFFSET        21
+#define VOICE_L_DN_PGA_FADE_IN_LEN       5
+#define VOICE_L_DN_PGA_FADE_IN_OFFSET    16
+#define VOICE_L_DN_PGA_FADE_OUT_LEN      5
+#define VOICE_L_DN_PGA_FADE_OUT_OFFSET   11
+#define VOICE_L_DN_PGA_BYPASS_LEN        1
+#define VOICE_L_DN_PGA_BYPASS_OFFSET     10
+#define VOICE_L_DN_PGA_NOISE_EN_LEN      1
+#define VOICE_L_DN_PGA_NOISE_EN_OFFSET   9
+#define VOICE_L_DN_PGA_THRE_ID_LEN       2
+#define VOICE_L_DN_PGA_THRE_ID_OFFSET    7
+#define VOICE_L_DN_PGA_ZERO_NUM_LEN      5
+#define VOICE_L_DN_PGA_ZERO_NUM_OFFSET   2
+#define VOICE_L_DN_PGA_LINEAR_SEL_LEN    1
+#define VOICE_L_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define AUDIO_L_DN_PGA_CTRL_REG      (ASP_CODEC_BASE + 0x38)  /* AUDIO下行通路左声道PGA控制寄存器 */
+#define AUDIO_L_DN_PGA_GAIN_LEN          8
+#define AUDIO_L_DN_PGA_GAIN_OFFSET       24
+#define AUDIO_L_DN_PGA_CFG_LEN           3
+#define AUDIO_L_DN_PGA_CFG_OFFSET        21
+#define AUDIO_L_DN_PGA_FADE_IN_LEN       5
+#define AUDIO_L_DN_PGA_FADE_IN_OFFSET    16
+#define AUDIO_L_DN_PGA_FADE_OUT_LEN      5
+#define AUDIO_L_DN_PGA_FADE_OUT_OFFSET   11
+#define AUDIO_L_DN_PGA_BYPASS_LEN        1
+#define AUDIO_L_DN_PGA_BYPASS_OFFSET     10
+#define AUDIO_L_DN_PGA_NOISE_EN_LEN      1
+#define AUDIO_L_DN_PGA_NOISE_EN_OFFSET   9
+#define AUDIO_L_DN_PGA_THRE_ID_LEN       2
+#define AUDIO_L_DN_PGA_THRE_ID_OFFSET    7
+#define AUDIO_L_DN_PGA_ZERO_NUM_LEN      5
+#define AUDIO_L_DN_PGA_ZERO_NUM_OFFSET   2
+#define AUDIO_L_DN_PGA_LINEAR_SEL_LEN    1
+#define AUDIO_L_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define AUDIO_R_DN_PGA_CTRL_REG      (ASP_CODEC_BASE + 0x3C)  /* AUDIO下行通路右声道PGA控制寄存器 */
+#define AUDIO_R_DN_PGA_GAIN_LEN          8
+#define AUDIO_R_DN_PGA_GAIN_OFFSET       24
+#define AUDIO_R_DN_PGA_CFG_LEN           3
+#define AUDIO_R_DN_PGA_CFG_OFFSET        21
+#define AUDIO_R_DN_PGA_FADE_IN_LEN       5
+#define AUDIO_R_DN_PGA_FADE_IN_OFFSET    16
+#define AUDIO_R_DN_PGA_FADE_OUT_LEN      5
+#define AUDIO_R_DN_PGA_FADE_OUT_OFFSET   11
+#define AUDIO_R_DN_PGA_BYPASS_LEN        1
+#define AUDIO_R_DN_PGA_BYPASS_OFFSET     10
+#define AUDIO_R_DN_PGA_NOISE_EN_LEN      1
+#define AUDIO_R_DN_PGA_NOISE_EN_OFFSET   9
+#define AUDIO_R_DN_PGA_THRE_ID_LEN       2
+#define AUDIO_R_DN_PGA_THRE_ID_OFFSET    7
+#define AUDIO_R_DN_PGA_ZERO_NUM_LEN      5
+#define AUDIO_R_DN_PGA_ZERO_NUM_OFFSET   2
+#define AUDIO_R_DN_PGA_LINEAR_SEL_LEN    1
+#define AUDIO_R_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define SIDETONE_PGA_CTRL_REG        (ASP_CODEC_BASE + 0x40)  /* SIDETONE通路PGA控制寄存器 */
+#define SIDETONE_PGA_GAIN_LEN          8
+#define SIDETONE_PGA_GAIN_OFFSET       24
+#define SIDETONE_PGA_CFG_LEN           3
+#define SIDETONE_PGA_CFG_OFFSET        21
+#define SIDETONE_PGA_FADE_IN_LEN       5
+#define SIDETONE_PGA_FADE_IN_OFFSET    16
+#define SIDETONE_PGA_FADE_OUT_LEN      5
+#define SIDETONE_PGA_FADE_OUT_OFFSET   11
+#define SIDETONE_PGA_BYPASS_LEN        1
+#define SIDETONE_PGA_BYPASS_OFFSET     10
+#define SIDETONE_PGA_NOISE_EN_LEN      1
+#define SIDETONE_PGA_NOISE_EN_OFFSET   9
+#define SIDETONE_PGA_THRE_ID_LEN       2
+#define SIDETONE_PGA_THRE_ID_OFFSET    7
+#define SIDETONE_PGA_ZERO_NUM_LEN      5
+#define SIDETONE_PGA_ZERO_NUM_OFFSET   2
+#define SIDETONE_PGA_LINEAR_SEL_LEN    1
+#define SIDETONE_PGA_LINEAR_SEL_OFFSET 1
+
+#define AUDIO_L_UP_PGA_CTRL_REG      (ASP_CODEC_BASE + 0x44)  /* AUDIO上行通路左声道PGA控制寄存器 */
+#define AUDIO_L_UP_PGA_GAIN_LEN          8
+#define AUDIO_L_UP_PGA_GAIN_OFFSET       24
+#define AUDIO_L_UP_PGA_CFG_LEN           3
+#define AUDIO_L_UP_PGA_CFG_OFFSET        21
+#define AUDIO_L_UP_PGA_FADE_IN_LEN       5
+#define AUDIO_L_UP_PGA_FADE_IN_OFFSET    16
+#define AUDIO_L_UP_PGA_FADE_OUT_LEN      5
+#define AUDIO_L_UP_PGA_FADE_OUT_OFFSET   11
+#define AUDIO_L_UP_PGA_BYPASS_LEN        1
+#define AUDIO_L_UP_PGA_BYPASS_OFFSET     10
+#define AUDIO_L_UP_PGA_NOISE_EN_LEN      1
+#define AUDIO_L_UP_PGA_NOISE_EN_OFFSET   9
+#define AUDIO_L_UP_PGA_THRE_ID_LEN       2
+#define AUDIO_L_UP_PGA_THRE_ID_OFFSET    7
+#define AUDIO_L_UP_PGA_ZERO_NUM_LEN      5
+#define AUDIO_L_UP_PGA_ZERO_NUM_OFFSET   2
+#define AUDIO_L_UP_PGA_LINEAR_SEL_LEN    1
+#define AUDIO_L_UP_PGA_LINEAR_SEL_OFFSET 1
+
+#define AUDIO_R_UP_PGA_CTRL_REG      (ASP_CODEC_BASE + 0x48)  /* AUDIO上行通路右声道PGA控制寄存器 */
+#define AUDIO_R_UP_PGA_GAIN_LEN          8
+#define AUDIO_R_UP_PGA_GAIN_OFFSET       24
+#define AUDIO_R_UP_PGA_CFG_LEN           3
+#define AUDIO_R_UP_PGA_CFG_OFFSET        21
+#define AUDIO_R_UP_PGA_FADE_IN_LEN       5
+#define AUDIO_R_UP_PGA_FADE_IN_OFFSET    16
+#define AUDIO_R_UP_PGA_FADE_OUT_LEN      5
+#define AUDIO_R_UP_PGA_FADE_OUT_OFFSET   11
+#define AUDIO_R_UP_PGA_BYPASS_LEN        1
+#define AUDIO_R_UP_PGA_BYPASS_OFFSET     10
+#define AUDIO_R_UP_PGA_NOISE_EN_LEN      1
+#define AUDIO_R_UP_PGA_NOISE_EN_OFFSET   9
+#define AUDIO_R_UP_PGA_THRE_ID_LEN       2
+#define AUDIO_R_UP_PGA_THRE_ID_OFFSET    7
+#define AUDIO_R_UP_PGA_ZERO_NUM_LEN      5
+#define AUDIO_R_UP_PGA_ZERO_NUM_OFFSET   2
+#define AUDIO_R_UP_PGA_LINEAR_SEL_LEN    1
+#define AUDIO_R_UP_PGA_LINEAR_SEL_OFFSET 1
+
+#define BT_L_RX_PGA_CTRL_REG         (ASP_CODEC_BASE + 0x4C)  /* BT通路RX方向左声道PGA控制寄存器 */
+#define BT_L_RX_PGA_GAIN_LEN          8
+#define BT_L_RX_PGA_GAIN_OFFSET       24
+#define BT_L_RX_PGA_CFG_LEN           3
+#define BT_L_RX_PGA_CFG_OFFSET        21
+#define BT_L_RX_PGA_FADE_IN_LEN       5
+#define BT_L_RX_PGA_FADE_IN_OFFSET    16
+#define BT_L_RX_PGA_FADE_OUT_LEN      5
+#define BT_L_RX_PGA_FADE_OUT_OFFSET   11
+#define BT_L_RX_PGA_BYPASS_LEN        1
+#define BT_L_RX_PGA_BYPASS_OFFSET     10
+#define BT_L_RX_PGA_NOISE_EN_LEN      1
+#define BT_L_RX_PGA_NOISE_EN_OFFSET   9
+#define BT_L_RX_PGA_THRE_ID_LEN       2
+#define BT_L_RX_PGA_THRE_ID_OFFSET    7
+#define BT_L_RX_PGA_ZERO_NUM_LEN      5
+#define BT_L_RX_PGA_ZERO_NUM_OFFSET   2
+#define BT_L_RX_PGA_LINEAR_SEL_LEN    1
+#define BT_L_RX_PGA_LINEAR_SEL_OFFSET 1
+
+#define BT_R_RX_PGA_CTRL_REG         (ASP_CODEC_BASE + 0x50)  /* BT通路RX方向右声道PGA控制寄存器 */
+#define BT_R_RX_PGA_GAIN_LEN          8
+#define BT_R_RX_PGA_GAIN_OFFSET       24
+#define BT_R_RX_PGA_CFG_LEN           3
+#define BT_R_RX_PGA_CFG_OFFSET        21
+#define BT_R_RX_PGA_FADE_IN_LEN       5
+#define BT_R_RX_PGA_FADE_IN_OFFSET    16
+#define BT_R_RX_PGA_FADE_OUT_LEN      5
+#define BT_R_RX_PGA_FADE_OUT_OFFSET   11
+#define BT_R_RX_PGA_BYPASS_LEN        1
+#define BT_R_RX_PGA_BYPASS_OFFSET     10
+#define BT_R_RX_PGA_NOISE_EN_LEN      1
+#define BT_R_RX_PGA_NOISE_EN_OFFSET   9
+#define BT_R_RX_PGA_THRE_ID_LEN       2
+#define BT_R_RX_PGA_THRE_ID_OFFSET    7
+#define BT_R_RX_PGA_ZERO_NUM_LEN      5
+#define BT_R_RX_PGA_ZERO_NUM_OFFSET   2
+#define BT_R_RX_PGA_LINEAR_SEL_LEN    1
+#define BT_R_RX_PGA_LINEAR_SEL_OFFSET 1
+
+#define MIC3_UP_PGA_CTRL_REG         (ASP_CODEC_BASE + 0x54)  /* MIC3上行通路PGA控制寄存器 */
+#define MIC3_UP_PGA_GAIN_LEN          8
+#define MIC3_UP_PGA_GAIN_OFFSET       24
+#define MIC3_UP_PGA_CFG_LEN           3
+#define MIC3_UP_PGA_CFG_OFFSET        21
+#define MIC3_UP_PGA_FADE_IN_LEN       5
+#define MIC3_UP_PGA_FADE_IN_OFFSET    16
+#define MIC3_UP_PGA_FADE_OUT_LEN      5
+#define MIC3_UP_PGA_FADE_OUT_OFFSET   11
+#define MIC3_UP_PGA_BYPASS_LEN        1
+#define MIC3_UP_PGA_BYPASS_OFFSET     10
+#define MIC3_UP_PGA_NOISE_EN_LEN      1
+#define MIC3_UP_PGA_NOISE_EN_OFFSET   9
+#define MIC3_UP_PGA_THRE_ID_LEN       2
+#define MIC3_UP_PGA_THRE_ID_OFFSET    7
+#define MIC3_UP_PGA_ZERO_NUM_LEN      5
+#define MIC3_UP_PGA_ZERO_NUM_OFFSET   2
+#define MIC3_UP_PGA_LINEAR_SEL_LEN    1
+#define MIC3_UP_PGA_LINEAR_SEL_OFFSET 1
+
+#define SRCUP_CTRL_REG               (ASP_CODEC_BASE + 0x58)  /* SRCUP控制寄存器 */
+#define VOICE_L_DN_SRCUP_FIFO_CLR_LEN    1
+#define VOICE_L_DN_SRCUP_FIFO_CLR_OFFSET 31
+#define VOICE_L_DN_SRCUP_SRC_MODE_LEN    3
+#define VOICE_L_DN_SRCUP_SRC_MODE_OFFSET 28
+#define DACL_SRCUP_FIFO_CLR_LEN          1
+#define DACL_SRCUP_FIFO_CLR_OFFSET       27
+#define DACL_SRCUP_SRC_MODE_LEN          3
+#define DACL_SRCUP_SRC_MODE_OFFSET       24
+#define DACR_SRCUP_FIFO_CLR_LEN          1
+#define DACR_SRCUP_FIFO_CLR_OFFSET       23
+#define DACR_SRCUP_SRC_MODE_LEN          3
+#define DACR_SRCUP_SRC_MODE_OFFSET       20
+#define AUDIO_L_UP_SRCUP_FIFO_CLR_LEN    1
+#define AUDIO_L_UP_SRCUP_FIFO_CLR_OFFSET 19
+#define AUDIO_L_UP_SRCUP_SRC_MODE_LEN    3
+#define AUDIO_L_UP_SRCUP_SRC_MODE_OFFSET 16
+#define AUDIO_R_UP_SRCUP_FIFO_CLR_LEN    1
+#define AUDIO_R_UP_SRCUP_FIFO_CLR_OFFSET 15
+#define AUDIO_R_UP_SRCUP_SRC_MODE_LEN    3
+#define AUDIO_R_UP_SRCUP_SRC_MODE_OFFSET 12
+#define BT_L_RX_SRCUP_FIFO_CLR_LEN       1
+#define BT_L_RX_SRCUP_FIFO_CLR_OFFSET    11
+#define BT_L_RX_SRCUP_SRC_MODE_LEN       3
+#define BT_L_RX_SRCUP_SRC_MODE_OFFSET    8
+#define BT_R_RX_SRCUP_FIFO_CLR_LEN       1
+#define BT_R_RX_SRCUP_FIFO_CLR_OFFSET    7
+#define BT_R_RX_SRCUP_SRC_MODE_LEN       3
+#define BT_R_RX_SRCUP_SRC_MODE_OFFSET    4
+#define VOICE_R_DN_SRCUP_FIFO_CLR_LEN    1
+#define VOICE_R_DN_SRCUP_FIFO_CLR_OFFSET 3
+#define VOICE_R_DN_SRCUP_SRC_MODE_LEN    3
+#define VOICE_R_DN_SRCUP_SRC_MODE_OFFSET 0
+
+#define SRCDN_CTRL_REG               (ASP_CODEC_BASE + 0x5C)  /* SRCDN控制寄存器 */
+#define VOICE_L_UP_SRCDN_FIFO_CLR_LEN    1
+#define VOICE_L_UP_SRCDN_FIFO_CLR_OFFSET 31
+#define VOICE_L_UP_SRCDN_SRC_MODE_LEN    3
+#define VOICE_L_UP_SRCDN_SRC_MODE_OFFSET 28
+#define VOICE_R_UP_SRCDN_FIFO_CLR_LEN    1
+#define VOICE_R_UP_SRCDN_FIFO_CLR_OFFSET 27
+#define VOICE_R_UP_SRCDN_SRC_MODE_LEN    3
+#define VOICE_R_UP_SRCDN_SRC_MODE_OFFSET 24
+#define MIC3_UP_SRCDN_FIFO_CLR_LEN       1
+#define MIC3_UP_SRCDN_FIFO_CLR_OFFSET    23
+#define MIC3_UP_SRCDN_SRC_MODE_LEN       3
+#define MIC3_UP_SRCDN_SRC_MODE_OFFSET    20
+#define BT_L_RX_SRCDN_FIFO_CLR_LEN       1
+#define BT_L_RX_SRCDN_FIFO_CLR_OFFSET    19
+#define BT_L_RX_SRCDN_SRC_MODE_LEN       3
+#define BT_L_RX_SRCDN_SRC_MODE_OFFSET    16
+#define BT_R_RX_SRCDN_FIFO_CLR_LEN       1
+#define BT_R_RX_SRCDN_FIFO_CLR_OFFSET    15
+#define BT_R_RX_SRCDN_SRC_MODE_LEN       3
+#define BT_R_RX_SRCDN_SRC_MODE_OFFSET    12
+#define BT_L_TX_SRCDN_FIFO_CLR_LEN       1
+#define BT_L_TX_SRCDN_FIFO_CLR_OFFSET    11
+#define BT_L_TX_SRCDN_SRC_MODE_LEN       3
+#define BT_L_TX_SRCDN_SRC_MODE_OFFSET    8
+#define ECHO_L_UP_SRCDN_FIFO_CLR_LEN     1
+#define ECHO_L_UP_SRCDN_FIFO_CLR_OFFSET  7
+#define ECHO_L_UP_SRCDN_SRC_MODE_LEN     3
+#define ECHO_L_UP_SRCDN_SRC_MODE_OFFSET  4
+#define ECHO_R_UP_SRCDN_FIFO_CLR_LEN     1
+#define ECHO_R_UP_SRCDN_FIFO_CLR_OFFSET  3
+#define ECHO_R_UP_SRCDN_SRC_MODE_LEN     3
+#define ECHO_R_UP_SRCDN_SRC_MODE_OFFSET  0
+
+#define DACL_MIXER4_CTRL0_REG        (ASP_CODEC_BASE + 0x60)  /* DACL_MIXER4控制寄存器0 */
+#define DACL_MIXER4_IN4_ID_LEN      2
+#define DACL_MIXER4_IN4_ID_OFFSET   30
+#define DACL_MIXER4_IN3_ID_LEN      2
+#define DACL_MIXER4_IN3_ID_OFFSET   28
+#define DACL_MIXER4_IN2_ID_LEN      2
+#define DACL_MIXER4_IN2_ID_OFFSET   26
+#define DACL_MIXER4_IN1_ID_LEN      2
+#define DACL_MIXER4_IN1_ID_OFFSET   24
+#define DACL_MIXER4_IN4_MUTE_LEN    1
+#define DACL_MIXER4_IN4_MUTE_OFFSET 23
+#define DACL_MIXER4_IN3_MUTE_LEN    1
+#define DACL_MIXER4_IN3_MUTE_OFFSET 22
+#define DACL_MIXER4_IN2_MUTE_LEN    1
+#define DACL_MIXER4_IN2_MUTE_OFFSET 21
+#define DACL_MIXER4_IN1_MUTE_LEN    1
+#define DACL_MIXER4_IN1_MUTE_OFFSET 20
+#define DACL_MIXER4_GAIN4_LEN       2
+#define DACL_MIXER4_GAIN4_OFFSET    18
+#define DACL_MIXER4_GAIN3_LEN       2
+#define DACL_MIXER4_GAIN3_OFFSET    16
+#define DACL_MIXER4_GAIN2_LEN       2
+#define DACL_MIXER4_GAIN2_OFFSET    14
+#define DACL_MIXER4_GAIN1_LEN       2
+#define DACL_MIXER4_GAIN1_OFFSET    12
+
+#define DACL_MIXER4_CTRL1_REG        (ASP_CODEC_BASE + 0x64)  /* DACL_MIXER4控制寄存器1 */
+#define DACL_MIXER4_FADE_EN_LEN     1
+#define DACL_MIXER4_FADE_EN_OFFSET  31
+#define DACL_MIXER4_FADE_IN_LEN     5
+#define DACL_MIXER4_FADE_IN_OFFSET  26
+#define DACL_MIXER4_FADE_OUT_LEN    5
+#define DACL_MIXER4_FADE_OUT_OFFSET 21
+#define DACL_MIXER4_ZERO_NUM_LEN    5
+#define DACL_MIXER4_ZERO_NUM_OFFSET 16
+
+#define DACR_MIXER4_CTRL0_REG        (ASP_CODEC_BASE + 0x68)  /* DACR_MIXER4控制寄存器0 */
+#define DACR_MIXER4_IN4_ID_LEN      2
+#define DACR_MIXER4_IN4_ID_OFFSET   30
+#define DACR_MIXER4_IN3_ID_LEN      2
+#define DACR_MIXER4_IN3_ID_OFFSET   28
+#define DACR_MIXER4_IN2_ID_LEN      2
+#define DACR_MIXER4_IN2_ID_OFFSET   26
+#define DACR_MIXER4_IN1_ID_LEN      2
+#define DACR_MIXER4_IN1_ID_OFFSET   24
+#define DACR_MIXER4_IN4_MUTE_LEN    1
+#define DACR_MIXER4_IN4_MUTE_OFFSET 23
+#define DACR_MIXER4_IN3_MUTE_LEN    1
+#define DACR_MIXER4_IN3_MUTE_OFFSET 22
+#define DACR_MIXER4_IN2_MUTE_LEN    1
+#define DACR_MIXER4_IN2_MUTE_OFFSET 21
+#define DACR_MIXER4_IN1_MUTE_LEN    1
+#define DACR_MIXER4_IN1_MUTE_OFFSET 20
+#define DACR_MIXER4_GAIN4_LEN       2
+#define DACR_MIXER4_GAIN4_OFFSET    18
+#define DACR_MIXER4_GAIN3_LEN       2
+#define DACR_MIXER4_GAIN3_OFFSET    16
+#define DACR_MIXER4_GAIN2_LEN       2
+#define DACR_MIXER4_GAIN2_OFFSET    14
+#define DACR_MIXER4_GAIN1_LEN       2
+#define DACR_MIXER4_GAIN1_OFFSET    12
+
+#define DACR_MIXER4_CTRL1_REG        (ASP_CODEC_BASE + 0x6C)  /* DACR_MIXER4控制寄存器1 */
+#define DACR_MIXER4_FADE_EN_LEN     1
+#define DACR_MIXER4_FADE_EN_OFFSET  31
+#define DACR_MIXER4_FADE_IN_LEN     5
+#define DACR_MIXER4_FADE_IN_OFFSET  26
+#define DACR_MIXER4_FADE_OUT_LEN    5
+#define DACR_MIXER4_FADE_OUT_OFFSET 21
+#define DACR_MIXER4_ZERO_NUM_LEN    5
+#define DACR_MIXER4_ZERO_NUM_OFFSET 16
+
+#define BT_TX_MIXER2_CTRL_REG        (ASP_CODEC_BASE + 0x70)  /* BT_TX_MIXER2控制寄存器 */
+#define BT_TX_MIXER2_IN2_ID_LEN      2
+#define BT_TX_MIXER2_IN2_ID_OFFSET   30
+#define BT_TX_MIXER2_IN1_ID_LEN      2
+#define BT_TX_MIXER2_IN1_ID_OFFSET   28
+#define BT_TX_MIXER2_IN2_MUTE_LEN    1
+#define BT_TX_MIXER2_IN2_MUTE_OFFSET 27
+#define BT_TX_MIXER2_IN1_MUTE_LEN    1
+#define BT_TX_MIXER2_IN1_MUTE_OFFSET 26
+#define BT_TX_MIXER2_GAIN2_LEN       2
+#define BT_TX_MIXER2_GAIN2_OFFSET    24
+#define BT_TX_MIXER2_GAIN1_LEN       2
+#define BT_TX_MIXER2_GAIN1_OFFSET    22
+#define BT_TX_MIXER2_FADE_EN_LEN     1
+#define BT_TX_MIXER2_FADE_EN_OFFSET  21
+#define BT_TX_MIXER2_FADE_IN_LEN     5
+#define BT_TX_MIXER2_FADE_IN_OFFSET  16
+#define BT_TX_MIXER2_FADE_OUT_LEN    5
+#define BT_TX_MIXER2_FADE_OUT_OFFSET 11
+#define BT_TX_MIXER2_ZERO_NUM_LEN    5
+#define BT_TX_MIXER2_ZERO_NUM_OFFSET 6
+
+#define DAC_FILTER_CTRL_REG          (ASP_CODEC_BASE + 0x74)  /* DAC_FILTER控制寄存器 */
+#define DACL_FIR2C_BYPASS_EN_LEN    1
+#define DACL_FIR2C_BYPASS_EN_OFFSET 31
+#define DACL_FIR2D_BYPASS_EN_LEN    1
+#define DACL_FIR2D_BYPASS_EN_OFFSET 30
+#define DACR_FIR2C_BYPASS_EN_LEN    1
+#define DACR_FIR2C_BYPASS_EN_OFFSET 29
+#define DACR_FIR2D_BYPASS_EN_LEN    1
+#define DACR_FIR2D_BYPASS_EN_OFFSET 28
+#define SDM_L_DITHER_LEN            1
+#define SDM_L_DITHER_OFFSET         19
+#define SDM_L_CALT_VLD_LEN          1
+#define SDM_L_CALT_VLD_OFFSET       18
+#define SDM_R_DITHER_LEN            1
+#define SDM_R_DITHER_OFFSET         17
+#define SDM_R_CALT_VLD_LEN          1
+#define SDM_R_CALT_VLD_OFFSET       16
+#define SIF_MST_S2P_LOOPBACK_LEN    2
+#define SIF_MST_S2P_LOOPBACK_OFFSET 14
+#define SIF_MST_P2S_LOOPBACK_LEN    2
+#define SIF_MST_P2S_LOOPBACK_OFFSET 12
+#define SIF_MST_DACR_EN_LEN         1
+#define SIF_MST_DACR_EN_OFFSET      11
+#define SIF_MST_DACL_EN_LEN         1
+#define SIF_MST_DACL_EN_OFFSET      10
+#define SIF_MST_ADCR_EN_LEN         1
+#define SIF_MST_ADCR_EN_OFFSET      9
+#define SIF_MST_ADCL_EN_LEN         1
+#define SIF_MST_ADCL_EN_OFFSET      8
+#define SIF_MST_ADC_MIC3_EN_LEN     1
+#define SIF_MST_ADC_MIC3_EN_OFFSET  7
+#define SIF_MST_DAC_EDGE_SEL_LEN    1
+#define SIF_MST_DAC_EDGE_SEL_OFFSET 6
+#define SIF_MST_ADC_EDGE_SEL_LEN    1
+#define SIF_MST_ADC_EDGE_SEL_OFFSET 5
+#define SIF_MST_DAC_ULTR_EN_LEN     1
+#define SIF_MST_DAC_ULTR_EN_OFFSET  4
+#define SIF_SPA_DAC_EN_LEN          1
+#define SIF_SPA_DAC_EN_OFFSET       3
+#define SIF_SPA_ADC_EN_LEN          1
+#define SIF_SPA_ADC_EN_OFFSET       2
+
+#define ADC_FILTER_CTRL_REG          (ASP_CODEC_BASE + 0x78)  /* ADC_FILTER控制寄存器 */
+#define ADCL_CIC_GAIN_LEN               6
+#define ADCL_CIC_GAIN_OFFSET            26
+#define ADCL_COMPD_BYPASS_EN_LEN        1
+#define ADCL_COMPD_BYPASS_EN_OFFSET     25
+#define ADCL_HBF2D_BYPASS_EN_LEN        1
+#define ADCL_HBF2D_BYPASS_EN_OFFSET     24
+#define ADCL_HBFVD_BYPASS_EN_LEN        1
+#define ADCL_HBFVD_BYPASS_EN_OFFSET     23
+#define ADCL_HPF_BYPASS_EN_LEN          1
+#define ADCL_HPF_BYPASS_EN_OFFSET       22
+#define ADCR_CIC_GAIN_LEN               6
+#define ADCR_CIC_GAIN_OFFSET            16
+#define ADCR_COMPD_BYPASS_EN_LEN        1
+#define ADCR_COMPD_BYPASS_EN_OFFSET     15
+#define ADCR_HBF2D_BYPASS_EN_LEN        1
+#define ADCR_HBF2D_BYPASS_EN_OFFSET     14
+#define ADCR_HBFVD_BYPASS_EN_LEN        1
+#define ADCR_HBFVD_BYPASS_EN_OFFSET     13
+#define ADCR_HPF_BYPASS_EN_LEN          1
+#define ADCR_HPF_BYPASS_EN_OFFSET       12
+#define ADC_MIC3_CIC_GAIN_LEN           6
+#define ADC_MIC3_CIC_GAIN_OFFSET        6
+#define ADC_MIC3_COMPD_BYPASS_EN_LEN    1
+#define ADC_MIC3_COMPD_BYPASS_EN_OFFSET 5
+#define ADC_MIC3_HBF2D_BYPASS_EN_LEN    1
+#define ADC_MIC3_HBF2D_BYPASS_EN_OFFSET 4
+#define ADC_MIC3_HBFVD_BYPASS_EN_LEN    1
+#define ADC_MIC3_HBFVD_BYPASS_EN_OFFSET 3
+#define ADC_MIC3_HPF_BYPASS_EN_LEN      1
+#define ADC_MIC3_HPF_BYPASS_EN_OFFSET   2
+
+#define AUDIO_DN_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x80)  /* AUDIO下行通路AFIFO控制寄存器 */
+#define AUDIO_L_DN_FIFO_CLR_LEN          1
+#define AUDIO_L_DN_FIFO_CLR_OFFSET       31
+#define AUDIO_L_DN_FIFO_AFULL_TH_LEN     5
+#define AUDIO_L_DN_FIFO_AFULL_TH_OFFSET  26
+#define AUDIO_L_DN_FIFO_AEMPTY_TH_LEN    5
+#define AUDIO_L_DN_FIFO_AEMPTY_TH_OFFSET 21
+#define AUDIO_R_DN_FIFO_CLR_LEN          1
+#define AUDIO_R_DN_FIFO_CLR_OFFSET       15
+#define AUDIO_R_DN_FIFO_AFULL_TH_LEN     5
+#define AUDIO_R_DN_FIFO_AFULL_TH_OFFSET  10
+#define AUDIO_R_DN_FIFO_AEMPTY_TH_LEN    5
+#define AUDIO_R_DN_FIFO_AEMPTY_TH_OFFSET 5
+
+#define AUDIO_UP_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x84)  /* AUDIO上行通路AFIFO控制寄存器 */
+#define AUDIO_L_UP_FIFO_CLR_LEN          1
+#define AUDIO_L_UP_FIFO_CLR_OFFSET       31
+#define AUDIO_L_UP_FIFO_AFULL_TH_LEN     5
+#define AUDIO_L_UP_FIFO_AFULL_TH_OFFSET  26
+#define AUDIO_L_UP_FIFO_AEMPTY_TH_LEN    5
+#define AUDIO_L_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define AUDIO_R_UP_FIFO_CLR_LEN          1
+#define AUDIO_R_UP_FIFO_CLR_OFFSET       15
+#define AUDIO_R_UP_FIFO_AFULL_TH_LEN     5
+#define AUDIO_R_UP_FIFO_AFULL_TH_OFFSET  10
+#define AUDIO_R_UP_FIFO_AEMPTY_TH_LEN    5
+#define AUDIO_R_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define VOICE_UP_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x88)  /* VOICE上行通路AFIFO控制寄存器 */
+#define VOICE_L_UP_FIFO_CLR_LEN          1
+#define VOICE_L_UP_FIFO_CLR_OFFSET       31
+#define VOICE_L_UP_FIFO_AFULL_TH_LEN     5
+#define VOICE_L_UP_FIFO_AFULL_TH_OFFSET  26
+#define VOICE_L_UP_FIFO_AEMPTY_TH_LEN    5
+#define VOICE_L_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define VOICE_R_UP_FIFO_CLR_LEN          1
+#define VOICE_R_UP_FIFO_CLR_OFFSET       15
+#define VOICE_R_UP_FIFO_AFULL_TH_LEN     5
+#define VOICE_R_UP_FIFO_AFULL_TH_OFFSET  10
+#define VOICE_R_UP_FIFO_AEMPTY_TH_LEN    5
+#define VOICE_R_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define ECHO_UP_AFIFO_CTRL_REG       (ASP_CODEC_BASE + 0x8C)  /* ECHO上行通路AFIFO控制寄存器 */
+#define ECHO_L_UP_FIFO_CLR_LEN          1
+#define ECHO_L_UP_FIFO_CLR_OFFSET       31
+#define ECHO_L_UP_FIFO_AFULL_TH_LEN     5
+#define ECHO_L_UP_FIFO_AFULL_TH_OFFSET  26
+#define ECHO_L_UP_FIFO_AEMPTY_TH_LEN    5
+#define ECHO_L_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define ECHO_R_UP_FIFO_CLR_LEN          1
+#define ECHO_R_UP_FIFO_CLR_OFFSET       15
+#define ECHO_R_UP_FIFO_AFULL_TH_LEN     5
+#define ECHO_R_UP_FIFO_AFULL_TH_OFFSET  10
+#define ECHO_R_UP_FIFO_AEMPTY_TH_LEN    5
+#define ECHO_R_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define VOICE_DN_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x90)  /* VOICE下行通路AFIFO控制寄存器 */
+#define VOICE_L_DN_FIFO_CLR_LEN          1
+#define VOICE_L_DN_FIFO_CLR_OFFSET       31
+#define VOICE_L_DN_FIFO_AFULL_TH_LEN     5
+#define VOICE_L_DN_FIFO_AFULL_TH_OFFSET  26
+#define VOICE_L_DN_FIFO_AEMPTY_TH_LEN    5
+#define VOICE_L_DN_FIFO_AEMPTY_TH_OFFSET 21
+#define VOICE_R_DN_FIFO_CLR_LEN          1
+#define VOICE_R_DN_FIFO_CLR_OFFSET       15
+#define VOICE_R_DN_FIFO_AFULL_TH_LEN     5
+#define VOICE_R_DN_FIFO_AFULL_TH_OFFSET  10
+#define VOICE_R_DN_FIFO_AEMPTY_TH_LEN    5
+#define VOICE_R_DN_FIFO_AEMPTY_TH_OFFSET 5
+
+#define MIC3_UP_AFIFO_CTRL_REG       (ASP_CODEC_BASE + 0x94)  /* MIC3上行通路AFIFO控制寄存器 */
+#define MIC3_UP_FIFO_CLR_LEN          1
+#define MIC3_UP_FIFO_CLR_OFFSET       31
+#define MIC3_UP_FIFO_AFULL_TH_LEN     5
+#define MIC3_UP_FIFO_AFULL_TH_OFFSET  26
+#define MIC3_UP_FIFO_AEMPTY_TH_LEN    5
+#define MIC3_UP_FIFO_AEMPTY_TH_OFFSET 21
+
+#define MEM_CTRL_CFG_REG             (ASP_CODEC_BASE + 0x98)  /* MEMORY CTRL配置信号 */
+#define MEM_CTRL_D1W2R_LEN    16
+#define MEM_CTRL_D1W2R_OFFSET 0
+
+#define CODEC_STAT0_REG              (ASP_CODEC_BASE + 0x9C)  /* CODEC通道内模块状态查询寄存器0 */
+#define VOICE_L_DN_SRCUP_RDY_LEN    1
+#define VOICE_L_DN_SRCUP_RDY_OFFSET 31
+#define DACL_SRCUP_RDY_LEN          1
+#define DACL_SRCUP_RDY_OFFSET       30
+#define DACR_SRCUP_RDY_LEN          1
+#define DACR_SRCUP_RDY_OFFSET       29
+#define AUDIO_L_UP_SRCUP_RDY_LEN    1
+#define AUDIO_L_UP_SRCUP_RDY_OFFSET 28
+#define AUDIO_R_UP_SRCUP_RDY_LEN    1
+#define AUDIO_R_UP_SRCUP_RDY_OFFSET 27
+#define VOICE_L_UP_SRCDN_RDY_LEN    1
+#define VOICE_L_UP_SRCDN_RDY_OFFSET 26
+#define VOICE_R_UP_SRCDN_RDY_LEN    1
+#define VOICE_R_UP_SRCDN_RDY_OFFSET 25
+#define MIC3_UP_SRCDN_RDY_LEN       1
+#define MIC3_UP_SRCDN_RDY_OFFSET    24
+#define BT_L_RX_SRCUP_RDY_LEN       1
+#define BT_L_RX_SRCUP_RDY_OFFSET    23
+#define BT_R_RX_SRCUP_RDY_LEN       1
+#define BT_R_RX_SRCUP_RDY_OFFSET    22
+#define BT_L_RX_SRCDN_RDY_LEN       1
+#define BT_L_RX_SRCDN_RDY_OFFSET    21
+#define BT_R_RX_SRCDN_RDY_LEN       1
+#define BT_R_RX_SRCDN_RDY_OFFSET    20
+#define BT_TX_SRCDN_RDY_LEN         1
+#define BT_TX_SRCDN_RDY_OFFSET      19
+#define ECHO_L_UP_SRCDN_RDY_LEN     1
+#define ECHO_L_UP_SRCDN_RDY_OFFSET  18
+#define ECHO_R_UP_SRCDN_RDY_LEN     1
+#define ECHO_R_UP_SRCDN_RDY_OFFSET  17
+#define VOICE_R_DN_SRCUP_RDY_LEN    1
+#define VOICE_R_DN_SRCUP_RDY_OFFSET 16
+#define BT_R_TX_SRCDN_RDY_LEN       1
+#define BT_R_TX_SRCDN_RDY_OFFSET    15
+
+
+#define FS_CTRL0_REG                 (ASP_CODEC_BASE + 0xA4)  /* CODEC内部模块采样率控制寄存器0 */
+#define FS_VOICE_L_DLINK_LEN          2
+#define FS_VOICE_L_DLINK_OFFSET       30
+#define FS_AUDIO_L_UPLINK_LEN         1
+#define FS_AUDIO_L_UPLINK_OFFSET      29
+#define FS_AUDIO_R_UPLINK_LEN         1
+#define FS_AUDIO_R_UPLINK_OFFSET      28
+#define FS_VOICE_L_UPLINK_LEN         2
+#define FS_VOICE_L_UPLINK_OFFSET      26
+#define FS_VOICE_R_UPLINK_LEN         2
+#define FS_VOICE_R_UPLINK_OFFSET      24
+#define FS_MIC3_UPLINK_LEN            3
+#define FS_MIC3_UPLINK_OFFSET         21
+#define FS_ECHO_L_UPLINK_LEN          3
+#define FS_ECHO_L_UPLINK_OFFSET       18
+#define FS_ECHO_R_UPLINK_LEN          3
+#define FS_ECHO_R_UPLINK_OFFSET       15
+#define FS_DACL_SRCUP_IN_LEN          2
+#define FS_DACL_SRCUP_IN_OFFSET       11
+#define FS_DACR_SRCUP_IN_LEN          2
+#define FS_DACR_SRCUP_IN_OFFSET       9
+#define FS_AUDIO_L_UP_SRCUP_IN_LEN    2
+#define FS_AUDIO_L_UP_SRCUP_IN_OFFSET 7
+#define FS_AUDIO_R_UP_SRCUP_IN_LEN    2
+#define FS_AUDIO_R_UP_SRCUP_IN_OFFSET 5
+
+#define FS_CTRL1_REG                 (ASP_CODEC_BASE + 0xA8)  /* CODEC内部模块采样率控制寄存器1 */
+#define FS_BT_L_RX_SRCUP_IN_LEN        3
+#define FS_BT_L_RX_SRCUP_IN_OFFSET     29
+#define FS_BT_L_RX_SRCUP_OUT_LEN       3
+#define FS_BT_L_RX_SRCUP_OUT_OFFSET    26
+#define FS_BT_R_RX_SRCUP_IN_LEN        3
+#define FS_BT_R_RX_SRCUP_IN_OFFSET     23
+#define FS_BT_R_RX_SRCUP_OUT_LEN       3
+#define FS_BT_R_RX_SRCUP_OUT_OFFSET    20
+#define FS_VOICE_L_UP_SRCDN_OUT_LEN    2
+#define FS_VOICE_L_UP_SRCDN_OUT_OFFSET 18
+#define FS_VOICE_R_UP_SRCDN_OUT_LEN    2
+#define FS_VOICE_R_UP_SRCDN_OUT_OFFSET 16
+#define FS_MIC3_UP_SRCDN_OUT_LEN       2
+#define FS_MIC3_UP_SRCDN_OUT_OFFSET    14
+#define FS_ECHO_L_UP_SRCDN_OUT_LEN     2
+#define FS_ECHO_L_UP_SRCDN_OUT_OFFSET  12
+#define FS_ECHO_R_UP_SRCDN_OUT_LEN     2
+#define FS_ECHO_R_UP_SRCDN_OUT_OFFSET  10
+
+#define CODEC_DIN_MUX_REG            (ASP_CODEC_BASE + 0xAC)  /* CODEC内部模块输入数据选择寄存器 */
+#define DACL_SRCUP_DIN_SEL_LEN              2
+#define DACL_SRCUP_DIN_SEL_OFFSET           28
+#define DACR_SRCUP_DIN_SEL_LEN              2
+#define DACR_SRCUP_DIN_SEL_OFFSET           26
+#define SIDETONE_PGA_DIN_SEL_LEN            2
+#define SIDETONE_PGA_DIN_SEL_OFFSET         24
+#define BM_26TO24_AUDIO_L_UP_DIN_SEL_LEN    2
+#define BM_26TO24_AUDIO_L_UP_DIN_SEL_OFFSET 22
+#define BM_26TO24_AUDIO_R_UP_DIN_SEL_LEN    2
+#define BM_26TO24_AUDIO_R_UP_DIN_SEL_OFFSET 20
+#define AUDIO_L_UP_AFIFO_DIN_SEL_LEN        1
+#define AUDIO_L_UP_AFIFO_DIN_SEL_OFFSET     19
+#define AUDIO_R_UP_AFIFO_DIN_SEL_LEN        1
+#define AUDIO_R_UP_AFIFO_DIN_SEL_OFFSET     18
+#define BM_26TO24_VOICE_L_UP_DIN_SEL_LEN    1
+#define BM_26TO24_VOICE_L_UP_DIN_SEL_OFFSET 17
+#define BM_26TO24_VOICE_R_UP_DIN_SEL_LEN    1
+#define BM_26TO24_VOICE_R_UP_DIN_SEL_OFFSET 16
+#define MIC3_UP_AFIFO_DIN_SEL_LEN           1
+#define MIC3_UP_AFIFO_DIN_SEL_OFFSET        15
+#define ADCL_DIN_SEL_LEN                    2
+#define ADCL_DIN_SEL_OFFSET                 13
+#define ADCR_DIN_SEL_LEN                    2
+#define ADCR_DIN_SEL_OFFSET                 11
+#define ADC_MIC3_DIN_SEL_LEN                2
+#define ADC_MIC3_DIN_SEL_OFFSET             9
+#define BM_26TO24_ECHO_L_UP_DIN_SEL_LEN     2
+#define BM_26TO24_ECHO_L_UP_DIN_SEL_OFFSET  7
+#define BM_26TO24_ECHO_R_UP_DIN_SEL_LEN     2
+#define BM_26TO24_ECHO_R_UP_DIN_SEL_OFFSET  5
+
+#define CODEC_DACL_DC_OFFSET_REG     (ASP_CODEC_BASE + 0xB4)  /* DACL通路DC_OFFSET配置寄存器 */
+#define DACL_DC_OFFSET_LEN    24
+#define DACL_DC_OFFSET_OFFSET 0
+
+#define CODEC_DACR_DC_OFFSET_REG     (ASP_CODEC_BASE + 0xB8)  /* DACR通路DC_OFFSET配置寄存器 */
+#define DACR_DC_OFFSET_LEN    24
+#define DACR_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADCL_DC_OFFSET_REG     (ASP_CODEC_BASE + 0xBC)  /* ADCL通路DC_OFFSET配置寄存器 */
+#define ADCL_DC_OFFSET_LEN    24
+#define ADCL_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADCR_DC_OFFSET_REG     (ASP_CODEC_BASE + 0xC0)  /* ADCR通路DC_OFFSET配置寄存器 */
+#define ADCR_DC_OFFSET_LEN    24
+#define ADCR_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADC_MIC3_DC_OFFSET_REG (ASP_CODEC_BASE + 0xC4)  /* ADC_MIC3通路DC_OFFSET配置寄存器 */
+#define ADC_MIC3_DC_OFFSET_LEN    24
+#define ADC_MIC3_DC_OFFSET_OFFSET 0
+
+#define I2S3_PCM_CTRL_REG            (ASP_CODEC_BASE + 0xC8)
+#define I2S3_RX_CLK_SEL_LEN             1
+#define I2S3_RX_CLK_SEL_OFFSET          19
+#define I2S3_TX_CLK_SEL_LEN             1
+#define I2S3_TX_CLK_SEL_OFFSET          18
+#define I2S3_CODEC_IO_WORDLENGTH_LEN    2
+#define I2S3_CODEC_IO_WORDLENGTH_OFFSET 16
+#define I2S3_CODEC_DATA_FORMAT_LEN      1
+#define I2S3_CODEC_DATA_FORMAT_OFFSET   14
+#define I2S3_CHNNL_MODE_LEN             1
+#define I2S3_CHNNL_MODE_OFFSET          13
+#define I2S3_LRCLK_MODE_LEN             1
+#define I2S3_LRCLK_MODE_OFFSET          12
+#define I2S3_FRAME_MODE_LEN             1
+#define I2S3_FRAME_MODE_OFFSET          11
+#define I2S3_FUNC_MODE_LEN              3
+#define I2S3_FUNC_MODE_OFFSET           8
+#define I2S3_DIRECT_LOOP_LEN            2
+#define I2S3_DIRECT_LOOP_OFFSET         6
+#define I2S3_MST_SLV_LEN                1
+#define I2S3_MST_SLV_OFFSET             5
+#define I2S3_IF_RX_ENA_LEN              1
+#define I2S3_IF_RX_ENA_OFFSET           4
+#define I2S3_IF_TX_ENA_LEN              1
+#define I2S3_IF_TX_ENA_OFFSET           3
+#define FS_I2S3_LEN                     3
+#define FS_I2S3_OFFSET                  0
+
+#define VOICE_R_DN_PGA_CTRL_REG      (ASP_CODEC_BASE + 0xCC)
+#define VOICE_R_DN_PGA_GAIN_LEN          8
+#define VOICE_R_DN_PGA_GAIN_OFFSET       24
+#define VOICE_R_DN_PGA_CFG_LEN           3
+#define VOICE_R_DN_PGA_CFG_OFFSET        21
+#define VOICE_R_DN_PGA_FADE_IN_LEN       5
+#define VOICE_R_DN_PGA_FADE_IN_OFFSET    16
+#define VOICE_R_DN_PGA_FADE_OUT_LEN      5
+#define VOICE_R_DN_PGA_FADE_OUT_OFFSET   11
+#define VOICE_R_DN_PGA_BYPASS_LEN        1
+#define VOICE_R_DN_PGA_BYPASS_OFFSET     10
+#define VOICE_R_DN_PGA_NOISE_EN_LEN      1
+#define VOICE_R_DN_PGA_NOISE_EN_OFFSET   9
+#define VOICE_R_DN_PGA_THRE_ID_LEN       2
+#define VOICE_R_DN_PGA_THRE_ID_OFFSET    7
+#define VOICE_R_DN_PGA_ZERO_NUM_LEN      5
+#define VOICE_R_DN_PGA_ZERO_NUM_OFFSET   2
+#define VOICE_R_DN_PGA_LINEAR_SEL_LEN    1
+#define VOICE_R_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define CODEC3_DN_AFIFO_CTRL_REG     (ASP_CODEC_BASE + 0xD0)
+#define CODEC3_L_DN_FIFO_CLR_LEN          1
+#define CODEC3_L_DN_FIFO_CLR_OFFSET       31
+#define CODEC3_L_DN_FIFO_AFULL_TH_LEN     6
+#define CODEC3_L_DN_FIFO_AFULL_TH_OFFSET  25
+#define CODEC3_L_DN_FIFO_AEMPTY_TH_LEN    6
+#define CODEC3_L_DN_FIFO_AEMPTY_TH_OFFSET 19
+#define CODEC3_R_DN_FIFO_CLR_LEN          1
+#define CODEC3_R_DN_FIFO_CLR_OFFSET       15
+#define CODEC3_R_DN_FIFO_AFULL_TH_LEN     6
+#define CODEC3_R_DN_FIFO_AFULL_TH_OFFSET  9
+#define CODEC3_R_DN_FIFO_AEMPTY_TH_LEN    6
+#define CODEC3_R_DN_FIFO_AEMPTY_TH_OFFSET 3
+
+#define FS_CTRL2_REG                 (ASP_CODEC_BASE + 0xD4)
+#define FS_BT_L_RX_SRCDN_IN_LEN         3
+#define FS_BT_L_RX_SRCDN_IN_OFFSET      26
+#define FS_BT_L_RX_SRCDN_OUT_LEN        3
+#define FS_BT_L_RX_SRCDN_OUT_OFFSET     23
+#define FS_BT_R_RX_SRCDN_IN_LEN         3
+#define FS_BT_R_RX_SRCDN_IN_OFFSET      20
+#define FS_BT_R_RX_SRCDN_OUT_LEN        3
+#define FS_BT_R_RX_SRCDN_OUT_OFFSET     17
+#define FS_VOICE_L_DN_SRCUP_DOUT_LEN    2
+#define FS_VOICE_L_DN_SRCUP_DOUT_OFFSET 15
+#define FS_VOICE_R_DN_SRCUP_DOUT_LEN    2
+#define FS_VOICE_R_DN_SRCUP_DOUT_OFFSET 13
+#define FS_VOICE_L_DN_SRCUP_IN_LEN      2
+#define FS_VOICE_L_DN_SRCUP_IN_OFFSET   11
+#define FS_CODEC3_L_DLINK_LEN           3
+#define FS_CODEC3_L_DLINK_OFFSET        8
+#define FS_CODEC3_R_DLINK_LEN           3
+#define FS_CODEC3_R_DLINK_OFFSET        4
+#define FS_VOICE_R_DN_SRCUP_IN_LEN      2
+#define FS_VOICE_R_DN_SRCUP_IN_OFFSET   2
+#define FS_VOICE_R_DLINK_LEN            2
+#define FS_VOICE_R_DLINK_OFFSET         0
+
+#define CODEC_CLK_EN3_REG            (ASP_CODEC_BASE + 0xD8)
+#define ADC_SPV_CLKEN_LEN            1
+#define ADC_SPV_CLKEN_OFFSET         22
+#define ADC_SPI_CLKEN_LEN            1
+#define ADC_SPI_CLKEN_OFFSET         21
+#define CLASSH_CLKEN_LEN             1
+#define CLASSH_CLKEN_OFFSET          20
+#define BT_TX_R_SRCDN_CLKEN_LEN      1
+#define BT_TX_R_SRCDN_CLKEN_OFFSET   19
+#define DMIC2_CLKEN_LEN              1
+#define DMIC2_CLKEN_OFFSET           18
+#define DMIC1_CLKEN_LEN              1
+#define DMIC1_CLKEN_OFFSET           17
+#define BT_TX_L_SRCDN_CLKEN_LEN      1
+#define BT_TX_L_SRCDN_CLKEN_OFFSET   16
+#define SDM_ULTR_CLKEN_LEN           1
+#define SDM_ULTR_CLKEN_OFFSET        15
+#define DACML_UP16_CLKEN_LEN         1
+#define DACML_UP16_CLKEN_OFFSET      14
+#define ADC_ULTR_CLKEN_LEN           1
+#define ADC_ULTR_CLKEN_OFFSET        13
+#define DACML_CLKEN_LEN              1
+#define DACML_CLKEN_OFFSET           12
+#define ULTR_MIXER2_CLKEN_LEN        1
+#define ULTR_MIXER2_CLKEN_OFFSET     11
+#define DACMR_MIXER2_CLKEN_LEN       1
+#define DACMR_MIXER2_CLKEN_OFFSET    10
+#define DACML_MIXER2_CLKEN_LEN       1
+#define DACML_MIXER2_CLKEN_OFFSET    9
+#define CODEC3_R_DN_PGA_CLKEN_LEN    1
+#define CODEC3_R_DN_PGA_CLKEN_OFFSET 8
+#define CODEC3_L_DN_PGA_CLKEN_LEN    1
+#define CODEC3_L_DN_PGA_CLKEN_OFFSET 7
+#define ULTR_DN_PGA_CLKEN_LEN        1
+#define ULTR_DN_PGA_CLKEN_OFFSET     6
+#define ULTR_DN_AFIFO_CLKEN_LEN      1
+#define ULTR_DN_AFIFO_CLKEN_OFFSET   5
+#define ULTR_UP_AFIFO_CLKEN_LEN      1
+#define ULTR_UP_AFIFO_CLKEN_OFFSET   4
+#define SPA4_UP_AFIFO_CLKEN_LEN      1
+#define SPA4_UP_AFIFO_CLKEN_OFFSET   3
+#define SPA3_UP_AFIFO_CLKEN_LEN      1
+#define SPA3_UP_AFIFO_CLKEN_OFFSET   2
+#define SPA2_UP_AFIFO_CLKEN_LEN      1
+#define SPA2_UP_AFIFO_CLKEN_OFFSET   1
+#define SPA1_UP_AFIFO_CLKEN_LEN      1
+#define SPA1_UP_AFIFO_CLKEN_OFFSET   0
+
+#define PGA_GAINOFFSET_CTRL3_REG     (ASP_CODEC_BASE + 0xDC)
+#define CODEC3_L_DN_PGA_GAINOFFSET_LEN    8
+#define CODEC3_L_DN_PGA_GAINOFFSET_OFFSET 16
+#define CODEC3_R_DN_PGA_GAINOFFSET_LEN    8
+#define CODEC3_R_DN_PGA_GAINOFFSET_OFFSET 8
+#define ULTR_DN_PGA_GAINOFFSET_LEN        8
+#define ULTR_DN_PGA_GAINOFFSET_OFFSET     0
+
+#define ULTR_DN_PGA_CTRL_REG         (ASP_CODEC_BASE + 0xE0)  /* ULTR下行PGA控制寄存器 */
+#define ULTR_DN_PGA_GAIN_LEN          8
+#define ULTR_DN_PGA_GAIN_OFFSET       24
+#define ULTR_DN_PGA_CFG_LEN           3
+#define ULTR_DN_PGA_CFG_OFFSET        21
+#define ULTR_DN_PGA_FADE_IN_LEN       5
+#define ULTR_DN_PGA_FADE_IN_OFFSET    16
+#define ULTR_DN_PGA_FADE_OUT_LEN      5
+#define ULTR_DN_PGA_FADE_OUT_OFFSET   11
+#define ULTR_DN_PGA_BYPASS_LEN        1
+#define ULTR_DN_PGA_BYPASS_OFFSET     10
+#define ULTR_DN_PGA_NOISE_EN_LEN      1
+#define ULTR_DN_PGA_NOISE_EN_OFFSET   9
+#define ULTR_DN_PGA_THRE_ID_LEN       2
+#define ULTR_DN_PGA_THRE_ID_OFFSET    7
+#define ULTR_DN_PGA_ZERO_NUM_LEN      5
+#define ULTR_DN_PGA_ZERO_NUM_OFFSET   2
+#define ULTR_DN_PGA_LINEAR_SEL_LEN    1
+#define ULTR_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define CODEC3_L_DN_PGA_CTRL_REG     (ASP_CODEC_BASE + 0xE4)  /* CODEC3左声道下行PGA控制寄存器 */
+#define CODEC3_L_DN_PGA_GAIN_LEN          8
+#define CODEC3_L_DN_PGA_GAIN_OFFSET       24
+#define CODEC3_L_DN_PGA_CFG_LEN           3
+#define CODEC3_L_DN_PGA_CFG_OFFSET        21
+#define CODEC3_L_DN_PGA_FADE_IN_LEN       5
+#define CODEC3_L_DN_PGA_FADE_IN_OFFSET    16
+#define CODEC3_L_DN_PGA_FADE_OUT_LEN      5
+#define CODEC3_L_DN_PGA_FADE_OUT_OFFSET   11
+#define CODEC3_L_DN_PGA_BYPASS_LEN        1
+#define CODEC3_L_DN_PGA_BYPASS_OFFSET     10
+#define CODEC3_L_DN_PGA_NOISE_EN_LEN      1
+#define CODEC3_L_DN_PGA_NOISE_EN_OFFSET   9
+#define CODEC3_L_DN_PGA_THRE_ID_LEN       2
+#define CODEC3_L_DN_PGA_THRE_ID_OFFSET    7
+#define CODEC3_L_DN_PGA_ZERO_NUM_LEN      5
+#define CODEC3_L_DN_PGA_ZERO_NUM_OFFSET   2
+#define CODEC3_L_DN_PGA_LINEAR_SEL_LEN    1
+#define CODEC3_L_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define CODEC3_R_DN_PGA_CTRL_REG     (ASP_CODEC_BASE + 0xE8)  /* CODEC3右声道下行PGA控制寄存器 */
+#define CODEC3_R_DN_PGA_GAIN_LEN          8
+#define CODEC3_R_DN_PGA_GAIN_OFFSET       24
+#define CODEC3_R_DN_PGA_CFG_LEN           3
+#define CODEC3_R_DN_PGA_CFG_OFFSET        21
+#define CODEC3_R_DN_PGA_FADE_IN_LEN       5
+#define CODEC3_R_DN_PGA_FADE_IN_OFFSET    16
+#define CODEC3_R_DN_PGA_FADE_OUT_LEN      5
+#define CODEC3_R_DN_PGA_FADE_OUT_OFFSET   11
+#define CODEC3_R_DN_PGA_BYPASS_LEN        1
+#define CODEC3_R_DN_PGA_BYPASS_OFFSET     10
+#define CODEC3_R_DN_PGA_NOISE_EN_LEN      1
+#define CODEC3_R_DN_PGA_NOISE_EN_OFFSET   9
+#define CODEC3_R_DN_PGA_THRE_ID_LEN       2
+#define CODEC3_R_DN_PGA_THRE_ID_OFFSET    7
+#define CODEC3_R_DN_PGA_ZERO_NUM_LEN      5
+#define CODEC3_R_DN_PGA_ZERO_NUM_OFFSET   2
+#define CODEC3_R_DN_PGA_LINEAR_SEL_LEN    1
+#define CODEC3_R_DN_PGA_LINEAR_SEL_OFFSET 1
+
+#define SRCDN_CTRL1_REG              (ASP_CODEC_BASE + 0xEC)  /* SRCDN的控制寄存器 */
+#define BT_TX_R_SRCDN_FIFO_CLR_LEN    1
+#define BT_TX_R_SRCDN_FIFO_CLR_OFFSET 3
+#define BT_TX_R_SRCDN_SRC_MODE_LEN    3
+#define BT_TX_R_SRCDN_SRC_MODE_OFFSET 0
+
+#define ULTR_MIXER2_CTRL_REG         (ASP_CODEC_BASE + 0xF0)  /* ULTR_MIXER2控制寄存器 */
+#define ULTR_MIXER2_IN2_ID_LEN      2
+#define ULTR_MIXER2_IN2_ID_OFFSET   30
+#define ULTR_MIXER2_IN1_ID_LEN      2
+#define ULTR_MIXER2_IN1_ID_OFFSET   28
+#define ULTR_MIXER2_IN2_MUTE_LEN    1
+#define ULTR_MIXER2_IN2_MUTE_OFFSET 27
+#define ULTR_MIXER2_IN1_MUTE_LEN    1
+#define ULTR_MIXER2_IN1_MUTE_OFFSET 26
+#define ULTR_MIXER2_GAIN2_LEN       2
+#define ULTR_MIXER2_GAIN2_OFFSET    24
+#define ULTR_MIXER2_GAIN1_LEN       2
+#define ULTR_MIXER2_GAIN1_OFFSET    22
+#define ULTR_MIXER2_FADE_EN_LEN     1
+#define ULTR_MIXER2_FADE_EN_OFFSET  21
+#define ULTR_MIXER2_FADE_IN_LEN     5
+#define ULTR_MIXER2_FADE_IN_OFFSET  16
+#define ULTR_MIXER2_FADE_OUT_LEN    5
+#define ULTR_MIXER2_FADE_OUT_OFFSET 11
+#define ULTR_MIXER2_ZERO_NUM_LEN    5
+#define ULTR_MIXER2_ZERO_NUM_OFFSET 6
+
+#define DACML_MIXER2_CTRL_REG        (ASP_CODEC_BASE + 0xF4)  /* DACML_MIXER2控制寄存器 */
+#define DACML_MIXER2_IN2_ID_LEN      2
+#define DACML_MIXER2_IN2_ID_OFFSET   30
+#define DACML_MIXER2_IN1_ID_LEN      2
+#define DACML_MIXER2_IN1_ID_OFFSET   28
+#define DACML_MIXER2_IN2_MUTE_LEN    1
+#define DACML_MIXER2_IN2_MUTE_OFFSET 27
+#define DACML_MIXER2_IN1_MUTE_LEN    1
+#define DACML_MIXER2_IN1_MUTE_OFFSET 26
+#define DACML_MIXER2_GAIN2_LEN       2
+#define DACML_MIXER2_GAIN2_OFFSET    24
+#define DACML_MIXER2_GAIN1_LEN       2
+#define DACML_MIXER2_GAIN1_OFFSET    22
+#define DACML_MIXER2_FADE_EN_LEN     1
+#define DACML_MIXER2_FADE_EN_OFFSET  21
+#define DACML_MIXER2_FADE_IN_LEN     5
+#define DACML_MIXER2_FADE_IN_OFFSET  16
+#define DACML_MIXER2_FADE_OUT_LEN    5
+#define DACML_MIXER2_FADE_OUT_OFFSET 11
+#define DACML_MIXER2_ZERO_NUM_LEN    5
+#define DACML_MIXER2_ZERO_NUM_OFFSET 6
+
+#define DACMR_MIXER2_CTRL_REG        (ASP_CODEC_BASE + 0xF8)  /* DACMR_MIXER2控制寄存器 */
+#define DACMR_MIXER2_IN2_ID_LEN      2
+#define DACMR_MIXER2_IN2_ID_OFFSET   30
+#define DACMR_MIXER2_IN1_ID_LEN      2
+#define DACMR_MIXER2_IN1_ID_OFFSET   28
+#define DACMR_MIXER2_IN2_MUTE_LEN    1
+#define DACMR_MIXER2_IN2_MUTE_OFFSET 27
+#define DACMR_MIXER2_IN1_MUTE_LEN    1
+#define DACMR_MIXER2_IN1_MUTE_OFFSET 26
+#define DACMR_MIXER2_GAIN2_LEN       2
+#define DACMR_MIXER2_GAIN2_OFFSET    24
+#define DACMR_MIXER2_GAIN1_LEN       2
+#define DACMR_MIXER2_GAIN1_OFFSET    22
+#define DACMR_MIXER2_FADE_EN_LEN     1
+#define DACMR_MIXER2_FADE_EN_OFFSET  21
+#define DACMR_MIXER2_FADE_IN_LEN     5
+#define DACMR_MIXER2_FADE_IN_OFFSET  16
+#define DACMR_MIXER2_FADE_OUT_LEN    5
+#define DACMR_MIXER2_FADE_OUT_OFFSET 11
+#define DACMR_MIXER2_ZERO_NUM_LEN    5
+#define DACMR_MIXER2_ZERO_NUM_OFFSET 6
+
+#define DACML_FILTER_CTRL_REG        (ASP_CODEC_BASE + 0xFC)  /* DAC_FILTER控制寄存器 */
+#define DACML_COMPI_BYPASS_EN_LEN    1
+#define DACML_COMPI_BYPASS_EN_OFFSET 30
+#define DACML_HBF2I_BYPASS_EN_LEN    1
+#define DACML_HBF2I_BYPASS_EN_OFFSET 29
+#define DACML_HBF1I_BYPASS_EN_LEN    1
+#define DACML_HBF1I_BYPASS_EN_OFFSET 28
+#define SDM_ULTR_DITHER_LEN          1
+#define SDM_ULTR_DITHER_OFFSET       19
+#define SDM_ULTR_CALT_VLD_LEN        1
+#define SDM_ULTR_CALT_VLD_OFFSET     18
+
+#define ADC_ULTR_FILTER_CTRL_REG     (ASP_CODEC_BASE + 0x100) /* ADC_ULTR_FILTER控制寄存器 */
+#define ADC_ULTR_CIC_GAIN_LEN           6
+#define ADC_ULTR_CIC_GAIN_OFFSET        6
+#define ADC_ULTR_COMPD_BYPASS_EN_LEN    1
+#define ADC_ULTR_COMPD_BYPASS_EN_OFFSET 5
+#define ADC_ULTR_HBF2D_BYPASS_EN_LEN    1
+#define ADC_ULTR_HBF2D_BYPASS_EN_OFFSET 4
+#define ADC_ULTR_HBFVD_BYPASS_EN_LEN    1
+#define ADC_ULTR_HBFVD_BYPASS_EN_OFFSET 3
+#define ADC_ULTR_HPF_BYPASS_EN_LEN      1
+#define ADC_ULTR_HPF_BYPASS_EN_OFFSET   2
+
+#define DMIC_CTRL_REG                (ASP_CODEC_BASE + 0x104) /* DMIC_CTRL控制寄存器 */
+#define DMIC2_REVERSE_LEN         1
+#define DMIC2_REVERSE_OFFSET      3
+#define DMIC2_SW_DMIC_MODE_LEN    1
+#define DMIC2_SW_DMIC_MODE_OFFSET 2
+#define DMIC1_REVERSE_LEN         1
+#define DMIC1_REVERSE_OFFSET      1
+#define DMIC1_SW_DMIC_MODE_LEN    1
+#define DMIC1_SW_DMIC_MODE_OFFSET 0
+
+#define DMIC_DIV_REG                 (ASP_CODEC_BASE + 0x108) /* DMIC_DIV分频控制寄存器 */
+#define FS_DMIC2_LEN      4
+#define FS_DMIC2_OFFSET   4
+#define FS_DMIC1_LEN      4
+#define FS_DMIC1_OFFSET   0
+
+#define CODEC_DACML_DC_OFFSET_REG    (ASP_CODEC_BASE + 0x10C) /* DACR通路DC_OFFSET配置寄存器 */
+#define DACML_DC_OFFSET_LEN    24
+#define DACML_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADC_ULTR_DC_OFFSET_REG (ASP_CODEC_BASE + 0x120) /* ADC ULTR通路DC_OFFSET配置寄存器 */
+#define ADC_ULTR_DC_OFFSET_LEN    24
+#define ADC_ULTR_DC_OFFSET_OFFSET 0
+
+#define SPA12_UP_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x124) /* SPA反馈通路AFIFO控制寄存器 */
+#define SPA2_UP_FIFO_CLR_LEN          1
+#define SPA2_UP_FIFO_CLR_OFFSET       31
+#define SPA2_UP_FIFO_AFULL_TH_LEN     5
+#define SPA2_UP_FIFO_AFULL_TH_OFFSET  26
+#define SPA2_UP_FIFO_AEMPTY_TH_LEN    5
+#define SPA2_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define SPA1_UP_FIFO_CLR_LEN          1
+#define SPA1_UP_FIFO_CLR_OFFSET       15
+#define SPA1_UP_FIFO_AFULL_TH_LEN     5
+#define SPA1_UP_FIFO_AFULL_TH_OFFSET  10
+#define SPA1_UP_FIFO_AEMPTY_TH_LEN    5
+#define SPA1_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define SPA34_UP_AFIFO_CTRL_REG      (ASP_CODEC_BASE + 0x128) /* SPA反馈通路AFIFO控制寄存器 */
+#define SPA4_UP_FIFO_CLR_LEN          1
+#define SPA4_UP_FIFO_CLR_OFFSET       31
+#define SPA4_UP_FIFO_AFULL_TH_LEN     5
+#define SPA4_UP_FIFO_AFULL_TH_OFFSET  26
+#define SPA4_UP_FIFO_AEMPTY_TH_LEN    5
+#define SPA4_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define SPA3_UP_FIFO_CLR_LEN          1
+#define SPA3_UP_FIFO_CLR_OFFSET       15
+#define SPA3_UP_FIFO_AFULL_TH_LEN     5
+#define SPA3_UP_FIFO_AFULL_TH_OFFSET  10
+#define SPA3_UP_FIFO_AEMPTY_TH_LEN    5
+#define SPA3_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define ULTR_UP_AFIFO_CTRL_REG       (ASP_CODEC_BASE + 0x12C) /* ULTR上行通路AFIFO控制寄存器 */
+#define ULTR_UP_FIFO_CLR_LEN          1
+#define ULTR_UP_FIFO_CLR_OFFSET       15
+#define ULTR_UP_FIFO_AFULL_TH_LEN     5
+#define ULTR_UP_FIFO_AFULL_TH_OFFSET  10
+#define ULTR_UP_FIFO_AEMPTY_TH_LEN    5
+#define ULTR_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define ULTR_DN_AFIFO_CTRL_REG       (ASP_CODEC_BASE + 0x130) /* ULTR下行通路AFIFO控制寄存器 */
+#define ULTR_DN_FIFO_CLR_LEN          1
+#define ULTR_DN_FIFO_CLR_OFFSET       15
+#define ULTR_DN_FIFO_AFULL_TH_LEN     6
+#define ULTR_DN_FIFO_AFULL_TH_OFFSET  9
+#define ULTR_DN_FIFO_AEMPTY_TH_LEN    6
+#define ULTR_DN_FIFO_AEMPTY_TH_OFFSET 0
+
+#ifdef  CONFIG_SND_SOC_CODEC_DA_SEPARATE_V6B
+#define CODEC_DIN_MUX1_REG           (ASP_CODEC_BASE + 0x134) /* CODEC内部模块输入数据选择寄存器 */
+#define SPAV_ADC_DIN_SEL_LEN           3
+#define SPAV_ADC_DIN_SEL_OFFSET        20
+#define SPAI_ADC_DIN_SEL_LEN           3
+#define SPAI_ADC_DIN_SEL_OFFSET        17
+#define ULTR_UP16_DIN_SEL_LEN          2
+#define ULTR_UP16_DIN_SEL_OFFSET       15
+#define I2S3_TX_L_DIN_SEL_LEN          1
+#define I2S3_TX_L_DIN_SEL_OFFSET       12
+#define I2S2_TX_R_DIN_SEL_LEN          1
+#define I2S2_TX_R_DIN_SEL_OFFSET       11
+#define I2S2_TX_L_SRCDN_DIN_SEL_LEN    1
+#define I2S2_TX_L_SRCDN_DIN_SEL_OFFSET 10
+#define DACML_DIN_SEL_LEN              1
+#define DACML_DIN_SEL_OFFSET           8
+#define ULTR_DN_PGA_DIN_SEL_LEN        1
+#define ULTR_DN_PGA_DIN_SEL_OFFSET     7
+#define ADC_ULTR_DIN_SEL_LEN           3
+#define ADC_ULTR_DIN_SEL_OFFSET        4
+#define I2S1_PCM_TX_R_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_R_DIN_SEL_OFFSET   2
+#define I2S1_PCM_TX_L_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_L_DIN_SEL_OFFSET   0
+#elif defined(CONFIG_SND_SOC_CODEC_DA_SEPARATE_V6L)
+#define CODEC_DIN_MUX1_REG             (ASP_CODEC_BASE + 0x134)
+#define ULTR_UP16_DIN_SEL_LEN          2
+#define ULTR_UP16_DIN_SEL_OFFSET       15
+#define SPAV_ADC_DIN_SEL_LEN           1
+#define SPAV_ADC_DIN_SEL_OFFSET        14
+#define SPAI_ADC_DIN_SEL_LEN           1
+#define SPAI_ADC_DIN_SEL_OFFSET        13
+#define I2S3_TX_L_DIN_SEL_LEN          1
+#define I2S3_TX_L_DIN_SEL_OFFSET       12
+#define I2S2_TX_R_DIN_SEL_LEN          1
+#define I2S2_TX_R_DIN_SEL_OFFSET       11
+#define I2S2_TX_L_SRCDN_DIN_SEL_LEN    1
+#define I2S2_TX_L_SRCDN_DIN_SEL_OFFSET 10
+#define DACML_DIN_SEL_LEN              1
+#define DACML_DIN_SEL_OFFSET           8
+#define ULTR_DN_PGA_DIN_SEL_LEN        1
+#define ULTR_DN_PGA_DIN_SEL_OFFSET     7
+#define ADC_ULTR_DIN_SEL_LEN           3
+#define ADC_ULTR_DIN_SEL_OFFSET        4
+#define I2S1_PCM_TX_R_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_R_DIN_SEL_OFFSET   2
+#define I2S1_PCM_TX_L_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_L_DIN_SEL_OFFSET   0
+#else
+#define CODEC_DIN_MUX1_REG           (ASP_CODEC_BASE + 0x134) /* CODEC内部模块输入数据选择寄存器 */
+#define SPAV_ADC_DIN_SEL_LEN           1
+#define SPAV_ADC_DIN_SEL_OFFSET        14
+#define SPAI_ADC_DIN_SEL_LEN           1
+#define SPAI_ADC_DIN_SEL_OFFSET        13
+#define I2S3_TX_L_DIN_SEL_LEN          1
+#define I2S3_TX_L_DIN_SEL_OFFSET       12
+#define I2S2_TX_R_DIN_SEL_LEN          1
+#define I2S2_TX_R_DIN_SEL_OFFSET       11
+#define I2S2_TX_L_SRCDN_DIN_SEL_LEN    1
+#define I2S2_TX_L_SRCDN_DIN_SEL_OFFSET 10
+#define ULTR_UP16_DIN_SEL_LEN          1
+#define ULTR_UP16_DIN_SEL_OFFSET       9
+#define DACML_DIN_SEL_LEN              1
+#define DACML_DIN_SEL_OFFSET           8
+#define ULTR_DN_PGA_DIN_SEL_LEN        1
+#define ULTR_DN_PGA_DIN_SEL_OFFSET     7
+#define ADC_ULTR_DIN_SEL_LEN           3
+#define ADC_ULTR_DIN_SEL_OFFSET        4
+#define I2S1_PCM_TX_R_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_R_DIN_SEL_OFFSET   2
+#define I2S1_PCM_TX_L_DIN_SEL_LEN      2
+#define I2S1_PCM_TX_L_DIN_SEL_OFFSET   0
+#endif
+
+#define FS_CTRL3_REG                 (ASP_CODEC_BASE + 0x138) /* CODEC内部模块采样率控制寄存器0 */
+#define FS_I2S1_TDM_LEN                2
+#define FS_I2S1_TDM_OFFSET             22
+#define FS_I2S2_TX_L_SRCDN_DOUT_LEN    3
+#define FS_I2S2_TX_L_SRCDN_DOUT_OFFSET 19
+#define FS_I2S2_TX_L_SRCDN_DIN_LEN     1
+#define FS_I2S2_TX_L_SRCDN_DIN_OFFSET  18
+#define FS_I2S2_TX_R_SRCDN_DOUT_LEN    3
+#define FS_I2S2_TX_R_SRCDN_DOUT_OFFSET 15
+#define FS_I2S2_TX_R_SRCDN_DIN_LEN     1
+#define FS_I2S2_TX_R_SRCDN_DIN_OFFSET  14
+#define FS_CODEC3_R_DN_PGA_LEN         3
+#define FS_CODEC3_R_DN_PGA_OFFSET      11
+#define FS_CODEC3_L_DN_PGA_LEN         3
+#define FS_CODEC3_L_DN_PGA_OFFSET      8
+#define FS_ULTR_DN_PGA_LEN             2
+#define FS_ULTR_DN_PGA_OFFSET          6
+#define FS_ULTR_DLINK_LEN              2
+#define FS_ULTR_DLINK_OFFSET           4
+#define FS_ULTR_UPLINK_LEN             2
+#define FS_ULTR_UPLINK_OFFSET          2
+#define FS_SPA3_UPLINK_LEN             1
+#define FS_SPA3_UPLINK_OFFSET          1
+#define FS_SPA1_UPLINK_LEN             1
+#define FS_SPA1_UPLINK_OFFSET          0
+
+#define MEM_CTRL_S_CFG_REG           (ASP_CODEC_BASE + 0x13C) /* MEMORY CTRL配置信号 */
+#define MEM_CTRL_S_LEN    26
+#define MEM_CTRL_S_OFFSET 0
+
+#define I2S_FIFO_CLR_REG             (ASP_CODEC_BASE + 0x140) /* I2S FIFO CLR配置信号 */
+#define I2S2_FIFO_CLR_LEN    1
+#define I2S2_FIFO_CLR_OFFSET 1
+#define I2S3_FIFO_CLR_LEN    1
+#define I2S3_FIFO_CLR_OFFSET 0
+
+
+#define SPAIV_ADC_FILTER_REG         (ASP_CODEC_BASE + 0x144) /* spa的adc控制信号 */
+#define ADC_SPAV_CIC_GAIN_LEN           6
+#define ADC_SPAV_CIC_GAIN_OFFSET        26
+#define ADC_SPAV_COMPD_BYPASS_EN_LEN    1
+#define ADC_SPAV_COMPD_BYPASS_EN_OFFSET 25
+#define ADC_SPAV_HBF2D_BYPASS_EN_LEN    1
+#define ADC_SPAV_HBF2D_BYPASS_EN_OFFSET 24
+#define ADC_SPAV_HBFVD_BYPASS_EN_LEN    1
+#define ADC_SPAV_HBFVD_BYPASS_EN_OFFSET 23
+#define ADC_SPAV_HPF_BYPASS_EN_LEN      1
+#define ADC_SPAV_HPF_BYPASS_EN_OFFSET   22
+#define ADC_SPAI_CIC_GAIN_LEN           6
+#define ADC_SPAI_CIC_GAIN_OFFSET        16
+#define ADC_SPAI_COMPD_BYPASS_EN_LEN    1
+#define ADC_SPAI_COMPD_BYPASS_EN_OFFSET 15
+#define ADC_SPAI_HBF2D_BYPASS_EN_LEN    1
+#define ADC_SPAI_HBF2D_BYPASS_EN_OFFSET 14
+#define ADC_SPAI_HBFVD_BYPASS_EN_LEN    1
+#define ADC_SPAI_HBFVD_BYPASS_EN_OFFSET 13
+#define ADC_SPAI_HPF_BYPASS_EN_LEN      1
+#define ADC_SPAI_HPF_BYPASS_EN_OFFSET   12
+
+#define CLASSH_CTRL1_REG             (ASP_CODEC_BASE + 0x148) /* classh的控制信号 */
+#define CLASSH_BYPASS_LEN        1
+#define CLASSH_BYPASS_OFFSET     31
+#define FALL_DELAY_DF_CFG_LEN    15
+#define FALL_DELAY_DF_CFG_OFFSET 16
+#define DO_CFG_LEN               4
+#define DO_CFG_OFFSET            8
+#define FALL_DELAY_EN_LEN        1
+#define FALL_DELAY_EN_OFFSET     4
+#define DN_CFG_LEN               4
+#define DN_CFG_OFFSET            0
+
+#define CLASSH_CTRL2_REG             (ASP_CODEC_BASE + 0x14C) /* classh的控制寄存器 */
+#define FALL_STEP_LEN          6
+#define FALL_STEP_OFFSET       24
+#define REG_VCTRL1_LEN         8
+#define REG_VCTRL1_OFFSET      16
+#define CLASSH_EN_LEN          1
+#define CLASSH_EN_OFFSET       10
+#define CLASSH_DYM_EN_LEN      1
+#define CLASSH_DYM_EN_OFFSET   9
+#define CLASSH_PGA_GAIN_LEN    9
+#define CLASSH_PGA_GAIN_OFFSET 0
+
+#define LUT_REG0_3_REG               (ASP_CODEC_BASE + 0x150) /* LUT的查找表寄存器 */
+#define LUT_REG3_LEN      7
+#define LUT_REG3_OFFSET   24
+#define LUT_REG2_LEN      7
+#define LUT_REG2_OFFSET   16
+#define LUT_REG1_LEN      7
+#define LUT_REG1_OFFSET   8
+#define LUT_REG0_LEN      7
+#define LUT_REG0_OFFSET   0
+
+#define LUT_REG4_7_REG               (ASP_CODEC_BASE + 0x154) /* LUT的查找表寄存器 */
+#define LUT_REG7_LEN      7
+#define LUT_REG7_OFFSET   24
+#define LUT_REG6_LEN      7
+#define LUT_REG6_OFFSET   16
+#define LUT_REG5_LEN      7
+#define LUT_REG5_OFFSET   8
+#define LUT_REG4_LEN      7
+#define LUT_REG4_OFFSET   0
+
+#define LUT_REG8_11_REG              (ASP_CODEC_BASE + 0x158) /* LUT的查找表寄存器 */
+#define LUT_REG11_LEN     7
+#define LUT_REG11_OFFSET  24
+#define LUT_REG10_LEN     7
+#define LUT_REG10_OFFSET  16
+#define LUT_REG9_LEN      7
+#define LUT_REG9_OFFSET   8
+#define LUT_REG8_LEN      7
+#define LUT_REG8_OFFSET   0
+
+#define LUT_REG12_15_REG             (ASP_CODEC_BASE + 0x15C) /* LUT的查找表寄存器 */
+#define LUT_REG15_LEN     7
+#define LUT_REG15_OFFSET  24
+#define LUT_REG14_LEN     7
+#define LUT_REG14_OFFSET  16
+#define LUT_REG13_LEN     7
+#define LUT_REG13_OFFSET  8
+#define LUT_REG12_LEN     7
+#define LUT_REG12_OFFSET  0
+
+#define LUT_REG16_19_REG             (ASP_CODEC_BASE + 0x160) /* LUT的查找表寄存器 */
+#define LUT_REG19_LEN     7
+#define LUT_REG19_OFFSET  24
+#define LUT_REG18_LEN     7
+#define LUT_REG18_OFFSET  16
+#define LUT_REG17_LEN     7
+#define LUT_REG17_OFFSET  8
+#define LUT_REG16_LEN     7
+#define LUT_REG16_OFFSET  0
+
+#define LUT_REG20_23_REG             (ASP_CODEC_BASE + 0x164) /* LUT的查找表寄存器 */
+#define LUT_REG23_LEN     7
+#define LUT_REG23_OFFSET  24
+#define LUT_REG22_LEN     7
+#define LUT_REG22_OFFSET  16
+#define LUT_REG21_LEN     7
+#define LUT_REG21_OFFSET  8
+#define LUT_REG20_LEN     7
+#define LUT_REG20_OFFSET  0
+
+#define LUT_REG24_27_REG             (ASP_CODEC_BASE + 0x168) /* LUT的查找表寄存器 */
+#define LUT_REG27_LEN     7
+#define LUT_REG27_OFFSET  24
+#define LUT_REG26_LEN     7
+#define LUT_REG26_OFFSET  16
+#define LUT_REG25_LEN     7
+#define LUT_REG25_OFFSET  8
+#define LUT_REG24_LEN     7
+#define LUT_REG24_OFFSET  0
+
+#define LUT_REG28_31_REG             (ASP_CODEC_BASE + 0x16C) /* LUT的查找表寄存器 */
+#define LUT_REG31_LEN     7
+#define LUT_REG31_OFFSET  24
+#define LUT_REG30_LEN     7
+#define LUT_REG30_OFFSET  16
+#define LUT_REG29_LEN     7
+#define LUT_REG29_OFFSET  8
+#define LUT_REG28_LEN     7
+#define LUT_REG28_OFFSET  0
+
+#define LUT_REG32_35_REG             (ASP_CODEC_BASE + 0x170) /* LUT的查找表寄存器 */
+#define LUT_REG35_LEN     7
+#define LUT_REG35_OFFSET  24
+#define LUT_REG34_LEN     7
+#define LUT_REG34_OFFSET  16
+#define LUT_REG33_LEN     7
+#define LUT_REG33_OFFSET  8
+#define LUT_REG32_LEN     7
+#define LUT_REG32_OFFSET  0
+
+#define LUT_REG36_39_REG             (ASP_CODEC_BASE + 0x174) /* LUT的查找表寄存器 */
+#define LUT_REG39_LEN     7
+#define LUT_REG39_OFFSET  24
+#define LUT_REG38_LEN     7
+#define LUT_REG38_OFFSET  16
+#define LUT_REG37_LEN     7
+#define LUT_REG37_OFFSET  8
+#define LUT_REG36_LEN     7
+#define LUT_REG36_OFFSET  0
+
+#define LUT_REG40_43_REG             (ASP_CODEC_BASE + 0x178) /* LUT的查找表寄存器 */
+#define LUT_REG43_LEN     7
+#define LUT_REG43_OFFSET  24
+#define LUT_REG42_LEN     7
+#define LUT_REG42_OFFSET  16
+#define LUT_REG41_LEN     7
+#define LUT_REG41_OFFSET  8
+#define LUT_REG40_LEN     7
+#define LUT_REG40_OFFSET  0
+
+#define LUT_REG44_47_REG             (ASP_CODEC_BASE + 0x17C) /* LUT的查找表寄存器 */
+#define LUT_REG47_LEN     7
+#define LUT_REG47_OFFSET  24
+#define LUT_REG46_LEN     7
+#define LUT_REG46_OFFSET  16
+#define LUT_REG45_LEN     7
+#define LUT_REG45_OFFSET  8
+#define LUT_REG44_LEN     7
+#define LUT_REG44_OFFSET  0
+
+#define LUT_REG48_51_REG             (ASP_CODEC_BASE + 0x180) /* LUT的查找表寄存器 */
+#define LUT_REG51_LEN     7
+#define LUT_REG51_OFFSET  24
+#define LUT_REG50_LEN     7
+#define LUT_REG50_OFFSET  16
+#define LUT_REG49_LEN     7
+#define LUT_REG49_OFFSET  8
+#define LUT_REG48_LEN     7
+#define LUT_REG48_OFFSET  0
+
+#define LUT_REG52_55_REG             (ASP_CODEC_BASE + 0x184) /* LUT的查找表寄存器 */
+#define LUT_REG55_LEN     7
+#define LUT_REG55_OFFSET  24
+#define LUT_REG54_LEN     7
+#define LUT_REG54_OFFSET  16
+#define LUT_REG53_LEN     7
+#define LUT_REG53_OFFSET  8
+#define LUT_REG52_LEN     7
+#define LUT_REG52_OFFSET  0
+
+#define LUT_REG56_59_REG             (ASP_CODEC_BASE + 0x188) /* LUT的查找表寄存器 */
+#define LUT_REG59_LEN     7
+#define LUT_REG59_OFFSET  24
+#define LUT_REG58_LEN     7
+#define LUT_REG58_OFFSET  16
+#define LUT_REG57_LEN     7
+#define LUT_REG57_OFFSET  8
+#define LUT_REG56_LEN     7
+#define LUT_REG56_OFFSET  0
+
+#define LUT_REG60_63_REG             (ASP_CODEC_BASE + 0x18C) /* LUT的查找表寄存器 */
+#define LUT_REG63_LEN     7
+#define LUT_REG63_OFFSET  24
+#define LUT_REG62_LEN     7
+#define LUT_REG62_OFFSET  16
+#define LUT_REG61_LEN     7
+#define LUT_REG61_OFFSET  8
+#define LUT_REG60_LEN     7
+#define LUT_REG60_OFFSET  0
+
+#define LUT_REG64_67_REG             (ASP_CODEC_BASE + 0x190) /* LUT的查找表寄存器 */
+#define LUT_REG67_LEN     7
+#define LUT_REG67_OFFSET  24
+#define LUT_REG66_LEN     7
+#define LUT_REG66_OFFSET  16
+#define LUT_REG65_LEN     7
+#define LUT_REG65_OFFSET  8
+#define LUT_REG64_LEN     7
+#define LUT_REG64_OFFSET  0
+
+#define CODEC_ADC_SPI_DC_OFFSET_REG  (ASP_CODEC_BASE + 0x194) /* ADC_SPAI通路DC_OFFSET配置寄存器 */
+#define ADC_SPAI_DC_OFFSET_LEN    24
+#define ADC_SPAI_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADC_SPA_DC_OFFSET_REG  (ASP_CODEC_BASE + 0x198) /* ADC_SPAV通路DC_OFFSET配置寄存器 */
+#define ADC_SPAV_DC_OFFSET_LEN    24
+#define ADC_SPAV_DC_OFFSET_OFFSET 0
+
+#define CODEC_CLK_EN2_REG            (ASP_CODEC_BASE + 0x19C) /* 时钟控制寄存器 */
+#define RST_4MIC_AUDIO_IRQ_LEN         1
+#define RST_4MIC_AUDIO_IRQ_OFFSET      30
+#define SIF3_MST_ADC_EDGE_SEL_LEN      1
+#define SIF3_MST_ADC_EDGE_SEL_OFFSET   29
+#define SIF3_MST_DAC_EDGE_SEL_LEN      1
+#define SIF3_MST_DAC_EDGE_SEL_OFFSET   28
+#define SIF2_MST_ADC_EDGE_SEL_LEN      1
+#define SIF2_MST_ADC_EDGE_SEL_OFFSET   27
+#define SIF2_MST_DAC_EDGE_SEL_LEN      1
+#define SIF2_MST_DAC_EDGE_SEL_OFFSET   26
+#define DAC_ULTR_CLKEN_LEN             1
+#define DAC_ULTR_CLKEN_OFFSET          25
+#define SIF3_MST_CLKEN_LEN             1
+#define SIF3_MST_CLKEN_OFFSET          24
+#define SIF2_MST_CLKEN_LEN             1
+#define SIF2_MST_CLKEN_OFFSET          23
+#define MIC4_ADC_FILTER_CLKEN_LEN      1
+#define MIC4_ADC_FILTER_CLKEN_OFFSET   22
+#define MIC4_UP_PGA_CLKEN_LEN          1
+#define MIC4_UP_PGA_CLKEN_OFFSET       21
+#define MIC4_UP_SRCDN_CLKEN_LEN        1
+#define MIC4_UP_SRCDN_CLKEN_OFFSET     20
+#define SPA3_SDM_CLKEN_LEN             1
+#define SPA3_SDM_CLKEN_OFFSET          19
+#define SPA3_UP16_CLKEN_LEN            1
+#define SPA3_UP16_CLKEN_OFFSET         18
+#define SPA3_DAC_FILTER_CLKEN_LEN      1
+#define SPA3_DAC_FILTER_CLKEN_OFFSET   17
+#define ADC3_SPAV_CLKEN_LEN            1
+#define ADC3_SPAV_CLKEN_OFFSET         16
+#define ADC3_SPAI_CLKEN_LEN            1
+#define ADC3_SPAI_CLKEN_OFFSET         15
+#define CLASSH3_CLKEN_LEN              1
+#define CLASSH3_CLKEN_OFFSET           14
+#define SPA2_SDM_CLKEN_LEN             1
+#define SPA2_SDM_CLKEN_OFFSET          13
+#define SPA2_UP16_CLKEN_LEN            1
+#define SPA2_UP16_CLKEN_OFFSET         12
+#define SPA2_DAC_FILTER_CLKEN_LEN      1
+#define SPA2_DAC_FILTER_CLKEN_OFFSET   11
+#define ADC2_SPAV_CLKEN_LEN            1
+#define ADC2_SPAV_CLKEN_OFFSET         10
+#define ADC2_SPAI_CLKEN_LEN            1
+#define ADC2_SPAI_CLKEN_OFFSET         9
+#define CLASSH2_CLKEN_LEN              1
+#define CLASSH2_CLKEN_OFFSET           8
+#define SPA1_SDM_CLKEN_LEN             1
+#define SPA1_SDM_CLKEN_OFFSET          7
+#define SPA1_UP16_CLKEN_LEN            1
+#define SPA1_UP16_CLKEN_OFFSET         6
+#define SPA1_DAC_FILTER_CLKEN_LEN      1
+#define SPA1_DAC_FILTER_CLKEN_OFFSET   5
+#define MIC4_UP_AFIFO_CLKEN_LEN        1
+#define MIC4_UP_AFIFO_CLKEN_OFFSET     4
+#define ADC3_SPV_UP_AFIFO_CLKEN_LEN    1
+#define ADC3_SPV_UP_AFIFO_CLKEN_OFFSET 3
+#define ADC3_SPI_UP_AFIFO_CLKEN_LEN    1
+#define ADC3_SPI_UP_AFIFO_CLKEN_OFFSET 2
+#define ADC2_SPV_UP_AFIFO_CLKEN_LEN    1
+#define ADC2_SPV_UP_AFIFO_CLKEN_OFFSET 1
+#define ADC2_SPI_UP_AFIFO_CLKEN_LEN    1
+#define ADC2_SPI_UP_AFIFO_CLKEN_OFFSET 0
+
+#define SPA2_ADC_FILTER_REG          (ASP_CODEC_BASE + 0x1B0) /* spa2的adc控制信号 */
+#define ADC2_SPAV_CIC_GAIN_LEN           6
+#define ADC2_SPAV_CIC_GAIN_OFFSET        26
+#define ADC2_SPAV_COMPD_BYPASS_EN_LEN    1
+#define ADC2_SPAV_COMPD_BYPASS_EN_OFFSET 25
+#define ADC2_SPAV_HBF2D_BYPASS_EN_LEN    1
+#define ADC2_SPAV_HBF2D_BYPASS_EN_OFFSET 24
+#define ADC2_SPAV_HBFVD_BYPASS_EN_LEN    1
+#define ADC2_SPAV_HBFVD_BYPASS_EN_OFFSET 23
+#define ADC2_SPAV_HPF_BYPASS_EN_LEN      1
+#define ADC2_SPAV_HPF_BYPASS_EN_OFFSET   22
+#define ADC2_SPAI_CIC_GAIN_LEN           6
+#define ADC2_SPAI_CIC_GAIN_OFFSET        16
+#define ADC2_SPAI_COMPD_BYPASS_EN_LEN    1
+#define ADC2_SPAI_COMPD_BYPASS_EN_OFFSET 15
+#define ADC2_SPAI_HBF2D_BYPASS_EN_LEN    1
+#define ADC2_SPAI_HBF2D_BYPASS_EN_OFFSET 14
+#define ADC2_SPAI_HBFVD_BYPASS_EN_LEN    1
+#define ADC2_SPAI_HBFVD_BYPASS_EN_OFFSET 13
+#define ADC2_SPAI_HPF_BYPASS_EN_LEN      1
+#define ADC2_SPAI_HPF_BYPASS_EN_OFFSET   12
+
+#define CODEC_ADC2_SPI_DC_OFFSET_REG (ASP_CODEC_BASE + 0x1B4) /* ADC2_SPAI通路DC_OFFSET配置寄存器 */
+#define ADC2_SPAI_DC_OFFSET_LEN    24
+#define ADC2_SPAI_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADC2_SPA_DC_OFFSET_REG (ASP_CODEC_BASE + 0x1B8) /* ADC2_SPAV通路DC_OFFSET配置寄存器 */
+#define ADC2_SPAV_DC_OFFSET_LEN    24
+#define ADC2_SPAV_DC_OFFSET_OFFSET 0
+
+#define SPA3_ADC_FILTER_REG          (ASP_CODEC_BASE + 0x1BC) /* spa3的adc控制信号 */
+#define ADC3_SPAV_CIC_GAIN_LEN           6
+#define ADC3_SPAV_CIC_GAIN_OFFSET        26
+#define ADC3_SPAV_COMPD_BYPASS_EN_LEN    1
+#define ADC3_SPAV_COMPD_BYPASS_EN_OFFSET 25
+#define ADC3_SPAV_HBF2D_BYPASS_EN_LEN    1
+#define ADC3_SPAV_HBF2D_BYPASS_EN_OFFSET 24
+#define ADC3_SPAV_HBFVD_BYPASS_EN_LEN    1
+#define ADC3_SPAV_HBFVD_BYPASS_EN_OFFSET 23
+#define ADC3_SPAV_HPF_BYPASS_EN_LEN      1
+#define ADC3_SPAV_HPF_BYPASS_EN_OFFSET   22
+#define ADC3_SPAI_CIC_GAIN_LEN           6
+#define ADC3_SPAI_CIC_GAIN_OFFSET        16
+#define ADC3_SPAI_COMPD_BYPASS_EN_LEN    1
+#define ADC3_SPAI_COMPD_BYPASS_EN_OFFSET 15
+#define ADC3_SPAI_HBF2D_BYPASS_EN_LEN    1
+#define ADC3_SPAI_HBF2D_BYPASS_EN_OFFSET 14
+#define ADC3_SPAI_HBFVD_BYPASS_EN_LEN    1
+#define ADC3_SPAI_HBFVD_BYPASS_EN_OFFSET 13
+#define ADC3_SPAI_HPF_BYPASS_EN_LEN      1
+#define ADC3_SPAI_HPF_BYPASS_EN_OFFSET   12
+
+#define CODEC_ADC3_SPI_DC_OFFSET_REG (ASP_CODEC_BASE + 0x1C0) /* ADC3_SPAI通路DC_OFFSET配置寄存器 */
+#define ADC3_SPAI_DC_OFFSET_LEN    24
+#define ADC3_SPAI_DC_OFFSET_OFFSET 0
+
+#define CODEC_ADC3_SPA_DC_OFFSET_REG (ASP_CODEC_BASE + 0x1C4) /* ADC3_SPAV通路DC_OFFSET配置寄存器 */
+#define ADC3_SPAV_DC_OFFSET_LEN    24
+#define ADC3_SPAV_DC_OFFSET_OFFSET 0
+
+#define SPA_SDM_CTRL_REG             (ASP_CODEC_BASE + 0x1C8) /* spa的sdm ctrl寄存器 */
+#define SPA3_SDM_CALM_VLD_LEN    1
+#define SPA3_SDM_CALM_VLD_OFFSET 5
+#define SPA3_SDM_DITHER_LEN      1
+#define SPA3_SDM_DITHER_OFFSET   4
+#define SPA2_SDM_CALM_VLD_LEN    1
+#define SPA2_SDM_CALM_VLD_OFFSET 3
+#define SPA2_SDM_DITHER_LEN      1
+#define SPA2_SDM_DITHER_OFFSET   2
+#define SPA1_SDM_CALM_VLD_LEN    1
+#define SPA1_SDM_CALM_VLD_OFFSET 1
+#define SPA1_SDM_DITHER_LEN      1
+#define SPA1_SDM_DITHER_OFFSET   0
+
+#define CLASSH2_CTRL1_REG            (ASP_CODEC_BASE + 0x1CC) /* classh2的控制信号 */
+#define CLASSH2_BYPASS_LEN               1
+#define CLASSH2_BYPASS_OFFSET            31
+#define CLASSH2_FALL_DELAY_DF_CFG_LEN    15
+#define CLASSH2_FALL_DELAY_DF_CFG_OFFSET 16
+#define CLASSH2_DO_CFG_LEN               4
+#define CLASSH2_DO_CFG_OFFSET            8
+#define CLASSH2_FALL_DELAY_EN_LEN        1
+#define CLASSH2_FALL_DELAY_EN_OFFSET     4
+#define CLASSH2_DN_CFG_LEN               4
+#define CLASSH2_DN_CFG_OFFSET            0
+
+#define CLASSH2_CTRL2_REG            (ASP_CODEC_BASE + 0x1D0) /* classh2的控制寄存器 */
+#define CLASSH2_FALL_STEP_LEN     6
+#define CLASSH2_FALL_STEP_OFFSET  24
+#define CLASSH2_REG_VCTRL1_LEN    8
+#define CLASSH2_REG_VCTRL1_OFFSET 16
+#define CLASSH2_EN_LEN            1
+#define CLASSH2_EN_OFFSET         10
+#define CLASSH2_DYM_EN_LEN        1
+#define CLASSH2_DYM_EN_OFFSET     9
+#define CLASSH2_PGA_GAIN_LEN      9
+#define CLASSH2_PGA_GAIN_OFFSET   0
+
+#define CLASS2_LUT_REG0_3_REG        (ASP_CODEC_BASE + 0x1D4) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG3_LEN    7
+#define CLASSH2_LUT_REG3_OFFSET 24
+#define CLASSH2_LUT_REG2_LEN    7
+#define CLASSH2_LUT_REG2_OFFSET 16
+#define CLASSH2_LUT_REG1_LEN    7
+#define CLASSH2_LUT_REG1_OFFSET 8
+#define CLASSH2_LUT_REG0_LEN    7
+#define CLASSH2_LUT_REG0_OFFSET 0
+
+#define CLASS2_LUT_REG4_7_REG        (ASP_CODEC_BASE + 0x1D8) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG7_LEN    7
+#define CLASSH2_LUT_REG7_OFFSET 24
+#define CLASSH2_LUT_REG6_LEN    7
+#define CLASSH2_LUT_REG6_OFFSET 16
+#define CLASSH2_LUT_REG5_LEN    7
+#define CLASSH2_LUT_REG5_OFFSET 8
+#define CLASSH2_LUT_REG4_LEN    7
+#define CLASSH2_LUT_REG4_OFFSET 0
+
+#define CLASS2_LUT_REG8_11_REG       (ASP_CODEC_BASE + 0x1DC) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG11_LEN    7
+#define CLASSH2_LUT_REG11_OFFSET 24
+#define CLASSH2_LUT_REG10_LEN    7
+#define CLASSH2_LUT_REG10_OFFSET 16
+#define CLASSH2_LUT_REG9_LEN     7
+#define CLASSH2_LUT_REG9_OFFSET  8
+#define CLASSH2_LUT_REG8_LEN     7
+#define CLASSH2_LUT_REG8_OFFSET  0
+
+#define CLASS2_LUT_REG12_15_REG      (ASP_CODEC_BASE + 0x1E0) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG15_LEN    7
+#define CLASSH2_LUT_REG15_OFFSET 24
+#define CLASSH2_LUT_REG14_LEN    7
+#define CLASSH2_LUT_REG14_OFFSET 16
+#define CLASSH2_LUT_REG13_LEN    7
+#define CLASSH2_LUT_REG13_OFFSET 8
+#define CLASSH2_LUT_REG12_LEN    7
+#define CLASSH2_LUT_REG12_OFFSET 0
+
+#define CLASS2_LUT_REG16_19_REG      (ASP_CODEC_BASE + 0x1E4) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG19_LEN    7
+#define CLASSH2_LUT_REG19_OFFSET 24
+#define CLASSH2_LUT_REG18_LEN    7
+#define CLASSH2_LUT_REG18_OFFSET 16
+#define CLASSH2_LUT_REG17_LEN    7
+#define CLASSH2_LUT_REG17_OFFSET 8
+#define CLASSH2_LUT_REG16_LEN    7
+#define CLASSH2_LUT_REG16_OFFSET 0
+
+#define CLASS2_LUT_REG20_23_REG      (ASP_CODEC_BASE + 0x1E8) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG23_LEN    7
+#define CLASSH2_LUT_REG23_OFFSET 24
+#define CLASSH2_LUT_REG22_LEN    7
+#define CLASSH2_LUT_REG22_OFFSET 16
+#define CLASSH2_LUT_REG21_LEN    7
+#define CLASSH2_LUT_REG21_OFFSET 8
+#define CLASSH2_LUT_REG20_LEN    7
+#define CLASSH2_LUT_REG20_OFFSET 0
+
+#define CLASS2_LUT_REG24_27_REG      (ASP_CODEC_BASE + 0x1EC) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG27_LEN    7
+#define CLASSH2_LUT_REG27_OFFSET 24
+#define CLASSH2_LUT_REG26_LEN    7
+#define CLASSH2_LUT_REG26_OFFSET 16
+#define CLASSH2_LUT_REG25_LEN    7
+#define CLASSH2_LUT_REG25_OFFSET 8
+#define CLASSH2_LUT_REG24_LEN    7
+#define CLASSH2_LUT_REG24_OFFSET 0
+
+#define CLASS2_LUT_REG28_31_REG      (ASP_CODEC_BASE + 0x1F0) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG31_LEN    7
+#define CLASSH2_LUT_REG31_OFFSET 24
+#define CLASSH2_LUT_REG30_LEN    7
+#define CLASSH2_LUT_REG30_OFFSET 16
+#define CLASSH2_LUT_REG29_LEN    7
+#define CLASSH2_LUT_REG29_OFFSET 8
+#define CLASSH2_LUT_REG28_LEN    7
+#define CLASSH2_LUT_REG28_OFFSET 0
+
+#define CLASS2_LUT_REG32_35_REG      (ASP_CODEC_BASE + 0x1F4) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG35_LEN    7
+#define CLASSH2_LUT_REG35_OFFSET 24
+#define CLASSH2_LUT_REG34_LEN    7
+#define CLASSH2_LUT_REG34_OFFSET 16
+#define CLASSH2_LUT_REG33_LEN    7
+#define CLASSH2_LUT_REG33_OFFSET 8
+#define CLASSH2_LUT_REG32_LEN    7
+#define CLASSH2_LUT_REG32_OFFSET 0
+
+#define CLASS2_LUT_REG36_39_REG      (ASP_CODEC_BASE + 0x1F8) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG39_LEN    7
+#define CLASSH2_LUT_REG39_OFFSET 24
+#define CLASSH2_LUT_REG38_LEN    7
+#define CLASSH2_LUT_REG38_OFFSET 16
+#define CLASSH2_LUT_REG37_LEN    7
+#define CLASSH2_LUT_REG37_OFFSET 8
+#define CLASSH2_LUT_REG36_LEN    7
+#define CLASSH2_LUT_REG36_OFFSET 0
+
+#define CLASS2_LUT_REG40_43_REG      (ASP_CODEC_BASE + 0x1FC) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG43_LEN    7
+#define CLASSH2_LUT_REG43_OFFSET 24
+#define CLASSH2_LUT_REG42_LEN    7
+#define CLASSH2_LUT_REG42_OFFSET 16
+#define CLASSH2_LUT_REG41_LEN    7
+#define CLASSH2_LUT_REG41_OFFSET 8
+#define CLASSH2_LUT_REG40_LEN    7
+#define CLASSH2_LUT_REG40_OFFSET 0
+
+#define CLASS2_LUT_REG44_47_REG      (ASP_CODEC_BASE + 0x200) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG47_LEN    7
+#define CLASSH2_LUT_REG47_OFFSET 24
+#define CLASSH2_LUT_REG46_LEN    7
+#define CLASSH2_LUT_REG46_OFFSET 16
+#define CLASSH2_LUT_REG45_LEN    7
+#define CLASSH2_LUT_REG45_OFFSET 8
+#define CLASSH2_LUT_REG44_LEN    7
+#define CLASSH2_LUT_REG44_OFFSET 0
+
+#define CLASS2_LUT_REG48_51_REG      (ASP_CODEC_BASE + 0x204) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG51_LEN    7
+#define CLASSH2_LUT_REG51_OFFSET 24
+#define CLASSH2_LUT_REG50_LEN    7
+#define CLASSH2_LUT_REG50_OFFSET 16
+#define CLASSH2_LUT_REG49_LEN    7
+#define CLASSH2_LUT_REG49_OFFSET 8
+#define CLASSH2_LUT_REG48_LEN    7
+#define CLASSH2_LUT_REG48_OFFSET 0
+
+#define CLASS2_LUT_REG52_55_REG      (ASP_CODEC_BASE + 0x208) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG55_LEN    7
+#define CLASSH2_LUT_REG55_OFFSET 24
+#define CLASSH2_LUT_REG54_LEN    7
+#define CLASSH2_LUT_REG54_OFFSET 16
+#define CLASSH2_LUT_REG53_LEN    7
+#define CLASSH2_LUT_REG53_OFFSET 8
+#define CLASSH2_LUT_REG52_LEN    7
+#define CLASSH2_LUT_REG52_OFFSET 0
+
+#define CLASS2_LUT_REG56_59_REG      (ASP_CODEC_BASE + 0x20C) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG59_LEN    7
+#define CLASSH2_LUT_REG59_OFFSET 24
+#define CLASSH2_LUT_REG58_LEN    7
+#define CLASSH2_LUT_REG58_OFFSET 16
+#define CLASSH2_LUT_REG57_LEN    7
+#define CLASSH2_LUT_REG57_OFFSET 8
+#define CLASSH2_LUT_REG56_LEN    7
+#define CLASSH2_LUT_REG56_OFFSET 0
+
+#define CLASS2_LUT_REG60_63_REG      (ASP_CODEC_BASE + 0x210) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG63_LEN    7
+#define CLASSH2_LUT_REG63_OFFSET 24
+#define CLASSH2_LUT_REG62_LEN    7
+#define CLASSH2_LUT_REG62_OFFSET 16
+#define CLASSH2_LUT_REG61_LEN    7
+#define CLASSH2_LUT_REG61_OFFSET 8
+#define CLASSH2_LUT_REG60_LEN    7
+#define CLASSH2_LUT_REG60_OFFSET 0
+
+#define CLASS2_LUT_REG64_67_REG      (ASP_CODEC_BASE + 0x21C) /* LUT的查找表寄存器 */
+#define CLASSH2_LUT_REG67_LEN    7
+#define CLASSH2_LUT_REG67_OFFSET 24
+#define CLASSH2_LUT_REG66_LEN    7
+#define CLASSH2_LUT_REG66_OFFSET 16
+#define CLASSH2_LUT_REG65_LEN    7
+#define CLASSH2_LUT_REG65_OFFSET 8
+#define CLASSH2_LUT_REG64_LEN    7
+#define CLASSH2_LUT_REG64_OFFSET 0
+
+#define CLASSH3_CTRL1_REG            (ASP_CODEC_BASE + 0x220) /* classh3的控制信号 */
+#define CLASSH3_BYPASS_LEN               1
+#define CLASSH3_BYPASS_OFFSET            31
+#define CLASSH3_FALL_DELAY_DF_CFG_LEN    15
+#define CLASSH3_FALL_DELAY_DF_CFG_OFFSET 16
+#define CLASSH3_DO_CFG_LEN               4
+#define CLASSH3_DO_CFG_OFFSET            8
+#define CLASSH3_FALL_DELAY_EN_LEN        1
+#define CLASSH3_FALL_DELAY_EN_OFFSET     4
+#define CLASSH3_DN_CFG_LEN               4
+#define CLASSH3_DN_CFG_OFFSET            0
+
+#define CLASSH3_CTRL2_REG            (ASP_CODEC_BASE + 0x224) /* classh3的控制寄存器 */
+#define CLASSH3_FALL_STEP_LEN     6
+#define CLASSH3_FALL_STEP_OFFSET  24
+#define CLASSH3_REG_VCTRL1_LEN    8
+#define CLASSH3_REG_VCTRL1_OFFSET 16
+#define CLASSH3_EN_LEN            1
+#define CLASSH3_EN_OFFSET         10
+#define CLASSH3_DYM_EN_LEN        1
+#define CLASSH3_DYM_EN_OFFSET     9
+#define CLASSH3_PGA_GAIN_LEN      9
+#define CLASSH3_PGA_GAIN_OFFSET   0
+
+#define CLASSH3_LUT_REG0_3_REG       (ASP_CODEC_BASE + 0x228) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG3_LEN    7
+#define CLASSH3_LUT_REG3_OFFSET 24
+#define CLASSH3_LUT_REG2_LEN    7
+#define CLASSH3_LUT_REG2_OFFSET 16
+#define CLASSH3_LUT_REG1_LEN    7
+#define CLASSH3_LUT_REG1_OFFSET 8
+#define CLASSH3_LUT_REG0_LEN    7
+#define CLASSH3_LUT_REG0_OFFSET 0
+
+#define CLASSH3_LUT_REG4_7_REG       (ASP_CODEC_BASE + 0x22C) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG7_LEN    7
+#define CLASSH3_LUT_REG7_OFFSET 24
+#define CLASSH3_LUT_REG6_LEN    7
+#define CLASSH3_LUT_REG6_OFFSET 16
+#define CLASSH3_LUT_REG5_LEN    7
+#define CLASSH3_LUT_REG5_OFFSET 8
+#define CLASSH3_LUT_REG4_LEN    7
+#define CLASSH3_LUT_REG4_OFFSET 0
+
+#define CLASSH3_LUT_REG8_11_REG      (ASP_CODEC_BASE + 0x230) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG11_LEN    7
+#define CLASSH3_LUT_REG11_OFFSET 24
+#define CLASSH3_LUT_REG10_LEN    7
+#define CLASSH3_LUT_REG10_OFFSET 16
+#define CLASSH3_LUT_REG9_LEN     7
+#define CLASSH3_LUT_REG9_OFFSET  8
+#define CLASSH3_LUT_REG8_LEN     7
+#define CLASSH3_LUT_REG8_OFFSET  0
+
+#define CLASSH3_LUT_REG12_15_REG     (ASP_CODEC_BASE + 0x234) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG15_LEN    7
+#define CLASSH3_LUT_REG15_OFFSET 24
+#define CLASSH3_LUT_REG14_LEN    7
+#define CLASSH3_LUT_REG14_OFFSET 16
+#define CLASSH3_LUT_REG13_LEN    7
+#define CLASSH3_LUT_REG13_OFFSET 8
+#define CLASSH3_LUT_REG12_LEN    7
+#define CLASSH3_LUT_REG12_OFFSET 0
+
+#define CLASSH3_LUT_REG16_19_REG     (ASP_CODEC_BASE + 0x238) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG19_LEN    7
+#define CLASSH3_LUT_REG19_OFFSET 24
+#define CLASSH3_LUT_REG18_LEN    7
+#define CLASSH3_LUT_REG18_OFFSET 16
+#define CLASSH3_LUT_REG17_LEN    7
+#define CLASSH3_LUT_REG17_OFFSET 8
+#define CLASSH3_LUT_REG16_LEN    7
+#define CLASSH3_LUT_REG16_OFFSET 0
+
+#define CLASSH3_LUT_REG20_23_REG     (ASP_CODEC_BASE + 0x23C) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG23_LEN    7
+#define CLASSH3_LUT_REG23_OFFSET 24
+#define CLASSH3_LUT_REG22_LEN    7
+#define CLASSH3_LUT_REG22_OFFSET 16
+#define CLASSH3_LUT_REG21_LEN    7
+#define CLASSH3_LUT_REG21_OFFSET 8
+#define CLASSH3_LUT_REG20_LEN    7
+#define CLASSH3_LUT_REG20_OFFSET 0
+
+#define CLASSH3_LUT_REG24_27_REG     (ASP_CODEC_BASE + 0x240) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG27_LEN    7
+#define CLASSH3_LUT_REG27_OFFSET 24
+#define CLASSH3_LUT_REG26_LEN    7
+#define CLASSH3_LUT_REG26_OFFSET 16
+#define CLASSH3_LUT_REG25_LEN    7
+#define CLASSH3_LUT_REG25_OFFSET 8
+#define CLASSH3_LUT_REG24_LEN    7
+#define CLASSH3_LUT_REG24_OFFSET 0
+
+#define CLASSH3_LUT_REG28_31_REG     (ASP_CODEC_BASE + 0x244) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG31_LEN    7
+#define CLASSH3_LUT_REG31_OFFSET 24
+#define CLASSH3_LUT_REG30_LEN    7
+#define CLASSH3_LUT_REG30_OFFSET 16
+#define CLASSH3_LUT_REG29_LEN    7
+#define CLASSH3_LUT_REG29_OFFSET 8
+#define CLASSH3_LUT_REG28_LEN    7
+#define CLASSH3_LUT_REG28_OFFSET 0
+
+#define CLASSH3_LUT_REG32_35_REG     (ASP_CODEC_BASE + 0x248) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG35_LEN    7
+#define CLASSH3_LUT_REG35_OFFSET 24
+#define CLASSH3_LUT_REG34_LEN    7
+#define CLASSH3_LUT_REG34_OFFSET 16
+#define CLASSH3_LUT_REG33_LEN    7
+#define CLASSH3_LUT_REG33_OFFSET 8
+#define CLASSH3_LUT_REG32_LEN    7
+#define CLASSH3_LUT_REG32_OFFSET 0
+
+#define CLASSH3_LUT_REG36_39_REG     (ASP_CODEC_BASE + 0x24C) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG39_LEN    7
+#define CLASSH3_LUT_REG39_OFFSET 24
+#define CLASSH3_LUT_REG38_LEN    7
+#define CLASSH3_LUT_REG38_OFFSET 16
+#define CLASSH3_LUT_REG37_LEN    7
+#define CLASSH3_LUT_REG37_OFFSET 8
+#define CLASSH3_LUT_REG36_LEN    7
+#define CLASSH3_LUT_REG36_OFFSET 0
+
+#define CLASSH3_LUT_REG40_43_REG     (ASP_CODEC_BASE + 0x250) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG43_LEN    7
+#define CLASSH3_LUT_REG43_OFFSET 24
+#define CLASSH3_LUT_REG42_LEN    7
+#define CLASSH3_LUT_REG42_OFFSET 16
+#define CLASSH3_LUT_REG41_LEN    7
+#define CLASSH3_LUT_REG41_OFFSET 8
+#define CLASSH3_LUT_REG40_LEN    7
+#define CLASSH3_LUT_REG40_OFFSET 0
+
+#define CLASSH3_LUT_REG44_47_REG     (ASP_CODEC_BASE + 0x254) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG47_LEN    7
+#define CLASSH3_LUT_REG47_OFFSET 24
+#define CLASSH3_LUT_REG46_LEN    7
+#define CLASSH3_LUT_REG46_OFFSET 16
+#define CLASSH3_LUT_REG45_LEN    7
+#define CLASSH3_LUT_REG45_OFFSET 8
+#define CLASSH3_LUT_REG44_LEN    7
+#define CLASSH3_LUT_REG44_OFFSET 0
+
+#define CLASSH3_LUT_REG48_51_REG     (ASP_CODEC_BASE + 0x258) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG51_LEN    7
+#define CLASSH3_LUT_REG51_OFFSET 24
+#define CLASSH3_LUT_REG50_LEN    7
+#define CLASSH3_LUT_REG50_OFFSET 16
+#define CLASSH3_LUT_REG49_LEN    7
+#define CLASSH3_LUT_REG49_OFFSET 8
+#define CLASSH3_LUT_REG48_LEN    7
+#define CLASSH3_LUT_REG48_OFFSET 0
+
+#define CLASSH3_LUT_REG52_55_REG     (ASP_CODEC_BASE + 0x25C) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG55_LEN    7
+#define CLASSH3_LUT_REG55_OFFSET 24
+#define CLASSH3_LUT_REG54_LEN    7
+#define CLASSH3_LUT_REG54_OFFSET 16
+#define CLASSH3_LUT_REG53_LEN    7
+#define CLASSH3_LUT_REG53_OFFSET 8
+#define CLASSH3_LUT_REG52_LEN    7
+#define CLASSH3_LUT_REG52_OFFSET 0
+
+#define CLASSH3_LUT_REG56_59_REG     (ASP_CODEC_BASE + 0x260) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG59_LEN    7
+#define CLASSH3_LUT_REG59_OFFSET 24
+#define CLASSH3_LUT_REG58_LEN    7
+#define CLASSH3_LUT_REG58_OFFSET 16
+#define CLASSH3_LUT_REG57_LEN    7
+#define CLASSH3_LUT_REG57_OFFSET 8
+#define CLASSH3_LUT_REG56_LEN    7
+#define CLASSH3_LUT_REG56_OFFSET 0
+
+#define CLASSH3_LUT_REG60_63_REG     (ASP_CODEC_BASE + 0x264) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG63_LEN    7
+#define CLASSH3_LUT_REG63_OFFSET 24
+#define CLASSH3_LUT_REG62_LEN    7
+#define CLASSH3_LUT_REG62_OFFSET 16
+#define CLASSH3_LUT_REG61_LEN    7
+#define CLASSH3_LUT_REG61_OFFSET 8
+#define CLASSH3_LUT_REG60_LEN    7
+#define CLASSH3_LUT_REG60_OFFSET 0
+
+#define CLASSH3_LUT_REG64_67_REG     (ASP_CODEC_BASE + 0x268) /* LUT的查找表寄存器 */
+#define CLASSH3_LUT_REG67_LEN    7
+#define CLASSH3_LUT_REG67_OFFSET 24
+#define CLASSH3_LUT_REG66_LEN    7
+#define CLASSH3_LUT_REG66_OFFSET 16
+#define CLASSH3_LUT_REG65_LEN    7
+#define CLASSH3_LUT_REG65_OFFSET 8
+#define CLASSH3_LUT_REG64_LEN    7
+#define CLASSH3_LUT_REG64_OFFSET 0
+
+#ifdef CONFIG_SND_SOC_CODEC_DA_SEPARATE_V6L
+#define MIC4_UP_AFIFO_CTRL_REG        (ASP_CODEC_BASE + 0x26C)
+#define MIC4_UP_FIFO_CLR_LEN          1
+#define MIC4_UP_FIFO_CLR_OFFSET       15
+#define MIC4_UP_FIFO_AFULL_TH_LEN     6
+#define MIC4_UP_FIFO_AFULL_TH_OFFSET  9
+#define MIC4_UP_FIFO_AEMPTY_TH_LEN    6
+#define MIC4_UP_FIFO_AEMPTY_TH_OFFSET 3
+
+#define ADC3_SPA_UP_AFIFO_CTRL_REG        (ASP_CODEC_BASE + 0x270)
+#define ADC3_SPV_UP_FIFO_CLR_LEN          1
+#define ADC3_SPV_UP_FIFO_CLR_OFFSET       31
+#define ADC3_SPV_UP_FIFO_AFULL_TH_LEN     6
+#define ADC3_SPV_UP_FIFO_AFULL_TH_OFFSET  25
+#define ADC3_SPV_UP_FIFO_AEMPTY_TH_LEN    6
+#define ADC3_SPV_UP_FIFO_AEMPTY_TH_OFFSET 19
+#define ADC3_SPI_UP_FIFO_CLR_LEN          1
+#define ADC3_SPI_UP_FIFO_CLR_OFFSET       15
+#define ADC3_SPI_UP_FIFO_AFULL_TH_LEN     6
+#define ADC3_SPI_UP_FIFO_AFULL_TH_OFFSET  9
+#define ADC3_SPI_UP_FIFO_AEMPTY_TH_LEN    6
+#define ADC3_SPI_UP_FIFO_AEMPTY_TH_OFFSET 3
+
+#define ADC2_SPA_UP_AFIFO_CTRL_REG        (ASP_CODEC_BASE + 0x274)
+#define ADC2_SPV_UP_FIFO_CLR_LEN          1
+#define ADC2_SPV_UP_FIFO_CLR_OFFSET       31
+#define ADC2_SPV_UP_FIFO_AFULL_TH_LEN     6
+#define ADC2_SPV_UP_FIFO_AFULL_TH_OFFSET  25
+#define ADC2_SPV_UP_FIFO_AEMPTY_TH_LEN    6
+#define ADC2_SPV_UP_FIFO_AEMPTY_TH_OFFSET 19
+#define ADC2_SPI_UP_FIFO_CLR_LEN          1
+#define ADC2_SPI_UP_FIFO_CLR_OFFSET       15
+#define ADC2_SPI_UP_FIFO_AFULL_TH_LEN     6
+#define ADC2_SPI_UP_FIFO_AFULL_TH_OFFSET  9
+#define ADC2_SPI_UP_FIFO_AEMPTY_TH_LEN    6
+#define ADC2_SPI_UP_FIFO_AEMPTY_TH_OFFSET 3
+#else
+#define MIC4_UP_AFIFO_CTRL_REG       (ASP_CODEC_BASE + 0x26C) /* MIC4上行通路AFIFO控制寄存器 */
+#define MIC4_UP_FIFO_CLR_LEN          1
+#define MIC4_UP_FIFO_CLR_OFFSET       15
+#define MIC4_UP_FIFO_AFULL_TH_LEN     5
+#define MIC4_UP_FIFO_AFULL_TH_OFFSET  10
+#define MIC4_UP_FIFO_AEMPTY_TH_LEN    5
+#define MIC4_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define ADC3_SPA_UP_AFIFO_CTRL_REG   (ASP_CODEC_BASE + 0x270) /* ADC3_SPA上行通路AFIFO控制寄存器 */
+#define ADC3_SPV_UP_FIFO_CLR_LEN          1
+#define ADC3_SPV_UP_FIFO_CLR_OFFSET       31
+#define ADC3_SPV_UP_FIFO_AFULL_TH_LEN     5
+#define ADC3_SPV_UP_FIFO_AFULL_TH_OFFSET  26
+#define ADC3_SPV_UP_FIFO_AEMPTY_TH_LEN    5
+#define ADC3_SPV_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define ADC3_SPI_UP_FIFO_CLR_LEN          1
+#define ADC3_SPI_UP_FIFO_CLR_OFFSET       15
+#define ADC3_SPI_UP_FIFO_AFULL_TH_LEN     5
+#define ADC3_SPI_UP_FIFO_AFULL_TH_OFFSET  10
+#define ADC3_SPI_UP_FIFO_AEMPTY_TH_LEN    5
+#define ADC3_SPI_UP_FIFO_AEMPTY_TH_OFFSET 5
+
+#define ADC2_SPA_UP_AFIFO_CTRL_REG   (ASP_CODEC_BASE + 0x274) /* ADC2_SPA上行通路AFIFO控制寄存器 */
+#define ADC2_SPV_UP_FIFO_CLR_LEN          1
+#define ADC2_SPV_UP_FIFO_CLR_OFFSET       31
+#define ADC2_SPV_UP_FIFO_AFULL_TH_LEN     5
+#define ADC2_SPV_UP_FIFO_AFULL_TH_OFFSET  26
+#define ADC2_SPV_UP_FIFO_AEMPTY_TH_LEN    5
+#define ADC2_SPV_UP_FIFO_AEMPTY_TH_OFFSET 21
+#define ADC2_SPI_UP_FIFO_CLR_LEN          1
+#define ADC2_SPI_UP_FIFO_CLR_OFFSET       15
+#define ADC2_SPI_UP_FIFO_AFULL_TH_LEN     5
+#define ADC2_SPI_UP_FIFO_AFULL_TH_OFFSET  10
+#define ADC2_SPI_UP_FIFO_AEMPTY_TH_LEN    5
+#define ADC2_SPI_UP_FIFO_AEMPTY_TH_OFFSET 5
+#endif
+
+#define MIC4_ADC_FILTER_REG          (ASP_CODEC_BASE + 0x278) /* mic4的adc控制信号 */
+#define MIC4_ADC_CIC_GAIN_LEN           6
+#define MIC4_ADC_CIC_GAIN_OFFSET        16
+#define MIC4_ADC_COMPD_BYPASS_EN_LEN    1
+#define MIC4_ADC_COMPD_BYPASS_EN_OFFSET 15
+#define MIC4_ADC_HBF2D_BYPASS_EN_LEN    1
+#define MIC4_ADC_HBF2D_BYPASS_EN_OFFSET 14
+#define MIC4_ADC_HBFVD_BYPASS_EN_LEN    1
+#define MIC4_ADC_HBFVD_BYPASS_EN_OFFSET 13
+#define MIC4_ADC_HPF_BYPASS_EN_LEN      1
+#define MIC4_ADC_HPF_BYPASS_EN_OFFSET   12
+
+#define CODEC_MIC4_DC_OFFSET_REG     (ASP_CODEC_BASE + 0x27C) /* MIC4_ADC通路DC_OFFSET配置寄存器 */
+#define MIC4_ADC_DC_OFFSET_LEN    24
+#define MIC4_ADC_DC_OFFSET_OFFSET 0
+#define SPA1_SDM_DC_OFFSET_REG       (ASP_CODEC_BASE + 0x280) /* SPA1_SDM通路DC_OFFSET配置寄存器 */
+#define SPA1_SDM_DC_OFFSET_LEN    24
+#define SPA1_SDM_DC_OFFSET_OFFSET 0
+#define SPA2_SDM_DC_OFFSET_REG       (ASP_CODEC_BASE + 0x284) /* SPA2_SDM通路DC_OFFSET配置寄存器 */
+#define SPA2_SDM_DC_OFFSET_LEN    24
+#define SPA2_SDM_DC_OFFSET_OFFSET 0
+#define SPA3_SDM_DC_OFFSET_REG       (ASP_CODEC_BASE + 0x288) /* SPA3_SDM通路DC_OFFSET配置寄存器 */
+#define SPA3_SDM_DC_OFFSET_LEN    24
+#define SPA3_SDM_DC_OFFSET_OFFSET 0
+
+#define SIF2_3_CTRL_REG              (ASP_CODEC_BASE + 0x28C) /* SIF2,3控制寄存器 */
+#define SIF3_SPA_ADC_EN_LEN    1
+#define SIF3_SPA_ADC_EN_OFFSET 3
+#define SIF3_SPA_DAC_EN_LEN    1
+#define SIF3_SPA_DAC_EN_OFFSET 2
+#define SIF2_SPA_ADC_EN_LEN    1
+#define SIF2_SPA_ADC_EN_OFFSET 1
+#define SIF2_SPA_DAC_EN_LEN    1
+#define SIF2_SPA_DAC_EN_OFFSET 0
+
+#ifdef CONFIG_SND_SOC_CODEC_DA_SEPARATE_V6B
+#define SPA2_MIXER4_CTRL0_REG        (ASP_CODEC_BASE + 0x290) /* SPA2_MIXER4控制寄存器0 */
+#define SPA2_MIXER4_IN4_ID_LEN      2
+#define SPA2_MIXER4_IN4_ID_OFFSET   30
+#define SPA2_MIXER4_IN3_ID_LEN      2
+#define SPA2_MIXER4_IN3_ID_OFFSET   28
+#define SPA2_MIXER4_IN2_ID_LEN      2
+#define SPA2_MIXER4_IN2_ID_OFFSET   26
+#define SPA2_MIXER4_IN1_ID_LEN      2
+#define SPA2_MIXER4_IN1_ID_OFFSET   24
+#define SPA2_MIXER4_IN4_MUTE_LEN    1
+#define SPA2_MIXER4_IN4_MUTE_OFFSET 23
+#define SPA2_MIXER4_IN3_MUTE_LEN    1
+#define SPA2_MIXER4_IN3_MUTE_OFFSET 22
+#define SPA2_MIXER4_IN2_MUTE_LEN    1
+#define SPA2_MIXER4_IN2_MUTE_OFFSET 21
+#define SPA2_MIXER4_IN1_MUTE_LEN    1
+#define SPA2_MIXER4_IN1_MUTE_OFFSET 20
+#define SPA2_MIXER4_GAIN4_LEN       2
+#define SPA2_MIXER4_GAIN4_OFFSET    18
+#define SPA2_MIXER4_GAIN3_LEN       2
+#define SPA2_MIXER4_GAIN3_OFFSET    16
+#define SPA2_MIXER4_GAIN2_LEN       2
+#define SPA2_MIXER4_GAIN2_OFFSET    14
+#define SPA2_MIXER4_GAIN1_LEN       2
+#define SPA2_MIXER4_GAIN1_OFFSET    12
+
+#define SPA2_MIXER4_CTRL1_REG        (ASP_CODEC_BASE + 0x294) /* SPA2_MIXER4控制寄存器1 */
+#define SPA2_MIXER4_FADE_EN_LEN     1
+#define SPA2_MIXER4_FADE_EN_OFFSET  31
+#define SPA2_MIXER4_FADE_IN_LEN     5
+#define SPA2_MIXER4_FADE_IN_OFFSET  26
+#define SPA2_MIXER4_FADE_OUT_LEN    5
+#define SPA2_MIXER4_FADE_OUT_OFFSET 21
+#define SPA2_MIXER4_ZERO_NUM_LEN    5
+#define SPA2_MIXER4_ZERO_NUM_OFFSET 16
+
+#define SPA3_MIXER4_CTRL0_REG        (ASP_CODEC_BASE + 0x298) /* SPA3_MIXER4控制寄存器0 */
+#define SPA3_MIXER4_IN4_ID_LEN      2
+#define SPA3_MIXER4_IN4_ID_OFFSET   30
+#define SPA3_MIXER4_IN3_ID_LEN      2
+#define SPA3_MIXER4_IN3_ID_OFFSET   28
+#define SPA3_MIXER4_IN2_ID_LEN      2
+#define SPA3_MIXER4_IN2_ID_OFFSET   26
+#define SPA3_MIXER4_IN1_ID_LEN      2
+#define SPA3_MIXER4_IN1_ID_OFFSET   24
+#define SPA3_MIXER4_IN4_MUTE_LEN    1
+#define SPA3_MIXER4_IN4_MUTE_OFFSET 23
+#define SPA3_MIXER4_IN3_MUTE_LEN    1
+#define SPA3_MIXER4_IN3_MUTE_OFFSET 22
+#define SPA3_MIXER4_IN2_MUTE_LEN    1
+#define SPA3_MIXER4_IN2_MUTE_OFFSET 21
+#define SPA3_MIXER4_IN1_MUTE_LEN    1
+#define SPA3_MIXER4_IN1_MUTE_OFFSET 20
+#define SPA3_MIXER4_GAIN4_LEN       2
+#define SPA3_MIXER4_GAIN4_OFFSET    18
+#define SPA3_MIXER4_GAIN3_LEN       2
+#define SPA3_MIXER4_GAIN3_OFFSET    16
+#define SPA3_MIXER4_GAIN2_LEN       2
+#define SPA3_MIXER4_GAIN2_OFFSET    14
+#define SPA3_MIXER4_GAIN1_LEN       2
+#define SPA3_MIXER4_GAIN1_OFFSET    12
+
+#define SPA3_MIXER4_CTRL1_REG        (ASP_CODEC_BASE + 0x29C) /* SPA3_MIXER4控制寄存器1 */
+#define SPA3_MIXER4_FADE_EN_LEN     1
+#define SPA3_MIXER4_FADE_EN_OFFSET  31
+#define SPA3_MIXER4_FADE_IN_LEN     5
+#define SPA3_MIXER4_FADE_IN_OFFSET  26
+#define SPA3_MIXER4_FADE_OUT_LEN    5
+#define SPA3_MIXER4_FADE_OUT_OFFSET 21
+#define SPA3_MIXER4_ZERO_NUM_LEN    5
+#define SPA3_MIXER4_ZERO_NUM_OFFSET 16
+#endif
+
+#define R_RST_CTRLEN (ASP_CFG_BASE + 0x0)
+#define RST_EN_CODEC_N 0
+
+#define R_RST_CTRLDIS (ASP_CFG_BASE + 0x4)
+#define RST_DISEN_CODEC_N 0
+
+#define R_GATE_EN (ASP_CFG_BASE + 0xC)
+#define GT_CODEC_CLK 1
+
+#define R_CODEC_DMA_SEL (ASP_CFG_BASE + 0x1D8)
+#define INTR_VAD_WAKEUP_LEN    1
+#define INTR_VAD_WAKEUP_OFFSET 30
+#define SPA_DMA_SEL_LEN    1
+#define SPA_DMA_SEL_OFFSET 20
+#define MIC_DMA_SEL_LEN    1
+#define MIC_DMA_SEL_OFFSET 19
+#define ULTR_DMA_SEL_LEN    1
+#define ULTR_DMA_SEL_OFFSET 18
+#define VOICE_DMA_SEL_LEN    1
+#define VOICE_DMA_SEL_OFFSET 17
+#define AUDIO_DMA_SEL_LEN    1
+#define AUDIO_DMA_SEL_OFFSET 16
+#define SC_ASP_MID1_LEN    6
+#define SC_ASP_MID1_OFFSET 8
+#define SC_ASP_MID0_LEN    6
+#define SC_ASP_MID0_OFFSET 2
+
+#endif // __DA_SEPARATE_V5_ASP_REG_DEF_H__

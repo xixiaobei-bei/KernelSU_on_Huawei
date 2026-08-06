@@ -1,0 +1,6 @@
+config HW_NETQOS_SCHED
+    bool "netqos schedule"
+    default n
+    help
+      if set, the network will speed up or slow down according to
+      business QOS

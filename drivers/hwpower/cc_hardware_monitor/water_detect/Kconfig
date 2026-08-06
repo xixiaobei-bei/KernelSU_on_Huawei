@@ -1,0 +1,14 @@
+#
+# water detect monitor drivers
+#
+
+config HUAWEI_WATER_DETECT
+	bool "huawei water detect"
+	default n
+	help
+	  Say Y here to enable water detect monitor driver.
+	  Currently supported monitor chip as below:
+	  fsa9685
+	  scharger v300
+	  scharger v600
+	  fsa4480

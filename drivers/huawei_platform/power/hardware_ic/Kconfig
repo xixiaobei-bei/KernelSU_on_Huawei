@@ -1,0 +1,3 @@
+source "drivers/huawei_platform/power/hardware_ic/charger_ic/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/load_switch/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/wireless_charge_ic/Kconfig"

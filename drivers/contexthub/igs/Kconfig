@@ -1,0 +1,24 @@
+config CONTEXTHUB_IGS
+	bool "intelligent gesture sensor driver"
+	depends on INPUTHUB_20
+	default n
+	help
+	Igs driver support aonn.
+
+config CONTEXTHUB_IGS_DBG
+	bool "intelligent gesture sensor dbg drvier"
+	depends on INPUTHUB_20
+	default n
+	help
+	Igs debug drvier support aonn.
+
+config CONTEXTHUB_IGS_20
+	bool "intelligent gesture sensor 2.0"
+	default n
+	help
+	  intelligent gesture sensor 2.0 config
+config CONTEXTHUB_IGS_TOF
+	bool "intelligent gesture sensor tof"
+	default n
+	help
+	Igs tof driver

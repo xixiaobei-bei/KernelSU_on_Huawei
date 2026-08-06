@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# ship mode drivers
+#
+
+config HUAWEI_SHIP_MODE
+	bool "ship mode"
+	default n
+	help
+	  Say Y here to enable ship mode driver.
+	  Ship mode: isolating battery from vsys loads during phone
+	  shipping/storage to prevent battery discharge by system leakage.

@@ -1,0 +1,34 @@
+menu "SoC Audio support for CODEC"
+
+config SND_DA_SEPARATE_MACHINE
+	tristate "da separate machine sound support"
+	help
+	  Say y to enable sound support for da separate machine
+
+config SND_DA_COMBINE_MACHINE
+	tristate "da combine machine sound support"
+	help
+	  Say y to enable sound support for da combine machine
+
+config SND_ANALOG_LESS_MACHINE
+	tristate "analgo less machine sound support"
+	help
+	  Say y to enable sound support for analog less machine
+
+config SND_SOC_DP_AUDIO
+	tristate "SoC Audio support for DP audio"
+	help
+		This option enables DP audio.
+
+config SND_AUTO_TEST
+	tristate "Auto test sound support"
+	help
+		This option enables sound auto tesrt.
+
+config SND_SOC_SLIMBUS_DAI
+	tristate "Support SLIMBUS DAI"
+	default y
+
+source "sound/soc/hisilicon/pcm_codec/Kconfig"
+endmenu
+

@@ -1,0 +1,25 @@
+config HW_WIFIPRO
+	bool "Huawei wifipro tcp monitor support"
+	default n
+
+config HW_WIFIPRO_PROC
+	bool "Huawei wifipro proc support"
+	depends on HW_WIFIPRO
+	default n
+
+config WIFI_DELAY_STATISTIC
+	bool "wifi delay statistic"
+	default n
+
+config HW_SNIFFER
+	bool "hw sniffer"
+	default n
+
+config HW_CHR_TCP_SMALL_WIN_PROC
+	bool "Huawei tcp small window monitor proc support"
+	depends on HW_CHR_TCP_SMALL_WIN_MONITOR
+	default n
+
+config HW_WIFI_TEMP
+	bool "Huawei wifi temperature upload"
+	default n

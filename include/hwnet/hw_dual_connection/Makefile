@@ -1,0 +1,1 @@
+obj-$(CONFIG_HW_DC_MODULE) += hip2p_dc_util.o hip2p_dc_interface.o hip2p_dc_core.o

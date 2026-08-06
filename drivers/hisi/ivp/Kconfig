@@ -1,0 +1,69 @@
+menu "IVP"
+
+config DEV_IVP
+     bool "ivp support"
+     default n
+     help
+          ivp driver for ivpv300.
+
+config IVP_SMMU
+	bool "IVP SMMU Support"
+	depends on IOMMU_API
+	depends on HISI_IODOMAIN_API
+	help
+	  IVP IOMMU Support.
+
+config IVP_SMMU_V3
+	bool "IVP SMMU_V3 Support"
+	depends on IOMMU_API
+	depends on HISI_IODOMAIN_API
+	help
+	  IVP IOMMU Support.
+config IVP_SMMU_TEST
+	bool "IVP SMMU TEST Support"
+	depends on IVP_SMMU
+	help
+	  IVP IOMMU TEST Support.
+
+config IVP_IVPV160
+	bool "ivpv160"
+	depends on DEV_IVP
+
+config IVP_IVPV200
+	bool "ivpv200"
+	depends on DEV_IVP
+
+config IVP_IVPV150
+	bool "ivpv150"
+	depends on DEV_IVP
+
+config IVP_IVPV120
+	bool "ivpv120"
+	depends on DEV_IVP
+
+config IVP_IVPV210
+	bool "ivpv210"
+	depends on DEV_IVP
+
+config IVP_IVPV250
+	bool "ivpv250"
+	depends on DEV_IVP
+
+config IVP_IVPV300
+	bool "ivpv300"
+	depends on DEV_IVP
+
+config IVP_IVPV310
+	bool "ivpv310"
+	depends on DEV_IVP
+
+config IVP_IVPV320
+	bool "ivpv320"
+	depends on DEV_IVP
+
+config IVP_RDR_SUPPORT
+	bool "ivp rdr support"
+	depends on DEV_IVP
+
+endmenu
+

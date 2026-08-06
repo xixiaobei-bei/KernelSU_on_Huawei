@@ -1,0 +1,9 @@
+#
+# huawei hall interface
+#
+
+config HUAWEI_HALL_INTERFACE
+	bool "hall interface"
+	default n
+	help
+	  Say Y here to enable hall interface.

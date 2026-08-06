@@ -1,0 +1,5 @@
+#
+# huawei direct charger drivers
+#
+
+source "drivers/huawei_platform/power/charger/charger_ap/direct_charger/switchcap/Kconfig"
