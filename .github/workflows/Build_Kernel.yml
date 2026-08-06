@@ -81,6 +81,7 @@ jobs:
           - EML_EMUI9.1_KernelSU
           - BLA_EMUI9.1_KernelSU
           - LYA_EMUI9.0_RKSU
+          - VCE_HarmonyOS3.0_RKSU
         pm: [false, true]
 
     steps:
@@ -275,6 +276,10 @@ jobs:
             DEFCONFIG="merge_kirin980_defconfig"
             os_version="9"
             tool="gcc" ;;
+          VCE_HarmonyOS3.0_RKSU)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="10"
+              tool="gcc" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
