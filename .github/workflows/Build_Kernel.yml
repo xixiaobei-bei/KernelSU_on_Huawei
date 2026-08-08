@@ -279,7 +279,7 @@ jobs:
           VCE_HarmonyOS3.0_RKSU)
               DEFCONFIG="merge_kirin970_defconfig"
               os_version="10"
-              tool="gcc" ;;
+              tool="clang" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
