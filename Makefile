@@ -12,6 +12,10 @@ SUBLEVEL = 116
 EXTRAVERSION =
 NAME = Petit Gorille
 
+KBUILD_CFLAGS += -fno-pic -fno-pie
+KBUILD_AFLAGS += -fno-pic -fno-pie
+KBUILD_LDFLAGS += -no-pie
+
 TARGET_ARM_TYPE := arm64
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
