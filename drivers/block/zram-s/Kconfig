@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: GPL-2.0
+config ZRAM_S
+	tristate "Super Compressed RAM block device support"
+	depends on BLOCK && SYSFS && ZSMALLOC && CRYPTO && (ZRAM=n)
+	select CRYPTO_LZO
+	default n
+	help
+	  Creates virtual block devices called /dev/zramX (X = 0, 1, ...).
+	  Pages written to these disks are compressed and stored in memory
+	  itself. These disks allow very fast I/O and compression provides
+	  good amounts of memory savings.
+
+	  It has several use cases, for example: /tmp storage, use as swap
+	  disks and maybe many more.
+
+	  See Documentation/blockdev/zram.txt for more information.
+
+config ZRAM_S_WRITEBACK
+       bool "Write back incompressible or idle page to backing device"
+       depends on ZRAM_S
+       help
+	 With incompressible page, there is no memory saving to keep it
+	 in memory. Instead, write it out to backing device.
+	 For this feature, admin should set up backing device via
+	 /sys/block/zramX/backing_dev.
+
+	 With /sys/block/zramX/{idle,writeback}, application could ask
+	 idle page's writeback to the backing device to save in memory.
+
+	 See Documentation/blockdev/zram.txt for more information.
+
+config ZRAM_S_MEMORY_TRACKING
+	bool "Track zRam block status"
+	depends on ZRAM_S && DEBUG_FS
+	help
+	  With this feature, admin can track the state of allocated blocks
+	  of zRAM. Admin could see the information via
+	  /sys/kernel/debug/zram/zramX/block_state.
+
+	  See Documentation/blockdev/zram.txt for more information.
+
+config ZRAM_S_DEDUP
+	bool "Memory deduplication"
+	depends on ZRAM_S
+	help
+	  With this feature, zram could deduplicate the objects with the same
+	  context. Admin could see the information via
+	  /sys/block/zramX/mm_stat.
+config ZRAM_S_NON_COMPRESS
+	bool "zram non compress"
+	depends on ZRAM_S
+	help
+	  With this feature, zram will not compress page that with NonCompress
+          flag.

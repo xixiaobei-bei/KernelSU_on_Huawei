@@ -1,0 +1,25 @@
+#
+# wireless charger driver
+#
+
+config WIRELESS_IDTP9221
+	bool "wireless idt9221"
+	default n
+	help
+	  Say Y here to enable idt9221 driver.
+	  The idt9221 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
+
+config WIRELESS_STWLC68
+	bool "wireless stwlc68"
+	default n
+	help
+	  Say Y here to enable stwlc68 driver.
+	  The stwlc68 is an soc for magnetic induction
+	  based wireless power receiver. It is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
