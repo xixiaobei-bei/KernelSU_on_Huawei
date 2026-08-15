@@ -312,7 +312,7 @@ jobs:
             SEA-AL10-TEST)
               DEFCONFIG="merge_kirin980_defconfig"
               os_version="9"
-              tool="clang" ;;
+              tool="gcc" ;;
           esac
 
           if [ -z "$DEFCONFIG" ]; then
