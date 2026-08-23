@@ -87,7 +87,6 @@ jobs:
           - LYA_EMUI9.0_RKSU
           - VCE_HarmonyOS3.0_RKSU
           - PAR_HarmonyOS2.0_RKSU
-          - SEA-AL10-TEST
         pm: [false, true]
 
     steps:
