@@ -1,0 +1,68 @@
+
+
+  /{
+		hisi_usb@ff200000 {
+			compatible = "hisilicon,feb-dwc3";
+			reg = <0x0 0xff200000 0x0 0x1000 0x0 0xff100000 0x0 0x100000>;
+			ranges;
+			bc_again_flag = <1>;
+			bc_unknown_again_flag = <2>;
+			fpga_flag = <0>;
+			dma_mask_bit = <64>;
+			usb_ldo_disable = <1>;
+			quirk_clear_svc_opp_per_hs;
+			quirk_set_svc_opp_per_hs_sep;
+
+
+			/* just cs-udp open */
+			usb_support_dp = <0>;
+
+			clocks = <&clk_gate_usb3otg_ref &aclk_gate_usb3otg &clk_gate_abb_usb &clk_gate_usb2phy_ref &hclk_gate_usb3otg>;
+			clock-names = "clk_usb3phy_ref", "aclk_usb3otg", "clk_usb3_tcxo_en", "clk_usb2phy_ref", "hclk_usb3otg";
+
+			eye_diagram_param = <0xFDFEE4>;
+			eye_diagram_host_param = <0xFDFEE4>;
+			usb3_phy_cr_param = <0xb80>;
+			usb3_phy_host_cr_param = <0x980>;
+			usb3_phy_tx_vboost_lvl = <0x5>;
+			usb_aclk_freq = <238000000>;
+			usb_support_check_voltage = <0x0>;
+			set_hi_impedance = <0x0>;
+			hifi_ip_first = <0x0>;
+
+			/* udp-overlay super-speed-plus */
+			host-maximum-speed = "super-speed";
+
+			dwc3@ff100000 {
+				compatible = "snps,dwc3";
+				reg = <0x0 0xff100000 0x0 0x100000>;
+				interrupts = <0 159 4>, <0 161 4>;
+				interrupt-names = "irq", "otg_irq";
+				dr_mode = "otg";
+				phy_type = "utmi";
+				maximum-speed = "super-speed";
+				snps,ctrl_nyet_abnormal;
+				snps,dis-del-phy-power-chg-quirk;
+				snps,dis_u2_susphy_quirk;
+				snps,dis_u3_susphy_quirk;
+				snps,tx_de_emphasis_quirk;
+				snps,tx_de_emphasis = <1>;
+			};
+		};
+
+		usb_proxy_hcd {
+			compatible = "hisilicon,proxy-hcd-hifi";
+			hifi_usb_phy_ldo_33v = <0x11d 0x3 0x0 0x1>;
+			hifi_usb_phy_ldo_18v = <0x11d 0x6 0x0 0x1>;
+		};
+
+		hifi_usb@0xe7f00000 {
+			compatible = "hisilicon,feb-hifi-usb";
+			reg = <0x0 0xe7f00000 0x0 0x100000>;
+			interrupts = <0 153 4>;
+			interrupt-names = "hifi_usb_irq";
+			disable_lpm;
+			not_support_sg;
+			hcd_local_mem;
+		};
+  };
