@@ -94,7 +94,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
 |Nova 5i Series|GLK|EMUI9.0|RKSU|None|
 |Nova 5 Series|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|None|
-|Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|RKSU||None|
+|Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU||None|
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
 |Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
 |Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Original kernel](https://github.com/Huawei-Dev/android_kernel_huawei_bach)、[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
