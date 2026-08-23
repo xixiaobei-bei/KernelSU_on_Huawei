@@ -95,7 +95,7 @@ fastboot flash kernel <内核文件>
 |P20 系列|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
-|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
+|Nova4 系列|VCE|EMUI9.0、HarmonyOS3.0|KernelSU、SukiSU-Ultra|无|
 |Nova 3 系列|PAR|HarmonyOS2.0|RKSU|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
 |Nova 5i 系列|GLK|EMUI9.1|RKSU|无|

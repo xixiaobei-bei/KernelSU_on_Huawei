@@ -91,7 +91,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |P20 Series|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
-|Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
+|Nova 4 Series | VCE | EMUI 9.0、HarmonyOS3.0| KernelSU, SukiSU-Ultra |None|
 |Nova 3 Series|PAR|HarmonyOS2.0|RKSU|None|
 |Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
 |Nova 5i Series|GLK|EMUI9.0|RKSU|None|
