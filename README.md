@@ -90,11 +90,13 @@ fastboot flash kernel <内核文件>
 |Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](https://github.com/Coconutat/android_kernel_huawei_blanc)|
 |Mate10 系列|ALP|EMUI9.1|RKSU|无|
 |Mate20 Pro 系列|LYA|EMUI9.0|RKSU|无|
+|MateRS 保时捷设计|NEO|EMUI9.0|RKSU|无|
 |P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|[android_kernel_huawei_hi3660_HM2](https://github.com/Coconutat/android_kernel_huawei_hi3660_HM2)|
 |P20 系列|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
 |Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
+|Nova 3 系列|PAR|HarmonyOS2.0|RKSU|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
 |Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
 |Nova 5 系列|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|无|
