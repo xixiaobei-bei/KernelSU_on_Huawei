@@ -171,7 +171,7 @@ static int get_hidl_client_task(struct tc_ns_client_context *context,
 	return EOK;
 }
 
-int check_hidl_access()
+int check_hidl_access(void)
 {
 	int ret;
 

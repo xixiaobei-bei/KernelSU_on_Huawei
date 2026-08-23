@@ -4778,7 +4778,7 @@ int ts_event_notify(enum ts_notify_event_type event)
 		(unsigned long)event, NULL);
 }
 
-void ts_recovery_setting()
+void ts_recovery_setting(void)
 {
 	struct ts_kit_platform_data *data = &g_ts_kit_platform_data;
 	int rc;
