@@ -114,6 +114,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 - [x] Add support for SUSFS
 - [x] Add support for KPM(Only Support Based EMUI 9 OS Devices's Kernel)
 - [x] Add support for ReSukiSU's multi-manager.
+- [ ] Add DroidSpace support.
 
 # Contributing
 
