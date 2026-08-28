@@ -1,6 +1,6 @@
-diff --git a/drivers/oases/vmarea.c b/drivers/oases/vmarea.c
---- a/drivers/oases/vmarea.c
-+++ b/drivers/oases/vmarea.c
+diff --git a/drivers/huawei_platform/oases/vmarea.c b/drivers/huawei_platform/oases/vmarea.c
+--- a/drivers/huawei_platform/oases/vmarea.c
++++ b/drivers/huawei_platform/oases/vmarea.c
 @@ -12,6 +12,7 @@
  #include <linux/vmalloc.h>
  #include <asm/cacheflush.h>
