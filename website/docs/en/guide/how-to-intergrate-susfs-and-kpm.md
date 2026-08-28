@@ -90,7 +90,7 @@ CONFIG_SECURITY_SELINUX_DEVELOP=y
 
 This will make the phone's SELinux status Permissive at boot.
 
-## Disable AVB Verification:
+### Disable AVB Verification:
 
 ```text
 CONFIG_DM_VERITY=y  

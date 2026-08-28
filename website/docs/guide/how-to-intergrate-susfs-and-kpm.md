@@ -87,7 +87,7 @@ CONFIG_SECURITY_SELINUX_DEVELOP=y
 ```
 可以让开机的时候手机SELinux为Permissive状态。
 
-## 关闭AVB验证：
+### 关闭AVB验证：
 
 ```text
 CONFIG_DM_VERITY=y  
