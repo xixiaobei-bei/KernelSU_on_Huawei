@@ -1,10 +1,4 @@
-# How to build?
-
-:::warning
-
-The website is under construction. It is not recommended to integrate on it at this time.
-
-:::
+# How to build 4.9 kernel?
 
 ## Install Dependencies
 
