@@ -1,0 +1,8 @@
+--- drivers/Makefile	2019-02-27 18:31:32.000000000 +0800
++++ drivers/Makefile	2026-08-28 13:30:18.087723395 +0800
+@@ -214,3 +214,5 @@
+ obj-$(CONFIG_HW_MEMORY_MONITOR) += allocpages_delayacct/
+ obj-y += cfi/
+ obj-$(CONFIG_HUAWEI_DUBAI) += dubai/
++
++obj-$(CONFIG_KSU) += kernelsu/

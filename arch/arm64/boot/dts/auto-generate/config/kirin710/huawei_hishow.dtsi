@@ -1,0 +1,6 @@
+/ {
+	huawei_hishow: huawei_hishow{
+		compatible = "huawei,hishow";
+		status = "disable";
+	};
+};
