@@ -26,4 +26,4 @@
 
 ## 编译
 
-[编译](/guide/how-to-build.md)
+[编译4.9内核](/guide/how-to-build-4.9.md)

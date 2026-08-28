@@ -26,4 +26,4 @@ Huawei devices have both the recovery and boot ramdisk located in the recovery_r
 
 ## Build
 
-[Build](/en/guide/how-to-build.md)
+[Build 4.9 kernel](/en/guide/how-to-build-4.9.md)
