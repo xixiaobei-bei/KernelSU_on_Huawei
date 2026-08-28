@@ -1,11 +1,5 @@
 # 如何集成不带SuSFS的KernelSU？
 
-:::warning
-
-网站施工中，不建议现在根据网站集成
-
-:::
-
 ## 获取源码
 
 [华为的官方源码](https://consumer.huawei.com/en/opensource/)
@@ -117,8 +111,8 @@ CONFIG_DM_VERITY_AVB=y
 改为
 
 ```text
-# CONFIG_DM_VERITY=y is not set  
-# CONFIG_DM_VERITY_AVB=y is not set 
+# CONFIG_DM_VERITY is not set  
+# CONFIG_DM_VERITY_AVB is not set 
 ```
 
 ### 修改hook.c以修复无法获取root

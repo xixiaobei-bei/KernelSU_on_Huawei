@@ -1,11 +1,5 @@
 # How to intergrate kernelsu without SuSFS?
 
-:::warning
-
-The website is under construction. It is not recommended to integrate on it at this time.
-
-:::
-
 ## Obtaining the Source Code
 
 [Huawei's Official Source Code](https://consumer.huawei.com/en/opensource/)
@@ -121,8 +115,8 @@ CONFIG_DM_VERITY_AVB=y
 Change to
 
 ```text
-# CONFIG_DM_VERITY=y is not set
-# CONFIG_DM_VERITY_AVB=y is not set
+# CONFIG_DM_VERITY is not set
+# CONFIG_DM_VERITY_AVB is not set
 ```
 
 ### Modify hook.c to fix the problem "Can't get root"
