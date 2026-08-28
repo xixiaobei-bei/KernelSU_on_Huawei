@@ -33,13 +33,13 @@ Open the [GitHub Actions page for this project](https://github.com/xixiaobei-bei
 
 ## Naming Convention
 
-`device_code_base_firmware_KernelSU_type_SELinux_state`
+`device-code_base-firmware_KernelSU-type(_SuSFS_KPM)_SELinux-state`
 
 Example:
 
-`MHA_EMUI9.0_KernelSU-Next_PM.img`
+`MHA_EMUI9.0_ReSukiSU_SuSFS_KPM_PM.img`
 
-This indicates a KernelSU-Next kernel for the MHA model running EMUI 9.0, with SELinux in permissive mode (PM)
+This indicates a ReSukiSU kernel with SuSFS and KPM support for the MHA model running EMUI 9.0, with SELinux in permissive mode.
 
 ## Important Notes
 
@@ -151,7 +151,7 @@ ManualHooks related:
 - `stat.c` — `vfs_fstatat`
 - `kernel/reboot.c` — `SYSCALL_DEFINE4`
 - `kernel/sys.c` — `setuid`
-- `security/selinux/hooks.c` — `int check_nnp_nosuid`
+- `security/selinux/hooks.c` — `check_nnp_nosuid`
 
 KernelSU Safe Mode-related:
 - `drivers/input/input.c` — `input_handle_event`

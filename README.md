@@ -35,13 +35,13 @@
 
 ## 命名规则
 
-```机型代码_底包版本_KernelSU类型_Selinux状态```
+`机型代码_底包版本_KernelSU类型(_SuSFS_KPM)_SELinux状态`
 
 例如：
 
-```MHA_EMUI9.0_KernelSU-Next_PM.img```
+`MHA_EMUI9.0_ReSukiSU_SuSFS_KPM_PM.img`
 
-代表支持MHA型号EMUI9.0底包设备的KernelSU-Next的Selinux状态为宽容的内核
+代表支持MHA型号EMUI9.0底包设备支持带SuSFS和KPM的ReSukiSU内核且SELinux状态为宽容
 
 ## 注意事项
 
@@ -153,7 +153,7 @@ ManualHooks有关：
 - `stat.c` 中的 `vfs_fstatat` 方法
 - `kernel/reboot.c` 中的 `SYSCALL_DEFINE4` 方法
 - `kernel/sys.c` 中的 `setuid` 方法
-- `security/selinux/hooks.c` 中的 `int check_nnp_nosuid` 方法
+- `security/selinux/hooks.c` 中的 `check_nnp_nosuid` 方法
 
 KernelSU安全模式有关：
 - `drivers/input/input.c` 中的 `input_handle_event` 方法
