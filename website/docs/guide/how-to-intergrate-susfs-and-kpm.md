@@ -159,7 +159,7 @@ SuSFS v2.2.0仅支持内核v4.9.xxx(EMUI9+)。
 若你使用的4.9内核的SuSFS2.0.0版本补丁，则已经自带集成了KPM，你无需再次打补丁，但是需要在defconfig文件加入`CONFIG_KPM=y`，然后修补内核以启用KPM
 :::
 
-::: details 为4.9内核集成
+::: details 为4.9内核打补丁
 
 拉取ReSukiSU，在内核源码目录执行：
 
@@ -179,7 +179,7 @@ patch -p1 < SuSFS_inline_hook_2.2.0.patch
 
 :::
 
-::: details Legacy-为4.9内核集成v2.0.0版本SuSFS
+::: details Legacy-为4.9内核打v2.0.0版本SuSFS补丁
 
 ReSukiSU需要使用老版本。在内核源码目录执行：
 
@@ -201,7 +201,7 @@ patch -p1 < SuSFS_KPM_inline_hook_2.0.0.patch
 
 :::
 
-::: details 为4.14内核集成
+::: details 为4.14内核打补丁
 
 由于4.14内核只有v2.0.0的SuSFS，所以ReSukiSU也需要使用老版本。在内核源码目录执行：
 
@@ -222,6 +222,23 @@ patch -p1 < SuSFS_KPM_inline_hook_2.0.0.patch
 你可以跟据.rej文件错误位置，手动打补丁。
 
 :::
+
+随后在defconfig中加入：
+
+```text
+# ReSukiSU - SuSFS
+CONFIG_KSU=y
+CONFIG_KSU_SUSFS=y
+CONFIG_KSU_SUSFS_SUS_PATH=y
+CONFIG_KSU_SUSFS_SUS_MOUNT=y
+CONFIG_KSU_SUSFS_SUS_KSTAT=y
+CONFIG_KSU_SUSFS_SPOOF_UNAME=y
+CONFIG_KSU_SUSFS_ENABLE_LOG=y
+CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y
+CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
+CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
+CONFIG_KSU_SUSFS_SUS_MAP=y
+```
 
 ## KPM
 
