@@ -142,14 +142,17 @@ jobs:
             TARGET_FILE="security/selinux/hooks.c"
             if [ -f "$TARGET_FILE" ] && grep -qF "$MARKER" "$TARGET_FILE"; then
               echo "✅ Branch $branch already contains the patch (marker found), skipping"
-              # 切回默认分支（避免影响后续循环）
-              git checkout main 2>/dev/null || git checkout master 2>/dev/null || git checkout -b temp
+              # 切回默认分支（使用 -B 强制重置 temp）
+              git checkout main 2>/dev/null || git checkout master 2>/dev/null || git checkout -B temp
               continue
             fi
 
-            # 尝试应用补丁
-            if git apply --check my.patch; then
-              git apply my.patch
+            # ---------- 使用 patch 代替 git apply ----------
+            # 先进行 dry-run 测试
+            if patch -p1 --dry-run < my.patch > /dev/null 2>&1; then
+              # 实际应用补丁
+              patch -p1 < my.patch
+              # 检查是否有变更
               if git diff --quiet; then
                 echo "✅ No changes to commit on $branch"
               else
@@ -162,6 +165,6 @@ jobs:
               echo "⚠️  Patch cannot be applied cleanly on $branch, skipping"
             fi
 
-            # 切回默认分支
-            git checkout main 2>/dev/null || git checkout master 2>/dev/null || git checkout -b temp
+            # 切回默认分支（使用 -B 强制重置 temp，避免冲突）
+            git checkout main 2>/dev/null || git checkout master 2>/dev/null || git checkout -B temp
           done
