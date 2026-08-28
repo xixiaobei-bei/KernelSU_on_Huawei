@@ -3693,6 +3693,30 @@ diff -uNr a/include/linux/susfs_def.h b/include/linux/susfs_def.h
 +		inode && inode->i_mapping && \
 +		unlikely(test_bit(AS_FLAGS_OPEN_REDIRECT, &inode->i_state)) && \
 +		susfs_is_current_proc_umounted_app()
++
++#define TIF_PROC_NO_SU            34
++#define TIF_ZYGOTE_UMOUNTED       35
++
++static inline bool susfs_is_current_proc_no_su(void)
++{
++    return test_thread_flag(TIF_PROC_NO_SU);
++}
++
++static inline void susfs_set_current_proc_no_su(void)
++{
++    set_thread_flag(TIF_PROC_NO_SU);
++}
++
++static inline void susfs_clear_current_proc_no_su(void)
++{
++    clear_thread_flag(TIF_PROC_NO_SU);
++}
++
++static inline void susfs_set_current_proc_umounted_for_zygote_next(void)
++{
++    set_thread_flag(TIF_ZYGOTE_UMOUNTED);
++}
++
 +#endif // #ifndef KSU_SUSFS_DEF_H
 diff -uNr a/include/linux/susfs.h b/include/linux/susfs.h
 --- a/include/linux/susfs.h	1970-01-01 08:00:00.000000000 +0800
@@ -4159,34 +4183,3 @@ diff -uNr a/security/selinux/ss/services.c b/security/selinux/ss/services.c
  
  static struct sidtab sidtab;
  struct policydb policydb;
---- a/include/linux/susfs_def.h
-+++ b/include/linux/susfs_def.h
-@@ -166,4 +166,21 @@
- 		inode && inode->i_mapping && \
- 		unlikely(test_bit(AS_FLAGS_OPEN_REDIRECT, &inode->i_state)) && \
- 		susfs_is_current_proc_umounted_app()
-+
-+#define TIF_PROC_NO_SU            34
-+#define TIF_ZYGOTE_UMOUNTED       35
-+
-+static inline bool susfs_is_current_proc_no_su(void)
-+{
-+    return test_thread_flag(TIF_PROC_NO_SU);
-+}
-+
-+static inline void susfs_set_current_proc_no_su(void)
-+{
-+    set_thread_flag(TIF_PROC_NO_SU);
-+}
-+
-+static inline void susfs_clear_current_proc_no_su(void)
-+{
-+    clear_thread_flag(TIF_PROC_NO_SU);
-+}
-+
-+static inline void susfs_set_current_proc_umounted_for_zygote_next(void)
-+{
-+    set_thread_flag(TIF_ZYGOTE_UMOUNTED);
-+}
-+
- #endif // #ifndef KSU_SUSFS_DEF_H
