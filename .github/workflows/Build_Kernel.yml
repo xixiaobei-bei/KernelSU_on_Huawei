@@ -417,7 +417,7 @@ jobs:
           echo "检测到 CONFIG_KPM=y，准备进行内核修补..."
           cd ./out/arch/arm64/boot/
           gh release download --repo SukiSU-Ultra/SukiSU_KernelPatch_patch --pattern "patch_linux"
-          chmod 777 ./patch_linux
+          chmod +x ./patch_linux
           echo "正在运行 patch_linux 工具..."
           ./patch_linux
           if [ -f "oImage" ]; then

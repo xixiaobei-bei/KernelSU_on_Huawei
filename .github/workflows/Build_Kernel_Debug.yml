@@ -446,7 +446,7 @@ jobs:
 
             cd ./out/arch/arm64/boot/
             gh release download --repo SukiSU-Ultra/SukiSU_KernelPatch_patch --pattern "patch_linux"
-            chmod 777 ./patch_linux
+            chmod +x ./patch_linux
 
             echo "正在运行 patch_linux 工具..."
             ./patch_linux
