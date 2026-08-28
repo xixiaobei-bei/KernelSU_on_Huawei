@@ -187,3 +187,5 @@ KernelSU modules:
 - [841973620](https://github.com/Z841973620)——Added KernelSU support for Huawei P20.
 
 - [zknsmsw](https://github.com/zknsmsw)——Added RKSU support for Huawei Mate 20 Pro.
+
+- [misaka1145](https://github.com/zfgysyuef)——Added SuSFS v2.2.0 support and fixed the problem of getting root.

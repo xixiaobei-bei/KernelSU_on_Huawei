@@ -189,3 +189,5 @@ KernelSU模块有关：
 - [841973620](https://github.com/Z841973620)——提供华为P20的KernelSU支持
 
 - [zknsmsw](https://github.com/zknsmsw)——提供华为Mate20Pro的RKSU支持
+
+- [misaka1145](https://github.com/zfgysyuef)——提供SuSFS v2.2.0支持和修复无法获取Root的思路
