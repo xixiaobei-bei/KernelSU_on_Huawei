@@ -1,0 +1,27 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_LX9_VC_overlay.dtsi"
+
+/ {
+    board_id = <8935>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 3 5>;
+		hisi,boardname = "PCT_LX9_VD";
+		hisi,modem_id = <0x37612C00>;
+	};
+
+	&huawei_imx316{
+		huawei,ext_type = <2>;
+		huawei,ext_name = "oflim_lumentum", "sunny_lumentum", "ofilm_vertilite", "sunny_ams";
+		huawei,adc_threshold = <1900 1700 1000 800 700 500 500 350>;
+		huawei,adc_channel = <13>;/*add for TOF Tx*/
+		status = "ok";
+	};

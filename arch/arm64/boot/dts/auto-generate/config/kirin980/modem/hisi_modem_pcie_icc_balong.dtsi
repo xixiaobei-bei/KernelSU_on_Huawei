@@ -1,0 +1,29 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+    icc_channels_aplusb{
+	    compatible = "hisilicon,pcie_icc_balong_app";
+		
+		icc_channels_aplusb_app{
+			ref = "aplusbsddr";
+			icc_channel_aplusb_ifc  /* A+B IFC */
+			{
+				ch_name = "APLUSB-IFC";
+                cfg = <26 0x3 0x4000 6 6 20 0>;
+                status = "ok";
+			};
+			icc_channel_aplusb  /* A+B PCIE */
+			{
+				ch_name = "APLUSB-PCIE";
+                cfg = <27 0x3 0x10000 6 6 100 0>;
+                status = "ok";
+			};
+		};
+	};
+ };
+
+

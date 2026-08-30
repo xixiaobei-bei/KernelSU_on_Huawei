@@ -1,0 +1,42 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "VOGUE_TUGL_VD_overlay.dtsi"
+
+/ {
+    board_id = <8541>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 4 1>;
+		hisi,boardname = "VOGUE_TUGL_VE2";
+		hisi,modem_id = <0x37054C00>;
+		hisi,product_id = <0x37054C00>;
+		hisi,product_name = "VOG-AL00";
+	};
+	&ds28el16 {
+		check-key-page-stauts = <1>;
+	};
+	&amba {
+		i2c@FDF0D000 {
+			ams_tcs3707@39 {
+				flicker_support = <1>;
+			};
+		};
+	};
+
+	&sensorhub{
+		light{
+			als1{
+				als_phone_version = <13>;
+			};
+			als2{
+				als_phone_version = <13>;
+			};
+		};
+	};

@@ -1,0 +1,68 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/include/ "EVER_LX9_VE_overlay.dtsi"
+/include/ "EVER_LX9_VF_pin.dtsi"
+/include/ "EVER_LX9_VF_modem_pin.dtsi"
+
+/ {
+    board_id = <8465>;
+};
+	&rootparam{
+		hisi,boardid = <8 4 6 5>;
+		hisi,boardname = "EVER_LX9_VF";
+		hisi,modem_id = <0x37021400>;
+	};
+	&huawei_imx600hybrid {
+		gpios = <&gpio1 4 0 &gpio29 1 0 &gpio4 3 0>;
+	};
+	&amba {
+		i2c@FDF0D000 {
+			smartpa@36{
+				hw_reset {
+					gpio_reset = <&gpio32 1 0>;
+				};
+			};
+			smartpa@52{
+				hw_reset {
+					gpio_reset = <&gpio32 1 0>;
+				};
+			};
+		};
+	};
+	&ovp_channel_switch {
+		gpio_ovp_chsw_en = <&gpio31 3 0>;
+		status = "ok";
+	};
+	&deviceboxID {
+		gpio_receiverID = <&gpio29 4 0>;
+		pinctrl-0 = <&gpio242_pmx_func &gpio242_cfg_func &gpio236_pmx_func &gpio236_cfg_func>;
+		pinctrl-1 = <&gpio242_pmx_idle &gpio242_cfg_idle &gpio236_pmx_idle &gpio236_cfg_idle>;
+		status = "ok";
+	};
+	/*irda*/
+	&irda {
+		compatible = "irda,config";
+		irda,chiptype = <2>; /*hi110x*/
+	};
+	&audio_hw_config {
+		audio_capability {
+			irda_support = "false";
+		};
+	};
+	&codec_controller {
+		hi64xx_irq@0 {
+			hi6403_codec@0{
+				hisilicon,ear_ir_gpio = <0>;
+				hisilicon,ir_gpio = <0>;
+			};
+		};
+	};

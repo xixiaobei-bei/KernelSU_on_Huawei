@@ -1,0 +1,143 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "PCT_TL00_VA_overlay.dtsi"
+/include/ "PCT_LX9_VA_pin.dtsi"
+/include/ "PCT_LX9_VA_modem_pin.dtsi"
+
+/ {
+    board_id = <8902>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 0 2>;
+		hisi,boardname = "PCT_LX9_VA";
+		hisi,modem_id = <0x37610C00>;
+		hisi,product_id = <0x37610C00>;
+		hisi,product_name = "PCT-LX9";
+	};
+	&audio_hw_config {
+		audio_capability {
+			/*
+				use hisilicon wakeup engine.
+				true: use hisilicon wakeup engine.
+				false: DO NOT use hisilicon wakeup engine.
+			*/
+			wakeup_hisiengine = "false";
+		};
+	};
+	&codec_controller {
+		hi64xx_irq@0{
+				hi6403_codec@0 {
+						hisilicon,wakeup_hisi_algo_support = <0>;
+				};
+		};
+	};
+
+	&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		product_id = <6001>;
+		detect_type = <2>; /*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <16 14>; /*ID0 ID1*/
+		support_lcd_type = "LCD_KIT";
+		lcd_panel_type = "auo_otm1901a_5p2_1080p_video";
+	};
+
+	&sensorhub{
+		rpc{
+            		rpc{
+			compatible = "huawei,rpc";
+			file_id = <0x18>;
+			sensor_list_info_id = <24>;
+			sensor_type = "rpc";
+			sensorlist_name = "rpc";
+			mask = <0xFFFF 0xC200 0x600 0x200 0x700 0x700 0xFFFF 0xFFFF
+				0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+				0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+				0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF>;
+			table = <0xFFFF 0xC200 0x400 0x200 0x100 0x0 0xFFFF 0xFFFF
+				 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+				 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+				 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF>;
+			default_value = <0x1D>;
+			status = "ok";
+            };
+        };
+
+	};
+
+	/*nfc*/
+	&nfc_exist {
+		hisee_exist_flag = "0";
+		status = "ok";
+	};
+
+	&huawei_imx316{
+		compatible = "huawei,sensor";
+		huawei,sensor_name = "IMX316";
+		huawei,sensor_index = <5>;//rear second
+		huawei,is_fpga = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,csi_index = <2>;
+		huawei,i2c_index = <1>;
+		/*cdphy-csi2*/
+		huawei,phyinfo_valid = <1>;
+		huawei,is_master_sensor = <1>;
+		huawei,phy_id = <2>;
+		huawei,phy_mode = <0>;
+		huawei,phy_freq_mode = <0>;
+		huawei,phy_freq = <80000000>;
+		huawei,phy_work_mode = <0>;//dphy use single
+		clocks = <&clk_gate_rxdphy0_cfg &clk_gate_rxdphy1_cfg &clk_gate_rxdphy2_cfg &clk_gate_rxdphy3_cfg &clk_gate_isp_snclk2>;
+		clock-names = "clk_rxdphy0_cfg", "clk_rxdphy1_cfg", "clk_rxdphy2_cfg", "clk_rxdphy3_cfg", "clk_isp_snclk2";
+		huawei,mclk = <24000000>;//24M-M1
+		huawei,rxdphyclk = <80000000>;
+		huawei,phyclk = <80000000>;
+		phy-clock-num = <4>;
+		avdd1-supply = <&ldo9>;/*sensor avdd*/
+		dvdd-supply = <&ldo38>;/*sensor dvdd*/
+		iovdd-supply = <&ldo21>;/*sensor&laser iovdd*/
+		huawei,ldo-names = "avdd1","dvdd","iovdd";
+		gpios = <&gpio31 2 0 &gpio9 3 0 &gpio1 3 0>;
+		huawei,gpio-ctrl-types = "avdd2_en", "dvdd1-en", "reset";
+		huawei,cam-power-seq-type =
+			"sensor_avdd1",
+			"sensor_dvdd",
+			"sensor_avdd2_en",
+			"sensor_dvdd1_en",
+			"sensor_iovdd",
+			"sensor_mclk",
+			"sensor_rst";
+		huawei,cam-power-seq-cfg-val = <2800000 1205000 0 0 1800000 0 0>;
+		huawei,cam-power-seq-sensor-index = <0xFF 0xFF 0xFF 0xFF 0xFF 2 0xFF>;
+		huawei,cam-power-seq-delay = <0 0 0 0 0 0 1>;
+
+		huawei,cam-power-down-seq-type =
+			"sensor_rst",
+			"sensor_mclk",
+			"sensor_iovdd",
+			"sensor_dvdd1_en",
+			"sensor_avdd2_en",
+			"sensor_dvdd",
+			"sensor_avdd1";
+		huawei,cam-power-down-seq-cfg-val = <0 0 1800000 0 0 1205000 2800000>;
+		huawei,cam-power-down-seq-sensor-index = <0xFF 2 0xFF 0xFF 0xFF 0xFF 0xFF>;
+		huawei,cam-power-down-seq-delay = <1 0 0 0 0 0 0>;
+		huawei,ext_type = <1>;
+		huawei,ext_name = "liteon_lumentum";//for TOF Tx
+
+		status = "ok";
+	};
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_pct_lx9.ini";
+    };

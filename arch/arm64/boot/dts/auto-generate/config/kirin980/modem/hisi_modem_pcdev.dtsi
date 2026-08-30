@@ -1,0 +1,14 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+	pcdev_app:pcdev@F0000000 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,pcdev_app";
+		status = "ok";
+	};
+};

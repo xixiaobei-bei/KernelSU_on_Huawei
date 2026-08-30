@@ -1,0 +1,142 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "LAYA_TUGL_VP_overlay.dtsi"
+/include/ "LAYA_TUGL_VU_pin.dtsi"
+/include/ "LAYA_TUGL_VU_modem_pin.dtsi"
+
+/ {
+    board_id = <8422>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 2 2>;
+		hisi,boardname = "LAYA_TUGL_VU";
+		hisi,modem_id = <0x37014000>;
+	};
+
+	&fastboot_battery {
+		iin_limit_usb = <475>;
+		status = "ok";
+	};
+
+	&fastboot_charger {
+		hw_charger_type = <9>;
+		chip_i2c_num = <6>;
+		status = "ok";
+	};
+
+	&usb_ana_hs_fsa4476 {
+		swtich_en2 = <&gpio4 0 0>;
+	};
+
+	&wireless_charger {
+		status = "disabled";
+	};
+
+	&wireless_sc {
+		status = "disabled";
+	};
+
+	&wireless_tx {
+		status = "disabled";
+	};
+
+	&vbus_channel_boost_gpio {
+		gpio_otg_switch = <&gpio16 7 0>;
+		status = "ok";
+	};
+
+	&wired_channel_switch {
+		use_ovp_cutoff_wired_channel = <1>;
+		use_super_switch_cutoff_wired_channel = <0>;
+		use_wireless_switch_cutoff_wired_channel = <0>;
+		status = "ok";
+	};
+
+	&ovp_channel_switch {
+		gpio_ovp_chsw_en = <&gpio17 1 0>;
+		gpio_low_by_set_input = <0>;
+		status = "ok";
+	};
+
+	&ncp3902_channel_switch {
+		status = "disabled";
+	};
+
+	&direct_charge_ps {
+		boost_5v_support_scp_power = <0>;
+		huawei_charger_support_scp_power = <0>;
+		bst_ctrl_use_common_gpio = <0>;
+		is_need_bst_ctrl = <0>;
+		status = "ok";
+	};
+
+	&direct_charger {
+		need_wired_sw_off = <0>;
+	};
+
+	&direct_charger_sc {
+		need_wired_sw_off = <0>;
+		use_5A = <1>;
+	};
+
+	&water_check {
+		status = "disabled";
+	};
+
+	&huawei_usb {
+		status = "ok";
+	};
+
+	&amba {
+		i2c@FDF0C000 {
+			tusb422_kirin980_i2c3@20 {
+				status = "disabled";
+			};
+
+			rt9748@67 {
+				status = "disabled";
+			};
+
+			bq25970@65 {
+				status = "disabled";
+			};
+		};
+
+		i2c@FDF0A000 {
+			hi6523_charger_i2c6@6B{
+				status = "disabled";
+			};
+
+			hi6526_charger_i2c6@6B{
+				status = "ok";
+				fcp_support = <1>;
+				scp_support = <1>;
+				vclamp = <150>;
+				bat_comp = <30>;
+				gpio_int = <&gpio27 2 0>;
+				ico_current_mode = <0>;
+			};
+
+			wireless_idtp9221_i2c6@61 {
+				status = "disabled";
+			};
+		};
+	};
+	/* end amba */
+
+	&hisi_usb {
+		usb_support_check_voltage = <0x0>;
+	};
+
+	&devcheck {
+		charge_switchcap = <0>;
+	};

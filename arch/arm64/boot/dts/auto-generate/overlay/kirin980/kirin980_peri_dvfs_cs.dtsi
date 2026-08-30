@@ -1,0 +1,267 @@
+/*
+ * Hisilicon Ltd. Kirin980 SoC
+ *
+ * Copyright (C) 2014-2016 Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/{
+			clocks@0 {
+				clk_gate_vdec: clk_vdec {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <21>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <207500 332000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <332000>;
+					hisilicon,clk-avs-id = <6>;
+					/* base_addr_type:   PERICRG:2 */
+					base_addr_type = <2>;
+					/* div-reg\mux-reg: <offset bits bits_offset> */
+					div-reg = <0xC4 0x3F 0>;
+					mux-reg = <0xC8 0xF00 8>;
+					mux-table = "clk_ppll4","clk_ppll0","clk_ppll2","clk_ppll3";
+					clock-output-names = "clk_vdec";
+					clock-friend-names = "clk_vdecfreq";
+				};
+				clk_gate_venc: clk_venc {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <24>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <277000 480000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					/*rate need to div 2 when set rate to solve SW hight freq problem*/
+					hisilicon,set_divider_rate = <2>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <480000>;
+					hisilicon,clk-avs-id = <5>;
+					clock-output-names = "clk_venc";
+					clock-friend-names = "clk_vencfreq";
+				};
+				clk_gate_ics: clk_ics {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <32>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <554000 640000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <640000>;
+					hisilicon,clk-avs-id = <1>;
+					clock-output-names = "clk_ics";
+					clock-friend-names = "clk_icsfreq";
+				};
+				clk_gate_ispfunc: clk_ispfunc {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <26>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <277000 332000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <332000>;
+					hisilicon,clk-avs-id = <3>;
+					clock-output-names = "clk_ispfunc";
+					clock-friend-names = "clk_ispfuncfreq";
+				};
+				clk_gate_jpg_func: clk_jpg_func {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <36>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <332000 415000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <415000>;
+					clock-output-names = "clk_jpg_func";
+					clock-friend-names = "clk_jpg_funcfreq";
+				};
+				clk_gate_fd_func: clk_fd_func {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <35>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <384000 480000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <480000>;
+					clock-output-names = "clk_fd_func";
+					clock-friend-names = "clk_fd_funcfreq";
+				};
+				clk_gate_media_common: clk_media_common {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <34>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <300000 415000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <415000>;
+					clock-output-names = "clk_media_common";
+					clock-friend-names = "clk_media_commonfreq";
+				};
+				clk_gate_ivp32dsp_core: clk_ivpdsp_core {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <27>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <415000 480000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <480000>;
+					hisilicon,clk-avs-id = <7>;
+					clock-output-names = "clk_ivpdsp_core";
+					clock-friend-names = "clk_ivpdsp_corefreq";
+				};
+				clk_gate_ldi1: clk_ldi1 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <23>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <300000 415000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <415000>;
+					clock-output-names = "clk_ldi1";
+					clock-friend-names = "clk_ldi1freq";
+				};
+				clk_gate_ldi0: clk_ldi0 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <33>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <300000 415000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <415000>;
+					clock-output-names = "clk_ldi0";
+					clock-friend-names = "clk_ldi0freq";
+				};
+				clk_gate_ics2: clk_ics2 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <37>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <554000 640000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <640000>;
+					hisilicon,clk-avs-id = <2>;
+					clock-output-names = "clk_ics2";
+					clock-friend-names = "clk_ics2freq";
+				};
+				clk_gate_ispfunc2: clk_ispfunc2 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <38>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <238000 332000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <332000>;
+					clock-output-names = "clk_ispfunc2";
+					clock-friend-names = "clk_ispfunc2freq";
+				};
+				clk_gate_ispfunc3: clk_ispfunc3 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <39>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <207500 332000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <332000>;
+					clock-output-names = "clk_ispfunc3";
+					clock-friend-names = "clk_ispfunc3freq";
+				};
+				clk_gate_ispfunc4: clk_ispfunc4 {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <40>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <185000 332000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <332000>;
+					clock-output-names = "clk_ispfunc4";
+					clock-friend-names = "clk_ispfunc4freq";
+				};
+				clk_gate_fdai_func: clk_fdai_func {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <41>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <480000 554000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <480000>;
+					clock-output-names = "clk_fdai_func";
+					clock-friend-names = "clk_fdai_funcfreq";
+				};
+				aclk_gate_usb3otg: aclk_usb3otg {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <28>;
+					hisilicon,clk-dvfs-level = <2>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					hisilicon,volt-user-high = <1>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <119000 166000>;
+					hisilicon,sensitive-volt = <0 1 3>;
+					clock-output-names = "aclk_usb3otg";
+					clock-friend-names = "aclk_usb3_dvfs";
+				};
+			};
+};

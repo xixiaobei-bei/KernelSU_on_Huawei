@@ -1,0 +1,16 @@
+
+
+/ {
+	hisee@0x0 {
+		compatible = "hisilicon,hisee-device";
+		memory-region = <&fastboot_cma>;
+		reg = <0x0 0x0 0x0 0x0>;
+		sm_flag_pos = <24>;
+		hibench_flag_pos = <44>;
+		hisee_partition_byname_find;
+		status="okay";
+		shutdown_swipe_timeout = <240>; /* unit: minute */
+		shutdown_swipe_lowpower_th = <3100>; /* unit: mv */
+		shutdown_swipe_sctrl_bakreg_addr = <0xFFF0A438>; /*the SOC_SCTRL_SCBAKDATA11_ADDR from acpu view*/
+	};
+};

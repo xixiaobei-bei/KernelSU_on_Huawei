@@ -1,0 +1,83 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "HMA_LX9_VC_overlay.dtsi"
+/include/ "HMA_LX9_VD_pin.dtsi"
+/include/ "HMA_LX9_VD_modem_pin.dtsi"
+
+/ {
+    board_id = <8410>;
+};
+
+&hisi_peripheral_tm {
+    compatible = "hisi,hisi-peripheral-tm";
+    hisi,peripheral_sensors = <11>;
+
+    hisi,detect_system_h_tm_chanel = <7>;
+    hisi,detect_system_h_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_system_h_tm_state = "enable";
+    hisi,detect_system_h_throttling = <53>;
+    hisi,detect_system_h_shutdown = <55>;
+    hisi,detect_system_h_below_vr_min = <53>;
+    hisi,detect_system_h_over_skin = <6>;
+
+    hisi,detect_flash_led_tm_chanel = <3>;
+    hisi,detect_flash_led_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_flash_led_tm_state = "disable";
+
+    hisi,detect_charger_tm_chanel = <4>;
+    hisi,detect_charger_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_charger_tm_state = "enable";
+
+    hisi,detect_pa_0_tm_chanel = <6>;
+    hisi,detect_pa_0_tm_ntc = "austin_hkadc_pa_temp_table";
+    hisi,detect_pa_0_tm_state = "enable";
+
+    hisi,detect_pa_1_tm_chanel = <6>;
+    hisi,detect_pa_1_tm_ntc = "austin_hkadc_pa_temp_table";
+    hisi,detect_pa_1_tm_state = "enable";
+
+    hisi,detect_dcxo0_tm_chanel = <15>;
+    hisi,detect_dcxo0_tm_ntc = "austin_hkadc_adc_temp_table";
+    hisi,detect_dcxo0_tm_state = "enable";
+
+    hisi,detect_shell_tm_chanel = <7>;
+    hisi,detect_shell_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_shell_tm_state = "disable";
+
+    hisi,detect_charger1_tm_chanel = <4>;
+    hisi,detect_charger1_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_charger1_tm_state = "disable";
+
+    hisi,detect_usb_tm_chanel = <3>;
+    hisi,detect_usb_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_usb_tm_state = "enable";
+
+    hisi,detect_rfboard_tm_chanel = <8>;
+    hisi,detect_rfboard_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_rfboard_tm_state = "enable";
+
+    hisi,detect_wireless_tm_chanel = <12>;
+    hisi,detect_wireless_tm_ntc = "austin_hkadc_soc_temp_table";
+    hisi,detect_wireless_tm_state = "disable";
+
+    status = "ok";
+};
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_hma_lx9_vd.ini";
+    };
+
+	&rootparam{
+		hisi,boardid = <8 4 1 0>;
+		hisi,boardname = "HMA_LX9_VD";
+		hisi,modem_id = <0x37002400>;
+	};

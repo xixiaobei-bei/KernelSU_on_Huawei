@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_LX9_VH_overlay.dtsi"
+
+/ {
+	board_id = <8920>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 2 0>;
+		hisi,boardname = "PCT_LX9_VI";
+		hisi,modem_id = <0x37615400>;
+	};

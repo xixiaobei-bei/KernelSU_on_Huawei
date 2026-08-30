@@ -1,0 +1,180 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "SCM_AL09_VA_overlay.dtsi"
+
+/ {
+    board_id = <8102>;
+};
+
+	&rootparam {
+		hisi,boardid = <8 1 0 2>;
+		hisi,boardname = "SCM_W09_VA";
+		hisi,modem_id = <0xffffffff>;
+		hisi,product_id = <0xffffffff>;
+		hisi,product_name = "SCM-W09";
+	};
+	&singleap_wifionly {
+		compatible = "singleap,wifionly";
+		is_wifionly = "1";
+		};
+	&reserved_memory {
+		modem-mntn{
+		status = "disabled";
+		};
+		modem-s{
+		status = "disabled";
+		};
+	};
+	&firmware{
+		android {
+			vbmeta_huawei{
+				parts = "vbmeta,kernel,vendor,odm,cust,version,product,system,eng_system,eng_vendor,preload";
+			};
+			vbmeta_hisi{
+				parts = "vbmeta,kernel,vendor,odm,system,eng_system,eng_vendor";
+			};
+		};
+		huawei {
+			fstab {
+				modem_driver {
+					status = "disabled";
+				};
+			};
+		};
+	};
+	/*hisi connectivity customize*/
+	&hisi_cust_cfg {
+		ini_file_name = "/vendor/etc/cfg_scm_w09.ini";
+	};
+	&antenna_boardid_detect{
+		expect_value = <1>;
+		status = "ok";
+	};
+	&sensorhub{
+		#address-cells=<1>;
+		#size-cells=<0>;
+		gsensor{
+			acc1{
+				compatible ="huawei,st-lsm6ds3-c";
+				bus_number =<1>;
+				reg =<0x6a>;
+				chip_id_register =<0x0f>;
+				chip_id_value =<0x6a>;
+				file_id =<34>;
+				sensor_list_info_id =<0>;
+				sensor_type ="acc";
+				axis_map_x =<1>;
+				axis_map_y =<0>;
+				axis_map_z =<2>;
+				negate_x =<1>;
+				negate_y =<1>;
+				negate_z =<1>;
+				offset_x =<0>;
+				offset_y =<0>;
+				offset_z =<0>;
+				sensitivity_x =<1>;
+				sensitivity_y =<1>;
+				sensitivity_z =<1>;
+				poll_interval =<10>;
+				gpio_int2=<&gpio25 7 0>;
+				gpio_int2_sh=<1013>;
+				used_int_pin =<1>;
+				calibrate_style =<0>;
+				x_calibrate_thredhold = <250>;
+				y_calibrate_thredhold = <250>;
+				z_calibrate_thredhold = <320>;
+				sensorlist_name="accelerometer-lsm6ds3-c";
+				vendor="st";
+				minDelay=<4000>;
+				status = "ok";
+			};
+			acc2{
+				compatible="huawei,bosch-bmi160";
+				bus_number=<1>;
+				reg=<0x68>;
+				chip_id_register=<0x0>;
+				chip_id_value=<0xd1>;
+				file_id=<33>;
+				sensor_list_info_id=<0>;
+				sensor_type="acc";
+				status = "ok";
+				used_int_pin =<1>;
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+				offset_x=<0>;
+				offset_y=<0>;
+				offset_z=<0>;
+				x_calibrate_thredhold = <250>;
+				y_calibrate_thredhold = <250>;
+				z_calibrate_thredhold = <320>;
+				gpio_int2=<&gpio25 7 0>;
+				gpio_int2_sh=<1013>;
+				calibrate_style=<0>;
+				minDelay=<4000>;
+				sensorlist_name="accelerometer-bmi160";
+				vendor="bosch";
+			};
+		};
+		gyroscope{
+			gyro1{
+				compatible ="huawei,st-lsm6ds3-c";
+				bus_number =<1>;
+				reg =<0x6a>;
+				chip_id_register =<0x0f>;
+				chip_id_value =<0x6a>;
+				file_id =<36>;
+				sensor_list_info_id =<5>;
+				sensor_type ="gyro";
+				position = <2>;
+				axis_map_x =<1>;
+				axis_map_y =<0>;
+				axis_map_z =<2>;
+				negate_x =<1>;
+				negate_y =<1>;
+				negate_z =<1>;
+				poll_interval =<10>;
+				used_int_pin =<1>;
+				gpio_int2=<&gpio25 7 0>;
+				gpio_int2_sh=<1013>;
+				calibrate_thredhold = <572>;
+				sensorlist_name="gyroscope-lsm6ds3-c";
+				vendor="st";
+				minDelay=<4000>;
+				calibrate_way=<1>;
+				status = "ok";
+			};
+			gyro2{
+				compatible="huawei,bosch-bmi160";
+				bus_number =<1>;
+				reg=<0x68>;
+				chip_id_register=<0x0>;
+				chip_id_value=<0xd1>;
+				file_id=<35>;
+				sensor_list_info_id =<5>;
+				sensor_type ="gyro";
+				axis_map_x =<0>;
+				axis_map_y =<1>;
+				axis_map_z =<2>;
+				negate_x =<1>;
+				negate_y =<0>;
+				negate_z =<1>;
+				poll_interval =<10>;
+				gpio_int2=<&gpio25 7 0>;
+				gpio_int2_sh=<1013>;
+				minDelay=<4000>;
+				sensorlist_name="gyroscope-bmi160";
+				vendor="bosch";
+				status = "ok";
+			};
+		};
+	};

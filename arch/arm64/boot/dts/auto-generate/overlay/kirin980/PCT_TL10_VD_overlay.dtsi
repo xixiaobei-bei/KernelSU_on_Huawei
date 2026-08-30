@@ -1,0 +1,33 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_TL10_VC_overlay.dtsi"
+
+/ {
+    board_id = <8932>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 3 2>;
+		hisi,boardname = "PCT_TL10_VD";
+		hisi,modem_id = <0x37612800>;
+	};
+
+	&amba {
+		i2c@FDF0D000 {
+			ti,lm36274{
+				lm36274_hw_ldsen_gpio = <229>;
+			};
+		};
+	};
+
+	&huawei_imx316{
+		huawei,ext_type = <1>;
+		huawei,ext_name = "liteon_vertilite";//for TOF Tx
+		status = "disable";
+	};

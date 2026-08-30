@@ -1,0 +1,8 @@
+/{
+	hisi_dpm {
+		compatible = "hisi,hisi-dpm-params";
+		media-info = <0x1D 0x4F27AC0>;  /*ipnum & freq*/
+		media1-dpm-supply = <&media1_subsys>;
+		media2-dpm-supply = <&media2_subsys>;
+	};
+};

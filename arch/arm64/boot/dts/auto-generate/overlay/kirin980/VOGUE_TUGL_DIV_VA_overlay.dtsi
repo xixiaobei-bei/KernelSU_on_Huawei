@@ -1,0 +1,28 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "VOGUE_TUGL_VE_overlay.dtsi"
+
+/ {
+    board_id = <8545>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 4 5>;
+		hisi,boardname = "VOGUE_TUGL_DIV_VA";
+		hisi,modem_id = <0x37055C00>;
+		hisi,product_id = <0x37055C00>;
+		hisi,product_name = "VOG-AL00";
+	};
+
+	&dp_aux_switch {
+		compatible = "huawei,dp_aux_switch";
+		aux_switch_from_fsa4476;
+		aux_switch_with_uart;
+		aux_uart-gpio = <&gpio33 7 0>;
+	};

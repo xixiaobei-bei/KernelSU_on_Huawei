@@ -1,0 +1,482 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "hi11xx_connectivity_dto.dtsi"
+/include/ "kirin980_udp_default_cs_overlay.dtsi"
+/include/ "kirin980_udp_cs_balong5000_pin.dtsi"
+/include/ "kirin980_udp_cs_balong5000_modem_pin.dtsi"
+
+/ {
+    board_id = <8041>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 0 4 1>;
+		hisi,boardname = "kirin980_udp_cs_balong5000";
+		hisi,product_id = <0x37F5FC41>;
+	};
+
+    &bcm_wifi {
+        wifi_fw_test_name;
+        wifi_fw_ap_name;
+        wifi_fw_name;
+        wifi_nvram_name;
+    };
+
+    &hw_connectivity {
+        compatible = "huawei,hw_connectivity";
+        /*huawei configuration*/
+        chip_type = "hisi";
+    };
+
+    /*hisi power*/
+    &hi110x {
+        hi110x,subchip_type="hi1103";
+        hi110x,gpio_power_on = <&gpio7 5 0>;                 /*GPIO_061*/
+        hi110x,gpio_bfgx_power_on = <&gpio25 2 0>;           /*GPIO_202*/
+        hi110x,gpio_wlan_power_on = <&gpio25 0 0>;           /*GPIO_200*/
+        hi110x,gpio_ssi_clk  = <&gpio33 0 0>;                /*GPIO_264*/
+        hi110x,gpio_ssi_data = <&gpio33 2 0>;                /*GPIO_266*/
+        huawei,pmu_clk32b = "clk_pmu32kb";
+        hi110x,asic_version;
+    };
+
+    /*hisi wifi*/
+    &hisi_wifi {
+        hi110x,gpio_wlan_wakeup_host =  <&gpio29 5 0>;       /*GPIO_237*/
+        hi110x,gpio_host_wakeup_wlan =  <&gpio32 7 0>;       /*GPIO_263*/
+    };
+
+    /*hisi bfgx*/
+    &hisi_bfgx {
+        hi110x,gpio_bfgx_wakeup_host = <&gpio22 1 0>;      /*GPIO_177*/
+        hi110x,uart_port = "/dev/ttyAMA4";
+        hi110x,uart_pclk_normal;
+    };
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_udp_b5000_1103_pilot.ini";
+    };
+
+    /*hisi gps*/
+    &hisi_gps {
+        clocks = <&clk_gate_gps_ref>, <&clk_mux_gps_ref>, <&clk_gate_mdm2gps0>, <&clk_gate_mdm2gps1>, <&clk_gate_mdm2gps2>;
+        clock-names = "ref_clk", "mux_clk", "mdm_clk0", "mdm_clk1", "mdm_clk2";
+        /*hisi gps iomux config*/
+        pinctrl-names = "default", "idle";
+        pinctrl-0 = <&gpio248_pmx_func &gpio248_cfg_func>;
+        pinctrl-1 = <&gpio248_pmx_idle &gpio248_cfg_idle>;
+    };
+
+    /*hisi gps sync*/
+    &hisi_gps_sync {
+        version = <1>;
+        /*sync register configuration*/
+        addr_base = <0xfff11000>;
+        addr_offset = <0x0b8>;
+    };
+
+     /*irda*/
+     &irda {
+         compatible = "irda,config";
+         irda,chiptype = <2>; /*hi110x*/
+     };
+
+
+	&amba {
+		i2c@FDF0A000 {
+			rt1711_kirin980_i2c6@4e {
+				status = "disabled";
+			};
+		};
+
+		i2c@FDF0C000 {
+			status = "ok";
+			rt1711_kirin980_i2c3@4e {
+				status = "ok";
+				rt1711,irq_pin = <&gpio33 3 0>;
+			};
+		};
+
+		i2c@FDF0D000 {
+
+			smartpa@34{
+				compatible = "huawei,smartpakit_i2c";
+				reg = <0x34>;
+				/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+				chip_vendor = <1>;
+				/* refer to smartpakit.out_device prop */
+				chip_id = <0>;
+				chip_model = "tfa9874";
+				status = "ok";
+
+				/* reg_ctl node: a node contains three data<addr value ctl_type>
+				 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+				 * value:
+				 *     read:  reg number(num >= 1)
+				 *     write: reg value
+				 *     delay: time delay
+				 * time delay unit: msecs */
+				version_regs = <0x03 1 0>;
+				dump_regs = <0 256 0>;
+				hw_reset {
+					gpio_reset = <&gpio30 5 0>;
+					/* gpio_state node: a node contains two data<state delay>
+					 * time delay unit: msecs */
+					ctl_sequence = <1 1 0 1>;
+				};
+				irq_handler {
+					gpio_irq = <&gpio25 1 0>;
+					/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+					irq_flags = <2>;
+					/* whether or not need reset chip*/
+					need_reset;
+					rw_sequence = <
+						0x10 1 0
+						0x11 1 0
+						0x13 1 0
+						0x14 1 0
+						0x40 1 0
+						0x41 1 0
+						0x42 1 0
+					>;
+				};
+				regmap_cfg {
+					reg_bits = <8>;
+					val_bits = <16>;
+					/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+					cache_type = <0>;
+					max_register = <0xff>;
+					// reg_writeable = <>;
+					// reg_unwriteable = <>;
+					// reg_readable = <>;
+					// reg_unreadable = <>;
+					// reg_volatile = <>;
+					// reg_unvolatile = <>;
+					reg_defaults = <
+						0x00 0x1801
+						0x01 0x0014
+					>;
+				};
+			};
+
+			smartpa@35 {
+				compatible = "huawei,smartpakit_i2c";
+				reg = <0x35>;
+				/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+				chip_vendor = <1>;
+				/* refer to smartpakit.out_device prop */
+				chip_id = <1>;
+				chip_model = "tfa9874";
+				status = "ok";
+
+				/* reg_ctl node: a node contains three data<addr value ctl_type>
+				 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+				 * value:
+				 *     read:  reg number(num >= 1)
+				 *     write: reg value
+				 *     delay: time delay
+				 * time delay unit: msecs */
+				version_regs = <0x03 1 0>;
+				dump_regs = <0 256 0>;
+				hw_reset {
+					gpio_reset = <&gpio30 5 0>;
+					/* gpio_state node: a node contains two data<state delay>
+					 * time delay unit: msecs */
+					ctl_sequence = <1 1 0 1>;
+				};
+				irq_handler {
+					gpio_irq = <&gpio25 1 0>;
+					/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+					irq_flags = <2>;
+					/* whether or not need reset chip*/
+					need_reset;
+					rw_sequence = <
+						0x10 1 0
+						0x11 1 0
+						0x13 1 0
+						0x14 1 0
+						0x40 1 0
+						0x41 1 0
+						0x42 1 0
+					>;
+				};
+				regmap_cfg {
+					reg_bits = <8>;
+					val_bits = <16>;
+					/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+					cache_type = <0>;
+					max_register = <0xff>;
+					// reg_writeable = <>;
+					// reg_unwriteable = <>;
+					// reg_readable = <>;
+					// reg_unreadable = <>;
+					// reg_volatile = <>;
+					// reg_unvolatile = <>;
+					reg_defaults = <
+						0x00 0x1801
+						0x01 0x0014
+					>;
+				};
+			};
+		};
+	};
+
+	/* display start */
+	&framebuffer {
+		fpga_flag = <0>;
+		//FB_ACCEL_KIRIN980
+		dss_version_tag = <0x100>;
+	};
+
+	/* jpeg decode */
+	&jpu {
+		fpga_flag = <0>;
+		platform-names = "dss_v501";
+		// jpu decoder base; top base; cvdr base; smmu base;  media1 crg;peri_crg,pmctrl,sctrl
+		reg = <0x0 0xe8301000 0x0 0x1000>, <0x0 0xe8304000 0x0 0x1000>, <0x0 0xe8306000 0x0 0x2000>, <0x0 0xe8320000 0x0 0x20000>, <0x0 0xe87ff000 0x0 0x1000>, <0x0 0xfff35000 0x0 0x1000>, <0x0 0xfff31000 0x0 0x1000>,<0x0 0xfff0a000 0x0 0x1000>;
+	};
+
+	&panel_pwm {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hisipwm";
+		reg = <0 0xE8A04000 0 0x1000>;
+		clocks = <&clk_gate_pwm>;
+		clock-names = "clk_pwm";
+		//pinctrl-names = "default","idle";
+		//pinctrl-0 = <&gpio182_pmx_func &gpio182_cfg_func>;
+		//pinctrl-1 = <&gpio182_pmx_idle &gpio182_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_blpwm {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hisiblpwm";
+		reg = <0 0xFFD75000 0 0x1000>;
+		clocks = <&clk_gate_blpwm>;
+		clock-names = "clk_blpwm";
+		pinctrl-names = "default","idle";
+		pinctrl-0 = <&gpio185_pmx_func &gpio186_pmx_func &gpio185_cfg_func &gpio186_cfg_func>;
+		pinctrl-1 = <&gpio185_pmx_idle &gpio186_pmx_idle &gpio185_cfg_idle &gpio186_cfg_idle>;
+		fpga_flag = <0>;
+		status = "ok";
+	};
+
+	&panel_lcdc_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,lcdc_fake_panel";
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_mipi_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,mipi_fake_panel";
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		detect_type = <0>;		/*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <16 9>;
+		gpio_cfg_addr = <0xE896CF24 0xE896CF08>;
+		support_lcd_type = "JDI_R63452_LCD", "LG_TD4322_LCD", "SHARP_NT36870_LCD";
+		lcd_id_match_tab = <0 4 2>;
+	};
+
+
+
+	&panel_lcd_jdi_R63452 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,mipi_jdi_R63452";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <16>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+	&panel_lcd_lg_TD4322 {
+		compatible = "hisilicon,mipi_lg_TD4322";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <16>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+	&panel_lcd_sharp_NT36870 {
+		compatible = "hisilicon,mipi_sharp_NT36870";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <8>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_hdmi_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hdmi_fake_panel";
+		fake_hdmi = <1>;
+		status = "disabled";
+	};
+	&panel_dp_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,dp_fake_panel";
+		fake_dp = <1>;
+		status = "ok";
+	};
+	&hisi_dp {
+		status = "ok";
+	};
+	&dp_aux_switch {
+		compatible = "huawei,dp_aux_switch";
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio137_pmx_func &gpio137_cfg_func>;
+		pinctrl-1 = <&gpio137_pmx_idle &gpio137_cfg_idle>;
+		cs-gpios = <&gpio17 1 0>;
+		status = "ok";
+	};
+
+	&huawei_usbvbus {
+		compatible = "huawei,usbvbus";
+		status = "ok";
+	};
+	/* audio device beg */
+	&codec_controller {
+		gpios = <&gpio26 3 0>; /* GPIO_211 */
+		gpio_reset = <74>; /* GPIO_74*/
+		gpio_irq = <211>;
+		gpio_codec_ssi = <204>;
+		gpio_codec_ssi_func = <1>;
+		gpio_ssi_mux = <16>; /* Chicago only */
+		hisilicon,codec-sel = "hi6405";
+		slimbusclk_io_driver = <0x7>;
+		slimbusdata_io_driver = <0x7>;
+		pm_runtime_support;
+		status = "ok";
+
+		hi64xx_irq@0 {
+			status = "ok";
+
+			hi6403_codec@0{
+				hisilicon,mic_num = <2>;
+				status = "disabled";
+			};
+
+			hi6405_codec@0{
+				hisilicon,mic_num = <2>;
+				hs_detect_extern_cable = <1>;
+				status = "ok";
+			};
+
+		};
+	};
+
+	&sound_hi6403 {
+		compatible = "hisilicon,hi3xxx-hi6403";
+		status = "disabled";
+	};
+
+	&sound_hi6405 {
+		compatible = "hisilicon,hi3xxx-hi6405";
+		status = "ok";
+	};
+
+	&slimbusmisc {
+		codec-type = "slimbus-6405";
+	};
+
+	&smartpakit {
+		compatible = "huawei,smartpakit";
+		/* 0 hisi, 1 qcom */
+		soc_platform = <0>;
+		/* algo running on: 0 codec_dsp, 1 soc_dsp, 2 smartpa_dsp, 3 simple pa(not smpartpa), 4 simple pa(with i2c) */
+		algo_in = <0>;
+		/* algo_in params need match out_device for smartpa.
+		 * Now, up to only support four pa, so out_device = <0 0 0 0>;
+		 * 1. This array is arranged in the following order:
+		 *    <0 1 2 3>
+		 *    <pril prir secl secr>
+		 * 2. This array element value is 0 or 1:
+		 *    smartpa: 0 speaker, 1 receiver
+		 *    simple pa: out_device not applicable, only set 0 to indicate pa_num
+		 * 3. The length of this array is variable, for example:
+		 *    single pa: out_device = <0>;
+		 *    two pa: out_device = <0 0>;
+		 *    four pa: out_device = <1 1 0 0>; */
+		out_device = <0 0>;
+		dsp_img_name = "hifi_6405_imedia150_devkit_hisi.img";
+		status = "ok";
+	};
+
+	&audio_hw_config {
+		spk_pa_name = "smartpakit";
+		codec_name = "hi6405";
+		codec_dsp_algo = "mad";
+		ear_pa_name = "smartpakit";
+
+	};
+
+	&kirin_pcie_rc {
+		/* connected device: 0x1-BCM, 0x2-hi110x, 0x3-NVMe, 0x4-Modem, ... */
+		ep_device_type = <0x4>;
+	};
+	/* display end */

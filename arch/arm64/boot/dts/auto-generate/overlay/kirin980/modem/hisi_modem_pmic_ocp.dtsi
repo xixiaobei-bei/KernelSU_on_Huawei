@@ -1,0 +1,38 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+    pmic_ocp_modem {   
+        compatible = "hisilicon,pmic_ocp_modem";
+        status = "ok";    
+
+        ldo1@ldo1{
+            id = <1>;
+            name = "ldo1";
+            status = "ok";
+        };
+        ldo3@ldo3{
+            id = <2>;
+            name = "ldo3";
+            status = "ok";
+        };
+        ldo14@ldo14{
+            id = <5>;
+            name = "ldo14";
+            status = "ok";
+        };
+        ldo22@ldo22{
+            id = <6>;
+            name = "ldo22";
+            status = "ok";
+        };
+        ldo28@ldo28{
+            id = <7>;
+            name = "ldo28";
+            status = "ok";
+        };
+    };
+};

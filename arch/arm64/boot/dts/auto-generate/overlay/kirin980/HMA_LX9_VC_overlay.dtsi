@@ -1,0 +1,76 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "HMA_LX9_VB_overlay.dtsi"
+
+/ {
+    board_id = <8408>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 0 8>;
+		hisi,boardname = "HMA_LX9_VC";
+		hisi,modem_id = <0x37001800>;
+	};
+
+
+&spmi {
+    pmic@0 {
+        sim0 {
+            pmu_ldo12_pull_down = <0>;
+        };
+
+        sim1 {
+            pmu_ldo12_pull_down = <0>;
+        };
+    };
+};
+
+
+	&sensorhub_io_power{
+		use_ldo12 = <1>;
+	};
+
+	&sensorhub{
+		light{
+			als1{
+				als_phone_version = <12>;
+			};
+		};
+		proximity{
+			ps1{
+				pwindows_value=<105>;
+				pwave_value=<51>;
+				threshold_value=<60>;
+				max_oily_add_pdata=<280>;
+			};
+		};
+	};
+	&hisi_usb {
+		usb_firmware_es = <0>;
+	};
+	&jpu {
+		fpga_flag = <0>;
+		platform-names = "dss_v501";
+		// jpu decoder base; top base; cvdr base; smmu base;  media1 crg;peri_crg,pmctrl,sctrl
+		reg = <0x0 0xe8301000 0x0 0x1000>, <0x0 0xe8304000 0x0 0x1000>, <0x0 0xe8306000 0x0 0x2000>, <0x0 0xe8320000 0x0 0x20000>, <0x0 0xe87ff000 0x0 0x1000>, <0x0 0xfff35000 0x0 0x1000>, <0x0 0xfff31000 0x0 0x1000>,<0x0 0xfff0a000 0x0 0x1000>;
+	};
+
+	&amba {
+            i2c@FDF0D000 {
+		secure-mode = <1>;
+                    nfc:nfc@28{
+                            nfc_chip_type = "pn80t";
+                            nfc_ese_type = "p61";
+			    nfc_ese_num = <0x2>;
+                    };
+            };
+	    gpio@e8a0e000 {
+			secure-mode = <1>;
+	    };
+	};

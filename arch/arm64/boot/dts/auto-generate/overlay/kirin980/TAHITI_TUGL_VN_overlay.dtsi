@@ -1,0 +1,178 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "TAHITI_TUGL_VB_overlay.dtsi"
+
+/ {
+    board_id = <8531>;
+};
+	&rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 3 1>;
+		hisi,boardname = "TAHITI_TUGL_VN";
+		hisi,modem_id = <0x37030800>;
+		hisi,product_id = <0x37030800>;
+		hisi,product_name = "TAH-AL00";
+	};
+
+	&ltc7820 {
+		gpio_en = <&gpio4 5 0>;
+		gpio_freq = <&gpio29 0 0>;
+	};
+
+	&direct_charge_ps {
+		bst_ctrl = <&gpio6 6 0>;
+	};
+
+	&amba {
+		i2c@FDF0A000 {
+			fsa9685_i2c6@25 {
+				fairchild_fsa9685,gpio-intb = <&gpio5 4 0>;
+			};
+
+			da9313_kirin980_i2c6@68 {
+				gpio_nonkey_en = <&gpio7 6 0>;
+				support_pwrdown_mode = <1>;
+			};
+		};
+
+		i2c@FDF0D000 {
+			smartpa@37{
+				hw_reset {
+					gpio_reset = <170>;
+				};
+				irq_handler {
+					gpio_irq = <36>;
+				};
+			};
+
+			smartpa@53{
+				hw_reset {
+					gpio_reset = <170>;
+				};
+				irq_handler {
+					gpio_irq = <36>;
+				};
+			};
+
+			smartpa@4F{
+				hw_reset {
+					gpio_reset = <170>;
+				};
+				irq_handler {
+					gpio_irq = <36>;
+				};
+			};
+		};
+	};
+	&sensorhub{
+		gsensor{
+			acc1{
+				axis_map_x =<0>;
+				axis_map_y =<1>;
+				axis_map_z =<2>;
+				negate_x =<0>;
+				negate_y =<0>;
+				negate_z =<0>;
+			};
+			acc2{
+				axis_map_x =<0>;
+				axis_map_y =<1>;
+				axis_map_z =<2>;
+				negate_x =<0>;
+				negate_y =<0>;
+				negate_z =<0>;
+			};
+		};
+
+		gyroscope{
+			gyro1{
+				position = <4>;
+				axis_map_x =<0>;
+				axis_map_y =<1>;
+				axis_map_z =<2>;
+				negate_x =<0>;
+				negate_y =<0>;
+				negate_z =<0>;
+			};
+			gyro2{
+				position = <4>;
+				axis_map_x =<0>;
+				axis_map_y =<1>;
+				axis_map_z =<2>;
+				negate_x =<0>;
+				negate_y =<0>;
+				negate_z =<0>;
+			};
+		};
+
+		compass{
+			mag1 {
+				axis_map_x=<1>;
+				axis_map_y=<0>;
+				axis_map_z=<2>;
+				negate_x=<0>;
+				negate_y=<1>;
+				negate_z=<0>;
+			};
+			mag2 {
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+			};
+			mag3{
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+			};
+		};
+
+		sar {
+			sar1 {
+				status = "ok";
+			};
+		};
+	};
+	&hall {
+		huawei,hall_0{
+			huawei,single-n-pole = <&gpio6 1 0>;/*49*/
+		};
+		huawei,hall_1{
+			huawei,single-n-pole = <&gpio6 2 0>;/*50*/
+		};
+	};
+	&sensorhub_ext_config {
+		cap_sensor_id = "65541 65572";// cap:65541:65541=0x10005; cap1:65572:65572=0x10024
+	};
+	&fingerprint {
+		fingerprint,power_en_gpio = <55>;
+	};
+	/*hisi power*/
+	&hi110x {
+		hi110x,gpio_power_on = <&gpio7 5 0>;                /*GPIO_61*/
+	};
+	/*hisi customize*/
+	&hisi_cust_cfg {
+		ini_file_name = "/vendor/etc/cfg_tahiti_tugl_v1_nx.ini";
+	};
+	&battery_balance {
+		status = "ok";
+		gpio_bat1_balance_en = <&gpio6 3 0>;
+		gpio_bat0_balance_en = <&gpio4 6 0>;
+	};
+
+	&kirin_pcie_rc {
+		/* connected device: 0x1-BCM, 0x2-hi110x, 0x3-NVMe, 0x4-Modem, ... */
+		ep_device_type = <0x4>;
+	};

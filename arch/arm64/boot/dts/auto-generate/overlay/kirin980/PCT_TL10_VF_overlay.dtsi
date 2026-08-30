@@ -1,0 +1,25 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_TL10_VE_overlay.dtsi"
+
+/ {
+    board_id = <8939>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 3 9>;
+		hisi,boardname = "PCT_TL10_VF";
+		hisi,modem_id = <0x37613800>;
+		hisi,product_id = <0x37613800>;
+		hisi,product_name = "PCT-TL10";
+	};
+
+	&antenna_board_adc_match{
+		antenna_board_match_range = <1700 1875>;
+	};

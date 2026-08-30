@@ -1,0 +1,22 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "RSN_AL00_VA_overlay.dtsi"
+
+/ {
+    board_id = <8131>;
+};
+
+	&rootparam {
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 1 3 1>;
+		hisi,boardname = "RSN_W09_VA";
+		hisi,modem_id = <0xffffffff>;
+		hisi,product_id = <0xffffffff>;
+		hisi,product_name = "RSN-W09";
+	};

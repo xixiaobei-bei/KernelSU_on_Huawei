@@ -1,0 +1,13 @@
+/{
+	smmu:smmu_lpae{
+		compatible = "hisi,hisi-smmu-lpae";
+		#iommu-cells = <0>;
+		status = "ok";
+
+		iova_info {
+			start-addr = <0x0 0x8000>;
+			size = <0x1 0x0>;
+			iova-align = <0x0 0x8000>;
+		};
+	};
+};

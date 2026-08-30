@@ -1,0 +1,73 @@
+/*
+ * Hisilicon Ltd. Kirin970 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	cambricon-npu@ff400000{
+		vnpucore0-supply = <&ics>;
+		vnpucore1-supply = <&ics2>;
+		vvcodecbus-supply = <&vcodecsubsys>;
+		compatible = "hisilicon,kirin-npu";
+		reg = <0x0 0xff400000 0x0 0x100000>,<0x0 0xff500000 0x0 0x100000>,<0x0 0xE9000000 0x0 0x100000>,<0x0 0xE9100000 0x0 0x100000>;
+		interrupts = <0 293 4>,<0 370 4>;
+		interrupt-names = "npu_dma_irq0","npu_dma_irq1";
+		clocks = <&clk_gate_ics>,<&clk_gate_ics2>;
+		clock-names = "clk-ics-core0","clk-ics-core1";
+		status = "ok";
+		iommu_info {
+			start-addr = <0x40000>;
+			iova-align = <0x1000>;
+			size = <0xFFFC0000>;
+		};
+		npu-clock-core0-rate {
+			start-rate = <960000000>;
+			stop-rate = <332000000>;
+			npu-low = <554000000>;
+			npu-middle = <640000000>;
+			npu-high = <960000000>;
+			npu-low-temperature = <640000000>;
+		};
+		npu-clock-core1-rate {
+			start-rate = <960000000>;
+			stop-rate = <554000000>;
+			npu-low = <554000000>;
+			npu-middle = <640000000>;
+			npu-high = <960000000>;
+			npu-low-temperature = <640000000>;
+		};
+		vcodecbus-clock-rate {
+			vcodecbus-low = <300000000>;
+			vcodecbus-middle = <415000000>;
+			vcodecbus-high = <554000000>;
+		};
+		platform_features {
+			core_num = <0x2>;
+			is_sswq  = <0x1>;
+			level1_irq = <0x1>;
+			performance_monitor  = <0x1>;
+			lpm3_set_vcodecbus = <0x1>;
+			npu_reset_when_in_error = <0x2>;
+			npu_bandwidth_lmt  = <0x3>;
+		};
+		npu_irq0 {
+			base-addr = <0xFF4A2000>;
+		};
+		npu_irq1 {
+			base-addr = <0xE90A2000>;
+		};
+		smmu {
+			smmu_mstr_core0 = <0xff4a0000>;
+			smmu_mstr_core1 = <0xe90a0000>;
+			smmu_comm_core0 = <0xff480000>;
+			smmu_comm_core1 = <0xe9080000>;
+			smmu_port_select = <0x1>;
+			smmu_hardware_start = <0x1>;
+		};
+	};
+};

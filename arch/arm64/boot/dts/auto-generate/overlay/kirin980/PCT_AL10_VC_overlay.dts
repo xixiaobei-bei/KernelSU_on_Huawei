@@ -1,0 +1,111 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "PCT_AL10_VB_overlay.dtsi"
+/include/ "PCT_AL10_VC_pin.dtsi"
+/include/ "PCT_AL10_VC_modem_pin.dtsi"
+
+/ {
+    board_id = <8906>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 0 6>;
+		hisi,boardname = "PCT_AL10_VC";
+		hisi,modem_id = <0x37612000>;
+	};
+
+	&huawei_hisi_isp200 {
+		hisi,is_fpga = <0>;
+	pinctrl-names = "default", "idle";
+	pinctrl-0 = <
+		&gpio020_pmx_func
+		&gpio021_pmx_func
+		&gpio022_pmx_func
+		&gpio023_pmx_func
+		&gpio024_pmx_func
+		&gpio025_pmx_func
+		&gpio026_pmx_func
+		&gpio027_pmx_func
+		&gpio028_pmx_func
+		&gpio012_pmx_func
+		&gpio011_pmx_func
+		&gpio017_pmx_func
+
+
+		&gpio020_cfg_func
+		&gpio021_cfg_func
+		&gpio022_cfg_func
+		&gpio023_cfg_func
+		&gpio024_cfg_func
+		&gpio025_cfg_func
+		&gpio026_cfg_func
+		&gpio027_cfg_func
+		&gpio028_cfg_func
+		&gpio012_cfg_func
+		&gpio011_cfg_func
+		&gpio017_cfg_func
+
+		>;
+	pinctrl-1 = <
+		&gpio020_pmx_idle
+		&gpio021_pmx_idle
+		&gpio022_pmx_idle
+		&gpio023_pmx_idle
+		&gpio024_pmx_idle
+		&gpio025_pmx_idle
+		&gpio026_pmx_idle
+		&gpio027_pmx_idle
+		&gpio028_pmx_idle
+		&gpio012_pmx_idle
+		&gpio011_pmx_idle
+		&gpio017_pmx_idle
+
+		&gpio020_cfg_idle
+		&gpio021_cfg_idle
+		&gpio022_cfg_idle
+		&gpio023_cfg_idle
+		&gpio024_cfg_idle
+		&gpio025_cfg_idle
+		&gpio026_cfg_idle
+		&gpio027_cfg_idle
+		&gpio028_cfg_idle
+		&gpio012_cfg_idle
+		&gpio011_cfg_idle
+		&gpio017_cfg_idle
+		>;
+	status = "ok";
+	};
+
+	&huawei_imx380{
+		status = "disabled";
+	};
+
+	&huawei_imx316{
+		huawei,ext_type = <1>;
+		huawei,ext_name = "liteon_lumentum";//for TOF Tx
+		status = "disable";
+	};
+
+	&amba {
+		i2c@FDF0D000 {
+			ti,lm36274{
+				lm36274_hw_en_gpio = <228>;
+			};
+		};
+	};
+
+	&sensorhub {
+		proximity {
+			ps1 {
+				file_id = <116>;
+			};
+		};
+	};

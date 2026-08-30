@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "LAYA_LX9_VD_overlay.dtsi"
+
+/ {
+    board_id = <8447>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 4 7>;
+		hisi,boardname = "LAYA_LX9_VE";
+		hisi,modem_id = <0x3701B400>;
+	};

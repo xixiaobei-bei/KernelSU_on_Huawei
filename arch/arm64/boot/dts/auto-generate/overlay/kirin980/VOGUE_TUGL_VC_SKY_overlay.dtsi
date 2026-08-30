@@ -1,0 +1,21 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "VOGUE_TUGL_VC_overlay.dtsi"
+
+/ {
+    board_id = <8512>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 1 2>;
+		hisi,boardname = "VOGUE_TUGL_VC_SKY";
+		hisi,modem_id = <0x37053000>;
+		hisi,product_id = <0x37053000>;
+		hisi,product_name = "VOG-AL00";
+	};

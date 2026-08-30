@@ -1,0 +1,9 @@
+/{
+	balong_modem {
+		mloader {
+			compatible = "hisilicon,modem_loader";
+			boot_mode ="PCIE";
+			};
+	};
+};
+

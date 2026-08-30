@@ -1,0 +1,29 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "PCT_AL10_VC_overlay.dtsi"
+/include/ "PCT_AL10_VD_pin.dtsi"
+/include/ "PCT_AL10_VD_modem_pin.dtsi"
+
+/ {
+    board_id = <8933>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 3 3>;
+		hisi,boardname = "PCT_AL10_VD";
+		hisi,modem_id = <0x37612000>;
+	};
+
+	&huawei_imx316{
+		huawei,ext_type = <1>;
+		huawei,ext_name = "liteon_vertilite";//for TOF Tx
+		status = "disable";
+	};

@@ -1,0 +1,85 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "YALZX_AL10_VA_overlay.dtsi"
+
+/ {
+    board_id = <8812>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 8 1 2>;
+		hisi,boardname = "YALZX_LX1_VA";
+		hisi,modem_id = <0x37660400>;
+		hisi,product_id = <0x37660400>;
+		hisi,product_name = "YALZX-LX1";
+	};
+
+	&antenna_board_adc_match{
+		antenna_board_match_range = <825 975>;
+		status = "ok";
+	};
+	&sensorhub{
+		gsensor{
+			acc1{
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+			};
+			acc2{
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+			};
+		};
+
+		gyroscope{
+			gyro1{
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+				position = <8>;
+			};
+			gyro2{
+				axis_map_x=<0>;
+				axis_map_y=<1>;
+				axis_map_z=<2>;
+				negate_x=<1>;
+				negate_y=<0>;
+				negate_z=<1>;
+				position = <8>;
+			};
+		};
+	};
+
+	&sensorhub_ext_config {
+		adapt_sensor_list_id = <2 6 7 8 11 12 13 14 15 17 18 21>;
+	};
+	/*hisi customize*/
+	&hisi_cust_cfg {
+		ini_file_name = "/vendor/etc/cfg_yalzx_lx1.ini";
+	};
+
+	&amba {
+		i2c@FDF0D000 {
+			nfc@28{
+				nfc_chip_type = "pn553";
+				nfc_ese_type = "hisee";
+				nfc_ese_num = <0x1>;
+			};
+		};
+	};

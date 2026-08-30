@@ -1,0 +1,303 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "desayatl_4100_snYA_4400_48.dtsi"
+/include/ "desayatl_4100_snYT_4400_48.dtsi"
+/include/ "scudmurata_4100_snCS_4400_64.dtsi"
+/include/ "scudmurata_4100_snCZ_4400_64.dtsi"
+/include/ "VOGUE_TUGL_VC_SKY_overlay.dtsi"
+/include/ "VOGUE_TUGL_VD_power_pin.dtsi"
+/include/ "VOGUE_TUGL_VD_power_modem_pin.dtsi"
+
+/ {
+    board_id = <8513>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 1 3>;
+		hisi,boardname = "VOGUE_TUGL_VD_power";
+		hisi,modem_id = <0x37053100>;
+		hisi,product_id = <0x37053100>;
+		hisi,product_name = "VOG-AL00";
+	};
+
+	&amba {
+		i2c@FDF0D000 {
+			smartpa@36{
+				compatible = "huawei,smartpakit_i2c";
+				reg = <0x36>;
+				/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+				chip_vendor = <4>;
+				/* refer to smartpakit.out_device prop */
+				chip_id = <1>;
+				chip_model = "tfa9874";
+				status = "ok";
+
+				/* reg_ctl node: a node contains three data<addr value ctl_type>
+				 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+				 * value:
+				 *     read:  reg number(num >= 1)
+				 *     write: reg value
+				 *     delay: time delay
+				 * time delay unit: msecs */
+				version_regs = <0x03 1 0>;
+				dump_regs = <0 256 0>;
+				hw_reset {
+					gpio_reset = <&gpio28 4 0>;
+					/* gpio_state node: a node contains two data<state delay>
+					 * time delay unit: msecs */
+					ctl_sequence = <1 1 0 1>;
+				};
+				irq_handler {
+					gpio_irq = <&gpio28 5 0>;
+					/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+					irq_flags = <2>;
+					/* whether or not need reset chip*/
+					need_reset;
+					rw_sequence = <
+						0x10 1 0
+						0x11 1 0
+						0x13 1 0
+						0x14 1 0
+						0x40 1 0
+						0x41 1 0
+						0x42 1 0
+					>;
+				};
+
+				regmap_cfg {
+					reg_bits = <8>;
+					val_bits = <16>;
+					/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+					cache_type = <0>;
+					max_register = <0xff>;
+					reg_defaults = <
+						0x00 0x1801
+						0x01 0x0014
+					>;
+				};
+			};
+
+			smartpa@52{
+				compatible = "huawei,smartpakit_i2c";
+				reg = <0x52>;
+				/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+				chip_vendor = <4>;
+				/* refer to smartpakit.out_device prop */
+				chip_id = <1>;
+				chip_model = "cs35l36";
+				status = "ok";
+
+				/* reg_ctl node: a node contains three data<addr value ctl_type>
+				* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+				* value:
+				*     read:  reg number(num >= 1)
+				*     write: reg value
+				*     delay: time delay
+				* time delay unit: msecs */
+				version_regs = <0x0 1 0>;
+				dump_regs = <
+					0x000000 1          0
+					0x000008 1          0
+					0x002014 0x21       0
+					0x002400 1          0
+					0x002c04 0xd        0
+					0x003800 0x31       0
+					0x004004 1          0
+					0x004220 1          0
+					0x004300 1          0
+					0x004800 0x3d       0
+					0x004C00 1          0
+					0x004C20 0x15       0
+					0x006000 1          0
+					0x006404 0x11       0
+					0x006450 1          0
+					0x006800 0x9        0
+					0x006C04 1          0
+					0xd00000 0x4d       0
+					0xe02800 1          0>;
+
+				hw_reset {
+					gpio_reset = <&gpio28 4 0>;
+					/* gpio_state node: a node contains two data<state delay>
+					* time delay unit: msecs */
+					ctl_sequence = <1 1 0 1>;
+				};
+
+				irq_handler {
+					gpio_irq = <&gpio28 5 0>;
+					/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+					irq_flags = <2>;
+					/* whether or not need reset chip*/
+					need_reset;
+					rw_sequence = <
+						0xd00020 1          0
+						0xd00024 1          0
+						0xd00028 1          0
+						0xd0002c 1          0
+						0xd00000 0xffffffff 1
+						0xd00004 0xffffffff 1
+						0xd00008 0xffffffff 1
+						0xd0000c 0xffffffff 1
+					>;
+				};
+
+				regmap_cfg {
+					reg_bits = <32>;
+					val_bits = <32>;
+					/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+					cache_type = <0>;
+					max_register = <0xe0ffff>;
+				};
+			};
+
+			smartpa@4E{
+				compatible = "huawei,smartpakit_i2c";
+				reg = <0x4E>;
+				/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+				chip_vendor = <4>;
+				/* refer to smartpakit.out_device prop */
+				chip_id = <1>;
+				chip_model = "tas2562";
+				/* maybe trigger one irq after some chip reset, ext. tas2560
+				* debounce wait time unit: msecs */
+				reset_debounce_wait_time = <100>;
+				status = "ok";
+
+				/* reg_ctl node: a node contains three data<addr value ctl_type>
+				* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+				* value:
+				*     read:  reg number(num >= 1)
+				*     write: reg value
+				*     delay: time delay
+				* time delay unit: msecs */
+				version_regs = <
+					0	0	1
+					125	1	0
+					>;
+				dump_regs = <
+					0	0	1
+					0	128	0
+					0	50	1
+					0	128	0
+					0	51	1
+					0	128	0
+					0	52	1
+					0	128	0
+				>;
+				hw_reset {
+					gpio_reset = <&gpio28 4 0>;
+					/* gpio_state node: a node contains two data<state delay>
+					* time delay unit: msecs */
+					ctl_sequence = <0 3 1 2>;
+				};
+
+				irq_handler {
+					gpio_irq = <&gpio28 5 0>;
+					/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+					irq_flags = <2>;
+					/* whether or not need reset chip*/
+					need_reset;
+					rw_sequence = <
+						0	20	2
+						0	0	1
+						26	1	0
+						27	1	0
+						31	1	0
+						32	1	0
+						36	1	0
+						37	1	0
+						2	1	0
+						120	1	0
+					>;
+				};
+
+				regmap_cfg {
+					reg_bits = <8>;
+					val_bits = <8>;
+					/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+					cache_type = <0>;
+					max_register = <128>;
+				};
+			};
+		};
+	};
+
+	&smartpakit {
+		/* 0 hisi, 1 qcom */
+		soc_platform = <0>;
+		/* algo running on: 0 codec_dsp, 1 soc_dsp, 2 smartpa_dsp, 3 simple pa(not smpartpa), 4 simple pa(with i2c) */
+		algo_in = <1>;
+		/* algo_in params need match out_device for smartpa.
+		 * Now, up to only support four pa, so out_device = <0 0 0 0>;
+		 * 1. This array is arranged in the following order:
+		 *    <0 1 2 3>
+		 *    <pril prir secl secr>
+		 * 2. This array element value is 0 or 1:
+		 *    smartpa: 0 speaker, 1 receiver
+		 *    simple pa: out_device not applicable, only set 0 to indicate pa_num
+		 * 3. The length of this array is variable, for example:
+		 *    single pa: out_device = <0>;
+		 *    two pa: out_device = <0 0>;
+		 *    four pa: out_device = <1 1 0 0>; */
+		out_device = <0 1>;
+		dsp_img_name = "hifi_6405_virtual_btn_devkit.img";
+		special_name_config = "smartpa_with_ep";
+		status = "ok";
+		switch_ctl {
+			gpio_reset0 = <0>;
+			gpio_reset1 = <0>;
+			gpio_state_default = <1 1>;
+		};
+	};
+
+    &sensorhub_ext_config {
+        homo_activity = "enabled";
+    }; 
+	&hisi_battery {
+		batt_name = <&desayatl_4100_snYA_4400_48 &desayatl_4100_snYT_4400_48 &scudmurata_4100_snCS_4400_64 &scudmurata_4100_snCZ_4400_64>;
+		default_batt_id_index = <1>;
+	};
+
+	&usb_audio_power_v600 {
+		compatible = "huawei,usb_audio_power_v600";
+		status = "disabled";
+	};
+
+	&usb_audio_power {
+		compatible = "huawei,usb_audio_power";
+		gpio_type = <0>;
+		gpio_one_ctrl = <1>;
+		gpio_low_power_ctrl = <&gpio6 5 0>;
+		status = "ok";
+	};
+
+	&direct_charger_sc {
+		volt_para =
+			"4150", "8000", "6100",
+			"4250", "6100", "5200",
+			"4300", "5200", "4100",
+			"4400", "4100", "2000";
+		volt_para1 =
+			"4200", "8000", "6100",
+			"4330", "6100", "5200",
+			"4350", "5200", "4100",
+			"4400", "4100", "2000";
+		volt_para2 =
+			"4150", "8000", "6100",
+			"4250", "6100", "5200",
+			"4300", "5200", "4100",
+			"4400", "4100", "2000";
+		volt_para3 =
+			"4200", "8000", "6100",
+			"4255", "6100", "5200",
+			"4300", "5200", "4100",
+			"4400", "4100", "2000";
+	};

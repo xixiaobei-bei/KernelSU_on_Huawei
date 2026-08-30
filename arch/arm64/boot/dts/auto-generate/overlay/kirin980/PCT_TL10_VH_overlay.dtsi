@@ -1,0 +1,25 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "PCT_TL10_VF_overlay.dtsi"
+
+/ {
+    board_id = <8910>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 9 1 0>;
+		hisi,boardname = "PCT_TL10_VH";
+		hisi,modem_id = <0x37614800>;
+	};
+
+	&huawei_imx316{
+		huawei,ext_type = <2>;
+		huawei,ext_name = "oflim_lumentum_no_coating", "sunny_lumentum_no_coating", "ofilm_vertilite_no_coating", "sunny_ams_no_coating";
+		status = "ok";
+	};

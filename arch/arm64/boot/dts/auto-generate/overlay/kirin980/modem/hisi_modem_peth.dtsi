@@ -1,0 +1,14 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+	peth_app:peth@E0000000 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,peth_app";
+		status = "ok";
+	};
+};

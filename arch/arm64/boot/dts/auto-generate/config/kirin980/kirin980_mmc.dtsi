@@ -1,0 +1,55 @@
+/{
+
+
+	/* SD */
+	dwmmc1: dwmmc1@FF37F000 {
+		compatible = "hisilicon,cancer-dw-mshc";
+		reg = <0x0 0xff37f000 0x0 0x1000>;
+		interrupts = <0 139 4>;
+		num-slots = <1>;
+		clocks = <&clk_gate_sd>, <&hclk_gate_sd>;
+		clock-names = "ciu", "biu";
+		fifo-depth = <0x100>;
+		card-detect-delay = <200>;
+		supports-highspeed;
+		pinctrl-names = "default","idle";
+		pinctrl-0 = <&gpio160_pmx_func &gpio161_pmx_func &gpio162_pmx_func
+				&gpio163_pmx_func &gpio164_pmx_func &gpio165_pmx_func
+				&gpio160_cfg_func &gpio161_cfg_func &gpio162_cfg_func
+				&gpio163_cfg_func &gpio164_cfg_func &gpio165_cfg_func>;
+		pinctrl-1 = <&gpio160_pmx_idle &gpio161_pmx_idle &gpio162_pmx_idle
+				&gpio163_pmx_idle &gpio164_pmx_idle &gpio165_pmx_idle
+				&gpio160_cfg_idle &gpio161_cfg_idle &gpio162_cfg_idle
+				&gpio163_cfg_idle &gpio164_cfg_idle &gpio165_cfg_idle>;
+		slot@0 {
+                       reg = <0>;
+                       bus-width = <4>;
+                       disable-wp;
+               };
+	};
+
+	/* wifi */
+
+	dwmmc2: dwmmc2@FC183000 {
+		compatible = "hisilicon,cancer-dw-mshc";
+		reg = <0x0 0xfc183000 0x0 0x1000>;
+		interrupts = <0 140 4>;
+		num-slots = <1>;
+		clocks = <&clk_gate_sdio>, <&hclk_gate_sdio>;
+		clock-names = "ciu", "biu";
+		fifo-depth = <0x100>;
+		card-detect-delay = <200>;
+		caps2-support-wifi;
+		supports-highspeed;
+		keep-power-in-suspend;
+		pinctrl-names = "default","idle";
+		/*pinctrl-0 = <>;*/
+		/*pinctrl-1 = <>;*/
+		slot@0 {
+			reg = <0>;
+			bus-width = <4>;
+			disable-wp;
+		};
+	};
+
+};

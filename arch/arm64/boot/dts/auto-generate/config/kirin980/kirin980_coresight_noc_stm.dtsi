@@ -1,0 +1,160 @@
+
+/{
+	amba {
+		/* Top coresight config */
+		funnel@2,ec031000 {
+			ports {
+				port@3{
+					reg = <2>;
+					funnel2_in_port2:endpoint {
+						slave-mode;
+						remote-endpoint = <&stm1_out_port>;
+						};
+				};
+
+				port@4{
+					reg = <3>;
+					funnel2_in_port3:endpoint{
+						slave-mode;
+						remote-endpoint = <&noc_ao_out_port>;
+					};
+				};
+
+				port@5{
+					reg = <4>;
+					funnel2_in_port4:endpoint{
+						slave-mode;
+						remote-endpoint = <&noc_cfg_out_port>;
+					};
+				};
+
+				port@5{
+					reg = <4>;
+					funnel2_in_port4:endpoint{
+						slave-mode;
+						remote-endpoint = <&noc_sys_out_port>;
+					};
+				};
+
+				port@6{
+					reg = <5>;
+					funnel2_in_port5:endpoint{
+						slave-mode;
+						remote-endpoint = <&stm0_out_port>;
+					};
+				};
+			};
+		};
+
+		stm@0,ec035000{
+			compatible = "arm,coresight-stm", "arm,primecell";
+			reg = <0 0xEC035000 0 0x1000>,
+				<0 0xfe000000 0 0x1000000>;
+			reg-names = "stm-base", "stm-stimulus-base";
+			arm,primecell-periphid = <0x000bb963>;
+			default_enable;
+			trace_id = <0xE>;
+			clocks = <&atclk &pclk>;
+			clock-names = "clk_topcs_atclk", "apb_pclk";
+			in_media = <0x0>;
+			port{
+				stm0_out_port:endpoint{
+					remote-endpoint = <&funnel2_in_port5>;
+				};
+			};
+		};
+
+		stm@1,ec041000{
+			compatible = "arm,coresight-stm", "arm,primecell";
+			reg = <0 0xEC041000 0 0x1000>;
+			reg-names = "stm-base";
+			arm,primecell-periphid = <0x000bb963>;
+			default_enable;
+			stm-clockdep-supply = <&stm_fake>;
+			useclockdep = <0x1>;
+			in_media = <0x1>;
+			set_reg = <0xE87FF034>;
+			trace_id = <0xF>;
+			port{
+				stm1_out_port:endpoint{
+					remote-endpoint = <&funnel2_in_port2>;
+				};
+			};
+		};
+
+		noc@0,e9870000{
+			compatible = "hisi,coresight-noc";
+			reg = <0 0xE9870000 0 0x10000>;
+			//default_enable;
+			trace_id = <0x10>;
+			filter_lut = <0xE>;
+			filter_nums = <0x2>;
+			offset_disable = <0x200C 0x248C 0x240C 0x2020>;
+			offset_filter0 = <
+				0x2044 0x2048 0x204C 0x2050 0x2054 0x2058 0x205C 0x2060 0x2064 0x2068 0x206C 0x2070 0x2074>;
+			offset_filter1 = <
+				0x2080 0x2084 0x2088 0x208C 0x2090 0x2094 0x2098 0x209C 0x20A0 0x20A4 0x20A8 0x20AC 0x20B0>;
+			offset_enable = <
+				0x2014 0x2408 0x240C 0x2488 0x248C 0x2008 0x200C>;
+			cfg_filter0 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*sctrl*/
+			cfg_filter1 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*spmi*/
+			port{
+				noc_ao_out_port:endpoint{
+					remote-endpoint = <&funnel2_in_port3>;
+				};
+			};
+
+		};
+
+		noc@1,e9800000{
+			compatible = "hisi,coresight-noc";
+			reg = <0 0xE9800000 0 0x10000>;
+			//default_enable;
+			trace_id = <0x11>;
+			filter_lut = <0xFE>;
+			filter_nums = <0x3>;
+			offset_disable = <0x200C 0x248C 0x240C 0x2020>;
+			offset_filter0 = <
+				0x2044 0x2048 0x204C 0x2050 0x2054 0x2058 0x205C 0x2060 0x2064 0x2068 0x206C 0x2070 0x2074>;
+			offset_filter1 = <
+				0x2080 0x2084 0x2088 0x208C 0x2090 0x2094 0x2098 0x209C 0x20A0 0x20A4 0x20A8 0x20AC 0x20B0>;
+			offset_filter2 = <
+				0x20BC 0x20C0 0x20C4 0x20C8 0x20CC 0x20D0 0x20D4 0x20D8 0x20DC 0x20E0 0x20E4 0x20E8 0x20EC>;
+			offset_enable = <
+				0x2014 0x2408 0x240C 0x2488 0x248C 0x2008 0x200C>;
+			cfg_filter0 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*pericrg*/
+			cfg_filter1 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*pmctrl*/
+			cfg_filter2 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*pctrl*/
+			port{
+				noc_cfg_out_port:endpoint{
+					remote-endpoint = <&funnel2_in_port4>;
+				};
+			};
+
+		};
+
+		noc@2,e9840000{
+			compatible = "hisi,coresight-noc";
+			reg = <0 0xE9840000 0 0x10000>;
+			//default_enable;
+			trace_id = <0x12>;
+			filter_lut = <0xE>;
+			filter_nums = <0x2>;
+			offset_disable = <0x280C 0x2C8C 0x2C0C 0x2820>;
+			offset_filter0 = <
+				0x2844 0x2848 0x284C 0x2850 0x2854 0x2858 0x285C 0x2860 0x2864 0x2868 0x286C 0x2870 0x2874>;
+			offset_filter1 = <
+				0x2880 0x2884 0x2888 0x288C 0x2890 0x2894 0x2898 0x289C 0x28A0 0x28A4 0x28A8 0x28AC 0x28B0>;
+			offset_enable = <
+				0x2814 0x2C08 0x2C0C 0x2C88 0x2C8C 0x2808 0x280C>;
+			cfg_filter0 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*all 512G write*/
+			cfg_filter1 = <0x0 0x0 0x0 0x0 0x22 0x3>;/*all 512M read */
+			port{
+				noc_sys_out_port:endpoint{
+					remote-endpoint = <&funnel2_in_port4>;
+				};
+			};
+
+		};
+	};
+};

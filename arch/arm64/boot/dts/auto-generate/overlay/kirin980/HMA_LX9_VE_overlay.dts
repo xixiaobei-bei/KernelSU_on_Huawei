@@ -1,0 +1,27 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "HMA_LX9_VD_overlay.dtsi"
+/include/ "HMA_LX9_VE_pin.dtsi"
+/include/ "HMA_LX9_VE_modem_pin.dtsi"
+
+/ {
+    board_id = <8413>;
+};
+	&rootparam{
+		hisi,boardid = <8 4 1 3>;
+		hisi,boardname = "HMA_LX9_VE";
+		hisi,modem_id = <0x37003000>;
+	};
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_hma_lx9_va.ini";
+    };

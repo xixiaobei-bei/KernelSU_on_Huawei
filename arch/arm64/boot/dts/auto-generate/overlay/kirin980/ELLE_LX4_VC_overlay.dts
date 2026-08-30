@@ -1,0 +1,83 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "ELLE_LX4_VB_overlay.dtsi"
+/include/ "ELLE_LX4_VC_pin.dtsi"
+/include/ "ELLE_LX4_VC_modem_pin.dtsi"
+
+/ {
+    board_id = <8493>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 4 9 3>;
+		hisi,boardname = "ELLE_LX4_VC";
+		hisi,modem_id = <0x3704B400>;
+		hisi,product_id = <0x3704B400>;
+		hisi,product_name = "ELE-LX4";
+	};
+
+    &huawei_imx600imx351hybrid {
+		compatible = "huawei,sensor";
+		huawei,sensor_name = "IMX600IMX351HYBRID";
+		huawei,sensor_index = <0>;
+		huawei,is_fpga = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,csi_index = <0 2>;
+		huawei,i2c_index = <0 2>;
+		/*cdphy-csi2*/
+		huawei,phyinfo_valid = <2>;
+		huawei,is_master_sensor = <1 0>;
+		huawei,phy_id = <0 2>;
+		huawei,phy_mode = <1 0>;
+		huawei,phy_freq_mode = <1 0>;
+		huawei,phy_freq = <80000000 80000000>;
+		huawei,phy_work_mode = <0 0>;
+		clocks = <&clk_gate_rxdphy0_cfg &clk_gate_rxdphy2_cfg &clk_gate_isp_snclk0 &clk_gate_isp_snclk2>;
+		clock-names = "clk_rxdphy0_cfg", "clk_rxdphy2_cfg", "clk_isp_snclk0", "clk_isp_snclk2";
+		huawei,phyclk = <80000000>;
+		phy-clock-num = <2>;
+		huawei,mclk = <19200000>;
+		dvdd-supply = <&ldo32>;
+		iovdd-supply = <&ldo21>;
+		dvdd2-supply = <&ldo12>;
+		huawei,ldo-names = "dvdd", "iovdd", "dvdd2";
+
+		gpios = <&gpio1 4 0 &gpio6 4 0 &gpio4 3 0>;
+		huawei,gpio-ctrl-types = "reset", "reset2", "laser_xshut";
+
+		huawei,cam-power-seq-type = "laser_xshut", "sensor_iovdd", "sensor_pmic", "sensor_pmic", "sensor_pmic",
+		"sensor_dvdd", "sensor_dvdd2", "sensor_pmic",
+		"sensor_mclk", "sensor_mclk",
+		"sensor_rst", "sensor_rst2";
+		huawei,cam-power-seq-cfg-val = <0 1800000 2800000 2800000 1800000 1100000 2800000 2850000 0 0 0 0>;
+		huawei,cam-power-seq-val = <0xFF 0xFF 0 1 2 0xFF 0xFF 5 0xFF 0xFF 0xFF 0xFF>;
+		huawei,cam-power-seq-sensor-index = <0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0 2 0xFF 0xFF>;
+		huawei,cam-power-seq-delay = <1 0 0 0 0 0 0 0 1 1 1 1>;
+
+		huawei,cam-power-down-seq-type ="sensor_rst2", "sensor_rst", "sensor_mclk", "sensor_mclk",
+		"sensor_pmic", "sensor_dvdd2", "sensor_dvdd",
+		"sensor_pmic", "sensor_pmic",
+		"sensor_pmic", "sensor_iovdd", "laser_xshut";
+		huawei,cam-power-down-seq-cfg-val = <0 0 0 0 2850000 2800000 1100000 1800000 2800000 2800000 1800000 0>;
+		huawei,cam-power-down-seq-val = <0xFF 0xFF 0xFF 0xFF 5 0xFF 0xFF 2 1 0 0xFF 0xFF>;
+		huawei,cam-power-down-seq-sensor-index = <0xFF 0xFF 2 0 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF>;
+		huawei,cam-power-down-seq-delay = <1 1 1 1 0 0 0 0 0 0 0 1>;
+
+		status = "ok";
+	};
+
+	&smartpakit {
+		compatible = "huawei,smartpakit";
+		dsp_img_name = "hifi_6405_virtual_btn_devkit.img";
+		status = "ok";
+	};

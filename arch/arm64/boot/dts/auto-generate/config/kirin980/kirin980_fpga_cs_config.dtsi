@@ -1,0 +1,785 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin980_fpga_cs_pin.dtsi"
+/include/ "kirin980_fpga_cs_modem_pin.dtsi"
+/include/ "kirin980_gic.dtsi"
+/include/ "kirin980_timer.dtsi"
+/include/ "kirin980_clock_cs.dtsi"
+/include/ "kirin980_peri_dvfs_volt_cs.dtsi"
+/include/ "kirin980_peri_dvfs_cs.dtsi"
+/include/ "kirin980_isp_cs.dtsi"
+/include/ "kirin980_ivp_cs.dtsi"
+/include/ "kirin980_ipp.dtsi"
+/include/ "kirin980_powerip_cs.dtsi"
+/include/ "hisi_freq_autodown.dtsi"
+/include/ "kirin980.dtsi"
+/include/ "kirin980_lowpm.dtsi"
+/include/ "kirin980_l3cache.dtsi"
+/include/ "kirin980_gpu.dtsi"
+/include/ "kirin980_hw_vote.dtsi"
+/include/ "kirin980_i2c.dtsi"
+/include/ "kirin980_gpio_cs.dtsi"
+/include/ "kirin980_pinctrl_fpga.dtsi"
+/include/ "hisi_64xx_codec.dtsi"
+/include/ "kirin980_fpga_cs_hi6402_pin.dtsi"
+/include/ "hisi_bci_battery.dtsi"
+/include/ "kirin980_pd.dtsi"
+/include/ "kirin980_fpga_touchscreen.dtsi"
+/include/ "kirin980_framebuffer.dtsi"
+/include/ "kirin980_jpu.dtsi"
+/include/ "hisi_6421v600_pmic_led_spmi.dtsi"
+/include/ "hisi_rtc_spmi.dtsi"
+/include/ "modem/hisi_modem_balong.dtsi"
+/include/ "kirin980_noc.dtsi"
+/include/ "kirin980_dma64.dtsi"
+/include/ "kirin980_ics_cs_fpga.dtsi"
+/include/ "kirin980_trustedcore.dtsi"
+/include/ "kirin980_perfstat_cs.dtsi"
+
+/ {
+	#address-cells = <2>;
+	#size-cells = <2>;
+	model = "kirin980";
+	compatible = "hisilicon,kirin980";
+	interrupt-parent = <&gic>;
+	hisi,chipid = <6 8 0 6>;
+	hisi,chiptype = "kirin980_cs";
+	
+	rootparam: rootparam{
+		hisi,boardid = <0 0 0 2>;
+		hisi,boardname = "kirin980_fpga_cs";
+	};
+	chosen: chosen{};
+
+
+	cpus: cpus {
+		#address-cells = <2>;
+		#size-cells = <0>;
+
+		little0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53", "arm,armv8";
+			reg = <0x0 0x0>;
+			clocks = <&clk_cluster0 0>;
+			clock-names = "cpu-cluster.0";
+			freq-vote-channel = "little-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+			operating-points-v2 = <&cluster0_opp_table>;
+			operating-points = <
+				596000	650000
+				999000	700000
+				1095000	800000
+				1191000 800000
+				1306000	800000
+				1402000	800000
+				1498000	900000
+				1594000	900000
+				1690000	900000
+				1786000	900000
+			>;
+		};
+
+		middle0:cpu@400 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x400>;
+			clocks = <&clk_cluster1 0>;
+			clock-names = "cpu-cluster.1";
+			freq-vote-channel = "middle-freq", "vote-src-1";
+			enable-method = "psci";
+			 clock-frequency = <0>;
+			clock-latency = <0>;
+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_1>;
+			operating-points-v2 = <&cluster1_opp_table>;
+			operating-points = <
+				404000	700000
+				807000	700000
+				903000	700000
+				999000	700000
+				1114000	700000
+				1229000	700000
+				1325000	800000
+				1421000	800000
+				1517000	800000
+				1632000	800000
+				1824000	900000
+			>;
+		};
+
+		cluster0_opp_table: opp_table0 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp0 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <596000000>;
+				opp-microvolt = <650000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp1 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <999000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp2 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1095000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp3 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1191000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp4 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1306000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp5 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1402000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp6 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1498000000>;
+				opp-microvolt = <900000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp7 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1594000000>;
+				opp-microvolt = <900000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp8 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1690000000>;
+				opp-microvolt = <900000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp9 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1786000000>;
+				opp-microvolt = <900000>;
+				clock-latency-ns = <2000000>;
+			};
+		};
+
+		cluster1_opp_table: opp_table1 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp0 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <404000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp1 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <807000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp2 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <903000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp3 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <999000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp4 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1114000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp5 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1229000000>;
+				opp-microvolt = <700000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp6 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1325000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp7 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1421000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp8 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1517000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp9 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1632000000>;
+				opp-microvolt = <800000>;
+				clock-latency-ns = <2000000>;
+			};
+			opp10 {
+				opp-supported-hw = <0x3>;
+				opp-hz = /bits/ 64 <1824000000>;
+				opp-microvolt = <900000>;
+				clock-latency-ns = <2000000>;
+			};
+		};
+
+		idle-states {
+			entry-method = "arm,psci";
+
+			CPU_NAP_0: cpu-nap-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x0000000>;
+				entry-latency-us = <40>;
+				exit-latency-us = <70>;
+				min-residency-us = <3000>;
+				local-timer-stop;
+			};
+
+			CPU_SLEEP_0: cpu-sleep-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x0010000>;
+				entry-latency-us = <400>;
+				exit-latency-us = <700>;
+				min-residency-us = <100000>;
+				local-timer-stop;
+			};
+
+			CLUSTER_SLEEP_0: cluster-sleep-0 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x1010000>;
+				entry-latency-us = <5000>;
+				exit-latency-us = <50000>;
+				min-residency-us = <200000>;
+				local-timer-stop;
+			};
+			CLUSTER_SLEEP_1: cluster-sleep-1 {
+				compatible = "arm,idle-state";
+				arm,psci-suspend-param = <0x1010000>;
+				entry-latency-us = <10000>;
+				exit-latency-us = <50000>;
+				min-residency-us = <200000>;
+				local-timer-stop;
+			};
+		};
+		cpu-map {
+			cluster0: cluster0 {
+				#cooling-cells = <3>; /* min followed by max */
+				core0 {
+					cpu = <&little0>;
+				};
+			};
+			cluster1: cluster1 {
+				#cooling-cells = <2>; /* min followed by max */
+				core0 {
+					cpu = <&middle0>;
+				};
+			};
+		};
+	};
+
+	hisi_ion: hisi,ion {
+	};
+	target-cpu {
+		compatible = "hisi,targetcpu";
+		target_cpu = "Kirin 980";
+	};
+	cpu_idle_flag: cpu-idle-flag {
+	};
+	support-target {
+		compatible = "hisi,supportedtarget";
+		support_name = "Kirin 980","Kirin 985";
+		support_value = <2458000>, <1931000>;
+		support_efuse = "false";
+	};
+
+	psci: psci {
+		compatible      = "arm,psci";
+		method          = "smc";
+		cpu_suspend     = <0xc4000001>;
+		cpu_off         = <0x84000002>;
+		cpu_on          = <0xc4000003>;
+		system_off      = <0x84000008>;
+		system_reset    = <0x84000009>;
+	};
+
+	suspend-opp {
+		compatible = "hisi,suspend-freq";
+		suspend_freq = <1786000>, <1824000>, <2266000>;
+	};
+	/* cpufreq  device */
+	cpufreq: cpufreq-bL {
+		compatible = "arm,generic-bL-cpufreq";
+		status = "ok";
+	};
+
+	spmi: spmi@FFF24000 {
+	};
+	hisi_vibrator: hisi_vibrator@fff34000 {
+	};
+
+	clocks: clocks@0 {
+	};
+
+	fastboot: fastboot {
+	};
+
+	pmu: pmu@FFF34000 {
+	};
+
+	lowpm_func: lowpm_func {
+		compatible = "hisilicon,lowpm_func";
+		fpga_flag = <1>;
+		status = "ok";
+	};
+	hisi_ipc: ipc@e896b000 {
+		mailbox-18 {
+                        timeout = <2000>;
+                };
+                mailbox-29 {
+                        timeout = <2000>;
+                };
+
+	};
+	hisi_ao_ipc: ipc@0xFFF22000 {
+	};
+
+        hisi_sysctrl: sysctrl@fff0a000 {
+        };
+
+        hisi_pctrl: pctrl@e8a09000 {
+        };
+
+        hisi_crgctrl: crgctrl@fff35000 {
+        };
+
+	hisi_iomcuctrl: crgctrl@0xFFD7e000 {
+        };
+
+        hisi_pmctrl: pmctrl@fff31000 {
+        };
+
+        hisi_mmc1_sysctrl: mmc1_sysctrl@FC186000 {
+        };
+
+        hisi_media1ctrl: media1ctrl@E87FF000 {
+        };
+
+        hisi_media2ctrl: media2ctrl@E8900000 {
+        };
+
+	kirin_pcie_rc: kirin_pcie_rc@0xf4000000 {
+		board_type = <0>;
+		reset-gpio = <&gpio7 0 0 >;
+		eco = <0>;
+
+		status = "ok";
+	};
+
+
+	kirin_pcie_ep: kirin_pcie_ep@0xf4000000 {
+		board_type = <0>;
+		reset-gpio = <&gpio7 0 0 >;
+		eco = <0>;
+
+		status = "disabled";
+	};
+
+	hisi_axierr: hisi_axierr {
+        };
+
+    hisi_reset: hisi_reset {
+        };
+
+	peripherals: peripherals {
+	};
+	nve_uartctl:uartctl {
+	};
+	amba: amba {
+		watchdog0 {
+			compatible = "arm,sp805", "arm,primecell";
+			reg = <0x0 0xe8a06000 0x0 0x1000>;
+			default-timeout = <24>;
+			interrupts = <0 44 4>;
+			clocks = <&pclk_gate_wd0 &pclk>;
+			clock-names = "pclk_wd0", "apb_pclk";
+			status = "ok";
+		};
+	};
+	/* end amba */
+
+	hisi_gpio_key: hisi_gpio_key {
+	};
+
+	/* display start */
+	framebuffer: framebuffer@E8600000 {
+	};
+
+	/* jpu start */
+	jpu: jpu@E8301000 {
+		fpga_flag = <1>;
+	};
+
+	panel_pwm: panel_pwm {
+	};
+
+	panel_blpwm: panel_blpwm {
+	};
+
+	panel_lcdc_fake: panel_lcdc_fake {
+	};
+
+	panel_mipi_fake: panel_mipi_fake {
+	};
+
+	huawei_lcd_panel: huawei,lcd_panel {
+	};
+
+	panel_lcd_cmi_NT35521: panel_lcd_cmi_NT35521 {
+	};
+
+	panel_lcd_jdi_R63452: panel_lcd_jdi_R63452 {
+	};
+
+	panel_lcd_sharp_NT35597: panel_lcd_sharp_NT35597 {
+	};
+
+	panel_lcd_jdi_NT35950: panel_lcd_jdi_NT35950 {
+	};
+	panel_lcd_jdi_OTM1902B: panel_lcd_jdi_OTM1902B {
+	};
+	panel_lcd_jdi_NT35695_cut3_1: panel_lcd_jdi_NT35695_cut3_1 {
+	};
+
+	panel_lcd_lg_ER69007: panel_lcd_lg_ER69007 {
+	};
+
+	panel_lcd_lg_eR69006A: panel_lcd_lg_eR69006A {
+	};
+
+	panel_lcd_jdi_ER63450: panel_lcd_jdi_ER63450 {
+	};
+	panel_lcd_jdi_NT36860: panel_lcd_jdi_NT36860 {
+	};
+
+	panel_lcd_sharp_NT36860: panel_lcd_sharp_NT36860 {
+	};
+
+	panel_mipi_lcd_external: panel_mipi_lcd_external {
+	};
+	panel_hdmi_fake: panel_hdmi_fake {
+	};
+	panel_dp_fake: panel_dp_fake {
+	};
+
+	hisi_dp: hisi_dp {
+	};
+
+	/* display end */
+
+	/* audio device beg */
+	codec_controller: codec_controller@e82b9000 {
+	};
+
+	sound_hi6403: sound_hi6403 {
+	};
+
+	hi6210_hifi: hi6210_hifi {
+	};
+
+	hisi_dp_machine: hisi_dp_machine {
+	};
+
+  hisi_venc: venc{
+      };
+
+  hisi_vdec: vdec{
+      };
+
+
+
+	asp_irq: asp_irq@E804E000{
+	};
+	slimbusmisc: slimbusmisc@0xe8050000 {
+	};
+	slimbus_dai: slimbus_dai@0 {
+	};
+
+	sio1: sio@E804F000 {
+	};
+
+	sio2: sio@E804F400 {
+	};
+
+	sio3: sio@E804F800 {
+	};
+
+	sio4: sio@E804FC00 {
+	};
+
+	soundtrigger: soundtrigger@E804B000 {
+	};
+
+	hi64xx_asp_dmac: hi64xx_asp_dmac@E804B000 {
+	};
+
+	asp_hdmi_dmac: asp_hdmi_dmac@E804B400 {
+	};
+
+	asp_cfg: asp_cfg@0xe804e000 {
+	};
+
+	dp_i2s: dp_i2s {
+        };
+
+	dp_audio: dp_audio@0 {
+        };
+
+	hisi_pcm_dp: hisi-pcm-dp {
+	};
+
+	hifidsp: hifidsp {
+	};
+
+	sochifi_watchdog: sochifi_watchdog {
+	};
+
+	asp_dmac: asp_dmac@E804B000 {
+	};
+
+	usbaudio_dsp: usbaudio_dsp {
+	};
+
+	audio_hw_config: audio_hw_config {
+	};
+	/* audio device end */
+
+	/* UFS */
+	ufs: ufs@FF3c0000 {
+		ufs-kirin-use-hisi-mphy-tc;
+		ufs-kirin-use-rate-B;
+		ufs-kirin-broken-fastauto;
+		/*ufs-kirin-use-one-line;*/
+		/*ufs-kirin-use-HS-GEAR3;*/
+		/*ufs-kirin-use-HS-GEAR2;*/
+		ufs-kirin-use-HS-GEAR1;
+		ufs-kirin-unipro-termination;
+		/*ufs-kirin-unipro-scrambing;*/
+		ufs-kirin-disable-pm-runtime;
+		/*ufs-kirin-use-auto-H8*/
+		/*ufs-kirin-broken-clk-gate-pypass*/
+		cs-gpios = <&gpio22 0 0>;
+	};
+
+	/* rename eMMC,SD,SDIO */
+	aliases: aliases {
+		mshc0 = &dwmmc0;
+		mshc1 = &dwmmc1;
+		/*mshc2 = &dwmmc2;*/
+	};
+
+	/* eMMC 4.5 */
+	dwmmc0: dwmmc0@FC183000 {
+		compatible = "hisilicon,cancer-dw-mshc";
+		reg = <0x0 0xfc183000 0x0 0x1000>;
+		interrupts = <0 140 4>;
+		board-mmc-bus-clk = <20000000>;
+		clocks = <&clk_gate_sdio>, <&hclk_gate_sdio>;
+		clock-names = "ciu", "biu";
+		interrupt-parent = <&gic>;
+		vmmc-supply=<&ldo15>;
+		num-slots = <1>;
+		fifo-depth = <0x100>;
+		card-detect-delay = <200>;
+		broken-cd;
+		non-removable;
+		supports-highspeed;
+		caps2-mmc-hs200-1_8v;
+		keep-power-in-suspend;
+		caps2-mmc-bkops_auto-ctrl;
+		caps2-mmc-cache-ctrl;
+		/*caps2-mmc-packed-command;*/
+		/*caps2-mmc-poweroff-notify;*/
+		/*caps2-mmc-enhanced_strobe-ctrl;*/
+		/*caps2-mmc-cache_flush_barrier-ctrl;*/
+		/*caps2-mmc-packed-command;*/
+		/*caps2-mmc-poweroff-notify;*/
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		slot@0 {
+			reg = <0>;
+			bus-width = <8>;
+			disable-wp;
+		};
+
+		mmccard@0 {
+			reg = <0>;
+			compatible = "mmc-card";
+			broken-hpi;
+		};
+	};
+
+	/* SD */
+	dwmmc1: dwmmc1@FF37F000 {
+		board-sd-voltage-switch-gpio = <&gpio3 5 0>;
+		board-mmc-bus-clk = <20000000>;
+		hi3660_fpga_sd_ioset;
+		hi3660_sd_ioset_sd_sel = <&gpio15 0 0>;
+		hi3660_sd_ioset_jtag_sd_sel = <&gpio15 1 0>;
+		cd-vol = <0>;
+		cd-gpio = <&gpio0 2 0>;
+	};
+
+	/* wifi */
+	/*
+	dwmmc2: dwmmc2@FC183000 {
+		board-mmc-bus-clk = <20000000>;
+	};
+	*/
+
+	hisi_usb: hisi_usb@ff200000 {
+	};
+	gpu: mali@E82C0000 {
+	};
+
+	touchscreen: touchscreen {
+	};
+
+	sensorhub_status: sensorhub_status{
+		compatible = "huawei,sensorhub_status";
+		status= "ok";
+	};
+
+	ipc: ipc@0xFFF22000 {	/* add for fpga because iom7 start too slow */
+	};
+
+	sensorhub_nmi: sensorhub_nmi{
+		compatible = "huawei,sensorhub_nmi";
+		nmi_reg=<0x588>;
+	};
+
+	sensorhub: sensorhub{
+	};
+
+	sensorhub_ext_config: sensorhub_ex{
+		compatible = "huawei,sensorhub";
+		akm_need_current = "no";
+		invensense_exist = "no";
+		isensor_version = "no";
+	};
+
+	sensorhub_io_power: sensorhub_io_power{
+		compatible = "huawei,sensorhub_io";
+		sensor-io-supply = <&ldo24>;
+		status="ok";
+	};
+
+	hall: hall {
+	};
+	/*
+		device check : the 0 means that it don't need to check;
+			the 1 means that it check at board check and running test;
+			the 2 means that it check at running test
+	*/
+	devcheck: devcheck {
+	};
+
+	huawei_hisi_isp110: huawei,hisi_isp110 {
+	};
+
+	hisi_camera: hisi,hisi_camera {
+	};
+
+	hisi_isp: hisi,hisi_isp{
+	};
+
+	huawei_hjpeg: huawei,hjpeg {
+	};
+
+	huawei_hisi_fd: huawei,hisi_fd {
+	};
+
+	huawei_imx286hybird: huawei,imx286hybird{
+	};
+
+	huawei_imx386hybird: huawei,imx386hybird{
+	};
+
+	huawei_imx380hybird: huawei,imx380hybird{
+	};
+
+	huawei_imx600hybird: huawei,imx600hybird{
+	};
+
+	huawei_imx179: huawei,imx179 {
+	};
+
+	huawei_imx319: huawei,imx319 {
+	};
+
+	huawei_ov8865: huawei,ov8865 {
+	};
+	huawei_imx214: huawei,imx214 {
+	};
+
+	huawei_imx230: huawei,imx230 {
+    };
+
+	huawei_imx298: huawei,imx298 {
+	};
+
+	huawei_imx286dual: huawei,imx286dual{
+	};
+
+	huawei_imx278: huawei,imx278 {
+	};
+
+	hisee: hisee@0x0 {
+	};
+
+	pmu_a55: pmu_a55 {
+		status = "disabled";
+		interrupt-affinity = <&little0>;
+	};
+
+	pmu_a77: pmu_a77 {
+		status = "disabled";
+		interrupt-affinity = <&little0>;
+	};
+	dsu_pmu_0: dsu-pmu-0 {
+		cpus = <&little0>;
+	};
+	ddr_dev: ddr_dev{
+		compatible = "hisilicon,ddr_dev";
+	};
+};

@@ -1,0 +1,198 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin980_udp_default_cs_overlay.dtsi"
+
+/ {
+    board_id = <8030>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 0 3 0>;
+		hisi,boardname = "kirin980_udp_cs_ut_v765";
+		hisi,product_id = <0x37F5FC30>;
+	};
+	/* display start */
+	&framebuffer {
+		fpga_flag = <0>;
+		//FB_ACCEL_KIRIN980
+		dss_version_tag = <0x100>;
+	};
+
+	/* jpeg decode */
+	&jpu {
+		fpga_flag = <0>;
+		platform-names = "dss_v501";
+		// jpu decoder base; top base; cvdr base; smmu base;  media1 crg;peri_crg,pmctrl,sctrl
+		reg = <0x0 0xe8301000 0x0 0x1000>, <0x0 0xe8304000 0x0 0x1000>, <0x0 0xe8306000 0x0 0x2000>, <0x0 0xe8320000 0x0 0x20000>, <0x0 0xe87ff000 0x0 0x1000>, <0x0 0xfff35000 0x0 0x1000>, <0x0 0xfff31000 0x0 0x1000>,<0x0 0xfff0a000 0x0 0x1000>;
+	};
+
+	&panel_pwm {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hisipwm";
+		reg = <0 0xE8A04000 0 0x1000>;
+		clocks = <&clk_gate_pwm>;
+		clock-names = "clk_pwm";
+		//pinctrl-names = "default","idle";
+		//pinctrl-0 = <&gpio182_pmx_func &gpio182_cfg_func>;
+		//pinctrl-1 = <&gpio182_pmx_idle &gpio182_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_blpwm {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hisiblpwm";
+		reg = <0 0xFFD75000 0 0x1000>;
+		clocks = <&clk_gate_blpwm>;
+		clock-names = "clk_blpwm";
+		pinctrl-names = "default","idle";
+		pinctrl-0 = <&gpio185_pmx_func &gpio186_pmx_func &gpio185_cfg_func &gpio186_cfg_func>;
+		pinctrl-1 = <&gpio185_pmx_idle &gpio186_pmx_idle &gpio185_cfg_idle &gpio186_cfg_idle>;
+		fpga_flag = <0>;
+		status = "ok";
+	};
+
+	&panel_lcdc_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,lcdc_fake_panel";
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_mipi_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,mipi_fake_panel";
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		detect_type = <0>;		/*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <16 9>;
+		gpio_cfg_addr = <0xE896CF24 0xE896CF08>;
+		support_lcd_type = "JDI_R63452_LCD", "LG_TD4322_LCD", "SHARP_NT36870_LCD";
+		lcd_id_match_tab = <0 4 2>;
+	};
+
+
+
+	&panel_lcd_jdi_R63452 {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,mipi_jdi_R63452";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <16>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+	&panel_lcd_lg_TD4322 {
+		compatible = "hisilicon,mipi_lg_TD4322";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <16>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+	&panel_lcd_sharp_NT36870 {
+		compatible = "hisilicon,mipi_sharp_NT36870";
+		//2:PWM,  4:BLPWM,  8:MIPI
+		lcd-bl-type = <4>;
+		//8:PANEL_MIPI_VIDEO,  16:PANEL_MIPI_CMD ,32:PANEL_DUAL_MIPI_VIDEO, 64:PANEL_DUAL_MIPI_CMD
+		lcd-display-type = <8>;
+		//0:IFBC_TYPE_NONE 7:IFBC_TYPE_VESA3X_SINGLE 9:IFBC_TYPE_VESA3X_DUAL
+		lcd-ifbc-type = <0>;
+		//vsp, vsn, lcd_reset, bl_enable, ID0,ID1,TE0
+		/*vsp, vsn, rst, bl_en, id0, id1, te0*/
+		//GPIO_011, GPIO_008, GPIO_017, GPIO_010, GPIO_016, GPIO_009, GPIO_003
+		gpios = <&gpio1 3 0>, <&gpio1 0 0>,  <&gpio2 1 0>, <&gpio1 2 0>, <&gpio2 0 0>, <&gpio1 1 0>, <&gpio0 3 0>;
+		gpio_nums = <11 8 17 10 16 9 3>;
+		lcdio-vcc-supply = <&ldo4>;
+		lcdanalog-vcc-supply = <&ldo17>;
+		pinctrl-names = "default", "idle";
+
+		pinctrl-0 = <&gpio011_pmx_func &gpio008_pmx_func &gpio017_pmx_func &gpio010_pmx_func &gpio011_cfg_func &gpio008_cfg_func &gpio017_cfg_func &gpio010_cfg_func &gpio016_cfg_func &gpio009_cfg_func>;
+		pinctrl-1 = <&gpio011_pmx_idle &gpio008_pmx_idle &gpio017_pmx_idle &gpio010_pmx_idle &gpio011_cfg_idle &gpio008_cfg_idle &gpio017_cfg_idle &gpio010_cfg_idle &gpio016_cfg_idle &gpio009_cfg_idle>;
+		fpga_flag = <0>;
+		status = "disabled";
+	};
+
+	&panel_hdmi_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,hdmi_fake_panel";
+		fake_hdmi = <1>;
+		status = "disabled";
+	};
+	&panel_dp_fake {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisilicon,dp_fake_panel";
+		fake_dp = <1>;
+		status = "ok";
+	};
+	&hisi_dp {
+		status = "ok";
+	};
+	&dp_aux_switch {
+		compatible = "huawei,dp_aux_switch";
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio137_pmx_func &gpio137_cfg_func>;
+		pinctrl-1 = <&gpio137_pmx_idle &gpio137_cfg_idle>;
+		cs-gpios = <&gpio17 1 0>;
+		status = "ok";
+	};
+
+	&huawei_usbvbus {
+		compatible = "huawei,usbvbus";
+		status = "ok";
+	};
+
+	&bcm_wifi {
+		status = "disabled";
+	};
+
+	&kirin_pcie_rc {
+		/* connected device: 0x1-BCM, 0x2-hi110x, 0x3-NVMe, 0x4-Modem, ... */
+		ep_device_type = <0x4>;
+	};
+	/* display end */

@@ -1,0 +1,30 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "lcdkit3.0/yal_v4/devkit_lcd_kit.dtsi"
+/include/ "YAL_AL00_VB_overlay.dtsi"
+/include/ "YAL_AL00_VC_pin.dtsi"
+/include/ "YAL_AL00_VC_modem_pin.dtsi"
+
+/ {
+	board_id = <8806>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 8 0 6>;
+		hisi,boardname = "YAL_AL00_VC";
+		hisi,modem_id = <0x37631C00>;
+		hisi,product_id = <0x37631C00>;
+		hisi,product_name = "YAL-AL00";
+	};
+
+	&huawei_lcd_panel {
+		product_id = <13001>;
+	};

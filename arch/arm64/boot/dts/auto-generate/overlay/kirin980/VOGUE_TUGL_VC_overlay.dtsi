@@ -1,0 +1,122 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "VOGUE_TUGL_VB_overlay.dtsi"
+
+/ {
+    board_id = <8508>;
+};
+    &rootparam{
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 5 0 8>;
+		hisi,boardname = "VOGUE_TUGL_VC";
+		hisi,modem_id = <0x37052000>;
+		hisi,product_id = <0x37052000>;
+		hisi,product_name = "VOG-AL00";
+	};
+
+    /*hisi customize*/
+    &hisi_cust_cfg {
+        ini_file_name = "/vendor/etc/cfg_vogue_tugl_vc.ini";
+    };
+
+	&direct_charger {
+		volt_para =
+			"4100", "5000", "4650",
+			"4250", "4650", "2800",
+			"4360", "2800", "1200";
+	};
+
+	&direct_charger_sc {
+		volt_para =
+			"4150", "8000", "6100",
+			"4250", "6100", "5200",
+			"4300", "5200", "4100",
+			"4384", "4100", "2000";
+		volt_para1 =
+			"4200", "8000", "6100",
+			"4330", "6100", "5200",
+			"4350", "5200", "4100",
+			"4384", "4100", "2000";
+		volt_para2 =
+			"4150", "8000", "6100",
+			"4250", "6100", "5200",
+			"4300", "5200", "4100",
+			"4384", "4100", "2000";
+		volt_para3 =
+			"4200", "8000", "6100",
+			"4255", "6100", "5200",
+			"4300", "5200", "4100",
+			"4384", "4100", "2000";
+	};
+
+	&huawei_imx316v{
+		compatible = "huawei,sensor";
+		huawei,sensor_name = "IMX316V";
+		huawei,sensor_index = <6>;/*2 moca*/
+		huawei,is_fpga = <0>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,csi_index = <1>;
+		huawei,i2c_index = <1>;
+		/*cdphy-csi2*/
+		huawei,phyinfo_valid = <1>;
+		huawei,is_master_sensor = <1>;
+		huawei,phy_id = <3>;
+		huawei,phy_mode = <0>;
+		huawei,phy_freq_mode = <0>;
+		huawei,phy_freq = <80000000>;
+		huawei,phy_work_mode = <0>;//dphy use single
+		clock-names = "clk_rxdphy3_cfg";
+		clocks = <&clk_gate_rxdphy3_cfg>;
+		huawei,mclk = <24000000>;
+		huawei,rxdphyclk = <80000000>;
+		huawei,phyclk = <80000000>;
+		phy-clock-num = <1>;
+        iovdd-supply = <&ldo21>;
+        dvdd-supply = <&ldo38>;
+        huawei,ldo-names = "iovdd", "dvdd";
+        gpios = <&gpio27 5 0 &gpio24 5 0 &gpio23 2 0 &gpio6 2 0 &gpio3 7 0>;
+        huawei,gpio-ctrl-types = "mipisw", "dvdd1-en", "vcm_pwdn", "reset", "reset2";
+        huawei,cam-power-seq-type =
+            "sensor_rst2",
+            "sensor_iovdd",
+            "sensor_mipi_sw",
+            "sensor_dvdd",
+            "sensor_dvdd1_en",
+            "sensor_vcm_pwdn",
+            "sensor_mclk",
+            "sensor_rst";
+        huawei,cam-power-seq-cfg-val = <0 1800000 0 1205000 0 0 0 0>;
+        huawei,cam-power-seq-val = <0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF>;
+        huawei,cam-power-seq-sensor-index = <0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 6 0xFF>;
+        huawei,cam-power-seq-delay = <1 0 1 1 1 1 0 1>;
+
+        huawei,cam-power-down-seq-type =
+            "sensor_rst",
+            "sensor_mclk",
+            "sensor_vcm_pwdn",
+            "sensor_dvdd1_en",
+            "sensor_dvdd",
+            "sensor_mipi_sw",
+            "sensor_iovdd",
+            "sensor_rst2";
+        huawei,cam-power-down-seq-cfg-val = <0 0 0 0 1205000 0 1800000 0>;
+        huawei,cam-power-down-seq-val = <0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF>;
+        huawei,cam-power-down-seq-sensor-index = <0xFF 6 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF>;
+        huawei,cam-power-down-seq-delay = <1 0 1 1 1 1 0 1>;
+		
+		status = "ok";
+    };
+
+	&smartpakit {
+		compatible = "huawei,smartpakit";
+		dsp_img_name = "hifi_6405_virtual_btn_devkit.img";
+		status = "ok";
+	};

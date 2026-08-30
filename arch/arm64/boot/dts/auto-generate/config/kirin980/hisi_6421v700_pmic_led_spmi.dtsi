@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/ {
+spmi: spmi@FFF24000 {
+	pmic: pmic@0 {
+		pmic_led: pmic_led@a0 {
+			compatible = "hisilicon-hisi-led-pmic-spmi";
+			status = "disabled";
+			hisilicon,dr_led_ctrl = <0x1E0>;
+			hisilicon,dr_out_ctrl = <0x1E5>;
+
+			led@a0 {
+				compatible = "hisilicon,hisi-led0";
+				hisilicon,dr_ctrl = "red";
+				hisilicon,dr_start_del = <0x1E6>;
+				hisilicon,dr_iset = <0x1E1>;
+				hisilicon,dr_time_config0 = <0x1E9>;
+				hisilicon,dr_time_config1 = <0x1EA>;
+			};
+
+			led@a1 {
+				compatible = "hisilicon,hisi-led1";
+				hisilicon,dr_ctrl = "green";
+				hisilicon,dr_start_del = <0x1E7>;
+				hisilicon,dr_iset = <0x1E2>;
+				hisilicon,dr_time_config0 = <0x1EB>;
+				hisilicon,dr_time_config1 = <0x1EC>;
+            };
+
+			led@a2 {
+				compatible = "hisilicon,hisi-led2";
+				hisilicon,dr_ctrl = "blue";
+				hisilicon,dr_start_del = <0x1E8>;
+				hisilicon,dr_iset = <0x1E3>;
+				hisilicon,dr_time_config0 = <0x1ED>;
+				hisilicon,dr_time_config1 = <0x1EE>;
+            };
+        };
+    };
+};
+};

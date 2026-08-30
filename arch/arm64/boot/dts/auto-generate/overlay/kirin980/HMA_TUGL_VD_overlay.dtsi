@@ -1,0 +1,29 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "HMA_TUGL_VC_overlay.dtsi"
+
+/ {
+    board_id = <8406>;
+};
+
+	&rootparam{
+		hisi,boardid = <8 4 0 6>;
+		hisi,boardname = "HMA_TUGL_VD";
+		hisi,modem_id = <0x37001C00>;
+	};
+	&hisi_usb {
+		usb_firmware_es = <0>;
+	};
+
+	&jpu {
+		fpga_flag = <0>;
+		platform-names = "dss_v501";
+		// jpu decoder base; top base; cvdr base; smmu base;  media1 crg;peri_crg,pmctrl,sctrl
+		reg = <0x0 0xe8301000 0x0 0x1000>, <0x0 0xe8304000 0x0 0x1000>, <0x0 0xe8306000 0x0 0x2000>, <0x0 0xe8320000 0x0 0x20000>, <0x0 0xe87ff000 0x0 0x1000>, <0x0 0xfff35000 0x0 0x1000>, <0x0 0xfff31000 0x0 0x1000>,<0x0 0xfff0a000 0x0 0x1000>;
+	};

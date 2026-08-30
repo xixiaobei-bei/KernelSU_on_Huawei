@@ -1,0 +1,59 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "VRD_AL09_VA_overlay.dtsi"
+
+/ {
+    board_id = <8110>;
+};
+
+	&rootparam {
+		compatible = "hisilicon,vendor";
+		hisi,boardid = <8 1 1 0>;
+		hisi,boardname = "VRD_W09_VA";
+		hisi,modem_id = <0xffffffff>;
+		hisi,product_id = <0xffffffff>;
+		hisi,product_name = "VRD-W09";
+	};
+	&singleap_wifionly {
+		compatible = "singleap,wifionly";
+		is_wifionly = "1";
+		};
+	&reserved_memory {
+		modem-mntn{
+		status = "disabled";
+		};
+		modem-s{
+		status = "disabled";
+		};
+	};
+	&firmware{
+		android {
+			vbmeta_huawei{
+				parts = "vbmeta,kernel,vendor,odm,cust,version,product,system,eng_system,eng_vendor,preload";
+			};
+			vbmeta_hisi{
+				parts = "vbmeta,kernel,vendor,odm,system,eng_system,eng_vendor";
+			};
+		};
+		huawei {
+			fstab {
+				modem_driver {
+					status = "disabled";
+				};
+			};
+		};
+	};
+	/*hisi connectivity customize*/
+	&hisi_cust_cfg {
+		ini_file_name = "/vendor/etc/cfg_vrd_w09.ini";
+	};
+	&antenna_boardid_detect{
+		expect_value = <1>;
+		status = "ok";
+	};
