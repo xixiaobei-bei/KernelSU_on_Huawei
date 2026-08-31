@@ -586,8 +586,6 @@ diff -ruN a/security/Makefile b/security/Makefile
 ```
 :::
 
-:::
-
 :::details 为ReSukiSU打补丁
 
 在你的设备defconfig配置文件最后加入以下几行：
