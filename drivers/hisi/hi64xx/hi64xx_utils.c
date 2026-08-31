@@ -5,7 +5,6 @@
 #include <linux/vmalloc.h>
 /*lint -e750 -e679*/
 #include <linux/hisi/hi64xx/hi6405.h>
-#include <linux/hisi/hi640x/hi6405.h>
 
 static struct utils_config *s_utils_config = NULL;
 static unsigned int cdc_type = HI64XX_CODEC_TYPE_BUTT;
