@@ -1,0 +1,205 @@
+diff -uNr a/kernel/compat/kernel_compat.h b/kernel/compat/kernel_compat.h
+--- a/kernel/compat/kernel_compat.h	2026-08-31 13:33:55.874859639 +0800
++++ b/kernel/compat/kernel_compat.h	2026-08-31 12:10:51.097948446 +0800
+@@ -316,4 +316,47 @@
+ #define __nocfi
+ #endif
+ 
++// https://github.com/torvalds/linux/commit/294f69e662d1570703e9b56e95be37a9fd3afba5
++// f**k old compiler, thx for your notices, but better don't notice next time
++#ifndef __has_attribute
++#define __has_attribute(x) __GCC4_has_attribute_##x
++#define __GCC4_has_attribute___fallthrough__ 0
++#endif
++/*
++ * Add the pseudo keyword 'fallthrough' so case statement blocks
++ * must end with any of these keywords:
++ *   break;
++ *   fallthrough;
++ *   continue;
++ *   goto <label>;
++ *   return [expression];
++ *
++ *  gcc: https://gcc.gnu.org/onlinedocs/gcc/Statement-Attributes.html#Statement-Attributes
++ */
++#if __has_attribute(__fallthrough__)
++#define fallthrough __attribute__((__fallthrough__))
++#else
++#define fallthrough                                                                                                    \
++    do {                                                                                                               \
++    } while (0) /* fallthrough */
++#endif
++
++#ifdef KSU_COMPAT_SYM_NAME_NOT_FOUND
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 1, 0) && !defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++#include <linux/flex_array.h>
++#endif
++
++static inline char *sym_name(struct policydb *p, unsigned int sym_num, unsigned int element_nr)
++{
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++    return p->sym_val_to_name[sym_num][element_nr];
++#else
++    struct flex_array *fa = p->sym_val_to_name[sym_num];
++
++    return flex_array_get_ptr(fa, element_nr);
++#endif
++}
++#endif
++
+ #endif
+diff -uNr a/kernel/feature/selinux_hide.c b/kernel/feature/selinux_hide.c
+--- a/kernel/feature/selinux_hide.c	2026-08-31 13:33:55.875859650 +0800
++++ b/kernel/feature/selinux_hide.c	2026-08-31 11:58:36.716313718 +0800
+@@ -1724,6 +1724,17 @@
+     struct type_datum *target;
+     u32 masked = 0;
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++    // mostly never happen, except Huawei
++    source = backup_policydb->type_val_to_struct[scontext->type - 1];
++    BUG_ON(!source);
++
++    if (!source->bounds)
++        return;
++
++    target = backup_policydb->type_val_to_struct[tcontext->type - 1];
++    BUG_ON(!target);
++#else
+     source = flex_array_get_ptr(backup_policydb->type_val_to_struct_array, scontext->type - 1);
+     BUG_ON(!source);
+ 
+@@ -1733,6 +1744,8 @@
+     target = flex_array_get_ptr(backup_policydb->type_val_to_struct_array, tcontext->type - 1);
+     BUG_ON(!target);
+ 
++#endif
++
+     memset(&lo_avd, 0, sizeof(lo_avd));
+ 
+     memcpy(&lo_scontext, scontext, sizeof(lo_scontext));
+@@ -1822,10 +1835,21 @@
+ 	 */
+     avkey.target_class = tclass;
+     avkey.specified = AVTAB_AV | AVTAB_XPERMS;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) ||                                                                   \
++    (defined(KSU_COMPAT_HAS_MODERN_POLICYDB) && !defined(KSU_COMPAT_TYPE_ATTR_MAP_ARRAY_NOT_FOUND))
++    // mostly never happen
++    sattr = &backup_policydb->type_attr_map_array[scontext->type - 1];
++    tattr = &backup_policydb->type_attr_map_array[tcontext->type - 1];
++#elif defined(KSU_COMPAT_TYPE_ATTR_MAP_ARRAY_NOT_FOUND)
++    // huawei! why rename??!
++    sattr = &backup_policydb->type_attr_map[scontext->type - 1];
++    tattr = &backup_policydb->type_attr_map[tcontext->type - 1];
++#else
+     sattr = flex_array_get(backup_policydb->type_attr_map_array, scontext->type - 1);
+     BUG_ON(!sattr);
+     tattr = flex_array_get(backup_policydb->type_attr_map_array, tcontext->type - 1);
+     BUG_ON(!tattr);
++#endif
+     ebitmap_for_each_positive_bit(sattr, snode, i)
+     {
+         ebitmap_for_each_positive_bit(tattr, tnode, j)
+diff -uNr a/kernel/selinux/sepolicy.c b/kernel/selinux/sepolicy.c
+--- a/kernel/selinux/sepolicy.c	2026-08-31 13:33:55.878859685 +0800
++++ b/kernel/selinux/sepolicy.c	2026-08-31 11:58:36.716313718 +0800
+@@ -164,7 +164,7 @@
+     for (i = 0; i < db->te_avtab.nslot; i++) {
+         prev = NULL;
+         // https://github.com/torvalds/linux/commit/acdf52d97f824019888422842757013b37441dd1   <- 5.1
+-        //https://github.com/torvalds/linux/commit/ba39db6e0519aa8362dbda6523ceb69349a18dc3    <- 4.1
++        // https://github.com/torvalds/linux/commit/ba39db6e0519aa8362dbda6523ceb69349a18dc3   <- 4.1
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || LINUX_VERSION_CODE < KERNEL_VERSION(4, 1, 0) ||                   \
+     defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
+         for (n = db->te_avtab.htable[i]; n; prev = n, n = n->next) {
+@@ -708,7 +708,8 @@
+         return false;
+     }
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) ||                                                                   \
++    (defined(KSU_COMPAT_HAS_MODERN_POLICYDB) && !defined(KSU_COMPAT_IS_HISI_LEGACY))
+     struct ebitmap *new_type_attr_map_array =
+         ksu_kvrealloc(db->type_attr_map_array, value * sizeof(struct ebitmap), (value - 1) * sizeof(struct ebitmap));
+ 
+@@ -927,7 +928,8 @@
+ 
+ static void add_typeattribute_raw(struct policydb *db, struct type_datum *type, struct type_datum *attr)
+ {
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) ||                                                                   \
++    (defined(KSU_COMPAT_HAS_MODERN_POLICYDB) && !defined(KSU_COMPAT_IS_HISI_LEGACY))
+     struct ebitmap *sattr = &db->type_attr_map_array[type->value - 1];
+ 
+ #elif defined(KSU_COMPAT_IS_HISI_LEGACY_HM2)
+diff -uNr a/kernel/tools/kernel_compat.mk b/kernel/tools/kernel_compat.mk
+--- a/kernel/tools/kernel_compat.mk	2026-08-31 13:33:55.879859696 +0800
++++ b/kernel/tools/kernel_compat.mk	2026-08-31 12:09:48.231185669 +0800
+@@ -210,6 +210,7 @@
+ ccflags-y += -DKSU_COMPAT_HAS_POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH
+ endif
+ 
++# https://github.com/torvalds/linux/commit/acdf52d97f824019888422842757013b37441dd1
+ ifneq ($(shell grep -q "flex_array" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
+ $(info -- $(REPO_NAME)/compat: found modern selinux policydb)
+ ccflags-y += -DKSU_COMPAT_HAS_MODERN_POLICYDB
+@@ -239,4 +240,56 @@
+ ifeq ($(shell grep -q "struct mutex status_lock" $(srctree)/security/selinux/include/security.h; echo $$?),0)
+ $(info -- $(REPO_NAME)/compat: found selinux status variables in selinux_state)
+ ccflags-y += -DKSU_COMPAT_SELINUX_STATUS_VAR_IN_SELINUX_STATE
+-endif
+\ 文件末尾没有换行符
++endif
++
++ifeq ($(shell grep -q "struct selinux_policy" $(srctree)/security/selinux/ss/services.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found selinux_policy struct)
++ccflags-y += -DKSU_COMPAT_HAS_SELINUX_POLICY_STRUCT
++endif
++
++# https://github.com/torvalds/linux/commit/03414a49ad5f3c56988c36d2070e402ffa17feaf
++ifeq ($(shell grep -q "struct hashtab table" $(srctree)/security/selinux/ss/symtab.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found hashtabs is a struct instead of pointer)
++ccflags-y += -DKSU_COMPAT_HAS_NON_POINTER_SYMTAB_STRUCT
++endif
++
++# https://github.com/torvalds/linux/commit/237389e3015e0f4ceac7cf00c70a59746150561d
++ifeq ($(shell grep -q "symtab_search" $(srctree)/security/selinux/ss/symtab.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found symtab_search function)
++ccflags-y += -DKSU_COMPAT_HAS_SYMTAB_SEARCH
++endif
++
++# https://github.com/torvalds/linux/commit/24def7bb92c19337cee26d506f87dc4eeeba7a19
++ifeq ($(shell grep -q "hashtab_key_params" $(srctree)/security/selinux/ss/hashtab.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found hashtab_key_params function)
++ccflags-y += -DKSU_COMPAT_HAS_HASHTAB_KEY_PARAMS
++endif
++
++# https://github.com/torvalds/linux/commit/c3a276111ea2572399281988b3129683e2a6b60b
++ifeq ($(shell grep -q "filename_trans_key" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found filename_trans_key function)
++ccflags-y += -DKSU_COMPAT_HAS_FILENAME_TRANS_KEY
++endif
++
++# https://github.com/torvalds/linux/commit/e20b043a6902ecb61c2c84355c3bae5149f391db
++# https://github.com/torvalds/linux/commit/b1d9e6b0646d0e5ee5d9050bd236b6c65d66faef
++ifeq ($(shell grep -q "security_add_hooks" $(srctree)/include/linux/lsm_hooks.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: found security_add_hooks)
++ccflags-y += -DKSU_COMPAT_HAS_LIST_OF_LSM_HOOKS
++endif
++
++# for HUAWEI kernel
++# huawei rename type_attr_map_arry -> type_attr_map
++# https://github.com/xixiaobei-bei/Huawei_MHA_EMUI9.0_a/blob/master/security/selinux/ss/policydb.h#L293
++ifneq ($(shell grep -q "type_attr_map_array" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: type_attr_map_array not found)
++ccflags-y += -DKSU_COMPAT_TYPE_ATTR_MAP_ARRAY_NOT_FOUND
++endif
++
++# for HUAWEI kernel
++# huawei removed sym_name func
++# https://github.com/xixiaobei-bei/Huawei_MHA_EMUI9.0_a/blob/master/security/selinux/ss/policydb.h
++ifneq ($(shell grep -q "sym_name" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++$(info -- $(REPO_NAME)/compat: sym_name not found)
++ccflags-y += -DKSU_COMPAT_SYM_NAME_NOT_FOUND
++endif
