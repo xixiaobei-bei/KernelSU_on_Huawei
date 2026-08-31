@@ -157,18 +157,30 @@ diff -uNr a/security/selinux/hooks.c b/security/selinux/hooks.c
 Currently:
 SuSFS v2.0.0 supports kernel v4.14.xxx (EMUI 10+) and v4.9.xxx (EMUI 9+).
 SuSFS v2.2.0 only supports kernel v4.9.xxx (EMUI 9+).  
-Compatible with ReSukiSU (other KernelSU branches should also support it theoretically, please test on your own).
+Compatible with ReSukiSU and SukiSU-Ultra (other KernelSU branches should also support it theoretically, please test on your own).
 
 If you are using the SuSFS v2.0.0 patch for the 4.9 kernel, KPM is already integrated. You do not need to apply the patch again, but you need to add `CONFIG_KPM=y` to the defconfig file and patch the kernel to enable KPM.
 
 :::
 
-::: details Integrating for 4.9 Kernel
+:::warning
 
-Clone ReSukiSU and run the following command in the kernel source directory:
+The new version of ReSukiSU has removed KPM support. If you still need to integrate KPM, please use an older version of ReSukiSU + SuSFS v2.0.0 patch, or use SukiSU-Ultra.
+
+:::
+
+::: details Patching for 4.9 Kernel
+
+To use ReSukiSU, run the following command in the kernel source directory:
 
 ```shell
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+```
+
+To use SukiSU-Ultra, run the following command in the kernel source directory:
+
+```shell
+curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 ```
 
 Navigate to the `SuSFS_Patches` folder in this repository, then enter the `v4.9.xxx` folder.  
@@ -183,14 +195,14 @@ You can manually apply the patch based on the error locations indicated in the `
 
 :::
 
-::: details Legacy - Integrating SuSFS v2.0.0 for 4.9 Kernel
+::: details Legacy - Applying SuSFS v2.0.0 Patch for 4.9 Kernel
 
 ReSukiSU needs to use an older version. Run the following commands in the kernel source directory:
 
 ```shell
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
 cd KernelSU
-git reset --hard 0d096be
+git reset --hard a13d71f
 ```
 
 Navigate to the `SuSFS_Patches` folder in this repository, then enter the `v4.9.xxx/Legacy` folder.  
@@ -205,14 +217,14 @@ You can manually apply the patch based on the error locations indicated in the `
 
 :::
 
-::: details Integrating for 4.14 Kernel
+::: details Patching for 4.14 Kernel
 
 Since the 4.14 kernel only has SuSFS v2.0.0, ReSukiSU also needs to use an older version. Run the following commands in the kernel source directory:
 
 ```shell
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
 cd KernelSU
-git reset --hard 0d096be
+git reset --hard a13d71f
 ```
 
 Then navigate to the `SuSFS_Patches` folder in this repository, and enter the `v4.14.xxx` folder.  
@@ -227,7 +239,7 @@ You can manually apply the patch based on the error locations indicated in the `
 
 :::
 
-Then add the following to the kernel defconfig:
+Then add the following to the defconfig:
 
 ```text
 # ReSukiSU - SuSFS
@@ -243,9 +255,362 @@ CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
 CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
 CONFIG_KSU_SUSFS_SUS_MAP=y
 ```
+
 ## KPM
 
-### Applying Kernel Patches
+### Pull Source Code
+
+:::tip
+
+If you have already integrated SuSFS and pulled the source code, you can skip this step.
+
+:::
+
+To use ReSukiSU, run the following commands in the kernel source directory:
+
+```shell
+curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+cd KernelSU
+git reset --hard a13d71f
+```
+
+To use SukiSU-Ultra, run the following command in the kernel source directory:
+
+```shell
+curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
+```
+
+### Applying KernelSU Patch
+
+:::tip
+
+If you are using SuSFS, you can skip this step.
+
+:::
+
+:::details Patching for SukiSU-Ultra
+
+You can revert `path_umount` via the [KernelSU official website](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) to obtain the module unload capability.
+
+Add the following lines at the end of your device's defconfig file:
+
+```text
+# KernelSU
+CONFIG_KSU=y
+CONFIG_KSU_MANUAL_HOOK=y
+CONFIG_KSU_MANUAL_SU=y
+```
+
+To enable debug mode for SukiSU-Ultra, you also need to add:
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+Then apply the following patches:
+
+:::code-group
+```diff[exec.c]
+diff -ruN a/fs/exec.c b/fs/exec.c
+--- a/fs/exec.c	2019-02-27 18:31:35.000000000 +0800
++++ b/fs/exec.c	2026-01-28 17:58:55.317129000 +0800
+@@ -1907,11 +1907,21 @@
+ 	} while (cmpxchg(&mm->flags, old, new) != old);
+ }
+ 
++#ifdef CONFIG_KSU
++__attribute__((hot))
++extern int ksu_handle_execve_sucompat(int *fd, const char __user **filename_user,
++			       void *__never_use_argv, void *__never_use_envp,
++			       int *__never_use_flags);
++#endif
++
+ SYSCALL_DEFINE3(execve,
+ 		const char __user *, filename,
+ 		const char __user *const __user *, argv,
+ 		const char __user *const __user *, envp)
+ {
++#ifdef CONFIG_KSU
++	ksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);
++#endif
+ 	return do_execve(getname(filename), argv, envp);
+ }
+ 
+@@ -1933,6 +1943,9 @@
+ 	const compat_uptr_t __user *, argv,
+ 	const compat_uptr_t __user *, envp)
+ {
++#ifdef CONFIG_KSU
++	ksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);
++#endif
+ 	return compat_do_execve(getname(filename), argv, envp);
+ }
+ 
+```
+
+```diff[open.c]
+diff -ruN a/fs/open.c b/fs/open.c
+--- a/fs/open.c	2019-02-27 18:31:35.000000000 +0800
++++ b/fs/open.c	2026-01-28 17:58:55.473127000 +0800
+@@ -360,6 +360,12 @@
+  * We do this by temporarily clearing all FS-related capabilities and
+  * switching the fsuid/fsgid around to the real ones.
+  */
++#ifdef CONFIG_KSU
++__attribute__((hot))
++extern int ksu_handle_faccessat(int *dfd, const char __user **filename_user,
++				int *mode, int *flags);
++#endif
++
+ SYSCALL_DEFINE3(faccessat, int, dfd, const char __user *, filename, int, mode)
+ {
+ 	const struct cred *old_cred;
+@@ -370,6 +376,9 @@
+ 	int res;
+ 	unsigned int lookup_flags = LOOKUP_FOLLOW;
+ 
++#ifdef CONFIG_KSU
++	ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
++#endif
+ 	if (mode & ~S_IRWXO)	/* where's F_OK, X_OK, W_OK, R_OK? */
+ 		return -EINVAL;
+```
+
+```diff[read_write.c]
+diff -ruN a/fs/read_write.c b/fs/read_write.c
+--- a/fs/read_write.c	2019-02-27 18:31:35.000000000 +0800
++++ b/fs/read_write.c	2026-01-28 17:58:55.497126000 +0800
+@@ -610,11 +610,22 @@
+ 	file->f_pos = pos;
+ }
+ 
++#ifdef CONFIG_KSU
++// extern bool ksu_vfs_read_hook __read_mostly;
++bool ksu_vfs_read_hook __read_mostly = true;  // fix compiler ghost define
++extern __attribute__((cold)) int ksu_handle_sys_read(unsigned int fd,
++			char __user **buf_ptr, size_t *count_ptr);
++#endif
+ SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count)
+ {
+ 	struct fd f = fdget_pos(fd);
+ 	ssize_t ret = -EBADF;
+ 
++	
++#ifdef CONFIG_KSU
++	if (unlikely(ksu_vfs_read_hook))
++		ksu_handle_sys_read(fd, &buf, &count);
++#endif
+ 	if (f.file) {
+ 		loff_t pos = file_pos_read(f.file);
+ 		ret = vfs_read(f.file, buf, count, &pos);
+```
+
+```diff[stat.c]
+diff -ruN a/fs/stat.c b/fs/stat.c
+--- a/fs/stat.c	2019-02-27 18:31:35.000000000 +0800
++++ b/fs/stat.c	2026-01-28 17:58:55.509126000 +0800
+@@ -287,6 +287,12 @@
+ 	return cp_new_stat(&stat, statbuf);
+ }
+ 
++#ifdef CONFIG_KSU
++__attribute__((hot))
++extern int ksu_handle_stat(int *dfd, const char __user **filename_user,
++				int *flags);
++#endif
++
+ #if !defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_SYS_NEWFSTATAT)
+ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
+ 		struct stat __user *, statbuf, int, flag)
+@@ -294,6 +300,9 @@
+ 	struct kstat stat;
+ 	int error;
+ 
++#ifdef CONFIG_KSU
++	ksu_handle_stat(&dfd, &filename, &flag);
++#endif
+ 	error = vfs_fstatat(dfd, filename, &stat, flag);
+ 	if (error)
+ 		return error;
+@@ -436,6 +445,9 @@
+ 	struct kstat stat;
+ 	int error;
+ 
++#ifdef CONFIG_KSU
++	ksu_handle_stat(&dfd, &filename, &flag);
++#endif
+ 	error = vfs_fstatat(dfd, filename, &stat, flag);
+ 	if (error)
+ 		return error;
+```
+
+```diff[input.c]
+diff -ruN a/drivers/input/input.c b/drivers/input/input.c
+--- a/drivers/input/input.c	2019-02-27 18:31:32.000000000 +0800
++++ b/drivers/input/input.c	2026-01-28 17:58:52.537176000 +0800
+@@ -425,11 +425,21 @@
+  * to 'seed' initial state of a switch or initial position of absolute
+  * axis, etc.
+  */
++#ifdef CONFIG_KSU
++extern bool ksu_input_hook __read_mostly;
++extern __attribute__((cold)) int ksu_handle_input_handle_event(
++			unsigned int *type, unsigned int *code, int *value);
++#endif
+ void input_event(struct input_dev *dev,
+ 		 unsigned int type, unsigned int code, int value)
+ {
+ 	unsigned long flags;
+ 
++	
++#ifdef CONFIG_KSU
++	if (unlikely(ksu_input_hook))
++		ksu_handle_input_handle_event(&type, &code, &value);
++#endif
+ 	if (is_event_supported(type, dev->evbit, EV_MAX)) {
+ 
+ 		spin_lock_irqsave(&dev->event_lock, flags);
+```
+
+```diff[reboot.c]
+diff -ruN a/kernel/reboot.c b/kernel/reboot.c
+--- a/kernel/reboot.c	2019-02-27 18:31:34.000000000 +0800
++++ b/kernel/reboot.c	2026-01-28 17:58:56.149115000 +0800
+@@ -277,12 +277,19 @@
+  *
+  * reboot doesn't sync: do that yourself before calling this.
+  */
++#ifdef CONFIG_KSU
++extern int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd, void __user **arg);
++#endif
+ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+ 		void __user *, arg)
+ {
+ 	struct pid_namespace *pid_ns = task_active_pid_ns(current);
+ 	char buffer[256];
+ 	int ret = 0;
++#ifdef CONFIG_KSU
++	ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
++#endif
++
+ 
+ 	/* We only trust the superuser with rebooting the system. */
+ 	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
+```
+
+```diff[sys.c]
+diff -ruN a/kernel/sys.c b/kernel/sys.c
+--- a/kernel/sys.c	2019-02-27 18:31:34.000000000 +0800
++++ b/kernel/sys.c	2026-01-28 17:58:56.161115000 +0800
+@@ -609,6 +609,10 @@
+  * This function implements a generic ability to update ruid, euid,
+  * and suid.  This allows you to implement the 4.4 compatible seteuid().
+  */
++#ifdef CONFIG_KSU
++extern int ksu_handle_setresuid(uid_t ruid, uid_t euid, uid_t suid);
++#endif
++
+ SYSCALL_DEFINE3(setresuid, uid_t, ruid, uid_t, euid, uid_t, suid)
+ {
+ 	struct user_namespace *ns = current_user_ns();
+@@ -621,6 +625,11 @@
+ 	keuid = make_kuid(ns, euid);
+ 	ksuid = make_kuid(ns, suid);
+ 
++#ifdef CONFIG_KSU_SUSFS
++	if (ksu_handle_setresuid(ruid, euid, suid)) {
++		pr_info("Something wrong with ksu_handle_setresuid()\\n");
++	}
++#endif
+ 	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
+ 		return -EINVAL;
+```
+
+```diff[Kconfig]
+diff -ruN a/security/Kconfig b/security/Kconfig
+--- a/security/Kconfig	2019-02-27 18:31:35.000000000 +0800
++++ b/security/Kconfig	2026-01-28 17:58:56.577108000 +0800
+@@ -237,13 +237,5 @@
+         help
+           Protects the security huulks from further modifications, after init.
+ 
+-source security/mdpp_selftest/Kconfig
+-source security/hwselinux/Kconfig
+-source security/kernel_harden/Kconfig
+-source security/check_root/Kconfig
+-source security/hw_root_scan/Kconfig
+-source security/check_double_free/Kconfig
+-source security/hkip_atkinfo/Kconfig
+-source security/kernel_stp/Kconfig
+ endmenu
+```
+
+```diff[security/Makefile]
+diff -ruN a/security/Makefile b/security/Makefile
+--- a/security/Makefile	2019-02-27 18:31:35.000000000 +0800
++++ b/security/Makefile	2026-01-28 17:58:56.577108000 +0800
+@@ -9,7 +9,6 @@
+ subdir-$(CONFIG_SECURITY_APPARMOR)	+= apparmor
+ subdir-$(CONFIG_SECURITY_YAMA)		+= yama
+ subdir-$(CONFIG_SECURITY_LOADPIN)	+= loadpin
+-subdir-$(CONFIG_HKIP_ATKINFO)		+= hkip_atkinfo
+ 
+ # always enable default capabilities
+ obj-y					+= commoncap.o
+@@ -26,18 +25,10 @@
+ obj-$(CONFIG_SECURITY_YAMA)		+= yama/
+ obj-$(CONFIG_SECURITY_LOADPIN)		+= loadpin/
+ obj-$(CONFIG_CGROUP_DEVICE)		+= device_cgroup.o
+-obj-$(CONFIG_HKIP_ATKINFO)		+= hkip_atkinfo/
+ 
+ # Object integrity file lists
+ subdir-$(CONFIG_INTEGRITY)		+= integrity
+ obj-$(CONFIG_INTEGRITY)			+= integrity/
+ 
+ # HW Object
+-subdir-$(CONFIG_HUAWEI_SELINUX_DSM)	+= hwselinux
+-obj-$(CONFIG_HUAWEI_SELINUX_DSM)	+= hwselinux/
+-obj-$(CONFIG_HUAWEI_PROC_CHECK_ROOT)    += check_root/
+-obj-$(CONFIG_HUAWEI_CRYPTO_TEST_MDPP) += mdpp_selftest/
+-obj-$(CONFIG_HW_ROOT_SCAN) += hw_root_scan/
+-obj-$(CONFIG_HW_DOUBLE_FREE_DYNAMIC_CHECK) += check_double_free/
+-obj-$(CONFIG_HW_KERNEL_STP) += kernel_stp/
+ include security/kernel_harden/Makefile
+```
+
+```diff[drivers/Makefile]
+--- a	2026-01-28 21:33:24.492017000 +0800
++++ b	2026-01-28 21:34:12.088802416 +0800
+@@ -214,4 +214,4 @@
+ obj-$(CONFIG_HW_MEMORY_MONITOR) += allocpages_delayacct/
+ obj-y += cfi/
+ obj-$(CONFIG_HUAWEI_DUBAI) += dubai/
+-obj-$(CONFIG_KSU) += kernelsu/
++obj-y += kernelsu/
+```
+:::
+
+:::details Patching for ReSukiSU
+
+Add the following lines at the end of your device's defconfig file:
+
+```text
+# ReSukiSU
+CONFIG_KSU=y
+CONFIG_KSU_MANUAL_HOOK=y
+```
+
+To enable debug mode for KernelSU, you also need to add:
+
+```text
+CONFIG_KSU_DEBUG=y
+```
+
+Then refer to the [ReSukiSU official website](https://resukisu.github.io/guide/manual-integrate.html) for modifications.
+
+:::
+
+### Applying KPM Patch
 
 :::warning
 
@@ -260,15 +625,21 @@ If you are using the SuSFS v2.0.0 patch for the 4.9 kernel, KPM is already integ
 
 :::
 
-Navigate to the `SuSFS_Patches` folder in this repository, then enter the `v4.9.xxx` folder.  
+:::warning
+
+The new version of ReSukiSU has removed KPM support. If you need to integrate KPM, please use an older version of ReSukiSU or SukiSU-Ultra.
+
+:::
+
+Then navigate to the `SuSFS_Patches` folder in this repository, and enter the `v4.9.xxx` folder.  
 Copy the `KPM.patch` to the root of the source code, then enter the following in the terminal:
 
 ```shell
-git apply --reject 0001-susfs-4.9.xxx-KPM-backport-and-Susfs-v2.0.0-inline-h.patch
+patch -p1 < KPM.patch
 ```
 
 The patch will be applied. If patching fails, you will see generated error files ending with `.rej`.  
-You can manually apply the patch based on the error locations indicated in the `.rej` files.  
+You can manually apply the patch based on the error locations indicated in the `.rej` files.
 
 Then, you need to add the following to the kernel defconfig:
 
