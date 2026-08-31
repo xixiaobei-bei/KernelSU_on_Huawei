@@ -1,41 +1,7 @@
-diff --git a/drivers/huawei_platform/oases/vmarea.c b/drivers/huawei_platform/oases/vmarea.c
---- a/drivers/huawei_platform/oases/vmarea.c
-+++ b/drivers/huawei_platform/oases/vmarea.c
-@@ -12,6 +12,7 @@
- #include <linux/vmalloc.h>
- #include <asm/cacheflush.h>
- #include <asm/tlbflush.h>
-+#include <linux/set_memory.h>
- 
- #include "vmarea.h"
- #include "patch_api.h"
-diff --git a/kernel/module.c b/kernel/module.c
---- a/kernel/module.c
-+++ b/kernel/module.c
-@@ -48,6 +48,7 @@
- #include <linux/rculist.h>
- #include <asm/uaccess.h>
- #include <asm/cacheflush.h>
-+#include <linux/set_memory.h>
- #include <asm/mmu_context.h>
- #include <linux/license.h>
- #include <asm/sections.h>
-diff --git a/include/linux/filter.h b/include/linux/filter.h
---- a/include/linux/filter.h
-+++ b/include/linux/filter.h
-@@ -18,6 +18,7 @@
- #include <net/sch_generic.h>
- 
- #include <asm/cacheflush.h>
-+#include <linux/set_memory.h>
- 
- #include <uapi/linux/filter.h>
- #include <uapi/linux/bpf.h>
-diff --git a/arch/arm64/include/asm/Kbuild b/arch/arm64/include/asm/Kbuild
-index 28196b18e394..c0b62a8fe068 100644
---- a/arch/arm64/include/asm/Kbuild
-+++ b/arch/arm64/include/asm/Kbuild
-@@ -31,6 +31,7 @@ generic-y += rwsem.h
+diff -uNr a/arch/arm64/include/asm/Kbuild b/arch/arm64/include/asm/Kbuild
+--- a/arch/arm64/include/asm/Kbuild	2019-02-27 18:31:34.000000000 +0800
++++ b/arch/arm64/include/asm/Kbuild	2026-08-30 14:05:06.669294655 +0800
+@@ -31,6 +31,7 @@
  generic-y += segment.h
  generic-y += sembuf.h
  generic-y += serial.h
@@ -43,35 +9,9 @@ index 28196b18e394..c0b62a8fe068 100644
  generic-y += shmbuf.h
  generic-y += simd.h
  generic-y += sizes.h
-diff --git a/arch/arm64/include/asm/cacheflush.h b/arch/arm64/include/asm/cacheflush.h
-index 688de1300de7..d671d6963357 100644
---- a/arch/arm64/include/asm/cacheflush.h
-+++ b/arch/arm64/include/asm/cacheflush.h
-@@ -124,9 +124,6 @@ extern void flush_dcache_page(struct page *);
- 
- static inline void __flush_icache_all(void)
- {
--	if (cpus_have_const_cap(ARM64_HAS_CACHE_DIC))
--		return;
--
- 	asm("ic	ialluis");
- 	dsb(ish);
- }
-@@ -153,10 +150,6 @@ static inline void flush_cache_vunmap(unsigned long start, unsigned long end)
- {
- }
- 
--int set_memory_ro(unsigned long addr, int numpages);
--int set_memory_rw(unsigned long addr, int numpages);
--int set_memory_x(unsigned long addr, int numpages);
--int set_memory_nx(unsigned long addr, int numpages);
- int set_memory_valid(unsigned long addr, unsigned long size, int enable);
- 
- #endif
-diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
-index 3caa72e42ad7..c3124f1e28b5 100644
---- a/arch/arm64/kernel/module.c
-+++ b/arch/arm64/kernel/module.c
+diff -uNr a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
+--- a/arch/arm64/kernel/module.c	2019-02-27 18:31:34.000000000 +0800
++++ b/arch/arm64/kernel/module.c	2026-08-30 14:05:06.669294655 +0800
 @@ -30,6 +30,7 @@
  #include <asm/insn.h>
  #include <asm/sections.h>
@@ -80,11 +20,10 @@ index 3caa72e42ad7..c3124f1e28b5 100644
  
  void *module_alloc(unsigned long size)
  {
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 9ef0b013e6d4..aac38ec936a5 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -139,18 +138,9 @@ int set_memory_valid(unsigned long addr, int numpages, int enable)
+diff -uNr a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+--- a/arch/arm64/mm/pageattr.c	2019-02-27 18:31:34.000000000 +0800
++++ b/arch/arm64/mm/pageattr.c	2026-08-30 14:05:06.669294655 +0800
+@@ -139,18 +139,9 @@
  }
  
  #ifdef CONFIG_DEBUG_PAGEALLOC
@@ -105,10 +44,9 @@ index 9ef0b013e6d4..aac38ec936a5 100644
  }
  #ifdef CONFIG_HIBERNATION
  /*
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index d8199e12fb6e..598b15f6bd70 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
+diff -uNr a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+--- a/arch/arm64/net/bpf_jit_comp.c	2019-02-27 18:31:34.000000000 +0800
++++ b/arch/arm64/net/bpf_jit_comp.c	2026-08-30 14:05:06.669294655 +0800
 @@ -26,6 +26,7 @@
  
  #include <asm/byteorder.h>
@@ -117,13 +55,28 @@ index d8199e12fb6e..598b15f6bd70 100644
  #include <asm/debug-monitors.h>
  
  #include "bpf_jit.h"
-diff --git a/include/asm-generic/set_memory.h b/include/asm-generic/set_memory.h
-new file mode 100644
-index 000000000000..1cfcad28b13a
---- /dev/null
-+++ b/include/asm-generic/set_memory.h
+二进制文件 a/drivers/hisi/tzdriver/cfc_graphgen.pyc 和 b/drivers/hisi/tzdriver/cfc_graphgen.pyc 不同
+二进制文件 a/drivers/hisi/tzdriver/cfc_graph.pyc 和 b/drivers/hisi/tzdriver/cfc_graph.pyc 不同
+二进制文件 a/drivers/hisi/tzdriver/cfc_rule_parser.pyc 和 b/drivers/hisi/tzdriver/cfc_rule_parser.pyc 不同
+二进制文件 a/drivers/hisi/tzdriver/__pycache__/cfc_graph.cpython-310.pyc 和 b/drivers/hisi/tzdriver/__pycache__/cfc_graph.cpython-310.pyc 不同
+二进制文件 a/drivers/hisi/tzdriver/__pycache__/cfc_graphgen.cpython-310.pyc 和 b/drivers/hisi/tzdriver/__pycache__/cfc_graphgen.cpython-310.pyc 不同
+二进制文件 a/drivers/hisi/tzdriver/__pycache__/cfc_rule_parser.cpython-310.pyc 和 b/drivers/hisi/tzdriver/__pycache__/cfc_rule_parser.cpython-310.pyc 不同
+diff -uNr a/drivers/huawei_platform/oases/vmarea.c b/drivers/huawei_platform/oases/vmarea.c
+--- a/drivers/huawei_platform/oases/vmarea.c	2019-02-27 18:31:33.000000000 +0800
++++ b/drivers/huawei_platform/oases/vmarea.c	2026-08-30 14:05:06.669294655 +0800
+@@ -12,6 +12,7 @@
+ #include <linux/vmalloc.h>
+ #include <asm/cacheflush.h>
+ #include <asm/tlbflush.h>
++#include <linux/set_memory.h>
+ 
+ #include "vmarea.h"
+ #include "patch_api.h"
+diff -uNr a/include/asm-generic/set_memory.h b/include/asm-generic/set_memory.h
+--- a/include/asm-generic/set_memory.h	1970-01-01 08:00:00.000000000 +0800
++++ b/include/asm-generic/set_memory.h	2026-08-30 14:05:46.169458363 +0800
 @@ -0,0 +1,12 @@
-+﻿#ifndef __ASM_SET_MEMORY_H
++#ifndef __ASM_SET_MEMORY_H
 +#define __ASM_SET_MEMORY_H
 +
 +/*
@@ -135,57 +88,41 @@ index 000000000000..1cfcad28b13a
 +int set_memory_nx(unsigned long addr, int numpages);
 +
 +#endif
-\ No newline at end of file
-diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-new file mode 100644
-index 000000000000..669679b78d05
---- /dev/null
-+++ b/include/linux/set_memory.h
-@@ -0,0 +1,46 @@
-+﻿/*
-+ * Copyright 2017, Michael Ellerman, IBM Corporation.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License version
-+ * 2 as published by the Free Software Foundation;
-+ */
+diff -uNr a/include/linux/filter.h b/include/linux/filter.h
+--- a/include/linux/filter.h	2019-02-27 18:31:35.000000000 +0800
++++ b/include/linux/filter.h	2026-08-30 14:05:06.669294655 +0800
+@@ -18,6 +18,7 @@
+ #include <net/sch_generic.h>
+ 
+ #include <asm/cacheflush.h>
++#include <linux/set_memory.h>
+ 
+ #include <uapi/linux/filter.h>
+ #include <uapi/linux/bpf.h>
+diff -uNr a/include/linux/set_memory.h b/include/linux/set_memory.h
+--- a/include/linux/set_memory.h	1970-01-01 08:00:00.000000000 +0800
++++ b/include/linux/set_memory.h	2026-08-30 14:05:50.037474880 +0800
+@@ -0,0 +1,12 @@
 +#ifndef _LINUX_SET_MEMORY_H_
 +#define _LINUX_SET_MEMORY_H_
 +
-+#ifdef CONFIG_ARCH_HAS_SET_MEMORY
++/*
++ * On this 4.9 arm64 kernel, set_memory_ro/rw/x/nx are provided
++ * unconditionally by arch/arm64/mm/pageattr.c (no CONFIG_ARCH_HAS_SET_MEMORY).
++ * So we include the arch header directly instead of relying on a Kconfig
++ * symbol that does not exist here.
++ */
 +#include <asm/set_memory.h>
-+#else
-+static inline int set_memory_ro(unsigned long addr, int numpages) { return 0; }
-+static inline int set_memory_rw(unsigned long addr, int numpages) { return 0; }
-+static inline int set_memory_x(unsigned long addr, int numpages) { return 0; }
-+static inline int set_memory_nx(unsigned long addr, int numpages) { return 0; }
-+#endif
-+
-+#ifndef set_mce_nospec
-+static inline int set_mce_nospec(unsigned long pfn, bool unmap)
-+{
-+	return 0;
-+}
-+#endif
-+
-+#ifndef clear_mce_nospec
-+static inline int clear_mce_nospec(unsigned long pfn)
-+{
-+	return 0;
-+}
-+#endif
-+
-+#ifndef CONFIG_ARCH_HAS_MEM_ENCRYPT
-+static inline int set_memory_encrypted(unsigned long addr, int numpages)
-+{
-+	return 0;
-+}
-+
-+static inline int set_memory_decrypted(unsigned long addr, int numpages)
-+{
-+	return 0;
-+}
-+#endif /* CONFIG_ARCH_HAS_MEM_ENCRYPT */
 +
 +#endif /* _LINUX_SET_MEMORY_H_ */
-\ No newline at end of file
+diff -uNr a/kernel/module.c b/kernel/module.c
+--- a/kernel/module.c	2019-02-27 18:31:34.000000000 +0800
++++ b/kernel/module.c	2026-08-30 14:05:06.669294655 +0800
+@@ -48,6 +48,7 @@
+ #include <linux/rculist.h>
+ #include <asm/uaccess.h>
+ #include <asm/cacheflush.h>
++#include <linux/set_memory.h>
+ #include <asm/mmu_context.h>
+ #include <linux/license.h>
+ #include <asm/sections.h>
