@@ -287,7 +287,6 @@ curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kern
 :::details 为SukiSU-Ultra打补丁
 
 :::code-group
-
 ```diff[exec.c]
 diff -ruN a/fs/exec.c b/fs/exec.c
 --- a/fs/exec.c	2019-02-27 18:31:35.000000000 +0800
@@ -566,7 +565,6 @@ diff -ruN a/security/Makefile b/security/Makefile
 -obj-$(CONFIG_KSU) += kernelsu/
 +obj-y += kernelsu/
 ```
-
 :::
 
 此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
