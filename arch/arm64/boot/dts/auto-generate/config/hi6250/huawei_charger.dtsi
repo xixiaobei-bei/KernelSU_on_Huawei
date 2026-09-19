@@ -1,0 +1,136 @@
+/ {
+	huawei_charger: huawei_charger{
+		compatible = "huawei,charger";
+		support_usb_nonstandard_ico = <0>;
+		support_standard_ico = <0>;
+		ico_all_the_way = <0>;
+		fcp_vindpm = <4600>;
+		status = "disabled";
+	};
+
+	vbus_channel_charger: vbus_channel_charger {
+		compatible = "huawei,vbus_channel_charger";
+		status = "ok";
+	};
+
+	vbus_channel_boost_gpio: vbus_channel_boost_gpio {
+		compatible = "huawei,vbus_channel_boost_gpio";
+		status = "disabled";
+	};
+
+	power_thermalzone: power_thermalzone {
+		compatible = "huawei,power_thermalzone";
+		status = "disabled";
+		sensors{
+			sensor0{
+				sensor_name = "usb_port";
+				ops_name = "hisi_adc";
+				adc_channel = <8>;
+				ntc_index = <2>;
+			};
+		};
+	};
+	direct_charge_ps: direct_charge_ps {
+		compatible = "huawei,direct_charge_ps";
+		boost_5v_support_scp_power = <0>;
+		huawei_charger_support_scp_power = <0>;
+		status = "disabled";
+	};
+	charging_core:charging_core{
+		compatible = "huawei,charging_core";
+		iin_ac = <2000>;
+		ichg_ac = <1900>;
+		otg_curr = <1000>;
+		iin_usb = <500>;
+		ichg_usb = <500>;
+		iin_nonstd = <1200>;
+		ichg_nonstd = <1000>;
+		iin_bc_usb = <1500>;
+		ichg_bc_usb = <1400>;
+		iin_vr = <1000>;
+		ichg_vr = <1000>;
+		iin_typech = <2000>;
+		ichg_typech = <2100>;
+		typec_support = <0>;
+		high_temp_limit = <1>;
+		iterm = <100>;
+		ichrg_pre_limit = <128>;
+		segment_type = <0>;
+		/*vdpm_control_type: 0 = vdpm depended on cbatt; 1 = vdpm denpended on vbatt*/
+		vdpm_control_type = <1>;
+		vdpm_buf_limit = <100>;
+		vdpm_para =
+			"-32767", "3900", "4280", "50",
+			"3900", "4000", "4440", "50",
+			"4000", "4250", "4520", "50",
+			"4250", "32767", "4600", "50";
+		inductance_para =
+			"-32767", "15", "1600", "0",
+			"15", "32767", "1700", "0";
+		status = "disabled";
+	};
+	amba {
+		i2c4: i2c@FDF0D000 {
+			scharger_v200: scharger_v200@6B{
+				compatible = "huawei,hi6522_charger";
+				reg = <0x6B>;
+				vclamp = <80>;
+				fcp_support = <0>;
+				status = "disabled";
+				input_current_limit_option = <4>;
+			};
+			hi6523_charger: hi6523_charger@6B{
+				compatible = "huawei,hi6523_charger";
+				reg = <0x6B>;
+				gpio_int = <&gpio22 4 0>;
+				bat_comp = <60>;
+				vclamp = <192>;
+				fcp_support = <0>;
+				status = "disabled";
+			};
+			bq2560x_charger: bq2560x_charger@6B{
+				compatible = "huawei,bq2560x_charger";
+				reg = <0x6B>;
+				gpio_cd = <&gpio22 1 0>;
+				gpio_int = <&gpio22 4 0>;
+/*
+				bat_comp = <80>;
+				vclamp = <224>;
+				rilim = <124>;
+				adc_channel_iin = <5>;
+				adc_channel_vbat_sys = <14>;
+				fcp_support = <0>;
+*/
+				status = "disabled";
+			};
+			richtek_rt9466: richtek_rt9466@53 {
+				compatible = "richtek,rt9466";
+				reg = <0x53>;
+				rt,intr_gpio = <&gpio22 4 0>;
+				rt,ceb_gpio = <&gpio22 1 0>;
+				interrupt-names = "wdtmri", "chg_mivr", "chg_aiclmeasi",
+					"chg_statci", "pwr_rdy";
+				status = "disabled";
+				/*
+				 * Charger name
+				 * Main charger: primary_chg
+				 * Slave charger: secondary_chg
+				 */
+				charger_name = "primary_chg";
+				ichg = <2000>; /* uA */
+				aicr = <500>;  /* uA */
+				mivr = <4400>; /* uV */
+				cv = <4350>;   /* uV */
+				ieoc = <250>;  /* uA */
+				safety_timer = <12>;  /* hour */
+				ircmp_resistor = <25>; /* uohm */
+				ircmp_vclamp = <32>;  /* uV */
+				en_te;
+				en_wdt;
+				/* en_jeita; */
+				/* en_irq_pulse; */
+				/* ceb_invert; */
+			};
+		};
+	};
+};

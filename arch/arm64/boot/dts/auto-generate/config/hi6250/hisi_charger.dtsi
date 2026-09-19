@@ -1,0 +1,40 @@
+/ {
+	hisi_charger: hisi_charger{
+		compatible = "huawei,charger";
+		status = "disabled";
+	};
+	hisi_charging_core:hisi_charging_core{
+		compatible = "huawei,charging_core";
+		iin_ac = <2000>;
+		ichg_ac = <1900>;
+		iin_usb = <500>;
+		ichg_usb = <500>;
+		iin_bc_usb = <1500>;
+		ichg_bc_usb = <1400>;
+		iin_nonstd = <1200>;
+		ichg_nonstd = <1000>;
+		iterm = <100>;
+		otg_curr = <1000>;
+		ichrg_pre_limit = <128>;
+		vdpm_para =
+		    "-32767", "3900", "4280", "50",
+			"3900", "4000", "4440", "50",
+			"4000", "4250", "4520", "50",
+		    "4250", "32767", "4600", "50";
+		inductance_para =
+		    "-32767", "15", "1600", "0",
+		    "15", "32767", "1700", "0";
+		status = "disabled";
+	};
+	amba {
+		i2c4: i2c@FDF0D000 {
+			scharger_v200: scharger_v200@6B{
+                 		compatible = "huawei,hi6522_charger";
+                 		reg = <0x6B>;
+                 		vclamp = <80>;
+                 		fcp_support = <0>;
+                 		status = "disabled";
+			};
+		};
+	};
+};

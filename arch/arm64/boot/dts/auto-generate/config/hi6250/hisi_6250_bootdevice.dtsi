@@ -1,0 +1,7 @@
+/{
+	bootdevice: bootdevice {
+		compatible = "hisilicon,bootdevice";
+		boot-from-emmc;
+		status = "ok";
+	};
+};

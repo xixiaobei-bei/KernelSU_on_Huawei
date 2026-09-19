@@ -1,0 +1,6 @@
+/ {
+	huawei_otg_dual_role:huawei_otg_dual_role{
+		compatible = "huawei,otg-dual-role";
+		status = "disable";
+	};
+};

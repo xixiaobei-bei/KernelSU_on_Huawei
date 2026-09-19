@@ -1,0 +1,13 @@
+
+
+/ {
+	pmx0: pinmux@e896c000 {
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 6 2 0 &range 34 2 0>;
+	};
+
+	pmx1: pinmux@fff11000 {
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 5 2 0 &range 9 2 0>;
+	};
+};

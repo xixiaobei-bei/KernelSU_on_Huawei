@@ -1,0 +1,67 @@
+/*
+ * Dallas specific energy cost model data. There are no unit requirements for
+ * the data. Data can be normalized to any reference point, but the
+ * normalization must be consistent. That is, one bogo-joule/watt must be the
+ * same quantity for all data, but we don't care what it is.
+ */
+
+energy-costs {
+	CPU_COST_A72: core-cost1 { /* 2.36GHz */
+		busy-cost-data = <
+			608   124
+			783   200
+			874   280
+			916   293
+			1024  411
+		>;
+		idle-cost-data = <
+			15
+			15
+			0
+			0
+		>;
+	};
+	CPU_COST_A53: core-cost0 {
+		busy-cost-data = <
+			185    25
+			311    54
+			503    110
+			659    182
+		>;
+		idle-cost-data = <
+			14
+			14
+			0
+			0
+		>;
+	};
+	CLUSTER_COST_A72: cluster-cost1 {
+		busy-cost-data = <
+			608   100
+			783   134
+			874   167
+			916   175
+			1024  230
+		>;
+		idle-cost-data = <
+			25
+			25
+			25
+			0
+		>;
+	};
+	CLUSTER_COST_A53: cluster-cost0 {
+		busy-cost-data = <
+			185    20
+			311    31
+			503    49
+			659    72
+		>;
+		idle-cost-data = <
+			16
+			16
+			16
+			0
+		>;
+	};
+};
