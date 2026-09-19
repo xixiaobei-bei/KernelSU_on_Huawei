@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin710_udp_fccsp_codec_out_default_30_overlay.dtsi"
+
+/ {
+    board_id = <7034>;
+};
+
+	&rootparam{
+		hisi,boardid = <7 0 3 4>;
+		hisi,boardname = "kirin710_udp_fccsp_codec_out_hi6363_34";
+		hisi,product_id = <0x38F5FC04>;
+	};

@@ -1,0 +1,52 @@
+/*
+ *  Copyright (C) 2012-2013 Linaro Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/ {
+
+	ip_freq_autodown: ip_freq_autodown@0xFFF35000 {
+			compatible = "hisilicon,hisi-freq-autodown";
+			reg =   <0x00 0xE87FF000 0x00 0x1000>,/*base addr for MEDIA:0*/
+					<0x00 0xFFF35000 0x00 0x1000>,/*base addr for CRGPERI:1*/
+					<0x00 0xE8900000 0x00 0x1000>;/*base addr for MEDIA2:2*/
+			hisilicon,freq-autodown-baseaddress-num = <3>;
+			hisilicon,freq-autodown-num = <6>;
+			hisilicon,freq-autodown-names = "vcodecbus","vdecbus","vencbus","vivobus","ispa7bus","ivpbus";
+			hisilicon,freq-autodown-state = <1>;
+
+			vcodecbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vcodecbus";
+				freq_autodown_disable_bypass 	= <0x374 0 1>;/*diable auto frequency modulation bypass. <address bit base>*/
+				freq_autodown_enable_clock 	= <0x000 11 2>;/*auto frequency modulation monitor clk enable. <address bit base>*/
+			};
+			vdecbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vdecbus";
+				freq_autodown_disable_bypass 	= <0x36C 0 1>;
+				freq_autodown_enable_clock 	= <0x000 12 2>;
+			};
+			vencbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vencbus";
+				freq_autodown_disable_bypass 	= <0x368 0 1>;
+				freq_autodown_enable_clock 	= <0x000 13 2>;
+			};
+			vivobus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vivobus";
+				freq_autodown_disable_bypass 	= <0x170 0 0>;
+				freq_autodown_enable_clock 	= <0x010 1 0>;
+			};
+			ispa7bus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-ispa7bus";
+				freq_autodown_disable_bypass 	= <0x164 0 0>;
+				freq_autodown_enable_clock 	= <0x010 4 0>;
+			};
+			ivpbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-ivpbus";
+				freq_autodown_disable_bypass 	= <0x160 0 0>;
+				freq_autodown_enable_clock 	= <0x010 5 0>;
+			};
+	};
+};

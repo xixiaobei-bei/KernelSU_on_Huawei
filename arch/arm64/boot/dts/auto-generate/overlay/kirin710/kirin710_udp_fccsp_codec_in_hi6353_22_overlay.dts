@@ -1,0 +1,23 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "kirin710_udp_fccsp_codec_in_default_20_overlay.dtsi"
+/include/ "kirin710_udp_fccsp_codec_in_hi6353_22_pin.dtsi"
+/include/ "kirin710_udp_fccsp_codec_in_hi6353_22_modem_pin.dtsi"
+
+/ {
+    board_id = <7022>;
+};
+
+	&rootparam{
+		hisi,boardid = <7 0 2 2>;
+		hisi,boardname = "kirin710_udp_fccsp_codec_in_hi6353_22";
+		hisi,product_id = <0x38F5FC02>;
+	};

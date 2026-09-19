@@ -1,0 +1,20 @@
+/{
+	hisi_usb3otg_bc@ff200000 {
+		compatible = "hisilicon,usb3otg_bc";
+		reg = <0x0 0xff200000 0x0 0x1000>;
+	};
+	hisi_usb3otg@ff100000 {
+		compatible = "hisilicon,usb3otg";
+		reg = <0x0 0xff100000 0x0 0x10000>;
+	};
+	hisi_dpctrl@ff100000 {
+		compatible = "hisilicon,dpctrl";
+		reg = <0x0 0xff340000 0x0 0x10000>;
+	};
+	pddevice: pddevice {
+		compatible = "hisilicon,pd";
+		status = "disabled";
+		irq-gpio = <182>;
+		pd-at-ch = <1>; /*0 AP 1 CH*/
+	};
+};

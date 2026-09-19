@@ -1,0 +1,48 @@
+    &sec_pinmuxfff11800 {
+		gpio214_cfg_func {
+                     pinctrl-single,pins = <0x718  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x40 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+		gpio214_cfg_idle {
+                     pinctrl-single,pins = <0x718  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x40 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+
+		gpio215_cfg_func {
+                     pinctrl-single,pins = <0x71C  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x30 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+		gpio215_cfg_idle {
+                     pinctrl-single,pins = <0x71C  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x30 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+
+		gpio216_cfg_func {
+                     pinctrl-single,pins = <0x720  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x30 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+		gpio216_cfg_idle {
+                     pinctrl-single,pins = <0x720  0>;
+                     pinctrl-single,bias-pulldown = <0 2 0 2>;
+                     pinctrl-single,bias-pullup = <0 1 0 1>;
+                     pinctrl-single,drive-strength = <0x30 0x70>;
+                     pinctrl-single,slew-rate = <0x0 0x80>;
+		};
+
+    };
+

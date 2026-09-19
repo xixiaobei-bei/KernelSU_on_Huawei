@@ -1,0 +1,6 @@
+/ {
+    step_motor:step_motor {
+        compatible = "huawei,step_motor";
+        status = "disable";
+    };
+};

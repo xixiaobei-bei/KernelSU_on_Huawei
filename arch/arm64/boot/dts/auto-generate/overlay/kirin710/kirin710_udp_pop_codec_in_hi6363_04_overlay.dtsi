@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin710_udp_default_overlay.dtsi"
+
+/ {
+    board_id = <7004>;
+};
+
+	&rootparam{
+		hisi,boardid = <7 0 0 4>;
+		hisi,boardname = "kirin710_udp_pop_codec_in_hi6363_04";
+		hisi,product_id = <0x38F5FC04>;
+	};

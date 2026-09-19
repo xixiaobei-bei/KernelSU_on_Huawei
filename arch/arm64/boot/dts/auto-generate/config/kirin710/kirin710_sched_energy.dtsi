@@ -1,0 +1,79 @@
+/*
+ * Chicago specific energy cost model data. There are no unit requirements for
+ * the data. Data can be normalized to any reference point, but the
+ * normalization must be consistent. That is, one bogo-joule/watt must be the
+ * same quantity for all data, but we don't care what it is.
+ */
+
+energy-costs {
+	CPU_COST_A72: core-cost1 { /* 2.19GHz */
+		busy-cost-data = <
+			411   114
+			521   190
+			630   228
+			715   347
+			801   390
+			870   547
+			942   594
+			1024  821
+		>;
+		idle-cost-data = <
+			50
+			50
+			0
+			0
+		>;
+	};
+	CPU_COST_A53: core-cost0 {
+		busy-cost-data = <
+			150   24
+			289   58
+			343   90
+			390   103
+			420   144
+			444   154
+			486   214
+		>;
+		idle-cost-data = <
+			22
+			22
+			0
+			0
+		>;
+	};
+	CLUSTER_COST_A72: cluster-cost1 {
+		busy-cost-data = <
+			411   12
+			521   16
+			630   23
+			715   34
+			801   38
+			870   43
+			942   53
+			1024  93
+		>;
+		idle-cost-data = <
+			11
+			11
+			11
+			0
+		>;
+	};
+	CLUSTER_COST_A53: cluster-cost0 {
+		busy-cost-data = <
+			150   7
+			289   8
+			343   13
+			390   13
+			420   23
+			444   23
+			486   31
+		>;
+		idle-cost-data = <
+			7
+			7
+			7
+			0
+		>;
+	};
+};

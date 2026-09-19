@@ -1,0 +1,36 @@
+
+
+  /{
+		hisi_usb@ff200000 {
+			compatible = "hisilicon,nov-dwc3";
+			reg = <0x0 0xff200000 0x0 0x1000 0x0 0xff100000 0x0 0x100000>;
+			ranges;
+			bc_again_flag = <1>;
+			bc_unknown_again_flag = <2>;
+			fpga_flag = <0>;
+			dma_mask_bit = <64>;
+			set_hi_impedance = <0x0>;
+
+			clocks = <&clk_gate_usb2otg_ref &clk_gate_abb_usb &hclk_gate_usb2otg>;
+			clock-names = "clk_usb2phy_ref", "clk_usb2_tcxo_en", "hclk_usb2otg";
+
+			eye_diagram_param = <0x5E926DB>;
+			eye_diagram_host_param = <0x5E926DB>;
+
+			dwc3@ff100000 {
+				compatible = "snps,dwc3";
+				reg = <0x0 0xff100000 0x0 0x100000>;
+				interrupts = <0 161 4>, <0 161 4>;
+				interrupt-names = "irq", "otg_irq";
+				dr_mode = "otg";
+				maximum-speed = "high-speed";
+				snps,ctrl_nyet_abnormal;
+				snps,xhci-delay-ctrl-data-stage;
+			};
+		};
+
+		usb_proxy_hcd {
+			compatible = "hisilicon,proxy-hcd-hifi";
+			hifi_usb_phy_ldo_33v = <0x101 0x4 0x0 0x1>;
+		};
+  };

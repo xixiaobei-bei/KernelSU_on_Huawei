@@ -1,0 +1,45 @@
+
+
+/{
+	hw_vote {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		compatible = "hisi,freq-hw-vote";
+		reg = <0x0 0xFFF31000 0x0 0x1000>;
+
+		/*discription or warning*/
+		/*result_reg:[result-reg-offset] [read-mask] [write-mask(if no sense,set same as read-mask)]*/
+		/*vote_reg  :[vote-reg-offset] [read-mask] [write-mask]*/
+		/*ratio     :if not define,driver default 1*/
+		gpu-freq {
+			result_reg = <0x2DC 0xFF0000 0xFF0000>;
+			ratio = <16>;
+			vote-src-1 {
+				vote_reg = <0x290 0xFF 0xFF0000>;
+			};
+			vote-src-2 {
+				vote_reg = <0x290 0xFF00 0xFF000000>;
+			};
+		};
+		little-freq {
+			result_reg = <0x2DC 0xFF00 0xFF00>;
+			ratio = <16>;
+			vote-src-1 {
+				vote_reg = <0x280 0xFF 0xFF0000>;
+			};
+			vote-src-2 {
+				vote_reg = <0x280 0xFF00 0xFF000000>;
+			};
+		};
+		big-freq {
+			result_reg = <0x2DC 0xFF 0xFF>;
+			ratio = <16>;
+			vote-src-1 {
+				vote_reg = <0x270 0xFF 0xFF0000>;
+			};
+			vote-src-2 {
+				vote_reg = <0x270 0xFF00 0xFF000000>;
+			};
+		};
+	};
+};

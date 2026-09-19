@@ -1,0 +1,39 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+	coresight-tmc-cp {
+		compatible = "arm,coresight-tmc,cp";
+		ranges;
+		/*tmc cpu 0*/
+		etf_c0: etf@EC0C1000 {
+			compatible = "coresight-tmc-cpu0";
+			reg = <0 0xEC0C1000 0 0x1000>;
+			
+			coresight-id = <0>;
+			coresight-name = "coresight-etf-cpu0";
+			coresight-nr-inports = <1>;
+			cpu_index = <0>;
+		};	
+	};
+	coresight-etm-cp {
+		compatible = "arm,coresight-etm4x,cp";
+		ranges;
+		/*etm cpu0*/
+		ptm_c0: ptm@EC0FC000 {
+			compatible = "coresight-etm-cpu0";
+			reg = <0 0xEC0FC000 0 0x1000>;
+			
+			coresight-id = <2>;
+			coresight-name = "coresight-ptm-cpu0";
+			coresight-nr-inports = <0>;
+			coresight-outports = <0>;
+			coresight-child-list = <&etf_c0>;
+			coresight-child-ports = <0>;
+			cpu_index = <0>;
+		};		
+	};
+};

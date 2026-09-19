@@ -1,0 +1,9 @@
+/* MD5: 19e21c477cfc31622603e5859ff049cd*/
+#if !defined(__PRODUCT_CONFIG_MODEM_CHR_PTM_OFF_H__)
+#define __PRODUCT_CONFIG_MODEM_CHR_PTM_OFF_H__
+
+#ifndef FEATURE_CHR_OM
+#define FEATURE_CHR_OM FEATURE_OFF 
+#endif 
+
+#endif /*__PRODUCT_CONFIG_H__*/ 

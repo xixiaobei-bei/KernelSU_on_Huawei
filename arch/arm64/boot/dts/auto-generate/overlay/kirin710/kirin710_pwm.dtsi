@@ -1,0 +1,11 @@
+/ {
+    pwm:pwm@E8A04000 {
+            compatible = "hisilicon,pwm";
+            reg = <0x0 0xE8A04000 0x0 0x1000>;
+            clocks = <&clk_gate_pwm>;
+            #pwm-cells = <2>;
+            pre_freq_divisor0 = <1>;
+            pre_freq_divisor1 = <1>;
+            status = "disabled";
+    };
+};

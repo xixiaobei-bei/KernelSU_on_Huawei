@@ -1,0 +1,121 @@
+/*
+ * Hisilicon Ltd. Hi3670 SoC
+ *
+ * Copyright (C) 2014-2016 Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/{
+			clocks@0 {
+				clk_gate_vdec: clk_vdec {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <21>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <271000>;
+					hisilicon,sensitive-volt = <0 2>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <400000>;
+					/* base_addr_type:   PERICRG:2 */
+					base_addr_type = <2>;
+					/* div-reg\mux-reg: <offset bits bits_offset> */
+					div-reg = <0xC4 0x3F 0>;
+					mux-reg = <0xC8 0xF00 8>;
+					mux-table = "clk_ppll4","clk_ppll0","clk_ppll2","clk_ppll3";
+					/*set rate need to enable ppll to solve vdec noc problem*/
+					hisilicon,enable_pll_names = "clk_ap_ppll2";
+					clock-output-names = "clk_vdec";
+					clock-friend-names = "clk_vdecfreq";
+				};
+				clk_gate_venc: clk_venc {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <24>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <271000>;
+					hisilicon,sensitive-volt = <0 2>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <400000>;
+					/*set rate need to enable ppll to solve vdec noc problem*/
+					hisilicon,enable_pll_names = "clk_ap_ppll2";
+					clock-output-names = "clk_venc";
+					clock-friend-names = "clk_vencfreq";
+				};
+				clk_gate_ispfunc: clk_ispfunc {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <26>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <0>;
+					hisilicon,sensitive-volt = <0 2>;
+					clock-output-names = "clk_ispfunc";
+					clock-friend-names = "clk_ispfuncfreq";
+				};
+				clk_gate_ispcpu: clk_ispcpu {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <25>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <0>;
+					hisilicon,sensitive-volt = <0 2>;
+					clock-output-names = "clk_ispcpu";
+					clock-friend-names = "clk_ispcpufreq";
+				};
+				clk_gate_ivp32dsp_core: clk_ivpdsp_core {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <27>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <0>;
+					hisilicon,sensitive-volt = <0 2>;
+					clock-output-names = "clk_ivpdsp_core";
+					clock-friend-names = "clk_ivpdsp_corefreq";
+				};
+				hclk_gate_usb2otg: hclk_usb2otg {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <28>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <0>;
+					hisilicon,sensitive-volt = <0 2>;
+					clock-output-names = "hclk_usb2otg";
+					clock-friend-names = "hclk_usb2otgfreq";
+				};
+				clk_gate_secs: clk_secs {
+					compatible = "hisilicon,clkdev-dvfs";
+					#clock-cells = <0>;
+					hisilicon,clk-devfreq-id = <31>;
+					hisilicon,clk-dvfs-level = <1>;
+					hisilicon,clk-block-mode = <1>;
+					hisilicon,clk-recal-rate = <0>;
+					/*opp and freq KHz*/
+					hisilicon,sensitive-freq = <163000>;
+					hisilicon,sensitive-volt = <0 2>;
+					low_temperature_property;
+					hisilicon,low-temperature-freq = <181000>;
+					clock-output-names = "clk_secs";
+					clock-friend-names = "clk_sec_div";
+				};
+			};
+};

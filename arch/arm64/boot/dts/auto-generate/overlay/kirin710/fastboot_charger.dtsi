@@ -1,0 +1,9 @@
+/ {
+	fastboot_charger: fastboot_charger{
+		compatible = "fastboot,charger";
+		ichrg_pre_limit = <200>;
+		hw_charger_type = <4>;
+		chip_i2c_num = <6>;
+		status = "disabled";
+	};
+};

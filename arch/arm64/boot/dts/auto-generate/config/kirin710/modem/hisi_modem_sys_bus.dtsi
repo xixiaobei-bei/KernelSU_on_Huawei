@@ -1,0 +1,55 @@
+/*
+ * Hisilicon Balong SOC
+ * balong bus module 
+ */
+
+/ {
+	sys_bus {
+		compatible = "hisilicon,sys_bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+		
+		bus_single {
+			compatible = "sys_bus, bus_single";
+			/*
+			bus_single_tcm0 = <0x10007000 0x1000 0xFFC 0xFFC>;
+			*/
+		};
+
+		bus_simul {
+			compatible = "sys_bus, bus_simul";
+		};
+		
+		bus_pressure {
+			compatible = "sys_bus, bus_pressure";
+			edma {
+				compatible = "bus_pressure, edma";
+				edma_req_id_ddr = <0x4>;
+			};
+			/*
+			acore {
+				compatible = "bus_pressure, acore";
+				edma_req_id_ddr = <0x4>;
+			};
+			lcd {
+				compatible = "bus_pressure, lcd";
+			};
+			hifi {
+				compatible = "bus_pressure, hifi";
+			};*/
+            
+            ipf {
+				compatible = "bus_pressure, ipf";
+			};
+            
+			/*
+			hdlc {
+				compatible = "bus_pressure, hdlc";
+			};*/
+			socp {
+				compatible = "bus_pressure, socp";
+			};
+		};
+	};
+};

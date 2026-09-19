@@ -1,0 +1,161 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "kirin710_udp_default_overlay.dtsi"
+/include/ "kirin710_udp_pop_codec_out_default_10_pin.dtsi"
+/include/ "kirin710_udp_pop_codec_out_default_10_modem_pin.dtsi"
+
+/ {
+    board_id = <7010>;
+};
+
+	&rootparam{
+		hisi,boardid = <7 0 1 0>;
+		hisi,boardname = "kirin710_udp_pop_codec_out_default_10";
+		hisi,product_id = <0x38F5FC00>;
+	};
+	/* audio device be */
+	&codec_controller {
+		gpios = <&gpio19 0 0>; /* GPIO_152 */
+		gpio_reset = <151>; /* GPIO_18_7*/
+		gpio_codec_ssi = <204>;
+		gpio_codec_ssi_func = <1>;
+		gpio_ssi_mux = <16>; /* Chicago only */
+		status = "ok";
+
+		hi64xx_irq@0 {
+			status = "ok";
+
+			hi6402_codec@0{
+				hisilicon,mic_num = <2>;
+				status = "disabled";
+			};
+
+			hi6403_codec@0{
+				hisilicon,mic_num = <2>;
+				status = "ok";
+			};
+
+			gpio@0{
+				status = "disabled";
+			};
+
+			gpio@1{
+				status = "disabled";
+			};
+
+			gpio@2{
+				status = "disabled";
+			};
+
+			gpio@3{
+				status = "disabled";
+			};
+
+			hi6402_pinctrl {
+				status = "disabled";
+			};
+		};
+	};
+
+	&codec_stub {
+		status = "disabled";
+	};
+
+	&codec_hi6555v2 {
+		status = "disabled";
+	};
+
+	&sound_hi6555 {
+		codec-handle = <&codec_stub>;
+		status       = "disabled";
+	};
+
+	&codecssi {
+		compatible = "hisilicon,codecssi";
+		reg = <0x0 0xe82b9000 0x0 0x800>;
+		status = "ok";
+	};
+
+	&sound_hi6403 {
+		status = "ok";
+	};
+
+	&slimbusmisc {
+		slimbusclk_io_driver = <0xc8>;
+		slimbusdata_io_driver = <0xc3>;
+		status = "ok";
+	};
+
+	&slimbus_dai {
+		status = "ok";
+	};
+
+	&audio_hw_config {
+		product_name = "kirin710excodec";
+		spk_pa_name = "max98925";
+		cust_name = "audio_custom";
+		soc_name = "hi363x";
+		codec_name = "hi6403";
+		codec_version = "hissc_v2";
+		codec_dsp_algo = "maxim|mad|anc";
+		modem_sio_master = "false";
+		ear_pa_name = "max98925";
+		status = "ok";
+		codec_stub = "false";
+		direct_devices = "0x2000000C";
+		audio_capability {
+			bwe_ui_support = "false";
+			bwe_support = "true";
+			swb_support = "true";
+			wnr_support = "false";
+			nv_evs_support = "true";
+			lvm_support = "false";
+			dhf_support = "false";
+			dual_smartpa_support = "true";
+			spk_rcv_stereo_support = "true";
+			soundtrigger_version = "2.0";
+		};
+	};
+
+	&maxim_ioctl {
+		status = "ok";
+	};
+
+	&amba {
+		i2c@FDF0D000 {
+			smartpa@31 {
+				compatible = "huawei,max98925";
+				smartpa_type = <0>; //left smartPA
+				reg = <0x31>;
+				gain = <0x14>;
+				gain_incall = <0x14>; //spk's is same as gain
+				iv_slot_change = <1>;
+				status = "ok";
+			};
+			smartpa@34 {
+				compatible = "huawei,max98925";
+				smartpa_type = <1>; //right smartPA
+				reg = <0x34>;
+				gain = <0x34>;
+				gain_incall = <0x36>;
+				iv_slot_change = <0>;
+				status = "ok";
+			};
+		};
+	};
+
+	&soundtrigger{
+		status = "ok";
+	};
+
+	&hw_soundtrigger_event{
+		status = "ok";
+	};

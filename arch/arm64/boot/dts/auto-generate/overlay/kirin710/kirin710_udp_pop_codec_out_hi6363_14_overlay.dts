@@ -1,0 +1,23 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/plugin/;
+/include/ "kirin710_udp_pop_codec_out_default_10_overlay.dtsi"
+/include/ "kirin710_udp_pop_codec_out_hi6363_14_pin.dtsi"
+/include/ "kirin710_udp_pop_codec_out_hi6363_14_modem_pin.dtsi"
+
+/ {
+    board_id = <7014>;
+};
+
+	&rootparam{
+		hisi,boardid = <7 0 1 4>;
+		hisi,boardname = "kirin710_udp_pop_codec_out_hi6363_14";
+		hisi,product_id = <0x38F5FC04>;
+	};

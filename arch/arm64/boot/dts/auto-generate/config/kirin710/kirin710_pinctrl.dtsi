@@ -1,0 +1,80 @@
+/*
+ * Hisilicon Ltd. Kirin710 SoC
+ *
+ * Copyright (C) 2012-2014 Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	pinmuxe896c000: pinmux@e896c000 {
+		compatible = "pinctrl-single", "pinctrl-single0";
+		reg = <0x0 0xe896c000 0x0 0x730>;
+		#gpio-range-cells = <3>;
+		//ranges;
+		pinctrl-single,register-width = <32>;
+		pinctrl-single,function-mask = <7>;
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 0 82 0>;
+		range: gpio-range {
+			#pinctrl-single,gpio-range-cells = <3>;
+		};
+	};
+
+	pinmuxfff11000: pinmux@fff11000 {
+		compatible = "pinctrl-single", "pinctrl-single1";
+		reg = <0x0 0xfff11000 0x0 0x758>;
+		#gpio-range-cells = <3>;
+		//ranges;
+		pinctrl-single,register-width = <32>;
+		pinctrl-single,function-mask = <7>;
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 0 42 0 &range 452 2 0>;
+	};
+
+	pinmuxfc182000: pinmux@fc182000 {
+		compatible = "pinctrl-single", "pinctrl-single5";
+		reg = <0x0 0xfc182000 0x0 0x018>;
+		#gpio-range-cells = <3>;
+		pinctrl-single,register-width = <32>;
+		pinctrl-single,function-mask = <7>;
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 0 6 0>;
+	};
+
+	pinmuxff37e000: pinmux@ff37e000 {
+		compatible = "pinctrl-single", "pinctrl-single7";
+		reg = <0x0 0xff37e000 0x0 0x030>;
+		#gpio-range-cells = <3>;
+		pinctrl-single,register-width = <32>;
+		pinctrl-single,function-mask = <7>;
+		/* pin base, nr pins & gpio function */
+		pinctrl-single,gpio-range = <&range 0 12 0>;
+	};
+
+	pinmuxe896c800: pinmux@e896c800 {
+		compatible = "pinconf-single", "pinctrl-single2";
+		reg = <0x0 0xe896c800 0x0 0x730>;
+		pinctrl-single,register-width = <32>;
+	};
+
+	pinmuxfff11800: pinmux@fff11800 {
+		compatible = "pinconf-single", "pinctrl-single16";
+		reg = <0x0 0xfff11800 0x0 0x758>;
+		pinctrl-single,register-width = <32>;
+	};
+
+	pinmuxfc182800: pinmux@fc182800 {
+		compatible = "pinconf-single", "pinctrl-single6";
+		reg = <0x0 0xfc182800 0x0 0x018>;
+		pinctrl-single,register-width = <32>;
+	};
+
+	pinmuxff37e800: pinmux@ff37e800 {
+		compatible = "pinconf-single", "pinctrl-single8";
+		reg = <0x0 0xff37e800 0x0 0x030>;
+		pinctrl-single,register-width = <32>;
+	};
+};
