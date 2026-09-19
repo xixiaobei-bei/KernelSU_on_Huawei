@@ -85,6 +85,8 @@ jobs:
           - NEO_EMUI9.0_RKSU
           - ELE_EMUI9.1_RKSU
           - HWI_HarmonyOS2.0_RKSU
+          - FLA_EMUI9.1_RKSU
+          - HRY_EMUI9.1_RKSU
         pm: [false, true]
 
     steps:
@@ -293,6 +295,14 @@ jobs:
               tool="gcc" ;;
           HWI_HarmonyOS2.0_RKSU)
               DEFCONFIG="merge_hi3660_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+          FLA_EMUI9.1_RKSU) 
+              DEFCONFIG="merge_kirin710_defconfig"
+              os_version="9"
+              tool="gcc" ;;
+          HRY_EMUI9.1_RKSU)
+              DEFCONFIG="merge_hi6250_defconfig"
               os_version="9"
               tool="gcc" ;;
         esac
