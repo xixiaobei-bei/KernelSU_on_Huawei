@@ -95,6 +95,7 @@ fastboot flash kernel <内核文件>
 |P20 系列|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
+|荣耀10 Lite 系列|HRY|EMUI9.1|RKSU|无|
 |Nova4 系列|VCE|EMUI9.0、HarmonyOS3.0|KernelSU、SukiSU-Ultra|无|
 |Nova 3 系列|PAR|HarmonyOS2.0|RKSU|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
@@ -103,6 +104,7 @@ fastboot flash kernel <内核文件>
 |Nova 5 Pro 系列|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU|无|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
 |畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
+|华为畅享8 Plus 系列|FLA|EMUI9.1|RKSU|无|
 |华为平板M3青春版 系列|CPN|LineageOS17.1|KernelSU-Next|[源内核](https://github.com/Huawei-Dev/android_kernel_huawei_bach)、[所需底包](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ### 持续更新中...

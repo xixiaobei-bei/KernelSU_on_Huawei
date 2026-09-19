@@ -91,6 +91,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |P20 Series|EML|EMUI9.1|KernelSU|[KernelSU_on_Huawei_P20](https://github.com/Z841973620/KernelSU_on_Huawei_P20/tree/KernelSU_on_Huawei/kernel)|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
+|Honor 10 Lite Series|HRY|EMUI 9.1|RKSU|None|
 |Nova 4 Series | VCE | EMUI 9.0、HarmonyOS3.0| KernelSU, SukiSU-Ultra |None|
 |Nova 3 Series|PAR|HarmonyOS2.0|RKSU|None|
 |Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
@@ -99,6 +100,7 @@ After the device reboots, install the corresponding manager to obtain Root acces
 |Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU||None|
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
 |Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
+|Nova Y 8 Plus Series | FLA | EMUI 9.1 | RKSU |None|
 |Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Original kernel](https://github.com/Huawei-Dev/android_kernel_huawei_bach)、[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ### More devices coming...
