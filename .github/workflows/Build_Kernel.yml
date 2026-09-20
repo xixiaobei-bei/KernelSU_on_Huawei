@@ -298,11 +298,11 @@ jobs:
               os_version="9"
               tool="gcc" ;;
           FLA_EMUI9.1_RKSU) 
-              DEFCONFIG="merge_kirin710_defconfig"
+              DEFCONFIG="merge_hi6250_defconfig"
               os_version="9"
               tool="gcc" ;;
           HRY_EMUI9.1_RKSU)
-              DEFCONFIG="merge_hi6250_defconfig"
+              DEFCONFIG="merge_kirin710_defconfig"
               os_version="9"
               tool="gcc" ;;
         esac
