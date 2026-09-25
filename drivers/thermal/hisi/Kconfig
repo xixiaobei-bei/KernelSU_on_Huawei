@@ -1,0 +1,146 @@
+config HISI_IPA_THERMAL
+	tristate "Temperature sensor on ARM SoC based on HISI_THERMAL_TSENSOR interface"
+	depends on HISI_THERMAL_TSENSOR
+	depends on CPU_FREQ
+	depends on OF
+	select THERMAL_POWER_ACTOR_CPU
+	help
+	  Support for the HISI thermal sensor driver in the Linux thermal
+	  framework.
+config HISI_THERMAL_TSENSOR
+	tristate "Hisi thermal sensor driver"
+	default n
+	help
+	  Enable this to plug the thermal sensor driver into the Linux
+	  thermal framework
+
+config HISI_THERMAL_PERIPHERAL
+	tristate "Hisi peripheral thermal driver"
+	default n
+	help
+	  Enable this to plug the peripheral thermal sensor driver into the Linux
+	  thermal framework
+
+config HISI_THERMAL_PERIPHERAL_HIGHRESTEMP
+	bool "High resolution thermal format for Hisi peripheral thermal driver"
+	depends on HISI_THERMAL_PERIPHERAL
+	default n
+	help
+	  Enable this to use hi-resolution temperature format for PERIPHERAL thermal.
+
+config HISI_THERMAL_CONTEXTHUB
+	bool "Hisi contexthub thermal driver"
+	default n
+	help
+	  Enable Contexthub Thermal
+
+config HISI_THERMAL_SPM
+	bool "Hisi sustainable performance mode"
+	depends on HISI_IPA_THERMAL
+	default n
+	help
+	  Enable sustainable performance mode
+
+config HISI_THERMAL_HOTPLUG
+	bool "Hisi thermal hotplug support"
+	depends on HOTPLUG_CPU
+	depends on HISI_IPA_THERMAL
+	default n
+	help
+	  Enable thermal hotplug
+
+config HISI_THERMAL_GPU_HOTPLUG
+	bool "Hisi thermal gpu hotplug support"
+	depends on HISI_IPA_THERMAL
+	depends on HISI_GPU_CORE_HOTPLUG
+	default n
+	help
+	  Enable gpu thermal hotplug
+
+config HISI_GPU_HOTPLUG_EMULATION
+	bool "Hisi thermal gpu hotplug emulation support"
+	depends on HISI_THERMAL_GPU_HOTPLUG
+	default n
+	help
+	  Enable thermal gpu hotplug emulation
+
+config HISI_THERMAL_NPU_HOTPLUG
+	bool "Hisi thermal npu hotplug support"
+	depends on HISI_IPA_THERMAL
+	default n
+	help
+	  Enable npu thermal hotplug
+
+config HISI_NPU_HOTPLUG_EMULATION
+	bool "Hisi thermal npu hotplug emulation support"
+	depends on HISI_THERMAL_NPU_HOTPLUG
+	default n
+	help
+	  Enable thermal npu hotplug emulation
+
+config HISI_HOTPLUG_EMULATION
+	bool "Hisi thermal hotplug emulation support"
+	depends on HISI_THERMAL_HOTPLUG
+	default n
+	help
+	  Enable thermal hotplug emulation
+
+config HISI_THERMAL_TRIP
+	bool "Hisi trip point for thermal zone"
+	depends on HISI_THERMAL_TSENSOR
+	depends on HISI_THERMAL_PERIPHERAL
+	depends on HISI_BCI_BATTERY
+	default n
+	help
+	  Enable trip point for thermal zone
+
+config HISI_THERMAL_SHELL
+	bool "Hisi shell temp calculation"
+	depends on HISI_THERMAL_PERIPHERAL
+	depends on HISI_COUL
+	default n
+	help
+	  Enable shell temp calculation
+config HISI_SHELL_TEMP_DEBUG
+	bool "Hisi shell temp debug configuration"
+	depends on HISI_THERMAL_SHELL
+	default n
+	help
+	  Enable debug node for shell temp calculation
+
+config HISI_THERMAL_AMBIENT
+	bool "Hisi ambient temp calculation"
+	depends on HISI_THERMAL_PERIPHERAL
+	depends on HISI_COUL
+	default n
+	help
+	  Enable ambient temp calculation
+
+config HISI_THERMAL_NPU
+	bool "Hisi npu thermal contral"
+	depends on THERMAL_GOV_STEP_WISE
+	depends on HISI_THERMAL_TSENSOR
+	default n
+	help
+		Enable hisi npu thermal contral
+
+config HISI_HKADC_MODEM
+	bool "Hisi hkadc modem temp"
+	default n
+	help
+	  Enable hkadc modem temp
+
+config HISI_ITS
+	bool "Hisi ITS driver"
+	default n
+	help
+	  Enable this to enable ITS driver
+
+config HISI_ITS_DEBUG
+	bool "Hisi ITS driver debug message"
+	depends on HISI_ITS
+	default n
+	help
+	  Enable this to print debug power message for ITS driver
+
+source "drivers/thermal/hisi/hw_dpm/Kconfig"

@@ -1,0 +1,45 @@
+menu "HISI NPU PM Options"
+
+config HISI_NPU_PM
+    tristate "Hisilicon NPU Power Management Driver"
+    depends on ARCH_HISI
+    help
+      This enables the hisilicon npu low power driver.
+
+config HISI_NPU_PM_DEBUG
+    tristate "Hisilicon NPU Power Management Debug Driver"
+    depends on HISI_NPU_PM
+    help
+      This enables the hisilicon npu low power debug driver.
+
+config HISI_NPUFREQ
+    tristate "Hisilicon NPUFREQ Driver Based On Devfreq"
+    depends on HISI_NPU_PM
+    select PM_OPP
+    help
+      This enables the hisilicon NPUFREQ Driver Based On Devfreq.
+config HISI_NPU_AVS_VDM
+    tristate "Hisilicon NPU avs&svfd"
+    depends on HISI_NPUFREQ
+    help
+      This enables the hisilicon NPU avs or svfd.
+
+config HISI_NPUFREQ_PM_QOS
+    tristate "Hisilicon NPUFREQ PM Qos"
+    depends on HISI_NPU_PM
+    help
+      This enables the hisilicon NPUFREQ PM Qos.
+
+config HISI_NPU_SHARE_PERI_BUCK
+    tristate "Hisilicon NPU share peri buck with other IP"
+    depends on (HISI_NPU_PM && HISI_PERIDVFS)
+    help
+      This enables the hisilicon NPU peri buck.
+
+config HISI_NPU_PM_SMC
+    tristate "Hisilicon NPU Power Management Driver Using SMC"
+    depends on HISI_NPU_PM
+    help
+      This enables the hisilicon npu low power smc driver.
+
+endmenu

@@ -1,0 +1,5 @@
+config HISILICON_PLATFORM_HSDTTRACE
+	bool "Hisilicon platform hsdttrace module support"
+	default n
+	help
+		Hisilicon HSDT Trace Function

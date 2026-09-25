@@ -1,0 +1,2 @@
+config SOC_MAD
+	tristate "Hisilicon mad support"

@@ -1,0 +1,192 @@
+/*
+ * mphy-unipro-vs.h
+ *
+ * basic macro for ufs
+ *
+ * Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+
+#ifndef _MPHY_UNIPRO_VS_H_
+#define _MPHY_UNIPRO_VS_H_
+
+
+#define VS_INTERRUPT_ENABLE					0xd080
+#define VS_INTERRUPT_STATUS					0xd081
+#define VS_L2_STATUS						0xd082
+#define VS_POWER_STATE						0xd083
+#define VS_TX_BURST_CLOSURE_DELAY				0xd084
+#define VS_MPHY_CFG_UPDT					0xd085
+#define VS_ADJUST_TRAILING_CLOCKS				0xd086
+#define VS_SUPPRESS_REQ						0xd087
+#define VS_L2_TIMEOUT						0xd088
+#define VS_TBD							0xd090
+#define VS_RBD							0xd091
+#define VS_DEBUG_TX_BYTE_COUNT					0xd092
+#define VS_DEBUG_RX_BYTE_COUNT					0xd093
+#define VS_DEBUG_INVALID_BYTE_ENABLE				0xd094
+#define VS_DEBUG_LINK_STARTUP					0xd095
+#define VS_DEBUG_PWR_CHG					0xd096
+#define VS_DEBUG_STATES						0xd097
+#define VS_DEBUG_COUNTER0					0xd098
+#define VS_DEBUG_COUNTER1					0xd099
+#define VS_DEBUG_COUNTER0_MASK					0xd09a
+#define VS_DEBUG_COUNTER1_MASK					0xd09b
+#define VS_DEBUG_COUNTER_CONTROL				0xd09c
+#define VS_DEBUG_COUNTER_OVERFLOW				0xd09d
+#define VS_DEBUG_OMC						0xd09e
+#define VS_DEBUG_COUNTER_BMASK					0xd09f
+#define VS_DEBUG_SAVE_CONFIG_TIME				0xd0a0
+#define VS_DEBUG_LOOPBACK					0xd0a1
+#define VS_DEBUG_DISCBAUTOWRITE					0xd0a2
+#define VS_DEBUG_TX_TST_RTCONTROL				0xd0a3
+#define VS_DEBUG_RX_TST_RTCONTROL				0xd0a4
+#define VS_DEBUG_CB_TST_RTCONTROL				0xd0a5
+#define VS_DEBUG_TX_TST_RTOBSERVE				0xd0a6
+#define VS_DEBUG_RX_TST_RTOBSERVE				0xd0a7
+#define VS_DEBUG_CB_TST_RTOBSERVE				0xd0a8
+#define VS_SUPPRESS_GEAR_LIMIT					0xd0a9
+#define VS_MK2EXTN_SUPPORT					0xd0ab
+#define VS_DESKEW_FIFO_CONTROL					0xd0ad
+#define VS_ULPH8_CNTRL						0xd0af
+#define VS_RX_SQ_CNTRL						0xd0b0
+#define VS_OVERRIDE_ATTR_ENABLE					0xd0b1
+#define VS_OVERRIDE_ADV_TACTIVATE				0xd0b2
+#define VS_OVERRIDE_ADV_HIBER8					0xd0b3
+#define VS_OVERRIDE_ADV_GRAN					0xd0b4
+#define VS_FORCE_LANEALIGN					0xd0b5
+#define VS_OVERRIDE_PWM_BURST_CLOSURE_LENGTH			0xd0b7
+#define VS_OVERRIDE_PWM_SYNC_LENGTH				0xd0b8
+#define VS_OVERRIDE_PWM_PREPARE_LENGTH				0xd0b9
+#define VS_SAVE_CONFIG_TIME_INCREMENT				0xd0ba
+#define VS_OVERRIDE_HSG3_SYNCLENGTH				0xd0bb
+#define VS_OVERRIDE_HSG3_PREPARELENGTH				0xd0bc
+#define VS_MPHY_CFG_UPDT_ACK_WAIT				0xd0bd
+#define VS_TX_CONTROL_ACT_TIMER					0xd0c0
+#define VS_MPHY_DISABLE						0xd0c1
+#define VS_GEN2_MPHY_PLL_ON					0xd0c2
+#define VS_GPO_CTRL_0						0xd0d0
+#define VS_GPO_CTRL_1						0xd0d1
+#define VS_GPO_CTRL_2						0xd0d2
+#define VS_GPI_STATUS_0						0xd0d3
+#define VS_GPI_STATUS_1						0xd0d4
+#define VS_GPI_STATUS_2						0xd0d5
+#define VS_NON_AUTO_MODE_BURST_CONTROL				0xd0e0
+#define VS_OVERRIDE_RX_MIN_SLEEP_NO_CONFIG_TIME_CAPABILITY	0xd0e1
+#define VS_OVERRIDE_TX_HS_UNTERMINATED_LINE_DRIVE_CAPABILITY	0xd0e2
+#define VS_OVERRIDE_TX_LS_TERMINATED_LINE_DRIVE_CAPABILITY	0xd0e3
+#define VS_OVERRIDE_RX_MIN_STALL_NO_CONFIG_TIME_CAPABILITY	0xd0e4
+#define VS_OVERRIDE_RX_MIN_SAVE_CONFIG_TIME_CAPABILITY		0xd0e5
+#define VS_OVERRIDE_RX_HS_G1_PREPARE_LENGTH_CAPABILITY		0xd0e7
+#define VS_OVERRIDE_RX_HS_G1_SYNC_LENGTH_CAPABILITY		0xd0e8
+#define VS_OVERRIDE_RX_HS_G2_PREPARE_LENGTH_CAPABILITY		0xd0e9
+#define VS_OVERRIDE_RX_HS_G2_SYNC_LENGTH_CAPABILITY		0xd0ea
+#define VS_DOWNGRADED_VALUE_OVERRIDE_ENABLE			0xd0f0
+#define VS_OVERRIDE_TX_MIN_SLEEP_NO_CONFIG_TIME_DOWNGRADED	0xd0f1
+#define VS_OVERRIDE_TX_MIN_STALL_NO_CONFIG_TIME_DOWNGRADED	0xd0f2
+#define VS_OVERRIDE_TX_PWM_G6G7_SYNC_LENGTH_DOWNGRADED		0xd0f3
+#define VS_OVERRIDE_TX_LS_PREPARE_LENGTH_DOWNGRADED		0xd0f4
+#define VS_OVERRIDE_TX_PWM_BURST_CLOSURE_EXTENSION_DOWNGRADED	0xd0f5
+#define VS_LSS_BYPASS						0xd0f6
+#define VS_PMC_INTERVENTION_EN					0xd0f7
+#define VS_PMC_INTERVENTION_DONE				0xd0f8
+#define VS_PM_GLOBAL_CTRL					0xd100
+#define VS_DEBUG						0xd101
+#define VS_PM_GLOBAL_COUNTER					0xd102
+
+/* MPHY register_table */
+#define PRE_POST_ENABLE_20T4 0x0050
+#define TX_DMY0 0x0051
+#define TX_DMY1 0x0052
+#define SL_EQ_ENABLE 0x0056
+#define SL_POST_ENABLE 0x0057
+#define SL_PRE_MN_ENABLE 0x0058
+#define P_PRE_ENABLE 0x00A1
+#define N_PRE_ENABLE 0x00A2
+#define TXRP_ENABLE 0x00A3
+#define TOGGLE_P_PRE_EN 0x00A4
+#define TOGGLE_N_PRE_EN 0x00A5
+#define TOGGLE_TXRP_EN 0x00A6
+
+#define N_DEVICE_ID 0x3000
+#define N_DEVICE_ID_VALID 0x3001
+#define T_CONNECTION_STATE 0x4020
+#define T_PEER_DEVICE_ID 0x4021
+#define T_PEER_CPORT_ID 0x4022
+#define	T_TRAFFIC_CLASS 0x4023
+#define AD_DIF_P_LS_TIMEOUT_VAL 0x0003
+#define AD_DIF_N_LS_TIMEOUT_VAL 0x0004
+#define SKP_DET_SEL 0x0009
+#define	RX_H8_TIMEOUT_VAL 0x000A
+#define RX_H8_EXIT_TIME 0x000E
+#define RX_AFE_CTRL_I 0x0011
+#define RX_RG_PI_LPFIFO 0x000F
+#define RX_CDR_KIKP 0x0013
+#define RX_AFE_CTRL 0x0017
+#define TX_HSGEAR 0x0023
+#define PA_TX_HS_G1_SYNC_LENGTH 0x1552
+#define PA_TX_HS_G2_SYNC_LENGTH 0x1554
+#define PA_TX_HS_G3_SYNC_LENGTH 0x1556
+#define PA_TX_HS_G4_SYNC_LENGTH 0x15d0
+#define AFE_CONFIG_XII 0x0059
+#define HS_DELSEL_EN 0x005a
+#define LS_DELSEL_EN 0x005b
+#define SL_EN_OTHER_RISE_COUNT 0x005c
+#define SL_EN_OTHER_FALL_COUNT 0x005d
+#define RES_EN_OTHER_RISE_COUNT 0x005e
+#define RES_EN_OTHER_FALL_COUNT 0x005f
+#define TX_PHY_CONFIG 0x0073
+#define RG_TX_LS_CK_NEG_EN 0x007a
+#define TX_AFE_CONFIG_II 0x007b
+#define RX_HS_EQUALIZER_SETTING_CAPABILITY 0x009d
+#define RX_HSGEAR 0x00a3
+#define REG_VCO_DIV_CNT 0x00ae
+#define RG_PLL_VCO_TCC 0x00ba
+#define MC_PRESENT 0x00c2
+#define RX_EXTERNAL_H8_EXIT_EN 0x00C3
+#define RG_PLL_RXHS_EN 0x00c5
+#define RG_PLL_RXLS_EN 0x00c6
+#define TX_RG_PLL_TXHS_EN 0x00c7
+#define TX_RG_PLL_TXLS_EN 0x00c8
+#define RG_PLL_BIAS_EN 0x00ca
+#define RX_HS_CLK_EN 0x00cc
+#define RX_LS_CLK_EN 0x00cd
+#define RX_STALL 0x00cf
+#define RX_SLEEP 0x00d0
+#define RG_PLL_DMY0 0x00d4
+#define RG_PLL_DMY2 0x00d6
+#define PLL_LOCK_TIME_VAL 0x00da
+#define PLL_RSTB_TIME_VAL 0x00dd
+#define VCO_AUTO_CHG 0x00DF
+#define RX_HS_DATA_VALID_TIMER_VAL0 0x00e9
+#define RX_HS_DATA_VALID_TIMER_VAL1 0x00ea
+#define	AD_DIF_N_TIMEOUT_VAL 0x00EB
+#define RX_ENABLE 0x00F0
+#define RX_SQ_VREF 0x00F1
+#define RX_EQ_SEL_C 0x00f2
+#define RX_EQ_SEL_I 0x00F3
+#define RX_EQ_SEL_R 0x00f4
+#define REG_PLL_TXLSGR_G3 0x00f5
+#define REG_MS_TIMEOUT_VAL_LSB 0x00fb
+#define REG_MS_TIMEOUT_VAL_MSB 0x00fc
+#define REG_PLL_RXHSGR_G4 0x00fd
+#define RX_DLF 0x00f6
+#define RX_VSEL 0x00fb
+
+#define HISI_UNIPRO_UPDATE 0x0000d014
+#define VS_DDBUG_SAVE_CONFIG_TIME 0x00009529
+#define VS_OVERRIDE_HS_G1_SYNC_LENGTH 0x9509
+#define VS_OVERRIDE_HS_G1_PREPARE_LENGTH 0x950a
+#define PA_TX_TRAILING_CLOCKS 0x1564
+#define UFS_CONFIG_RAM_ENABLE 0x2
+
+#endif

@@ -1,0 +1,5 @@
+source "drivers/huawei_platform/power/hardware_ic/charger_ic/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/boost_5v/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/buck_boost/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/charge_pump/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/wireless_charge_ic/Kconfig"

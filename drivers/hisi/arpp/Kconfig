@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# ARPP device configuration
+#
+
+menu "Hisilicon ARPP"
+
+config HISI_ARPP
+	bool "Hisilicon ARPP Drivers"
+	default n
+	help
+		ARPP drivers
+
+config HISI_ARPP_V100
+	bool "Hisilicon ARPP Drivers for V100"
+	depends on HISI_ARPP
+	default n
+	help
+		ARPP drivers for V100
+endmenu

@@ -1,0 +1,2 @@
+source "drivers/huawei_platform/power/wireless/wireless_protocol/Kconfig"
+source "drivers/huawei_platform/power/wireless/wireless_alignment_detect/Kconfig"

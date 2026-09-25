@@ -1,0 +1,2 @@
+config SND_SOC_HI6403
+	tristate "HI Soc Smartstar Codec hi6403 support"

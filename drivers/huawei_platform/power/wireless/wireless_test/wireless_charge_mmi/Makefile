@@ -1,0 +1,1 @@
+obj-$(CONFIG_WIRELESS_CHARGER) += wlc_mmi.o

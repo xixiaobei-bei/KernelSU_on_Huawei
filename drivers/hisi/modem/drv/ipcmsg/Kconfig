@@ -1,0 +1,18 @@
+#
+# ipc msg driver
+#
+comment "ipc msg driver"
+
+config IPC_MSG_DRIVER
+	tristate "ipc msg driver"
+	default n
+	help
+	  IPC_MSG interface
+
+config IPC_MSG_TEST
+	tristate "ipc msg test"
+	default n
+	help
+	  IPC_MSG test
+	  
+		

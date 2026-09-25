@@ -1,0 +1,3 @@
+obj-$(CONFIG_HISILICON_PLATFORM_HSDTTRACE)	+= hsdt_trace.o
+
+

@@ -1,0 +1,11 @@
+config HISI_ISP_DEBUG
+	bool "hisi isp debug"
+	default n
+	help
+		Say yes here to support hisi isp debug.
+
+config HISI_ISP_SMMU_BYPASS_DEBUG
+	bool "hisi isp smmu bypass debug"
+	default n
+	help
+		Say yes here to support hisi isp smmu bypass debug.

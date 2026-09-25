@@ -1,0 +1,5 @@
+ifeq ($(CONFIG_VCODEC_PLATFORM_HIVCODECV600), y)
+obj-$(CONFIG_HI_VCODEC_VDEC_HIVNA)  += v6.2/ 
+else
+obj-$(CONFIG_HI_VCODEC_VDEC_HIVNA)  += v4.0/
+endif

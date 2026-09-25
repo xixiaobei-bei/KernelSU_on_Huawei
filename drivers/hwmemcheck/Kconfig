@@ -1,0 +1,6 @@
+config HW_MEMCHECK
+	depends on HW_LOGGER
+	bool "Huawei memory checker driver"
+	default n
+	---help---
+	  This feature support to memory leak check

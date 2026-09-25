@@ -1,0 +1,4 @@
+config NPU_DEVDRV_DEVFACILITY
+	tristate "DEVDRV_DEVFACILITY"
+	default m
+

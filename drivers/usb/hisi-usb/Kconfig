@@ -1,0 +1,29 @@
+#
+# USB drivers for Hisilicon platforms
+#
+config HISI_USB_REG_CFG
+	tristate "Register config for Hisilicon USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select MFD_SYSCON
+	help
+	  Enable this to support the register config for HISILICON USB.
+
+	  To compile this driver as a module, choose M here.
+
+config HISI_USB_HELPER
+	tristate "Helper functions for Hisilicon USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	help
+	  Enable this to support the helper functions for HISILICON USB.
+
+	  To compile this driver as a module, choose M here.
+
+config HISI_USB_MISC_CTRL
+	tristate "Misc Ctrl for Hisilicon USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select HISI_USB_REG_CFG
+	select HISI_USB_HELPER
+	help
+	  Enable this to support the misc ctrl for HISILICON USB.
+
+	  To compile this driver as a module, choose M here.

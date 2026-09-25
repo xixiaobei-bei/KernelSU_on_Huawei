@@ -1,0 +1,9 @@
+#
+# huawei wireless alignment detect drivers
+#
+
+config WIRELESS_ALIGNMENT_DETECT
+	bool "wireless alignment detect"
+	default n
+	help
+	  Say Y here to enable wireless alignment detect driver.

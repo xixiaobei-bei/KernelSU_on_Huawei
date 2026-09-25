@@ -1,0 +1,3 @@
+config NPU_LOG_DEVDRV
+	tristate "LOG DEVDRV"
+	default m

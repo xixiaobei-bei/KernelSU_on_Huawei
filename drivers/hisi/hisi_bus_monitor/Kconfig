@@ -1,0 +1,10 @@
+config HISI_BUS_MONITOR_TEST
+	bool "hisi bus monitor test"
+	default n
+	help
+	test CPU Bus Perf Monitor
+config HISI_BUS_MONITOR
+	bool "hisi bus monitor"
+	default n
+	help
+	CPU Bus Perf Monitor

@@ -1,0 +1,12 @@
+menuconfig PLATFORM_HI3690
+	tristate "PLATFORM_HI3690"
+	default n
+	help
+	  Say yes here to support npu hi3690 platform adapt
+
+config PHOENIX_SUPPORT
+	bool "PHOENIX support"
+	depends on PLATFORM_HI3690
+	default n
+	help
+	  Say yes here to support phoenix

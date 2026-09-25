@@ -1,0 +1,3 @@
+config NPU_DEVDRV_DEVDRIVER
+	tristate "NPU DEVDRV DEVDRIVER"
+	default m

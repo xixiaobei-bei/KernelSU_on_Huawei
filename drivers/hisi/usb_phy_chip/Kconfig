@@ -1,0 +1,11 @@
+config HISI_USB_PHY_CHIP
+	bool "hisi usb phy chip driver"
+	default n
+	help
+	  hisi usb phy chip driver(Hi6502)
+
+config HISI_USB_PHY_DRIVER
+	bool "hisi usb phy driver"
+	default n
+	help
+	  hisi usb phy driver(hisi & snps phy)

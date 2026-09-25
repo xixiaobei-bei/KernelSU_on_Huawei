@@ -1,0 +1,45 @@
+menuconfig SECURITY_KSHIELD
+	bool "K-Shield"
+	default n
+	---help---
+	  Chose this option to enable the K-Shield, which
+	  can detect and block root attack at runtime.
+
+config KSHIELD_TRACE
+	bool "K-Shield Trace"
+	depends on SECURITY_KSHIELD
+	help
+	  Chose this option to enable tracing syscall and
+	  process.
+
+choice
+	prompt "Trace type"
+	depends on KSHIELD_TRACE
+	default KSHIELD_TRACE_BY_DIRECT
+
+config KSHIELD_TRACE_BY_DIRECT
+	bool "Instrumentation at el0_svc"
+	help
+	  Trace syscall and process by hooking ev0_svc().
+	  This is faster than ftrace.
+
+config KSHIELD_TRACE_BY_FTRACE
+	bool "Instrumentation by ftrace"
+	help
+	  Trace syscall and process by ftrace.
+
+endchoice
+
+config KSHIELD_TEST
+	bool "K-Shield Test"
+	depends on SECURITY_KSHIELD
+	help
+	  Chose this option to support event that can be
+	  used to test the module and daemon side functions.
+
+config KSHIELD_PERMISSIVE
+	bool "K-Shield Permissive"
+	depends on SECURITY_KSHIELD && KSHIELD_TEST
+	help
+	  Chose this option to make K-Shield print kernel
+	  log instead of blocking attacker.

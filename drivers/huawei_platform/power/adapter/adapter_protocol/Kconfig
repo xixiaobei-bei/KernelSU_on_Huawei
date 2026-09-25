@@ -1,0 +1,57 @@
+#
+# huawei adapter protocol drivers
+#
+
+config ADAPTER_PROTOCOL
+	bool "adapter protocol"
+	default n
+	help
+	  Say Y here to enable adapter protocol driver.
+	  This driver provides a unified interface to the adapter protocol.
+	  Currently supported adapter protocols as below:
+	  Huawei FCP protocol.
+	  Huawei SCP protocol.
+
+config ADAPTER_PROTOCOL_FCP
+	bool "huawei adapter protocol with fcp"
+	depends on ADAPTER_PROTOCOL
+	default n
+	help
+	  Say Y here to enable adapter fcp protocol driver.
+	  The fast adapter protocol is used to communicate between a master
+	  device and a single device over a singe wire bus. the protocol is
+	  meant to be used to configure, control and read the status of
+	  a slave device.
+
+config ADAPTER_PROTOCOL_SCP
+	bool "huawei adapter protocol with scp"
+	depends on ADAPTER_PROTOCOL
+	default n
+	help
+	  Say Y here to enable adapter scp protocol driver.
+	  The smart adapter protocol is used to communicate between a master
+	  device and a single device over a singe wire bus. the protocol is
+	  meant to be used to configure, control and read the status of
+	  a slave device.
+
+config ADAPTER_PROTOCOL_PD
+	bool "huawei adapter protocol with pd"
+	depends on ADAPTER_PROTOCOL
+	default n
+	help
+	  Say Y here to enable adapter pd protocol driver.
+	  The pd adapter protocol is used to communicate between a master
+	  device and a single device over a cc bus. the protocol is
+	  meant to be used to configure, control and read the status of
+	  a slave device.
+
+config ADAPTER_PROTOCOL_UVDM
+	bool "huawei adapter protocol with uvdm"
+	depends on ADAPTER_PROTOCOL
+	default n
+	help
+	  Say Y here to enable adapter uvdm protocol driver.
+	  The uvdm adapter protocol is used to communicate between a master
+	  device and a single device over a cc bus. the protocol is
+	  meant to be used to configure, control and read the status of
+	  a slave device.

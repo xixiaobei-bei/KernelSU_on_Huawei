@@ -1,0 +1,1 @@
+obj-$(CONFIG_HISI_FACTORY_SVFD) += hisi_factory_svfd_data.o

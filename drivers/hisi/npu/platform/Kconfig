@@ -1,0 +1,8 @@
+source "drivers/hisi/npu/platform/hi3690/Kconfig"
+source "drivers/hisi/npu/platform/hi6280/Kconfig"
+
+config NPU_DEVDRV_DEVPLATFORM
+	tristate "DEVDRV_DEVPLATFORM"
+	default m
+config HISI_NPU_DEBUG
+    tristate "HISI_NPU_DEBUG"

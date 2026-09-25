@@ -1,0 +1,1 @@
+obj-$(CONFIG_CHARGE_PUMP_HL1506) += hl1506.o

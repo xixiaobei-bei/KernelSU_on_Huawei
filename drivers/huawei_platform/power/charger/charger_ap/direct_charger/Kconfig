@@ -1,0 +1,44 @@
+#
+# huawei direct charger drivers
+#
+
+source "drivers/huawei_platform/power/charger/charger_ap/direct_charger/loadswitch/Kconfig"
+source "drivers/huawei_platform/power/charger/charger_ap/direct_charger/switchcap/Kconfig"
+
+config LOADSWITCH
+	bool "loadswitch"
+	default n
+	help
+	  Say Y here to enable loadswitch driver.
+	  This driver provides a unified interface for loadswtich.
+	  Support device:
+	  rt9748
+	  fpf2283
+
+config SWITCHCAP
+	bool "switchcap"
+	default n
+	help
+	  Say Y here to enable switchcap driver.
+	  This driver provides a unified interface for switchcap.
+	  Support device:
+	  bq25970
+	  ltc7820
+
+config INA231_FOR_CHARGE
+	bool "ina231_for_charge"
+	default n
+	help
+	  Say Y here to enable ina231 driver.
+	  Ina231 is a current-shunt and power monitor.
+	  This driver monitors vbus and ibus for direct_charge.
+	  This driver works with i2c interface that features 16 programmable addresses.
+
+config OPA2333P_FOR_CHARGE
+	bool "opa2333p"
+	default n
+	help
+	  Say Y here to enable opa2333p driver.
+	  The opa2333p is a cmos operational amplifier.
+	  The opa2333p is optimized for low-voltage.
+	  This driver works for direct_charge.

@@ -1,0 +1,42 @@
+#
+# cpu_buck error monitor drivers
+#
+
+config HUAWEI_CPU_BUCK
+	bool "huawei cpu_buck"
+	default n
+	help
+	  Say Y here to enable cpu_buck error monitor driver.
+	  This driver provides a unified interface to cpu_buck.
+	  This driver is in logic layer.
+	  Currently supported device as below:
+	  lp8758
+	  hi6422v100
+	  hi6422v200
+
+config HUAWEI_LP8758
+	bool "cpu_buck lp8758"
+	depends on HUAWEI_CPU_BUCK
+	default n
+	help
+	  Say Y here to enable cpu_buck lp8758 driver.
+	  The LP8758 is designed to meet the power management
+	  requirements of the latest application processors
+	  in mobile phones and similar portable applications.
+	  The device contains four step-down DC/DC converter cores,
+	  which are bundled together in a single 4-phase buck converter.
+	  The device is controlled by an I2C-compatible serial interface.
+
+config HI6422V100
+	bool "cpu_buck hi6422v100"
+	depends on HUAWEI_CPU_BUCK
+	default n
+	help
+	  Say Y here to enable cpu_buck hi6422v100 driver.
+
+config HI6422V200
+	bool "cpu_buck hi6422v200"
+	depends on HUAWEI_CPU_BUCK
+	default n
+	help
+	  Say Y here to enable cpu_buck hi6422v200 driver.

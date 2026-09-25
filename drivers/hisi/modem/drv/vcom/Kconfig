@@ -1,0 +1,11 @@
+#
+# udi adaption layer
+#
+
+comment "vcom"
+
+config UDI_SUPPORT
+tristate "support vcom"
+default n
+help
+udi driver

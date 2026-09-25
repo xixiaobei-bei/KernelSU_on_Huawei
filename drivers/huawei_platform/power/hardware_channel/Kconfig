@@ -1,0 +1,3 @@
+source "drivers/huawei_platform/power/hardware_channel/wired_channel_switch/Kconfig"
+source "drivers/huawei_platform/power/hardware_channel/vbus_channel/Kconfig"
+source "drivers/huawei_platform/power/hardware_channel/vsys_switch/Kconfig"

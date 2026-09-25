@@ -1,0 +1,3 @@
+config SND_SOC_HISI_PA
+	tristate "HI Soc hisi pa support"
+

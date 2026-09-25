@@ -1,0 +1,11 @@
+#
+# huawei power message drivers
+#
+
+config HUAWEI_POWER_MESG_INTERFACE
+	bool
+	prompt "Huawei power message interface."
+	default n
+	help
+	  Say Y here to enable power message driver.
+	  It's for asking and getting HMAC from user space.

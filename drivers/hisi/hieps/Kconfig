@@ -1,0 +1,19 @@
+config HISI_HIEPS
+	bool "Hisilicon hieps "
+	default n
+	help
+	  Hisi hieps driver
+
+config HISI_HIEPS_SMX_ATCMD
+	bool "Hisilicon hieps set/get smx"
+	depends on HISI_HIEPS
+	default n
+	help
+	  Hisi hieps driver set/get smx
+
+config HIEPS_WITHOUT_CPU
+        bool "hisilicon hieps without cpu"
+	depends on HISI_HIEPS
+	default n
+	help
+	  Hisi hieps driver without cpu
