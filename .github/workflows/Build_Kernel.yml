@@ -87,6 +87,7 @@ jobs:
           - HWI_HarmonyOS2.0_RKSU
           - FLA_EMUI9.1_RKSU
           - HRY_EMUI9.1_RKSU
+          - VCE_HarmonyOS3.0_RKSU
         pm: [false, true]
 
     steps:
@@ -305,6 +306,10 @@ jobs:
               DEFCONFIG="merge_kirin710_defconfig"
               os_version="9"
               tool="gcc" ;;
+          VCE_HarmonyOS3.0_RKSU)
+              DEFCONFIG="merge_kirin970_defconfig"
+              os_version="10"
+              tool="clang" ;;
         esac
 
         if [ -z "$DEFCONFIG" ]; then
