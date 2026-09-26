@@ -442,9 +442,9 @@ jobs:
           elif [[ "$tool" == "clang" ]]; then
             export CLANG_PREBUILTS_PATH=$(pwd)/prebuilts/clang/host/linux-x86/clang-r346389c/
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/prebuilts/clang/host/linux-x86/clang-r346389c/lib64/
-            export CROSS_COMPILE=aarch64-linux-gnu-
+            export CROSS_COMPILE=aarch64-linux-android-
             export ARCH=arm64
-            export PATH=$(pwd)/prebuilts/clang/host/linux-x86/clang-r346389c/bin:$PATH
+            export PATH=$(pwd)/prebuilts/clang/host/linux-x86/clang-r346389c/bin:$(pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
           fi
 
           if [ "${{ matrix.pm }}" = "true" ]; then
