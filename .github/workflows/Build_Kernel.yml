@@ -90,6 +90,9 @@ jobs:
           - VCE_HarmonyOS3.0_RKSU
           - HLK_EMUI10.1_RKSU
           - MAR_EMUI10.0_RKSU
+          - CDY_HarmonyOS2.0_RKSU
+          - CDY_HarmonyOS3.0_RKSU
+          - COR_EMUI9.1_RKSU
         pm: [false, true]
 
     steps:
@@ -318,6 +321,18 @@ jobs:
               tool="clang" ;;
           MAR_EMUI10.0_RKSU)
               DEFCONFIG="merge_kirin710_defconfig"
+              os_version="10"
+              tool="clang" ;;
+          CDY_HarmonyOS2.0_RKSU)
+              DEFCONFIG="merge_denver_defconfig"
+              os_version="10"
+              tool="clang" ;;
+          CDY_HarmonyOS3.0_RKSU)
+              DEFCONFIG="merge_denver_defconfig"
+              os_version="10"
+              tool="clang" ;;
+          COR_EMUI9.1_RKSU)
+              DEFCONFIG="merge_kirin970_defconfig"
               os_version="10"
               tool="clang" ;;
         esac
