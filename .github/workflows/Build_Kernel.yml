@@ -88,6 +88,7 @@ jobs:
           - FLA_EMUI9.1_RKSU
           - HRY_EMUI9.1_RKSU
           - VCE_HarmonyOS3.0_RKSU
+          - HLK_EMUI10.1_RKSU
         pm: [false, true]
 
     steps:
@@ -308,6 +309,10 @@ jobs:
               tool="gcc" ;;
           VCE_HarmonyOS3.0_RKSU)
               DEFCONFIG="merge_kirin970_defconfig"
+              os_version="10"
+              tool="clang" ;;
+          HLK_EMUI10.1_RKSU)
+              DEFCONFIG="merge_orlando_defconfig"
               os_version="10"
               tool="clang" ;;
         esac
