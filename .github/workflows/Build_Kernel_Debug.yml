@@ -362,7 +362,7 @@ jobs:
             COR_EMUI9.1_RKSU)
               DEFCONFIG="merge_kirin970_defconfig"
               os_version="10"
-              tool="clang" ;;
+              tool="gcc" ;;
           esac
 
           if [ -z "$DEFCONFIG" ]; then
