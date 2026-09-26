@@ -1,0 +1,8 @@
+config HUAWEI_ADSP_MISC
+    bool "audio dsp driver for ipi adapter"
+    default n
+
+config ADSP_HUAWEI_SHARED_MEM
+    bool "mtk shared mem between ap and adsp for huawei params"
+    depends on HUAWEI_ADSP_MISC
+    default n

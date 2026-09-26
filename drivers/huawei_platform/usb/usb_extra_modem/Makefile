@@ -1,0 +1,1 @@
+obj-$(CONFIG_USB_EXTRA_MODEM) += usb_extra_modem.o

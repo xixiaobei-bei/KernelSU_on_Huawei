@@ -1,0 +1,8 @@
+#
+#meminspect config driver configuration
+#
+config MEM_INSPECT
+        tristate "rmeminspect driver"
+        default n
+        help
+        Say yes here to support for dram inspection driver.

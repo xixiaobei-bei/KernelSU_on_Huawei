@@ -1,0 +1,9 @@
+menu "lpcpu max power options"
+
+config LPCPU_MAX_POWER
+	bool "lpcpu max power"
+	default n
+	help
+	  lpcpu max power drivers
+
+endmenu

@@ -1,0 +1,6 @@
+#sensor unification for differ platform
+menuconfig HUAWEI_ARMPC_USB_HUB
+	bool "huawei armpc usb hub device"
+	default n
+	help
+	Say yes here to support usb hub for Kirin PC.

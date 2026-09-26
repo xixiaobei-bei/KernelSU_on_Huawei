@@ -1,0 +1,11 @@
+config LOWPM_STATS
+	bool "lpmcu or ddr lowpower statistical info"
+	default n
+	help
+	Driver for lpmcu or ddr lowpm info
+config LOWPM_DDR_STATE
+	bool "ddr lowpower state statistical info"
+	depends on LOWPM_STATS
+	default n
+	help
+	Driver for ddr lowpm state info

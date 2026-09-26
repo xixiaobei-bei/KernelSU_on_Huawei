@@ -1,0 +1,8 @@
+menuconfig HW_EMCOM_NSTACK
+	bool "Huawei Emcom Nstack"
+	depends on HUAWEI_EMCOM
+	default n
+
+if HW_EMCOM_NSTACK
+source "drivers/emcom/nstack/fi/Kconfig"
+endif # if HW_EMCOM_NSTACK

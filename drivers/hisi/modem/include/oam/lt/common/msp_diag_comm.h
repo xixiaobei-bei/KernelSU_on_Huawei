@@ -1,0 +1,454 @@
+ï»¿/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2012-2015. All rights reserved.
+ * foss@huawei.com
+ *
+ * If distributed as part of the Linux kernel, the following license terms
+ * apply:
+ *
+ * * This program is free software; you can redistribute it and/or modify
+ * * it under the terms of the GNU General Public License version 2 and
+ * * only version 2 as published by the Free Software Foundation.
+ * *
+ * * This program is distributed in the hope that it will be useful,
+ * * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * * GNU General Public License for more details.
+ * *
+ * * You should have received a copy of the GNU General Public License
+ * * along with this program; if not, write to the Free Software
+ * * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA
+ *
+ * Otherwise, the following license terms apply:
+ *
+ * * Redistribution and use in source and binary forms, with or without
+ * * modification, are permitted provided that the following conditions
+ * * are met:
+ * * 1) Redistributions of source code must retain the above copyright
+ * *    notice, this list of conditions and the following disclaimer.
+ * * 2) Redistributions in binary form must reproduce the above copyright
+ * *    notice, this list of conditions and the following disclaimer in the
+ * *    documentation and/or other materials provided with the distribution.
+ * * 3) Neither the name of Huawei nor the names of its contributors may
+ * *    be used to endorse or promote products derived from this software
+ * *    without specific prior written permission.
+ *
+ * * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+#ifndef __MSP_DIAG_COMM_H__
+#define __MSP_DIAG_COMM_H__
+
+#include <product_config.h>
+#include <vos.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#define MDRV_DIAG_ID(module_id, log_type)   (unsigned int)(module_id | (log_type << 12))
+
+#define MDRV_DIAG_AIR_MSG_LOG_ID(module_id, is_up_link)  MDRV_DIAG_ID(module_id, is_up_link)
+
+#define MDRV_DIAG_GEN_LOG_MODULE(modemid, modetype, level)  \
+    ((((VOS_UINT32)modemid & 0xff) << 24)  \
+     | (((VOS_UINT32)modetype & 0xf) << 16)  \
+     | (((VOS_UINT32)level & 0xf) << 12))
+
+#define MDRV_DIAG_GEN_MODULE(modemid, modetype)  \
+    ((((VOS_UINT32)modemid & 0xff) << 24)  \
+     | (((VOS_UINT32)modetype & 0xf) << 16))
+
+#define MDRV_DIAG_GEN_MODULE_EX(modemid, modetype, groupid)  \
+    ((((VOS_UINT32)modemid & 0xff) << 24)  \
+     | (((VOS_UINT32)modetype & 0xf) << 16) \
+     | (((VOS_UINT32)groupid  & 0xf)  << 8))
+
+#define MDRV_DIAG_GEN_LOG_ID(filenum, linenum)   \
+    (((((VOS_UINT32)filenum & 0XFFFF)) << 16)   \
+     | (((VOS_UINT32)linenum & 0XFFFF)))
+
+#define OS_MSG_UL                (0x01)
+#define OS_MSG_DL                (0x02)
+
+#define DIAG_SIDE_UE             (0x1)
+#define DIAG_SIDE_NET            (0x2)
+
+#define DIAG_LOG_TYPE_INFO            0x00000008UL
+#define DIAG_LOG_TYPE_AUDIT_FAILURE   0x00000004UL
+#define DIAG_LOG_TYPE_AUDIT_SUCCESS   0x00000002UL
+#define DIAG_LOG_TYPE_ERROR           0x00000001UL
+#define DIAG_LOG_TYPE_WARNING         0x00000010UL
+
+#define ID_MSG_DIAG_HSO_DISCONN_IND                 (0x00010004)
+
+#define ID_MSG_DIAG_CMD_REPLAY_TO_PS    			(0x00010100)
+
+/* diag ·¢ËÍ¸ø¸÷¸ö×ÓÏµÍ³µÄ½¨Á¬ÇëÇó */
+#define ID_MSG_DIAG_CMD_CONNECT_REQ    		        (0x00010200)
+#define ID_MSG_DIAG_CMD_CONNECT_CNF    		        (ID_MSG_DIAG_CMD_CONNECT_REQ)
+/* diag ·¢ËÍ¸ø¸÷¸ö×ÓÏµÍ³µÄ¶ÏÁ¬ÇëÇó */
+#define ID_MSG_DIAG_CMD_DISCONNECT_REQ    		    (0x00010202)
+#define ID_MSG_DIAG_CMD_DISCONNECT_CNF    		    (ID_MSG_DIAG_CMD_DISCONNECT_REQ)
+
+/* diag ÔÚEMUÆ½Ì¨µ÷ÓÃ´®¿ÚÁ¬½ÓÇëÇó */
+#define ID_MSG_DIAG_DEBUG_EMU_CONNECT_REQ           (0x10010204)
+#define ID_MSG_DIAG_DEBUG_EMU_CONNECT_CNF    		(ID_MSG_DIAG_DEBUG_EMU_CONNECT_REQ)
+
+/* diag ·¢ËÍ¸øTL-PHYµÄÏûÏ¢Á¬½ÓÇëÇó */
+#define ID_MSG_DIAG_DSP_CONNECT_REQ    		        (0x30004903)
+#define ID_MSG_DIAG_DSP_CONNECT_CNF    		        (ID_MSG_DIAG_DSP_CONNECT_REQ)
+/* diag ·¢ËÍ¸øTL-PHYµÄÏûÏ¢¶ÏÁ¬ÇëÇó */
+#define ID_MSG_DIAG_DSP_DISCONNECT_REQ    		    (0x30004904)
+#define ID_MSG_DIAG_DSP_DISCONNECT_CNF    		    (ID_MSG_DIAG_DSP_DISCONNECT_REQ)
+
+
+/* diag ·¢ËÍ¸øTL-PHYµÄÎ¬²â¿ª¹Ø */
+#define ID_MSG_DIAG_DSP_MNTN_SWITCH                 (0x30004907)
+#define ID_MSG_DIAG_DSP_MNTN_SWITCH_CNF             (ID_MSG_DIAG_DSP_MNTN_SWITCH)
+
+/* diag ·¢ËÍ¸øLTE-VµÄÏûÏ¢Á¬½ÓÇëÇó */
+#define ID_MSG_DIAG_LVDSP_CONNECT_REQ    		        (0x37004903)
+#define ID_MSG_DIAG_LVDSP_CONNECT_CNF    		        (ID_MSG_DIAG_LVDSP_CONNECT_REQ)
+/* diag ·¢ËÍ¸øLTE-VµÄÏûÏ¢¶ÏÁ¬ÇëÇó */
+#define ID_MSG_DIAG_LVDSP_DISCONNECT_REQ    		    (0x37004904)
+#define ID_MSG_DIAG_LVDSP_DISCONNECT_CNF    		    (ID_MSG_DIAG_LVDSP_DISCONNECT_REQ)
+
+
+/* diag ·¢ËÍ¸øHL1CµÄÏûÏ¢Á¬½ÓÇëÇó */
+#define ID_MSG_DIAG_HL1C_CONNECT_REQ    		    (0x3f000007)
+#define ID_MSG_DIAG_HL1C_CONNECT_CNF    		    (ID_MSG_DIAG_HL1C_CONNECT_REQ)
+/* diag ·¢ËÍ¸øHL1CµÄÏûÏ¢¶ÏÁ¬ÇëÇó */
+#define ID_MSG_DIAG_HL1C_DISCONNECT_REQ    		    (0x3f000006)
+#define ID_MSG_DIAG_HL1C_DISCONNECT_CNF    		    (ID_MSG_DIAG_HL1C_DISCONNECT_REQ)
+
+#define ID_MSG_DIAG_HL1C_MNTN_SWITCH                (0x3f00000a)
+#define ID_MSG_DIAG_HL1C_MNTN_SWITCH_CNF            (ID_MSG_DIAG_HL1C_MNTN_SWITCH)
+
+#define ID_MSG_DIAG_RFDSP_MNTN_SWITCH               (0x0000f805)
+
+/* diag ·¢ËÍ¸øC-PHYµÄÎ¬²â¿ª¹Ø*/
+#define ID_MSG_DIAG_CPHY_MNTN_SWITCH                (0x0000901d)
+
+/* diag ·¢ËÍ¸øGU-PHYµÄÎ¬²â¿ª¹Ø*/
+#define ID_MSG_DIAG_GUPHY_MNTN_SWITCH               (0x0000ff07)
+
+#define     DIAG_HIFI_RELEASE_REQ                   (0x0000c001)
+
+/* MSP_DIAG_STID_STRU:pri4b */
+#ifdef DIAG_SYSTEM_5G
+enum mdrv_diag_message_type {
+    DIAG_MSG_TYPE_RSV       = 0x0,
+    DIAG_MSG_TYPE_MSP       = 0x1,
+    DIAG_MSG_TYPE_PS        = 0x2,
+    DIAG_MSG_TYPE_PHY       = 0x3,
+    DIAG_MSG_TYPE_BBP       = 0x4,
+    DIAG_MSG_TYPE_HSO       = 0x5,
+    DIAG_MSG_TYPE_BSP       = 0x9, /* MODEM BSP */
+    DIAG_MSG_TYPE_EASYRF    = 0xa,
+    DIAG_MSG_TYPE_AP_BSP    = 0xb, /* AP BSP */
+    DIAG_MSG_TYPE_AUDIO     = 0xc,
+    DIAG_MSG_TYPE_APP       = 0xe,
+    DIAG_MSG_TYPE_BUTT
+};
+#else
+enum mdrv_diag_message_type {
+    DIAG_MSG_TYPE_RSV   = 0x0,
+    DIAG_MSG_TYPE_MSP   = 0x1,
+    DIAG_MSG_TYPE_PS    = 0x2,
+    DIAG_MSG_TYPE_PHY   = 0x3,
+    DIAG_MSG_TYPE_BBP   = 0x4,
+    DIAG_MSG_TYPE_HSO   = 0x5,
+    DIAG_MSG_TYPE_BSP   = 0x9,
+    DIAG_MSG_TYPE_ISP   = 0xa,
+    DIAG_MSG_TYPE_AUDIO = 0xc,
+    DIAG_MSG_TYPE_APP   = 0xe,
+    DIAG_MSG_TYPE_BUTT
+};
+#endif
+
+/* MSP_DIAG_STID_STRU:mode4b */
+enum mdrv_diag_mode_type {
+    DIAG_MODE_LTE  = 0x0,
+    DIAG_MODE_TDS  = 0x1,
+    DIAG_MODE_GSM  = 0x2,
+    DIAG_MODE_UMTS = 0x3,
+    DIAG_MODE_1X   = 0x4,
+    DIAG_MODE_HRPD = 0x5,
+    DIAG_MODE_NR   = 0x6,
+    DIAG_MODE_LTEV = 0x7,
+    DIAG_MODE_COMM = 0xf
+};
+
+enum mdrv_diag_modem_id {
+    DIAG_MODEM_0 = 0x0,
+    DIAG_MODEM_1 = 0x1,
+    DIAG_MODEM_2 = 0x2,
+    DIAG_MODEM_COMMON = 0x7
+};
+
+typedef enum {
+    PS_LOG_LEVEL_OFF  = 0,
+    PS_LOG_LEVEL_ERROR,
+    PS_LOG_LEVEL_WARNING,
+    PS_LOG_LEVEL_NORMAL,
+    PS_LOG_LEVEL_INFO,
+    PS_LOG_LEVEL_BUTT
+} mdrv_diag_log_level_e;
+
+typedef enum {
+    DIAG_STATE_DISCONN  = 0,
+    DIAG_STATE_CONN     = 1,
+    DIAG_STATE_BUTT
+} mdrv_diag_state_e;
+
+typedef struct {
+    VOS_UINT32        ulModule;		/* MDRV_DIAG_GEN_MODULE */
+    VOS_UINT32        ulPid;
+    VOS_UINT32        ulEventId;		/* ÊÂ¼þID */
+    VOS_UINT32        ulLength;
+    VOS_VOID          *pData;
+} mdrv_diag_event_ind_s;
+
+typedef struct {
+    VOS_UINT32        ulModule;       /* MDRV_DIAG_GEN_MODULE */
+    VOS_UINT32        ulPid;
+    VOS_UINT32        ulMsgId;
+    VOS_UINT32        ulDirection;
+    VOS_UINT32        ulLength;
+    VOS_VOID          *pData;
+} mdrv_diag_air_ind_s;
+
+typedef struct {
+    VOS_UINT32        ulModule;
+    VOS_UINT32        ulPid;
+    VOS_UINT32        ulMsgId;
+    VOS_UINT32        ulReserve;
+    VOS_UINT32        ulLength;
+    VOS_VOID          *pData;
+} mdrv_diag_trans_ind_s;
+
+typedef struct {
+    VOS_UINT32        ulModule;
+    VOS_UINT32        ulPid;
+    VOS_UINT32        ulMsgId;
+    VOS_UINT32        ulReserve;
+    VOS_UINT32        ulLength;
+    VOS_VOID          *pData;
+} mdrv_diag_dt_ind_s;
+
+typedef struct {
+    VOS_MSG_HEADER
+    VOS_UINT32              ulMsgId;
+    VOS_UINT32              ulLen;
+    VOS_UINT8               pContext[0];   /*lint !e43 */
+} mdrv_diag_osa_msg_head_s;
+
+typedef mdrv_diag_osa_msg_head_s mdrv_diag_cfg_msg_head_s;
+
+typedef struct {
+    VOS_UINT32		        ulMsgId;            /* ÏûÏ¢ID */
+    VOS_UINT32		        ulLen;              /* ÏûÏ¢³¤¶È */
+    VOS_UINT8		        *pContext[0];   /*lint !e43 */
+} mdrv_core_msg_head_s;
+
+typedef struct {
+    VOS_UINT32              ulMsgId;            /* ÏûÏ¢ID */
+    VOS_UINT8	            *pContext[0];   /*lint !e43 */
+} mdrv_diag_phy_msg_head_s;
+
+typedef struct {
+    VOS_UINT32			    ulChannelId;
+    VOS_UINT32			    ulResult;
+} mdrv_diag_connect_s;
+
+typedef struct {
+    VOS_UINT32				ulSn;
+    mdrv_diag_connect_s     pstResult[0];   /*lint !e43 */
+} mdrv_diag_conn_cnf_msg_s;
+
+typedef struct {
+    VOS_UINT32				ulSn;
+} mdrv_diag_conn_req_msg_s;
+
+/* ÏûÏ¢ID :ID_MSG_DIAG_CMD_REPLAY_TO_PS */
+typedef struct {
+    VOS_UINT32 ulReserved;
+} mdrv_diag_cmd_reply_set_req_s;
+
+/* ÏûÏ¢ID: DIAG_HIFI_RELEASE_REQ*/
+typedef struct {
+    VOS_UINT32                  ulRsv;
+} mdrv_diag_msg_to_other_cpu_disconn_s;
+
+typedef void (*mdrv_diag_conn_state_notify_fun)(mdrv_diag_state_e state);
+
+typedef void* (*mdrv_diag_layer_msg_match_func)(void *pMsg);
+/*****************************************************************************
+ Function Name   : DIAG_TraceMatchFuncReg
+ Description        : ²ã¼äÏûÏ¢¹ýÂË×¢²á½Ó¿Ú(´Ë½Ó¿Ú²»Ö§³ÖÖØ¸´×¢²á£¬¶à´Î×¢²á·µ»¹Ê§°Ü)
+ Input                : ¹ýÂË´¦Àíº¯Êý
+ Output              : None
+ Return              : ·µ»ØÖµÎª×¢²á½á¹û: 0-×¢²á³É¹¦£»ÆäËû-×¢²áÊ§°Ü
+*****************************************************************************/
+unsigned int mdrv_diag_layer_msg_match_func_reg(mdrv_diag_layer_msg_match_func pfunc);
+
+typedef unsigned int (*mdrv_diag_layer_msg_notify_func)(unsigned int sendPid, void *pMsg);
+/*****************************************************************************
+ Function Name   : DIAG_TraceMatchFuncReg
+ Description        : ²ã¼äÏûÏ¢¹ýÂËµÄnotify½Ó¿Ú×¢²á(´Ë½Ó¿Ú²»Ö§³ÖÖØ¸´×¢²á£¬¶à´Î×¢²á·µ»¹Ê§°Ü)
+ Input                : ¹ýÂË´¦Àíº¯Êý
+ Output              : None
+ Return              : ·µ»ØÖµÎª×¢²á½á¹û: 0-×¢²á³É¹¦£»ÆäËû-×¢²áÊ§°Ü
+*****************************************************************************/
+unsigned int mdrv_diag_layer_msg_notify_func_reg(mdrv_diag_layer_msg_notify_func pfunc);
+
+/*****************************************************************************
+ º¯Êý Ãû      : mdrv_diag_trans_report
+ ¹¦ÄÜÃèÊö   : ½á¹¹»¯Êý¾ÝÉÏ±¨½Ó¿Ú(Ìæ»»Ô­À´µÄDIAG_ReportCommand)
+ ÊäÈë²ÎÊý   : mdrv_diag_trans_ind_s->ulModule( 31-24:modemid,19-16:modeid)
+ ÊäÈë²ÎÊý    : mdrv_diag_trans_ind_s->ulPid(Ä£¿éµÄPID)
+                          mdrv_diag_trans_ind_s->ulMsgId(Í¸´«ÃüÁîID)
+                          mdrv_diag_trans_ind_s->ulLength(Í¸´«ÐÅÏ¢µÄ³¤¶È)
+                          mdrv_diag_trans_ind_s->pData(Í¸´«ÐÅÏ¢)
+*****************************************************************************/
+unsigned int mdrv_diag_trans_report(mdrv_diag_trans_ind_s *pstData);
+
+/*****************************************************************************
+ º¯Êý Ãû       : mdrv_diag_trans_report_ex
+ ¹¦ÄÜÃèÊö    : ½á¹¹»¯Êý¾ÝÉÏ±¨µÄÀ©Õ¹½Ó¿Ú(Ïà±ÈDIAG_TransReport£¬ÐÂÔöÁË11-8bits ×é¼þÐÅÏ¢)
+ ÊäÈë²ÎÊý    : mdrv_diag_trans_ind_s->ulModule( 31-24:modemid,19-16:modeid, 11-8:groupid )
+ ÊäÈë²ÎÊý    : mdrv_diag_trans_ind_s->ulPid(Ä£¿éµÄPID)
+                            mdrv_diag_trans_ind_s->ulMsgId(Í¸´«ÃüÁîID)
+                            mdrv_diag_trans_ind_s->ulLength(Í¸´«ÐÅÏ¢µÄ³¤¶È)
+                            mdrv_diag_trans_ind_s->pData(Í¸´«ÐÅÏ¢)
+*****************************************************************************/
+unsigned int mdrv_diag_trans_report_ex(mdrv_diag_trans_ind_s *pstData);
+
+/*****************************************************************************
+ º¯Êý Ãû      : mdrv_diag_log_report
+ ¹¦ÄÜÃèÊö  : ´òÓ¡ÉÏ±¨½Ó¿Ú
+ ÊäÈë²ÎÊý  : ulModuleId( 31-24:modemid,19-16:modeid,15-12:level )
+                          ulPid( PID )
+                          pcFileName(ÉÏ±¨Ê±»á°ÑÎÄ¼þÂ·¾¶É¾³ý£¬Ö»±£ÁôÎÄ¼þÃû)
+                          ulLineNum(ÐÐºÅ)
+                          pszFmt(¿É±ä²ÎÊý)
+×¢ÒâÊÂÏî  : ÓÉÓÚ´Ë½Ó¿Ú»á±»Ð­ÒéÕ»Æµ·±µ÷ÓÃ£¬ÎªÌá¸ß´¦ÀíÐ§ÂÊ£¬±¾½Ó¿ÚÄÚ²¿»áÊ¹ÓÃ1KµÄ¾Ö²¿±äÁ¿±£´æÉÏ±¨µÄ×Ö·û´®ÐÅÏ¢£¬
+                         ´Ó¶ø´Ë½Ó¿Ú¶ÔÐ­ÒéÕ»ÓÐÁ½µãÏÞÖÆ£¬
+                         Ò»ÊÇµ÷ÓÃ´Ë½Ó¿ÚµÄÈÎÎñÕ»ÖÐµÄÄÚ´æÒªÖÁÉÙÎª´Ë½Ó¿ÚÔ¤Áô1K¿Õ¼ä£»
+                         ¶þÊÇµ÷ÓÃ´Ë½Ó¿ÚÊä³öµÄlog²»Òª³¬¹ý1K£¨³¬³ö²¿·Ö»á×Ô¶¯¶ªÆú£©
+*****************************************************************************/
+unsigned int mdrv_diag_log_report(unsigned int ulModuleId, unsigned int ulPid, char *cFileName, unsigned int ulLineNum, char* pszFmt, ...);
+/******************************************************************************
+º¯ÊýÃû³Æ: mdrv_diag_logid_report
+¹¦ÄÜÃèÊö: ´òÓ¡µãÀàÐÍµÄ´òÓ¡½Ó¿Úº¯Êý
+²ÎÊýËµÃ÷:ulModuleId[in]  : ( 31-24:modemid,23-16:modeid,15-12:level )
+                      ulPid[in]           : PID
+                      ulLogId[in]       : ÓÉÎÄ¼þºÅºÍÐÐºÅ¸ù¾ÝDIAG_LOG_IDÉú³É
+                      amount[in]       : ¿É±ä²ÎÊý¸öÊý£¨²»°üÀ¨ulModuleId/ulLevel/ulLogId/amout£©
+                      ...                   : ¿É±ä²ÎÊý
+µ÷ÓÃÔ¼Êø:
+            1. ¾ø¶Ô½ûÖ¹¶Ô´Ëº¯Êý½øÐÐ¶þ´Î·â×°£¬Ö»ÄÜ×ª¶¨Òå
+            2. Ö§³Ö¿É±äµÄ²ÎÊý¸öÊý£¬µ«±ØÐëÔÚµ÷ÓÃÊ±ÓÉ²ÎÊýamountÖ¸¶¨²ÎÊý¸öÊý
+            3. ¿É±ä²ÎÊýÖ»Ö§³ÖintÀàÐÍ
+            4. Ä¿Ç°°æ±¾ÖÐÖ§³ÖµÄ×î´ó²ÎÊý¸öÊýÊÇ6¸ö£¬³¬¹ýµÄ²ÎÊýÄ¬ÈÏ¶ªÆú
+******************************************************************************/
+unsigned int mdrv_diag_logid_report(unsigned int ulModuleId, unsigned int ulPid, \
+        unsigned int ulLogId, unsigned int amount, ...);
+
+/*****************************************************************************
+ º¯Êý Ãû     : mdrv_diag_event_report
+ ¹¦ÄÜÃèÊö  : ÊÂ¼þÉÏ±¨½Ó¿Ú£¬¸øPSÊ¹ÓÃ(Ìæ»»Ô­À´µÄDIAG_ReportEventLog)
+ ÊäÈë²ÎÊý  : mdrv_diag_event_ind_s->ulModule( 31-24:modemid,19-16:modeid )
+                          mdrv_diag_event_ind_s->ulEventId(event ID)
+                          mdrv_diag_event_ind_s->ulLength(eventµÄ³¤¶È)
+                          mdrv_diag_event_ind_s->pData(eventÐÅÏ¢)
+*****************************************************************************/
+unsigned int mdrv_diag_event_report(mdrv_diag_event_ind_s *pstEvent);
+
+/*****************************************************************************
+ º¯ Êý Ãû  : mdrv_diag_allow_air_msg_report
+ ¹¦ÄÜÃèÊö  : Ìá¹©¸øÐ­ÒéÕ»,ÓÃÓÚ¼ì²âµ±Ç°ÊÇ·ñÔÊÐíÉÏ±¨AirMsg
+ ÊäÈë²ÎÊý  : VOS_VOID
+ ·µ»ØÖµ    : ERR_MSP_SUCCESS = 0 µ±Ç°ÔÊÐíÉÏ±¨¿Õ¿ÚÏûÏ¢
+             ERR_MSP_CFG_LOG_NOT_ALLOW = 203 µ±Ç°²»ÔÊÐíÉÏ±¨¿Õ¿ÚÏûÏ¢
+
+*****************************************************************************/
+unsigned int mdrv_diag_allow_air_msg_report(void);
+
+/*****************************************************************************
+ º¯Êý Ãû       : mdrv_diag_air_report
+ ¹¦ÄÜÃèÊö  : ¿Õ¿ÚÏûÏ¢ÉÏ±¨½Ó¿Ú£¬¸øPSÊ¹ÓÃ(Ìæ»»Ô­À´µÄDIAG_ReportAirMessageLog)
+ ÊäÈë²ÎÊý  : mdrv_diag_air_ind_s->ulModule( 31-24:modemid,23-16:modeid)
+                          mdrv_diag_air_ind_s->ulMsgId(¿Õ¿ÚÏûÏ¢ID)
+                          mdrv_diag_air_ind_s->ulDirection(¿Õ¿ÚÏûÏ¢µÄ·½Ïò)
+                          mdrv_diag_air_ind_s->ulLength(¿Õ¿ÚÏûÏ¢µÄ³¤¶È)
+                          mdrv_diag_air_ind_s->pData(¿Õ¿ÚÏûÏ¢ÐÅÏ¢)
+*****************************************************************************/
+unsigned int mdrv_diag_air_report(mdrv_diag_air_ind_s *pstAir);
+
+/*****************************************************************************
+ º¯ Êý Ãû     : mdrv_diag_trace_report
+ ¹¦ÄÜÃèÊö  : ²ã¼äÏûÏ¢ÉÏ±¨½Ó¿Ú£¬¸øPSÊ¹ÓÃ(Ìæ»»Ô­À´µÄDIAG_ReportLayerMessageLog)
+ ÊäÈë²ÎÊý  : pMsg(±ê×¼µÄVOSÏûÏ¢Ìå£¬Ô´Ä£¿é¡¢Ä¿µÄÄ£¿éÐÅÏ¢´ÓÏûÏ¢ÌåÖÐ»ñÈ¡)
+*****************************************************************************/
+void mdrv_diag_trace_report(void *pMsg);
+
+/*****************************************************************************
+ Function Name   : mdrv_diag_get_conn_state
+ Description        : »ñÈ¡µ±Ç°¹¤¾ßÁ¬½Ó×´Ì¬
+ Return              : 1:connect; 0:disconnect
+*****************************************************************************/
+unsigned int mdrv_diag_get_conn_state(void);
+
+/*****************************************************************************
+ º¯ Êý Ãû     : Log_GetPrintLevel
+ ¹¦ÄÜÃèÊö  : µÃµ½Ä£¿éId¡¢×ÓÄ£¿éIdÔÚ´òÓ¡¼¶±ð¼ÇÂ¼±íÖÐµÄË÷ÒýºÅ
+ return               : mdrv_diag_log_level_e
+*****************************************************************************/
+unsigned int mdrv_diag_get_log_level(unsigned int pid);
+/*****************************************************************************
+ º¯ Êý Ãû  : mdrv_diag_rtt_report	1344
+ ¹¦ÄÜÃèÊö  : 1. ÉÏ±¨TL PHYÊý¾Ý£¬NR/LR ModemÌá¹©,½ö¹©TLPHY RTTÊ¹ÓÃ
+             2. Èë²ÎÖ¸ÕëÎªTLPHYÒªÉÏ±¨µÄÊý¾Ý£¬°üº¬TLPHYÍêÕûµÄÊý¾Ý¸ñÊ½£¬´ÓserviceÍ·¿ªÊ¼µÄÊý¾Ý(´Ósid¿ªÊ¼)
+             3. Rtt AgentÖ¡½á¹¹ÒýÓÃmspÍ·ÎÄ¼þmsp_diag_comm.h(Ê¹ÓÃmsp.h)
+             4. ½Ó¿ÚÍ·ÎÄ¼þÉùÃ÷·ÅÔÚmsp_diag_comm.h(Ê¹ÓÃmsp.h)
+             5. pData²»ÄÜÎª¿Õ ulDataLen²»ÄÜÎª0
+             6. ±ØÐëÒª±£Ö¤ulDataLenÕýÈ·ÐÔ£¬²»ÄÜ³öÏÖpData·ÃÎÊÔ½½ç
+             7. ulDataLen²»ÄÜ´óÓÚ64K
+ ·µ»ØÖµ   :  ERR_MSP_SUCCESS  ³É¹¦
+             ERR_MSP_DIAG_SRC_BUFF_ALLOC_FAIL Ô´¶ËÄÚ´æ²»×ã
+             ÆäËûÖµ          Ê§°Ü
+*****************************************************************************/
+unsigned int mdrv_diag_rtt_report(void *pData, unsigned int ulDatalen);
+/*****************************************************************************
+ º¯ Êý Ãû     : mdrv_diag_dt_report
+ ¹¦ÄÜÃèÊö  : Â·²âÊý¾ÝÉÏ±¨À©Õ¹½Ó¿Ú
+ ÊäÈë²ÎÊý  : mdrv_diag_dt_ind_s->ulModule( 31-24:modemid,23-16:modeid,11-8:groupid )
+                          mdrv_diag_dt_ind_s->ulMsgId(Í¸´«ÃüÁîID)
+                          mdrv_diag_dt_ind_s->ulLength(Í¸´«ÐÅÏ¢µÄ³¤¶È)
+                          mdrv_diag_dt_ind_s->pData(Í¸´«ÐÅÏ¢)
+*****************************************************************************/
+unsigned int mdrv_diag_dt_report(mdrv_diag_dt_ind_s *pstData);
+/*****************************************************************************
+ º¯ Êý Ãû     : mdrv_diag_dt_report
+ ¹¦ÄÜÃèÊö  : Ìá¹©¸øModem×é¼þ£¬ÓÃÓÚÍ¨Öª×é¼þµ±Ç°¹¤¾ßÁ¬½Ó¶Ï¿ª×´Ì¬±ä»¯£»
+ ÊäÈë²ÎÊý  : 1. DIAG_ConnStateNotifyFunº¯Êý»áÔÚDIAGºÍ¹¤¾ßÁ¬½Ó¶Ï¿ª¹ý³ÌÖÐµ÷ÓÃ£¬ÆäÖÐ²»ÄÜÓÐÈÎºÎ×èÈûÐÔ²Ù×÷;
+                          2. ²»ÔÊÐí·´¸´×¢²á,µ¥¸ö×é¼þÖ»ÔÊÐí×¢²áÒ»´Î
+*****************************************************************************/
+unsigned int mdrv_diag_conn_state_notify_fun_reg(mdrv_diag_conn_state_notify_fun pfun);
+
+#ifdef __cplusplus
+    }
+#endif
+#endif

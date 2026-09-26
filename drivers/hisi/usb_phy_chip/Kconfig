@@ -1,0 +1,24 @@
+config HISI_USB_PHY_CHIP
+	bool "hisi usb phy chip driver"
+	default n
+	help
+	  hisi usb phy chip driver(Hi6502)
+
+config HISI_USB_PHY_DRIVER
+	bool "hisi usb phy driver"
+	default n
+	help
+	  hisi usb phy driver(hisi & snps phy)
+config HISI_USB_PHY_EFUSE
+	bool "hisi usb phy chip efuse driver"
+	depends on (HISI_USB_PHY_CHIP)
+	default n
+	help
+	  hisi usb phy chip efuse driver
+
+config USB_PHY_CHIP_FIX_BC_DETECT
+	bool "hisi usb phy chip fix bc detect problem"
+	depends on (HISI_USB_PHY_CHIP)
+	help
+	  hisi usb phy chip fix bc detect problem
+

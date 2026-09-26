@@ -1,0 +1,5 @@
+config HISI_AP_READY
+	bool "Ap init ok notice support"
+	default n
+	help
+		Notice to 1135 kernel init end

@@ -1,0 +1,6 @@
+config USB_VBUS_SPMI
+	tristate "Hisilicon Platforms USB VBUS usb spmi drv intf"
+	depends on HISI_SPMI
+	default n
+	help
+	  Use spmi bus register usb insert/pull-out interrupt.

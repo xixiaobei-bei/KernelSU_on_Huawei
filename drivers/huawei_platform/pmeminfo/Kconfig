@@ -1,0 +1,9 @@
+menu "Huawei memory info dump"
+
+config TOPN_MEMINFO_DUMP
+	bool "Memory info dump for TopN"
+	default n
+	help
+	   Dump process info and memory info for TopN
+
+endmenu

@@ -1,0 +1,5 @@
+config USB_EXTRA_MODEM
+	bool "huawei usb extra modem driver"
+	default n
+	help
+	  Enable this option to support extra modem by usb.

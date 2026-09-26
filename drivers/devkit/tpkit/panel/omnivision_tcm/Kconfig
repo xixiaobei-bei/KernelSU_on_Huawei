@@ -1,0 +1,13 @@
+#
+# Omnivision TCM touchscreen driver configuration
+#
+
+menuconfig OMNIVISION_TCM_TS_KIT
+	tristate "OMNIVISION TCM touchscreen"
+	default n
+	help
+	  Say Y here if you have a OMNIVISION TCM touchscreen connected
+	  to your system.
+
+	  If unsure, say N.
+

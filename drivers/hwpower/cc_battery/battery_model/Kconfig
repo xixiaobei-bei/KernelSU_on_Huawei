@@ -1,0 +1,12 @@
+#
+# huawei battery model driver
+#
+
+config HUAWEI_BATTERY_MODEL
+	bool "huawei battery model driver"
+	default n
+	help
+	  Say Y here to enable battery model driver.
+	  This driver provides a unified interface to battery model,
+	  such as: battery name, rated capacity, etc.
+	  It shields battery model differences between platforms.

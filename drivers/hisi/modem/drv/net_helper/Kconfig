@@ -1,0 +1,9 @@
+#
+# Balong net_helper configuration
+#
+
+config IPF_SUPPORT
+tristate "net_helper support"
+default n
+    help
+    balong net_helper driver

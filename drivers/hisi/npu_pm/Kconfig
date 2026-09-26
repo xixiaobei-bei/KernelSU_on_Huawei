@@ -1,0 +1,51 @@
+menu "NPU PM Options"
+
+config NPU_PM
+    tristate "NPU Power Management Driver"
+    depends on ARCH_HISI
+    help
+      This enables the npu low power driver.
+
+config NPU_PM_DEBUG
+    tristate "NPU Power Management Debug Driver"
+    depends on NPU_PM
+    help
+      This enables the npu low power debug driver.
+
+config NPUFREQ
+    tristate "NPUFREQ Driver Based On Devfreq"
+    depends on NPU_PM
+    select PM_OPP
+    help
+      This enables the NPUFREQ Driver Based On Devfreq.
+config NPU_PM_AVS_VDM
+    tristate "NPU avs&svfd"
+    depends on NPUFREQ
+    help
+      This enables the NPU avs or svfd.
+
+config NPU_PM_AVS_NEW_TZONE
+    tristate "NPU avs use new tzone feature"
+    depends on NPUFREQ
+    help
+      This enables the NPU use new avs tzone.
+
+config NPUFREQ_PM_QOS
+    tristate "NPUFREQ PM Qos"
+    depends on NPU_PM
+    help
+      This enables the NPUFREQ PM Qos.
+
+config NPU_PM_SHARE_PERI_BUCK
+    tristate "NPU share peri buck with other IP"
+    depends on (NPU_PM && HISI_PERIDVFS)
+    help
+      This enables the NPU peri buck.
+
+config NPU_PM_SMC
+    tristate "NPU Power Management Driver Using SMC"
+    depends on NPU_PM
+    help
+      This enables the npu low power smc driver.
+
+endmenu

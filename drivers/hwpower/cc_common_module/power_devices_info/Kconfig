@@ -1,0 +1,10 @@
+#
+# huawei power devices info drivers
+#
+
+config HUAWEI_POWER_DEVICES_INFO
+	bool "huawei power devices information"
+	default n
+	help
+	  Say Y here to enable power devices information driver.
+	  This driver is used to statistics charging related device information.

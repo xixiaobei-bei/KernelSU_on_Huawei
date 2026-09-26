@@ -1,0 +1,10 @@
+config DKMD_ENABLE
+	bool "DKMD driver support"
+	default n
+	help
+	  This feature driver supports dkmd driver.
+
+# source "drivers/video/fbdev/dkmd/dpu/cetus/Kconfig"
+# source "drivers/video/fbdev/dkmd/connector/Kconfig"
+# source "drivers/video/fbdev/dkmd/cmdlist/Kconfig"
+# source "drivers/video/fbdev/dkmd/dksm/Kconfig"

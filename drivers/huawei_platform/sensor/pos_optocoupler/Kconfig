@@ -1,0 +1,8 @@
+#
+# pos_optocoupler driver configuration
+#
+config POS_OPTOCOUPLER
+	bool "huawei pos_optocoupler driver"
+	default n
+	help
+	Say yes here to support for pos optocoupler.

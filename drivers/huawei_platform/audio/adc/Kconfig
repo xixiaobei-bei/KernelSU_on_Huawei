@@ -1,0 +1,14 @@
+#
+#adc config driver configuration
+#
+menuconfig SND_SOC_ES7210
+	bool "es7210 config driver"
+	default n
+	help
+	Say yes here to support for es7210 config driver.
+
+menuconfig SND_SOC_ES7243E
+        bool "es7243e config driver"
+        default n
+        help
+        Say yes here to support for es7243e config driver.

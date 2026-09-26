@@ -1,0 +1,26 @@
+config HIEPS
+	bool "hieps"
+	default n
+	help
+	  hieps driver
+
+config HIEPS_SMX_ATCMD
+	bool "hieps set/get smx"
+	depends on HIEPS
+	default n
+	help
+	  hieps driver set/get smx
+
+config HIEPS_WITHOUT_CPU
+	bool "hieps without cpu"
+	depends on HIEPS
+	default n
+	help
+	  hieps driver without cpu
+
+config HIEPS_POWERON_WITH_SMMU
+	bool "hieps poweron with smmu"
+	depends on HIEPS
+	default n
+	help
+	  hieps driver poweron with smmu

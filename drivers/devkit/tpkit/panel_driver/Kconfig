@@ -1,0 +1,4 @@
+#
+# huawei touchscreen driver configuration
+#
+source "drivers/devkit/tpkit/panel_driver/rotary_crown/Kconfig"

@@ -1,0 +1,77 @@
+config HMDFS_FS
+	tristate "HMDFS"
+	help
+	  hmdfs
+
+config HMDFS_ANDROID
+	bool "HMDFS ANDROID PLATFORM"
+	depends on HMDFS_FS && ANDROID
+	default n
+	help
+	  hmdfs for android platform
+
+config HMDFS_1_0
+	bool "HMDFS 1.0 VERSION COMPATIBILITY"
+	depends on HMDFS_ANDROID
+	default n
+	help
+	  Enable adapter for earlier version compatibility
+
+config HMDFS_CRYPTO
+	bool "HMDFS CRYPTO"
+	depends on HMDFS_FS && TLS
+	default n
+	help
+	  Crypto for hmdfs
+
+config HMDFS_FS_DEBUG
+	bool "HMDFS Debug log print"
+	default n
+
+config HMDFS_XATTR_NOSECURITY_SUPPORT
+	bool "HMDFS XATTR_NOSECURITY SUPPORT"
+	depends on HMDFS_FS
+	default n
+	help
+	  __vfs_getxattr's parameters has been modified by Android Kernel v5.4
+	  For kernel with that patch, this option should be enabled.
+
+# D2D Protocol configuration
+
+source "fs/hmdfs/d2dp/Kconfig"
+
+config HMDFS_D2DP_TRANSPORT
+       bool "HMDFS D2D PROTOCOL SUPPORT"
+       depends on HMDFS_FS && D2D_PROTOCOL
+       default n
+       help
+         Enable experimental D2D Protocol for transport. The protocol is
+         designed to achieve maximum bandwidth on local WiFi networks but may
+         slightly increase latency.
+
+config HMDFS_D2DP_TX_BINDING
+       bool "HMDFS D2DP TX THREAD BINDING"
+       depends on HMDFS_D2DP_TRANSPORT
+       default n
+       help
+         Some chipsets divide CPUs into several groups depending on their
+         maximum frequency. The fastest ones are 6 and 7 CPUs. This option
+         enables binding for D2DP TX thread on the fastest group (6 and 7 CPUs)
+         to achieve maximum transmission speed.
+
+config HMDFS_D2DP_UDP_INCREASE_SND_BUF
+       bool "HMDFS D2D UDP SEND BUFFER TUNING"
+       depends on HMDFS_FS && HMDFS_D2DP_TRANSPORT
+       default n
+       help
+         This option increases SO_SNDBUF value for D2DP connections to improve
+         transmission speed.
+         Say N here if your networking driver drops packets with increased
+         SO_SNDBUF
+
+config HMDFS_LOW_LATENCY
+	bool "HMDFS low latency networking"
+	depends on HMDFS_FS
+	default n
+	help
+	  Enable low-latency solution for fast response networking

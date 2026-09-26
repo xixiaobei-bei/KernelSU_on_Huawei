@@ -1,0 +1,3 @@
+config NPU_BBIT_DEBUGFS
+	tristate "NPU BBIT DEBUGFS"
+	default n

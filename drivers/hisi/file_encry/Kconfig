@@ -1,0 +1,27 @@
+config FILE_BASED_ENCRYPTO
+	bool "FEB3 support"
+	default n
+	help
+	  Say yes here to support the FBE3
+
+config FILE_BASED_ENCRYPTO_DBG
+	bool "FEB3 debug support"
+	depends on FILE_BASED_ENCRYPTO
+	depends on HISI_DEBUG_FS
+	default n
+	help
+	  Say yes here to support the FBE3 debug
+
+config FBE_MSPC_ABSENT
+	bool "FEB3 not to use MSPC"
+	depends on FILE_BASED_ENCRYPTO
+	default n
+	help
+	  Say yes here FBE3 not to use MSPC
+
+config FBE_FPGA
+	bool "FEB3 FPGA mode"
+	depends on FILE_BASED_ENCRYPTO
+	default n
+	help
+	  Say yes here to adapt the FBE3 in FPGA

@@ -1,0 +1,6 @@
+config SECURITY_INFO
+	bool "Support security info"
+	default n
+	help
+	security info support
+

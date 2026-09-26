@@ -1,0 +1,9 @@
+
+#
+# fingerprint configuration
+#
+menuconfig ARMPC_FINGERPRINT
+	bool "armpc_fingerprint"
+	default n
+	help
+	Say yes here to support for fingerprint.

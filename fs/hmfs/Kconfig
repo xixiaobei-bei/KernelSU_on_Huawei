@@ -1,0 +1,129 @@
+config HMFS_FS
+	tristate "HMFS filesystem support"
+	depends on BLOCK
+	select CRYPTO
+	select CRYPTO_CRC32
+	help
+	  HMFS is based on Log-structured File System (LFS), which supports
+	  versatile "flash-friendly" features. The design has been focused on
+	  addressing the fundamental issues in LFS, which are snowball effect
+	  of wandering tree and high cleaning overhead.
+
+	  Since flash-based storages show different characteristics according to
+	  the internal geometry or flash memory management schemes aka FTL, HMFS
+	  and tools support various parameters not only for configuring on-disk
+	  layout, but also for selecting allocation and cleaning algorithms.
+
+	  If unsure, say N.
+
+config HMFS_STAT_FS
+	bool "HMFS Status Information"
+	depends on HMFS_FS && DEBUG_FS
+	default y
+	help
+	  /sys/kernel/debug/hmfs/ contains information about all the partitions
+	  mounted as hmfs. Each file shows the whole hmfs information.
+
+	  /sys/kernel/debug/hmfs/status includes:
+	    - major filesystem information managed by hmfs currently
+	    - average SIT information about whole segments
+	    - current memory footprint consumed by hmfs.
+
+config HMFS_FS_XATTR
+	bool "HMFS extended attributes"
+	depends on HMFS_FS
+	default y
+	help
+	  Extended attributes are name:value pairs associated with inodes by
+	  the kernel or by users (see the attr(5) manual page, or visit
+	  <http://acl.bestbits.at/> for details).
+
+	  If unsure, say N.
+
+config HMFS_FS_POSIX_ACL
+	bool "HMFS Access Control Lists"
+	depends on HMFS_FS_XATTR
+	select FS_POSIX_ACL
+	default y
+	help
+	  Posix Access Control Lists (ACLs) support permissions for users and
+	  groups beyond the owner/group/world scheme.
+
+	  To learn more about Access Control Lists, visit the POSIX ACLs for
+	  Linux website <http://acl.bestbits.at/>.
+
+	  If you don't know what Access Control Lists are, say N
+
+config HMFS_FS_SECURITY
+	bool "HMFS Security Labels"
+	depends on HMFS_FS_XATTR
+	help
+	  Security labels provide an access control facility to support Linux
+	  Security Models (LSMs) accepted by AppArmor, SELinux, Smack and TOMOYO
+	  Linux. This option enables an extended attribute handler for file
+	  security labels in the hmfs filesystem, so that it requires enabling
+	  the extended attribute support in advance.
+
+	  If you are not using a security module, say N.
+
+config HMFS_CHECK_FS
+	bool "HMFS consistency checking feature"
+	depends on HMFS_FS
+	help
+	  Enables BUG_ONs which check the filesystem consistency in runtime.
+
+	  If you want to improve the performance, say N.
+
+config HMFS_FS_ENCRYPTION
+	bool "HMFS Encryption"
+	depends on HMFS_FS
+	depends on HMFS_FS_XATTR
+	select FS_ENCRYPTION
+	help
+	  Enable encryption of hmfs files and directories.  This
+	  feature is similar to ecryptfs, but it is more memory
+	  efficient since it avoids caching the encrypted and
+	  decrypted pages in the page cache.
+
+config HMFS_IO_TRACE
+	bool "HMFS IO tracer"
+	depends on HMFS_FS
+	depends on FUNCTION_TRACER
+	help
+	  HMFS IO trace is based on a function trace, which gathers process
+	  information and block IO patterns in the filesystem level.
+
+	  If unsure, say N.
+
+config HUAWEI_HMFS_DSM
+	bool "Listen hmfs kernel err"
+	default n
+	help
+		use huawei fs log radar
+
+config HMFS_FAULT_INJECTION
+	bool "HMFS fault injection facility"
+	depends on HMFS_FS
+	help
+	  Test HMFS to inject faults such as ENOMEM, ENOSPC, and so on.
+
+	  If unsure, say N.
+config HISI_HMFS_MTIME
+	bool "reduce freq to update mtime"
+	default n
+	help
+		reduce freq to update mtime
+
+config HMFS_JOURNAL_APPEND
+	bool "HMFS append sit and nat journal size"
+	depends on HMFS_FS
+	default n
+	help
+	  append 2 blocks for sit and nat journal
+
+config HMFS_GRADING_SSR
+	bool "HMFS grading ssr"
+	depends on HMFS_FS
+	default n
+	help
+	  use grading ssr to improve the end performance

@@ -1,0 +1,42 @@
+
+
+#ifndef __HMAC_CALI_ARR_INIT_H__
+#define __HMAC_CALI_ARR_INIT_H__
+
+#include "hmac_cali_mgmt.h"
+#include "wlan_cali.h"
+
+#ifdef __cplusplus
+#if __cplusplus
+extern "C" {
+#endif
+#endif
+#undef THIS_FILE_ID
+#define THIS_FILE_ID OAM_FILE_ID_HMAC_CALI_ARR_INIT_H
+
+extern int16_t g_as_txiq_h_comp_160m[HI1103_CALI_TXIQ_LS_FILTER_TAP_NUM][HI1103_CALI_TXIQ_LS_FILTER_FEQ_NUM_160M];
+extern int16_t g_as_txiq_h_comp_320m[HI1103_CALI_TXIQ_LS_FILTER_TAP_NUM][HI1103_CALI_TXIQ_LS_FILTER_FEQ_NUM_320M];
+extern int16_t g_as_txiq_h_comp_640m[HI1103_CALI_TXIQ_LS_FILTER_TAP_NUM][HI1103_CALI_TXIQ_LS_FILTER_FEQ_NUM_640M];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_h_comp_40m[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_40M];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_h_comp_80m[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_80M];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_40m_h_comp_160m[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_160M];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_h_comp_80m_fpga[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_80M_FPGA];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_h_comp_160m[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_160M];
+extern hi1105_complex_stru g_ast_hi1105_rxiq_h_comp_320m[HI1105_RXIQ_LSFIR_NUM][HI1105_RXIQ_LSFIR_FEQ_NUM_320M];
+extern hi1105_complex_stru g_ast_hi1105_txiq_h_comp_80m[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_80M];
+extern hi1105_complex_stru g_ast_hi1105_txiq_h_comp_160m[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_160M];
+extern hi1105_complex_stru g_ast_hi1105_2g_txiq_h_comp_320m[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_320M];
+extern hi1105_complex_stru g_ast_hi1105_txiq_h_comp_160m_fpga[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_160M_FPGA];
+extern hi1105_complex_stru g_ast_hi1105_txiq_h_comp_320m[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_320M];
+extern hi1105_complex_stru g_ast_hi1105_txiq_h_comp_640m[HI1105_TXIQ_LSFIR_NUM][HI1105_TXIQ_LSFIR_FEQ_NUM_640M];
+extern uint32_t g_corram_data_20m[DPD_CORRAM_DATA_NUM];
+extern uint32_t g_corram_data_40m[DPD_CORRAM_DATA_NUM];
+extern uint32_t g_corram_data_80m[DPD_CORRAM_DATA_NUM];
+extern uint32_t g_dpd_corram_data[HI1106_DPD_CORRAM_DATA_LEN];
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif
+#endif

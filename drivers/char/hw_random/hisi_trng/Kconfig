@@ -1,0 +1,22 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2019-2019. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+
+config HW_RANDOM_HISI_TRNG
+	tristate "Hisilicon Ture Random Number Generator support"
+	default n
+	depends on HW_RANDOM && ARCH_HISI && TZDRIVER && LOAD_IMAGE
+	help
+	---help---
+	  This driver provides kernel-side support for the Random Number
+	  Generator hardware found on dx engine.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called hisi-trng.
+
+	  If unsure, say Y.
+

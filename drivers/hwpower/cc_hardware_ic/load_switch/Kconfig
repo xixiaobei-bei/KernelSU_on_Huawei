@@ -1,0 +1,24 @@
+#
+# huawei load switch for direct charge drivers
+#
+
+config LOADSWITCH
+	bool "load_switch"
+	depends on DIRECT_CHARGER
+	default n
+	help
+	  Say Y here to enable load switch driver.
+	  This driver provides a unified interface for load switch.
+	  Support device:
+	  rt9748
+
+config RT9748
+	bool "rt9748_for_direct_charge"
+	depends on LOADSWITCH
+	default n
+	help
+	  Say Y here to enable rt9748 driver.
+	  RT9748 is a 6-A smart load switch battery charger, which integrates an
+	  internal load switch with charge pump control and 4-path constant current
+	  and constant voltage regulation, a 5-way hardware protection, and a 10-channel
+	  12-bit ADC converter.

@@ -1,0 +1,5 @@
+config DIG_HS_POWER_V600
+	tristate "Support for digital headset power consumption v600 control"
+	default n
+	---help---
+	 Say Y here if you want to support digital headset power consumption v600 control

@@ -1,0 +1,1 @@
+obj-$(CONFIG_CERTIFICATION_IC_A1007) += a1007_crypto.o becc.o sha224.o uecc.o present80.o

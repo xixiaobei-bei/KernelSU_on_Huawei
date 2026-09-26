@@ -1,0 +1,30 @@
+#
+# huawei buck boost drivers
+#
+
+config BUCKBOOST
+	bool "buck boost"
+	default n
+	help
+	  Say Y here to enable buck_boost driver.
+	  This driver provides a unified interface to buck_boost.
+	  This driver is in logic layer.
+	  Currently supported device_check and set_vol etc.
+
+config BUCKBOOST_TPS63810
+	bool "buck boost tps63810"
+	depends on BUCKBOOST
+	default n
+	help
+	  Say Y here to enable buckboost tps63810 driver.
+	  Currently supported chips as below:
+	  ti: tps63810.
+	  rt: rt6160.
+	  rt6160 and tps63810 are compatible in device function and pin.
+
+config BUCKBOOST_MAX77813
+	bool "buck boost max77813"
+	depends on BUCKBOOST
+	default n
+	help
+	  Say Y here to enable buckboost max77813 driver.

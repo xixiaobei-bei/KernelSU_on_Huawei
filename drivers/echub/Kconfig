@@ -1,0 +1,28 @@
+#
+# Huawei echub driver configuration
+#
+
+config HUAWEI_ECHUB
+	bool "huawei echub drvier"
+	depends on I2C
+	default n
+	help
+	  echub handle all EC chipset status and messages required by OS,it's agent of EC in the Linux Kernel.
+
+config HUAWEI_ECHUB_I2C
+	bool "huawei echub i2c drvier"
+	depends on HUAWEI_ECHUB
+	default n
+	help
+	  echub i2c drvier handle all EC chipset data read/write.
+
+config HUAWEI_ECHUB_DEBUG_FS
+	bool "huawei echub debug"
+	depends on HUAWEI_ECHUB
+	default n
+	help
+	  enable echub debug fs
+
+source drivers/echub/keyboard/Kconfig
+source drivers/echub/power/Kconfig
+source drivers/echub/battery/Kconfig

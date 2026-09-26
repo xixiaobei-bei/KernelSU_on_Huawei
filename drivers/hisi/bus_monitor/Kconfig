@@ -1,0 +1,10 @@
+config BUS_MONITOR_TEST
+	bool "bus monitor test"
+	default n
+	help
+	test CPU Bus Perf Monitor
+config BUS_MONITOR
+	bool "bus monitor"
+	default n
+	help
+	CPU Bus Perf Monitor

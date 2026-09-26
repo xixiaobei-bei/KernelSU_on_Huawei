@@ -1,0 +1,5 @@
+config BALONG_TRANS_REPORT
+	tristate "bsp4 for hids log"
+	help
+	  If this option is enabled, the kernel will include support
+	  for soft fast forward.

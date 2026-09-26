@@ -1,0 +1,9 @@
+#
+# Balong PAM configuration
+#
+
+config PAM_NR_MODEM_BUILD
+    bool "pam nr modem build"
+    default n
+    help
+        balong pam nr modem build config for kenel.

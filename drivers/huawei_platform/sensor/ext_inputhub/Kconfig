@@ -1,0 +1,5 @@
+menuconfig EXT_INPUTHUB
+	bool "External InputHub feature support"
+	default n
+	help
+	Say yes here to support external sensorhub feature.
