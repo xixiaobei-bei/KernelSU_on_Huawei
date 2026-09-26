@@ -18,11 +18,14 @@ First, you should read the list of supported devices:
 |P20 Series|EML|EMUI9.1|KernelSU|None|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
+|Honor 10 Lite Series|HRY|EMUI 9.1|RKSU|None|
+|Honor Play Series|COR|EMUI 9.1|RKSU|None|
 |Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
 |Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
 |Nova 5i Series|GLK|EMUI9.0|RKSU|None|
 |Nova 5 Series|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|None|
-|Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|RKSU|None|
+|Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU|None|
+|Nova 7 SE Series|CDY|HarmonyOS2.0|RKSU|None|
 |Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
 |Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
 |Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
