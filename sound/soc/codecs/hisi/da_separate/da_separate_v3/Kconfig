@@ -1,0 +1,3 @@
+config SND_SOC_CODEC_DA_SEPARATE_V3
+	tristate "Soc Smartstar Codec da_separate_v3 support"
+

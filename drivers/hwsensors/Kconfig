@@ -1,0 +1,5 @@
+#
+# huawei hall interface
+#
+
+source "drivers/hwsensors/hall/Kconfig"

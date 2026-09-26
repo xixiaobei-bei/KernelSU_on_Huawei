@@ -1,0 +1,4 @@
+menuconfig CARD_TRAY_GPIO_DETECT
+    bool "card_tray_gpio_detect support"
+    default n
+

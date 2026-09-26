@@ -1,0 +1,18 @@
+config HISP_DEBUG
+	bool "hisp debug"
+	default n
+	help
+		Say yes here to support hisp debug.
+
+config HISP_SMMU_BYPASS_DEBUG
+	bool "hisp smmu bypass debug"
+	default n
+	help
+		Say yes here to support hisp smmu bypass debug.
+
+config HISP_DPM
+	tristate "HISP DPM(digital power monitor) support"
+	depends on DPM_HWMON
+	default n
+	help
+		This framebuffer driver supports dpm function.

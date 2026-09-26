@@ -1,0 +1,12 @@
+#
+# calculate soc with decimal drivers
+#
+
+config HUAWEI_SOC_DECIMAL
+	bool "soc with decimal"
+	default n
+	help
+	  Say Y here to enable soc with decimal driver.
+	  We know that the stage of capacity is calculated by
+	  integrating the electric current of the electricity meter.
+	  At present, we calculate the soc with decimal by software.

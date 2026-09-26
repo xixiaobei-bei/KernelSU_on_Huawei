@@ -1,0 +1,1 @@
+obj-$(CONFIG_ADAPTER_PROTOCOL_PD) += adapter_protocol_pd.o

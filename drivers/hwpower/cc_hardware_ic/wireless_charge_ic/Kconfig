@@ -1,0 +1,63 @@
+#
+# wireless charge ic driver
+#
+
+config WIRELESS_CPS7181
+	bool "wireless cps7181"
+	depends on WIRELESS_CHARGER
+	default n
+	help
+	  Say Y here to enable cps7181 driver.
+	  The cps7181 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
+
+config WIRELESS_CPS4029
+	bool "wireless cps4029"
+	depends on WIRELESS_CHARGER
+	default n
+	help
+	  Say Y here to enable cps4029 driver.
+	  The cps4029 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
+
+config WIRELESS_CPS4057
+	bool "wireless cps4057"
+	depends on WIRELESS_CHARGER
+	default n
+	help
+	  Say Y here to enable cps4057 driver.
+	  The cps4057 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
+
+config WIRELESS_STWLC88
+	bool "wireless stwlc88"
+	depends on WIRELESS_CHARGER
+	default n
+	help
+	  Say Y here to enable stwlc88 driver.
+	  The stwlc68 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.
+
+config WIRELESS_MT5735
+	bool "wireless mt5735"
+	depends on WIRELESS_CHARGER
+	default n
+	help
+	  Say Y here to enable mt5735 driver.
+	  The mt5735 is an soc for magnetic induction
+	  based wireless power receiver. it is fully compliant
+	  with latest WPC Qi specification of BPP and EPP
+	  and also supports various proprietary fast charging
+	  protocols used by major smart phone OEM.

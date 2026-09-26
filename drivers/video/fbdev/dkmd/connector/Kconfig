@@ -1,0 +1,31 @@
+
+config DKMD_DPU_CONNECTOR
+	bool "Enable connector support in dpu driver"
+	default n
+	depends on DKMD_DKSM
+	select DKMD_DPU_MIPI_DSI
+	select DKMD_DPU_PANEL
+	select DKMD_DPU_DP
+	help
+	  Choose this option if need connector support.
+
+config DKMD_DPU_MIPI_DSI
+	bool "Enable DSI support in dpu driver"
+	default n
+	depends on DKMD_DPU_COMPOSER
+	help
+	  Choose this option if need mipi dsi driver support.
+
+config DKMD_DPU_PANEL
+	bool "Enable panel support in dpu driver"
+	default n
+	depends on DKMD_DPU_MIPI_DSI
+	help
+	  Choose this option if need panel driver support.
+
+config DKMD_DPU_DP
+	bool "Enable dp support in dpu driver"
+	default n
+	depends on DKMD_DPU_COMPOSER
+	help
+	  Choose this option if need dp driver support.

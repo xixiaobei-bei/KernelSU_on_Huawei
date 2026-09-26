@@ -1,0 +1,42 @@
+config HISI_CLK
+	bool "clock driver of Soc"
+	default n
+
+config HISI_CLK_ALWAYS_ON
+	bool "all clocks of Hisi Soc are always on"
+	default n
+
+config HISI_CLK_PM_MONITOR
+	bool "clock pm_monitor spec"
+	default n
+
+config HISI_CLK_MAILBOX_SUPPORT
+	depends on HISI_CLK
+	depends on HISI_MAILBOX
+	bool "clk driver support mailbox communication"
+	default n
+
+config HISI_CLK_DEBUG
+	depends on DEBUG_FS
+	bool "HiSilicon clock driver debug"
+	default n
+
+config HISI_CKM_MODULE
+	depends on HISI_CLK
+	bool "HiSilicon clk monitor driver"
+	default n
+
+config HISI_CLK_SMC_SUPPORT
+	depends on HISI_CLK
+	bool "HiSilicon clk SMC handler"
+	default n
+
+config HISI_PLL_LOCK_RETRY
+	depends on HISI_CLK
+	bool "HiSilicon clk pll lock retry"
+	default n
+
+config HISI_CLK_WAIT_DONE
+	depends on HISI_CLK
+	bool "HiSilicon clk wait div done"
+	default n

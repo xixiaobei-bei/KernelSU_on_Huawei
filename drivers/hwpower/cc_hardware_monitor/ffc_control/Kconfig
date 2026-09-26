@@ -1,0 +1,11 @@
+#
+# ffc control drivers
+#
+
+config HUAWEI_FFC_CONTROL
+	bool "huawei ffc control"
+	default n
+	help
+	  Say Y here to enable ffc control driver.
+	  This module monitor charge cut-off voltage,
+	  including increasing cut-off voltage and vbat safety strategy.

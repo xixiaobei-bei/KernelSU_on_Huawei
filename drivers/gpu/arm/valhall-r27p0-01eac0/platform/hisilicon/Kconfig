@@ -1,0 +1,106 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2014-2020. All rights reserved.
+# Description: This file describe GPU hardware related features
+# Create: 2014-2-24
+#
+# This program is free software and is provided to you under the terms of the
+# GNU General Public License version 2 as published by the Free Software
+# Foundation, and any use by you of this program is subject to the terms
+# of such GNU licence.
+#
+# A copy of the licence is included with the program, and can also be obtained
+# from Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301, USA.
+#
+#
+
+config MALI_PM_DEMAND
+	bool "Switch power policy"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+	help
+	  switch policy for different platform, fpga or chip
+
+config REPORT_VSYNC
+	bool "Enabel REPORT_VSYNC"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default y
+	help
+	  Enable REPORT_VSYNC
+
+config HW_VOTE_GPU_FREQ
+	bool "Enable hardware vote gpu freq feature"
+	depends on PM_DEVFREQ && HW_VOTE
+	default n
+	help
+	  enable hardware vote gpu freq feature
+
+config MALI_GPU_BUG_ON
+	bool "Bug on for gpu steadiness"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+	help
+	  Open bug on in mali driver for gpu steadiness.
+
+config MALI_PLATFORM_HISILICON
+	bool "Hisilicon"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+
+config MALI_MIDGARD_RT_PM
+	bool "Enable Runtime power management"
+	depends on MALI_MIDGARD
+	depends on PM_RUNTIME || PM
+	default n
+	help
+	  Choose this option to enable runtime power management in the Mali Midgard DDK.
+
+config HISI_GPU_CORE_HOTPLUG
+	bool "Enable gpu core hotplug if high temperature scenario"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+	help
+	  enable some cores shutdown if the thermal need reduce gpu power consumption
+
+config GPU_SHADER_PRESENT_CFG
+	bool "Enable shader present configuration"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+	help
+	  enable shader present configuration
+
+config MALI_CL_BOOST
+	bool "Enable HISI mali GPU CL Boost"
+	depends on MALI_MIDGARD && MALI_EXPERT
+	default n
+	help
+	  enable MALI GPU CL boost.
+
+config MALI_LAST_BUFFER
+	bool "Last buffer"
+	depends on MALI_MIDGARD && MALI_EXPERT && MALI_PLATFORM_HISILICON && HISI_LB
+	default n
+	help
+	  Select  this option to enable last buffer support.
+
+config GPU_AI_FENCE_INFO
+	bool "GPU AI frequency schedule fence info"
+	default n
+	help
+	  Open function for GPU AI frequency schedule.
+
+config HISI_GPU_DPM_PCR
+	bool "GPU dpm pcr function"
+	depends on DPM_HWMON
+	default n
+	help
+	  enable dpm pcr function
+
+config GPU_THROTTLE_DEVFREQ
+	bool "Enable gpu throttlel devfreq"
+	default n
+	help
+	  enable gpu throttlel devfreq for user
+
+# source hisilicon platform base driver Kconfig.
+source "drivers/gpu/arm/valhall-r27p0-01eac0/platform/hisilicon/base/Kconfig"

@@ -1,0 +1,20 @@
+config MSPC
+	depends on HISI_MAILBOX
+	bool "MSP core "
+	default n
+	help
+	  MSP core driver
+
+config MSPC_MNTN_RESET_IRQ_SEPARATE
+        depends on MSPC
+        bool "mspc reset use separate interrupts."
+        default n
+        help
+          whether mspc reset support separate interrupts feature
+
+config MSPC_SUPPORT_DCS
+        depends on MSPC
+	bool "Support for Dynamic Binaries upgrade"
+        default n
+        help
+	  whether to support dynamic binaries upgrade in Hisee

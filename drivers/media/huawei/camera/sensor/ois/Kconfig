@@ -1,0 +1,7 @@
+if HISI_CAMERA_OIS
+
+menu "Hisilicon camera ois driver support"
+
+endmenu
+
+endif

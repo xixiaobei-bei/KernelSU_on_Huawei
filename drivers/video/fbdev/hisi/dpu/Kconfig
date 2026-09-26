@@ -1,0 +1,81 @@
+config HISI_DPU_DISP
+	bool "Display driver support"
+	default y
+	help
+	  This feature driver supports dpu driver.
+
+config HISI_DISP_DRM
+	bool "display driver support DRM"
+	default n
+	depends on HISI_DPU_DISP
+	help
+	  This feature driver supports drm driver.
+
+config HISI_DISP_FB
+	tristate "HISI Display FB Framebuffer support"
+	depends on FB
+	depends on HISI_DPU_DISP
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI Display FB.
+
+config HISI_DISP_TEST_ENABLE
+	bool "Display driver support test for kunit"
+	default n
+	depends on HISI_DPU_DISP
+	help
+	  This feature driver supports display driver kunit test.
+
+config HISI_DISP_DEBUG
+	bool "enable display debug feature"
+	default n
+	depends on HISI_DPU_DISP
+	help
+	  This feature support display driver debug feature.
+
+config HISI_DISP_ENABLE_ASSERT
+	bool "enable display debug assert feature"
+	default n
+	depends on HISI_DPU_DISP
+	help
+	  This feature support display driver debug assert feature.
+
+config HISI_DISP_ADAPTOR_ENABLE
+	bool "enable display adaptor for DSS"
+	default y
+	depends on HISI_DPU_DISP
+	help
+	  This feature support display driver adaptor for DSS.
+
+config DPP_SCENE0
+	tristate "HISI Display FB Framebuffer support"
+	depends on FB
+	depends on HISI_DPU_DISP
+	help
+	  This framebuffer driver supports HISI Display FB.
+
+config DEBUG_DPU_SCENE_1
+	tristate "debug dpu fpga support scene 1"
+	depends on FB
+	depends on HISI_DPU_DISP
+	help
+	  debug dpu fpga support scene 1.
+
+config DEBUG_DPU_SCENE_3
+	tristate "debug dpu fpga support scene 3"
+	depends on FB
+	depends on HISI_DPU_DISP
+	help
+	  debug dpu fpga support scene 3.
+
+config CMDLIST_ENABLE
+	bool "display driver support cmdlist config"
+	default n
+	depends on FB
+	depends on DMA_CMA
+	help
+	  This feature driver supports display config by cmdlist.

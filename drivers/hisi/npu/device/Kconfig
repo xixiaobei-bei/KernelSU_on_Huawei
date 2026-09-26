@@ -1,0 +1,9 @@
+config NPU_DEVDRV_DEVDRIVER
+	tristate "NPU DEVDRV DEVDRIVER"
+	default y
+config HISI_NPU_DPM_ENABLED
+	bool "HISI_NPU_DPM_ENABLED depends on DPM_HWMON"
+	depends on DPM_HWMON
+	default n
+	help
+	  Driver for npu dpm

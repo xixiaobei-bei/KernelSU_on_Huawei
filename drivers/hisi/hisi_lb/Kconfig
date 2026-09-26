@@ -1,0 +1,72 @@
+config HISI_LB
+	bool "HISI last buffer"
+	help
+	  Enable last buffer.
+
+	  If unsure, say N here.
+
+config HISI_LB_DEBUG
+	bool "HISI lb debug"
+	depends on HISI_LB
+	help
+	  Enable last buffer debug.
+
+	  If unsure, say N here.
+
+config HISI_LB_ENG_DEBUG
+	bool "HISI lb eng debug"
+	depends on HISI_LB
+	help
+	  Enable last buffer eng debug.
+
+	  If unsure, say N here.
+
+config HISI_LB_TST
+	bool "HISI lb ip test"
+	depends on HISI_LB
+	help
+	  Enable last buffer ip test
+	  and need disable hisi lb debug
+
+	  if unsure, say N here
+
+config HISI_LB_PMU
+	bool "HISI lb pmu"
+	depends on HISI_LB
+	help
+	  Enable last buffer ip test
+	  and need disable hisi lb debug
+
+	  if unsure, say N here
+
+config HISI_LB_GEMINI
+	bool "HISI lb gemini"
+	depends on HISI_LB
+	help
+	  Enable last buffer debug.
+
+	  If unsure, say N here.
+
+config HISI_LB_L3_EXTENSION
+	bool "HISI lb l3 extension"
+	depends on HISI_LB
+	help
+	  Enable last buffer debug.
+
+	  If unsure, say N here.
+
+config HISI_LB_ION
+	bool "HISI lb ion"
+	depends on HISI_LB
+	help
+	  Enable last buffer debug.
+
+	  If unsure, say N here.
+
+config HISI_LB_REMAP
+	bool "HISI lb remap"
+	depends on HISI_LB
+	help
+	  Enable last buffer remap.
+
+	  If unsure, say N here.

@@ -1,0 +1,7 @@
+config DKMD_CMDLIST_ENABLE
+	bool "DKMD support cmdlist driver"
+	default n
+	depends on DMA_CMA
+	depends on DKMD_DKSM
+	help
+	  This feature driver supports DKMD config by cmdlist.

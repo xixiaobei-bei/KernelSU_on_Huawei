@@ -1,0 +1,52 @@
+menu "HISP IPP"
+
+config HISPIPP
+	bool "HISP IPP Drivers"
+	depends on IOMMU_API
+	default n
+	help
+		HISP IPP drivers.
+
+config HISPIPP_V200
+	bool "HISP IPP Drivers for V200"
+	depends on HISPIPP
+	default n
+	help
+		HISP IPP Drivers for V200
+
+config HISPIPP_V210
+	bool "HISP IPP Drivers for V210"
+	depends on HISPIPP
+	default n
+	help
+		HISP IPP Drivers for V210
+
+config HISPIPP_V250
+	bool "HISP IPP Drivers for V250"
+	depends on HISPIPP
+	default n
+	help
+		HISP IPP Drivers for V250
+
+config HISPIPP_V300
+	bool "HISP IPP Drivers for V300"
+	depends on HISPIPP
+	default n
+	help
+		HISP IPP Drivers for V300
+
+config HISPIPP_V320
+	bool "HISP IPP Drivers for V320"
+	depends on HISPIPP
+	default n
+	help
+		HISP IPP Drivers for V320
+
+config HISPIPP_V350
+    bool "HISP IPP Drivers for V350"
+    depends on HISPIPP
+    default n
+    help
+        HISP IPP Drivers for V350
+endmenu
+

@@ -1,0 +1,10 @@
+config HW_VIP_THREAD
+	bool "iaware 2.0 vip thread"
+	default n
+	help
+	  if set, vip thread is pick first in cfs sched policy
+config HW_VIP_KWORKER
+	bool "iaware 6.0 vip kworker"
+	default n
+	help
+	  if set, kworker thread is pick first in cfs sched policy

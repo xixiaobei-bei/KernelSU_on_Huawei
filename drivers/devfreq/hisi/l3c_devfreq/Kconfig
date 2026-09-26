@@ -1,0 +1,20 @@
+config L3C_DEVFREQ
+	tristate "L3 cache DEVFREQ Driver"
+	depends on ARCH_HISI && PM_DEVFREQ && (ARM_DSU_PMU || NAMSTO_PMU)
+	select PM_OPP
+	help
+	  This enables the l3c devfreq driver.
+
+config HW_VOTE_L3C_FREQ
+	bool "Enable hardware vote l3c dvfs feature"
+	depends on L3C_DEVFREQ && HW_VOTE
+	default n
+	help
+	  enable hardware vote l3c dvfs feature
+
+config L3C_DEVFREQ_DEBUG
+	tristate "L3C DEVFREQ SYSFS DEBUG"
+	depends on L3C_DEVFREQ
+	default n
+	help
+	  l3c devfreq driver sysfs debug

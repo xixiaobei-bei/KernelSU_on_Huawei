@@ -1,0 +1,51 @@
+#
+# charger ic drivers
+#
+
+config BQ2560X_CHARGER
+	bool "bq2560x charger"
+	default n
+	help
+	  Say Y here to enable bq2560x charger driver.
+
+config BQ25892_CHARGER
+	bool "bq25892 charger"
+	default n
+	help
+	  Say Y here to enable bq25892 charger driver.
+
+config RT9466_CHARGER
+	bool "rt9466 charger"
+	default n
+	help
+	  Say Y here to enable rt9466 charger driver.
+
+config HL7019_CHARGER
+	bool "hl7019 charger"
+	default n
+	help
+	  Say Y here to enable hl7019 charger driver.
+
+config RT9471_CHARGER
+	bool "rt9471 charger"
+	default n
+	help
+	  Say Y here to enable rt9471 charger driver.
+
+config BQ25882_CHARGER
+	bool "bq25882 charger"
+	default n
+	help
+	  Say Y here to enable bq25882 charger driver.
+
+config BD99954_CHARGER
+	bool "bd99954 charger"
+	default n
+	help
+	  Say Y here to enable bd99954 charger driver.
+
+config BQ25713_CHARGER
+	bool "bq25713 charger"
+	default n
+	help
+	  Say Y here to enable bq25713 charger driver.

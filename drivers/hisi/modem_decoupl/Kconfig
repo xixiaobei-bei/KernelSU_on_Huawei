@@ -1,0 +1,16 @@
+config HISI_AP_CP_DECOUPL
+        bool "decouple the ap && cp for kernel"
+        default n
+        help
+           Say 'Y' if you support decoupling
+           Say 'N' if you do not
+
+config HISI_INC_MODEM_CONFIG
+        bool "whether or not to include modem config for kernel"
+        default n
+        help
+           Say 'Y' if you want to include modem config.
+               so kernel modem can be compiled.
+           Say 'N' if you don't want to include modem config,
+               so skip modem config check in check_menuconfig.
+           Suggestion is to say 'N' in kernel config and "Y' in modem.

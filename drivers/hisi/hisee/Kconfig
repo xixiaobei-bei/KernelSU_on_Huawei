@@ -1,0 +1,151 @@
+config HISEE
+	depends on HISI_MAILBOX
+	bool "hisee"
+	default n
+	help
+	  hisee driver
+
+config HISEE_POWER_MANAGE_COUNT
+	depends on HISEE
+	bool "hisee power manage counter"
+	default n
+	help
+	  hisee driver
+
+config HISEE_APPLET_APDU_TEST_OPTIMIZATION
+	depends on HISEE
+	bool "hisee applet apdu test optimize"
+	default n
+	help
+	  hisee driver used to optimize the apdu
+	  test cmd.It's orginal name is CONFIG_HISEE_
+	  CHIPTEST_SUPPORT_APPLET_OPTIMIZATION.
+
+config HISEE_SUPPORT_DCS
+	depends on HISEE
+	bool "Support for Dynamic Binaries upgrade"
+	default n
+	help
+	  whether to support dynamic binaries upgrade in Hisee
+
+config HICOS_MISCIMG_PATCH
+	depends on HISEE
+	bool "hisee msic patch driver"
+	default n
+	help
+	  hisee driver used to upgrade misc patch.
+	  It's orginal name is CFG_HICOS_MISCIMG_PATCH, the
+	  name used in cos is also named CFG_HICOS_MISCIMG_PATCH.
+
+config MISCIMG_SECUPGRADE
+	depends on HISEE
+	bool "hisee misc upgrade"
+	default n
+	help
+	  hisee driver used to upgrade misc image.
+
+config HISEE_SUPPORT_MULTI_COS
+	depends on HISEE
+	bool "hisee support multi cos"
+	default n
+	help
+	  hisee driver used to support multi cos.
+	  It's orginal name is HISEE_SUPPORT_MULTI_COS.
+
+config HISEE_NEW_COS_VERSION_HEADER
+	depends on HISEE
+	bool "hisee has new cos version format"
+	default n
+	help
+	  hisee driver used to support new cos version format.
+
+config HISEE_NEW_COSID_HEADER
+	depends on HISEE_SUPPORT_MULTI_COS
+	bool "hisee has new cos id format"
+	default n
+	help
+	  hisee driver used to support new cos id format.
+
+config HISEE_SUPPORT_8_COS
+	depends on HISEE_SUPPORT_MULTI_COS
+	bool "hisee can support 8 cos"
+	default n
+	help
+	  hisee driver used to support 8 cos.
+
+config HISEE_SUPPORT_CASDKEY
+	depends on HISEE
+	bool "hisee support CASD key"
+	default n
+	help
+	  whether hisee support CASD key
+
+config HISEE_SUPPORT_INSE_ENCRYPT
+	depends on HISEE
+	bool "hisee support inse encryption for bio, pin code and fingerprint."
+	default n
+	help
+	  whether hisee support inse encryption
+
+config HISEE_FACTORY_SECURITY_CHECK
+	depends on HISEE
+	bool "hisee support factory security check."
+	default n
+	help
+	  whether hisee support factory security check
+
+config HISEE_NFC_IRQ_SWITCH
+	depends on HISEE
+	bool "hisee support nfc irq switch."
+	default n
+	help
+	  whether hisee support nfc irq switch
+
+config HISEE_SUPPORT_OVERSEA
+	depends on HISEE
+	bool "hisee support oversea feature."
+	default n
+	help
+	  whether hisee support oversea feature
+
+config HISEE_MNTN_RESET_IRQ_SEPARATE
+	depends on HISEE
+	bool "hisee reset use separate interrupts."
+	default n
+	help
+	  whether hisee reset support separate interrupts feature
+
+config HISEE_HIGH_TEMP_PROTECT_SWITCH
+	depends on HISEE
+	bool "hisee support high temperature protect switch."
+	default n
+	help
+	  whether hisee support high temperature protect switch
+
+config HISEE_SUPPORT_ULOADER
+	depends on HISEE
+	bool "hisee support uloader image process."
+	default n
+	help
+	  whether hisee support uloader image process
+
+config SMX_PROCESS
+	depends on HISEE
+	bool "hisee support smx process on boot."
+	default n
+	help
+	  whether hisee support smx process on boot
+
+config HISEE_AT_SMX
+	depends on HISEE
+	bool "hisee support smx controlled by atcmdsrv."
+	default n
+	help
+	  whether hisee support smx controlled by atcmdsrv
+
+config HISEE_DISABLE_KEY
+	depends on HISEE
+	bool "hisee disable open and close key."
+	default n
+	help
+	  whether hisee support disable open and close key

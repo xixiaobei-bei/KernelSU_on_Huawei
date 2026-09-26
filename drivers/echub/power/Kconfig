@@ -1,0 +1,26 @@
+#
+# echub power moudule
+#
+
+config HUAWEI_ECHUB_PMSYNC
+        bool "ec state sync"
+        depends on HUAWEI_ECHUB
+        default n
+        help
+          This driver provides support for ec state sync(suspend / resume)
+          via GPIO.
+
+config HUAWEI_ECHUB_LID
+        bool "ec lid func"
+        depends on HUAWEI_ECHUB
+        default n
+        help
+          This driver provides support for Lid function
+          via GPIO.
+
+config HUAWEI_ECHUB_LID_TEST
+        bool "lid production test"
+        depends on HUAWEI_ECHUB
+        default n
+        help
+          This config provides support for Lid production test.

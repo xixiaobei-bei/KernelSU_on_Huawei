@@ -1,0 +1,22 @@
+DDR SECPROTECT
+
+Required properties:
+ - compatible : Should be "hisilicon,ddr_secprotect"
+ - reg        : Should contain an entry for each value in 'reg-names'.
+                Each entry should have the memory region's start address
+                and the size of the region, the representation matching
+                the parent node's '#address-cells' and '#size-cells' values.
+ - interrupts : Interrupt; mode, number and trigger
+
+Example:
+
+ddr: ddr@fffc0000 {
+                       #address-cells = <2>;
+                       #size-cells = <2>;
+                       compatible = "hisilicon,ddr_secprotect";
+                       reg = <0x0 0xfffc0000 0x0 0x20000>;
+                       interrupts = <0 131 4>;
+                       status = "ok";
+};
+
+

@@ -1,0 +1,12 @@
+#
+# multicore communication driver
+#
+
+comment "multicore communication driver"
+
+config ICC_BALONG
+	tristate "support icc"
+	depends on IPC_DRIVER
+	default n
+	help
+	  ICC driver

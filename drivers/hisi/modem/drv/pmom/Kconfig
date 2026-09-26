@@ -1,0 +1,6 @@
+config BALONG_PMOM
+	bool "balong pmom"
+	default n
+	help
+	support for pmom of balong
+

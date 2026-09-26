@@ -1,0 +1,143 @@
+#***********************************************************#
+# include the define at the top A core
+#***********************************************************#
+-include $(BALONG_TOPDIR)/modem/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config/balong_product_config.mk
+
+PSDIR = ..
+MODEM_DIR := $(srctree)/drivers/hisi/modem
+-include $(MODEM_DIR)/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config/balong_product_config.mk
+
+ifeq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -Iarch/arm64/include/asm
+else
+EXTRA_CFLAGS += -Iarch/arm/include/asm
+endif
+EXTRA_CFLAGS += -Iinclude/linux
+EXTRA_CFLAGS += -Iinclude/generated
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/med
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/osa
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/nvim
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/log
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/si
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/gu/comm/usimm
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/errno
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/socp
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/comm/nvim
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/acore/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/oam/lt/common/
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/ccore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/taf/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/ccore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/tlps/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/ccore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/gups/common
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/acore/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/nv/common/guc_as
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/nas
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/tag/apss
+ifneq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa
+else
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/msg
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/osa/fusion
+endif
+EXTRA_CFLAGS += -I$(MODEM_DIR)/config/errlog/chrdirectrpt/inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/inc/gu
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/as/gu/ttf/TTFComm/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/LINK/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/LINK/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/DICC/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/FLOWCTRL/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/FLOWCTRL/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/IMM/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/NFEXT/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/NDIS/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/ND/IPCOMM/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/ND/NDSERVER/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/PPP/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/PPP/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/common/STL/Inc
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/acore/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/oam/inc/gu/comm/om
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/ps/nrps/ccore
+
+ifeq ($(CFG_EXTRA_MODEM_MODE_MBB),FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/VOICE_AGENT/Inc
+endif
+
+ifeq ($(CFG_FEATURE_HIFI_MANAGE),FEATURE_ON)
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/drv/acore
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/comm/acore/HIFI_MANAGE/Inc
+endif
+
+ifeq ($(CFG_EXTRA_MODEM_MODE_MBB),FEATURE_ON) 
+EXTRA_CFLAGS += -I$(MODEM_DIR)/include/tag/apss
+EXTRA_CFLAGS += -I$(MODEM_DIR)/ps/comm/tl/lte/inc/Comm
+endif
+
+EXTRA_CFLAGS +=  -DVOS_LINUX=4 -DOSA_CPU_ACPU=1 -DVOS_OS_VER=VOS_LINUX -DVOS_OSA_CPU=OSA_CPU_ACPU -D__LOG_RELEASE__ -DBSP_CORE_APP -DGU_MODE -DMSP_SUPPORT_USB_VCOM1 -DMSP_SUPPORT_USB_VCOM2 -DVOS_DOPRA_VER=2 -DNDIS_RELEASE -DBALONG_PHY_V200=2 -DBALONG_PHY_V300=3 -DBALONG_PHY_VER=BALONG_PHY_V300 -DBALONG_CHIP_V200=2 -DBALONG_CHIP_V300=3 -DBALONG_CHIP_V500=4 -DBALONG_CHIP_VER=BALONG_CHIP_V500 -DMSP_GUNAS_AT_UNITE
+ifneq ($(TARGET_ARM_TYPE), arm64)
+EXTRA_CFLAGS += -D__LINUX_ARM_ARCH__=7 -march=armv7-a -Uarm
+endif
+
+EXTRA_CFLAGS += -fsigned-char 
+
+ifeq ($(CFG_MODEM_FUSION_VERSION),true)
+EXTRA_CFLAGS += -DVOS_SUPPORT_TSP
+endif
+
+tlps-objs := $(PSDIR)/comm/comm/common/STL/Src/LUPQueue.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/IPCOMM/Src/ip_comm.o
+
+ifeq ($(CFG_FEATURE_ACORE_MODULE_TO_CCORE), FEATURE_OFF)
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ipv4_dhcp_server.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ipv4_dhcppkt_form.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ipv4_dhcppkt_parse.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ip_nd_server.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_at_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_debug.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_dhcpv6pkt_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_entity.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_na_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_ns_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_om.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_pkt_comm.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_ra_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_rs_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/ND/NDSERVER/Src/ndserver_timer_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_entity.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_ul_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_debug.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_dl_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_om.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_arp_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_at_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_ads_proc.o
+tlps-objs += $(PSDIR)/comm/comm/common/NDIS/Src/ndis_msg_proc.o
+endif
+
+ifeq ($(CFG_EXTRA_MODEM_MODE_MBB),FEATURE_ON)
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/Voice_agent_nv.o
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/Voice_agent_om.o
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/Voice_agent_public.o
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/Voice_agent_msg_proc.o
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/hifi_dump.o
+tlps-objs += $(PSDIR)/comm/comm/acore/VOICE_AGENT/Src/Voice_agent_Main.o
+endif
+
+ifeq ($(CFG_FEATURE_HIFI_MANAGE),FEATURE_ON)
+tlps-objs += $(PSDIR)/comm/comm/acore/HIFI_MANAGE/Src/hifi_manage_main.o
+tlps-objs += $(PSDIR)/comm/comm/acore/HIFI_MANAGE/Src/hifi_manage_msg_proc.o
+tlps-objs += $(PSDIR)/comm/comm/acore/HIFI_MANAGE/Src/hifi_manage_reset_proc.o
+endif
+
+ifneq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
+obj-y  := tlps.o
+endif

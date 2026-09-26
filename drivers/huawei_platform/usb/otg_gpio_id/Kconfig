@@ -1,0 +1,10 @@
+#
+# huawei gpio based for otgid drivers
+#
+
+config OTG_GPIO_ID
+	bool "OTG_GPIO_ID support"
+	default n
+	depends on GPIOLIB
+	help
+	  Say Y here to enable gpio based switch for otgid driver.

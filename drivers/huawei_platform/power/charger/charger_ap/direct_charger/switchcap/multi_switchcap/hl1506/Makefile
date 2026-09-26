@@ -1,0 +1,1 @@
+obj-$(CONFIG_MULTI_HL1506) += hl1506.o

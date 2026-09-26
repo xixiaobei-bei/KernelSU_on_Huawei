@@ -1,0 +1,1 @@
+obj-y		+= hisi_charge_time.o

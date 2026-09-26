@@ -1,0 +1,30 @@
+config USB_PROXY_HCD
+	tristate "Proxy Host Controller Driver"
+	depends on USB
+	help
+	  Say Y here if your system has a USB Host Controller that can be
+	  accessed via proxy.
+
+config USB_PROXY_HCD_DEBUG
+	bool "Proxy Host Controller Driver Debug"
+	depends on USB_PROXY_HCD
+	help
+	  enable proxy HCD debug or not.
+
+config HIFI_USB_HAS_H2X
+	bool "HiFi USB has h2x bridge in ASP"
+	depends on USB_PROXY_HCD
+	help
+	  Say Y here if there is h2x bridge in ASP
+
+config USB_PROXY_HCD_HIBERNATE
+	bool "HiFi USB hibernate support"
+	depends on USB_PROXY_HCD
+	help
+	  Say N if unsure
+
+config USB_384K_AUDIO_ADAPTER_SUPPORT
+	bool "384k audio adapter support"
+	depends on USB_PROXY_HCD
+	help
+	  Say N if unsure

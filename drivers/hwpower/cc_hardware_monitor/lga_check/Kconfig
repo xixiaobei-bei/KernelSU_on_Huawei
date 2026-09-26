@@ -1,0 +1,9 @@
+#
+# lga board abnormal monitor drivers
+#
+
+config HUAWEI_LGA_CHECK
+	bool "lga board abnormal monitor"
+	default n
+	help
+	  Say Y here to enable lga board abnormal monitor driver.

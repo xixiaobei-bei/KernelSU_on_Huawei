@@ -1,0 +1,4 @@
+config HW_NSTACK_FI
+	bool "Huawei NSTACK FI"
+	depends on HW_EMCOM_NSTACK
+	default n

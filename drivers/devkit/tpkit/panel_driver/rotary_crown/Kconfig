@@ -1,0 +1,6 @@
+menuconfig HUAWEI_ROTARY_CROWN
+	bool "huawei rotary crown driver"
+	default n
+	help
+	Say yes here to support the huawei rotary crown driver.
+

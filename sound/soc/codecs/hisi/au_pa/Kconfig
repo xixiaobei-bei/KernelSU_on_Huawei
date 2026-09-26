@@ -1,0 +1,3 @@
+config SND_SOC_AU_PA
+	tristate "Soc au pa support"
+

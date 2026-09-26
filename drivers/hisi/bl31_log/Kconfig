@@ -1,0 +1,5 @@
+config ATF_KERNEL_BL31_LOG
+	bool "atf kernel dump bl31 log support"
+	default n
+	help
+	  Say yes here to support dump bl31 log in kernel

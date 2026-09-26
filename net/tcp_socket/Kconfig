@@ -1,0 +1,8 @@
+config HUAWEI_TRACK_SOCKET
+	bool "track the specific tcp sockets"
+	default n
+
+config HUAWEI_TRACK_SOCKET_DEBUG
+	bool "debug the tcp sockets tracking"
+	default n
+

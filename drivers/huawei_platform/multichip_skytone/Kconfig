@@ -1,0 +1,5 @@
+menuconfig MULTICHIP_SKYTONE
+	bool "huawei mcskytone driver support"
+	default n
+	help
+		Say yes here to support the mcskytone function

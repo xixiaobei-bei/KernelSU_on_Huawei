@@ -1,0 +1,3 @@
+config NPU_PROF_DEVDRV
+	tristate "PROF_DEVDRV"
+	default y

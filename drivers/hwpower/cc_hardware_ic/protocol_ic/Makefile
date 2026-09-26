@@ -1,0 +1,1 @@
+obj-$(CONFIG_PROTOCOL_IC_SC200X) += sc200x/

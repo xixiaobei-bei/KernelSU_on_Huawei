@@ -1,0 +1,29 @@
+config DPM_HWMON
+	bool "dpm hwmon driver config"
+	default n
+	help
+	  Driver for kernel dpm
+config DPM_HWMON_V1
+	bool "dpm hwmon first version config"
+	depends on DPM_HWMON
+	default n
+	help
+	  First version for kernel dpm
+config DPM_HWMON_V2
+	bool "dpm hwmon second version config"
+	depends on DPM_HWMON
+	default n
+	help
+	  Second version for kernel dpm
+config DPM_HWMON_DEBUG
+	bool "dpm hwmon driver for fitting debug"
+	depends on DPM_HWMON
+	default n
+	help
+	  Driver for kernel dpm debug
+config MODEM_DPM
+	bool "modem dpm hwmon config"
+	depends on DPM_HWMON
+	default n
+	help
+	  Driver for modem dpm

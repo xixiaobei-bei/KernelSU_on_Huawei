@@ -1,0 +1,27 @@
+#
+# huawei battery drivers
+#
+
+config HUAWEI_BATTERY_CORE
+	bool "huawei battery core driver"
+	default n
+	help
+	  Say Y here to enable battery core driver.
+	  This driver updates the basic informations of battery
+	  through battery model and coul interface, and provides
+	  interface for application layer through power supply.
+
+config HUAWEI_MIXED_BATT
+	bool "huawei mixed battery power supply"
+	help
+	  Say Y here to enable support for battery
+	  power supply. this module cooperate with multi
+	  sub battery power supply for third party
+	  fuelguage IC to monitor battery status.
+
+source "drivers/hwpower/cc_battery/battery_model/Kconfig"
+source "drivers/hwpower/cc_battery/battery_fault/Kconfig"
+source "drivers/hwpower/cc_battery/battery_ui_capacity/Kconfig"
+source "drivers/hwpower/cc_battery/battery_soh/Kconfig"
+source "drivers/hwpower/cc_battery/battery_temp/Kconfig"
+source "drivers/hwpower/cc_battery/battery_type_identify/Kconfig"
