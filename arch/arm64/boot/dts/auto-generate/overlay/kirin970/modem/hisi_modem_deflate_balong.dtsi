@@ -1,0 +1,15 @@
+/*
+ * Hisilicon Ltd Balong SOC
+ */
+
+/include/ "skeleton.dtsi"
+
+/{
+	deflate_app:deflate1@ff061000{
+		compatible = "hisilicon,deflate_balong_app";
+		reg = <0 0xff061000 0 0x20000>;
+		interrupts = <0 219 4>;
+		status = "ok";
+	};
+	
+};

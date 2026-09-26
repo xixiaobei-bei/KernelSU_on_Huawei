@@ -1,0 +1,43 @@
+/{
+	ufs: ufs@FF3c0000 {
+		compatible = "hisilicon,kirin-ufs";
+		reg = <0x0 0xff3c0000 0x0 0x20000>,	/* 0: HCI standard */
+			<0x0 0xff3e0000 0x0 0x1000>;	/* 1: UFS SYS CTRL */
+		interrupt-parent = <&gic>;
+		interrupts = <0 278 4>;
+		clock-names = "clk_ufsio_ref";
+		clocks = <&clk_gate_ufsio_ref>;
+		vcc-supply = <&ldo15>;
+		ufs-kirin-ssu-by-self;
+		reset_retry_max = <3>;
+		status = "ok";
+
+		1861 {
+			compatible = "white";
+			manufacturer_id = <0x8B6>;
+			model = "HISI_UFS_MODEL_ANY";
+			rev = "HISI_UFS_REV_ANY";
+		};
+ 
+		Hynix_01 {
+			compatible = "white";
+			manufacturer_id = <0x1AD>;
+			model = "H28S7Q302BMR";
+			rev = "T002";
+		};
+
+		Hynix_02 {
+			compatible = "white";
+			manufacturer_id = <0x1AD>;
+			model = "H28S7Q302BMR";
+			rev = "H202";
+		};
+
+		Hynix_03 {
+			compatible = "white";
+			manufacturer_id = <0x1AD>;
+			model = "H28S7Q302BMR";
+			rev = "H204";
+		};
+	};
+};

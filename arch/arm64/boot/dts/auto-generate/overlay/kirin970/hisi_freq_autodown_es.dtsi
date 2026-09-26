@@ -1,0 +1,51 @@
+/*
+ *  Copyright (C) 2012-2013 Linaro Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/ {
+
+	ip_freq_autodown: ip_freq_autodown@0xFFF35000 {
+			compatible = "hisilicon,hisi-freq-autodown";
+			reg =   <0x00 0xE8820000 0x00 0x1000>;/*base addr for MEDIA:0*/
+
+			hisilicon,freq-autodown-baseaddress-num = <1>;
+			hisilicon,freq-autodown-num = <6>;
+			hisilicon,freq-autodown-names = "vcodecbus","vdecbus","vencbus","vivobus","ispa7bus","ivpbus";
+			hisilicon,freq-autodown-state = <1>;
+
+			vcodecbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vcodecbus";
+				freq_autodown_disable_bypass 	= <0x174 0 0>;/*diable auto frequency modulation bypass. <address bit base>*/
+				freq_autodown_enable_clock 	= <0x010 0 0>;/*auto frequency modulation monitor clk enable. <address bit base>*/
+			};
+			vdecbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vdecbus";
+				freq_autodown_disable_bypass 	= <0x16C 0 0>;
+				freq_autodown_enable_clock 	= <0x010 2 0>;
+			};
+			vencbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vencbus";
+				freq_autodown_disable_bypass 	= <0x168 0 0>;
+				freq_autodown_enable_clock 	= <0x010 3 0>;
+			};
+			vivobus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-vivobus";
+				freq_autodown_disable_bypass 	= <0x170 0 0>;
+				freq_autodown_enable_clock 	= <0x010 1 0>;
+			};
+			ispa7bus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-ispa7bus";
+				freq_autodown_disable_bypass 	= <0x164 0 0>;
+				freq_autodown_enable_clock 	= <0x010 4 0>;
+			};
+			ivpbus_freq_autodown {
+				compatible = "hisilicon,hisi-freq-autodown-ivpbus";
+				freq_autodown_disable_bypass 	= <0x160 0 0>;
+				freq_autodown_enable_clock 	= <0x010 5 0>;
+			};
+	};
+};

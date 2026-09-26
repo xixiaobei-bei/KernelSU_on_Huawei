@@ -1,0 +1,91 @@
+/*
+ * Hisilicon Ltd. Kirin970 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	cambricon-ipu@ff400000{
+		vipu-supply = <&ics>;
+		compatible = "hisilicon,cambricon-ipu";
+		reg = <0x0 0xff400000 0x0 0x100000>,<0x0 0xff500000 0x0 0x100000>;
+		interrupts = <0 351 4>;
+		interrupt-names = "ipu_dma_irq";
+		ics-platform = "kirin970_es";
+		clocks = <&clk_gate_ics>;
+		clock-names = "clk-ics";
+		ics-clk-start-rate = <960000000>;
+		ics-clk-stop-rate = <415000000>;
+		status = "ok";
+		iommu_info {
+			start-addr = <0x40000>;
+			iova-align = <0x1000>;
+			size = <0x80000000>;
+		};
+		smmu_master {
+			smmu-mstr-base-addr = <0xff484000>;
+			smmu-mstr-glb-bypass = <0x0000>;
+			smmu-mstr-end-ack = <0x0014>;
+			smmu-mstr-smrx-start = <0x0020>;
+			smmu-mstr-intmask = <0x0030>;
+			smmu-mstr-intstat = <0x0038>;
+			smmu-mstr-intclr = <0x003c>;
+			smmu-mstr-dbg-port-in-0 = <0x0060>;
+			smmu-mstr-smrx-0-stream-0 = <0x0100>;
+			smmu-mstr-smrx-0-stream-1 = <0x0110>;
+			smmu-mstr-smrx-0-stream-2 = <0x0120>;
+			smmu-mstr-smrx-0-stream-3 = <0x0130>;
+			read-cmd-total-cnt-stream-0 = <0x0600>;
+			read-cmd-total-cnt-stream-1 = <0x0604>;
+			read-cmd-total-cnt-stream-2 = <0x0608>;
+			read-cmd-miss-cnt-stream-0 = <0x060c>;
+			read-cmd-miss-cnt-stream-1 = <0x0610>;
+			read-cmd-miss-cnt-stream-2 = <0x0614>;
+			read-data-total-cnt-stream-0 = <0x0618>;
+			read-data-total-cnt-stream-1 = <0x061c>;
+			read-data-total-cnt-stream-2 = <0x0620>;
+			read-cmd-case-cnt-stream-0 = <0x0624>;
+			read-cmd-case-cnt-stream-1 = <0x0628>;
+			read-cmd-case-cnt-stream-2 = <0x062c>;
+			read-cmd-case-cnt-stream-3 = <0x0630>;
+			read-cmd-case-cnt-stream-4 = <0x0634>;
+			read-cmd-case-cnt-stream-5 = <0x0638>;
+			read-cmd-trans-latency = <0x063c>;
+			write-cmd-total-cnt = <0x0640>;
+			write-cmd-miss-cnt = <0x0644>;
+			write-data-total-cnt = <0x0648>;
+			write-cmd-case-cnt-stream-0 = <0x064c>;
+			write-cmd-case-cnt-stream-1 = <0x0650>;
+			write-cmd-case-cnt-stream-2 = <0x0654>;
+			write-cmd-case-cnt-stream-3 = <0x0658>;
+			write-cmd-case-cnt-stream-4 = <0x065c>;
+			write-cmd-case-cnt-stream-5 = <0x0660>;
+			write-cmd-trans-latency = <0x0664>;
+		};
+		smmu_common {
+			smmu-common-base-addr = <0xff480000>;
+			smmu-scr = <0x0000>;
+			smmu-intmask-ns = <0x0010>;
+			smmu-intstat-ns = <0x0018>;
+			smmu-intclr-ns = <0x001c>;
+			smmu-cb-ttbr0 = <0x0204>;
+			smmu-cb-ttbcr = <0x020c>;
+			smmu-scachei-all = <0x0214>;
+			smmu-fama-ctrl1-ns = <0x0224>;
+			smmu-addr-msb = <0x0300>;
+			smmu-err-rdaddr = <0x0304>;
+			smmu-err-wraddr = <0x0308>;
+			smmu-opref-addr = <0x03a4>;
+			smmu-opref-ctrl = <0x03a8>;
+		};
+		ics_irq {
+			ics-irq-base-addr = <0xff486000>;
+			ics-irq-status-ns = <0x0000>;
+			ics-irq-mask-ns = <0x0004>;
+		};
+	};
+};

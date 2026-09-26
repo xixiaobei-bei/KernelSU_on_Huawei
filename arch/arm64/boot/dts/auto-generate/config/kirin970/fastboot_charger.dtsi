@@ -1,0 +1,12 @@
+/ {
+	fastboot_charger: fastboot_charger{
+		compatible = "fastboot,charger";
+		fastboot_single_phase_buck = <0>;
+		ichrg_pre_limit = <200>;
+		status = "disabled";
+	};
+	fastboot_charge_vibrate: fastboot_charge_vibrate {
+		compatible = "huawei,charge_vibrate";
+		vibrator_delay = <0>;
+	};
+};

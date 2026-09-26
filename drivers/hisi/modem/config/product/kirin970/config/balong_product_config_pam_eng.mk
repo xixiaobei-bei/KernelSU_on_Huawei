@@ -1,0 +1,2 @@
+# MD5: 9ae1aa8f8e2c2f4db177e3ccb08383d9
+CFG_CBT_ENABLED := YES

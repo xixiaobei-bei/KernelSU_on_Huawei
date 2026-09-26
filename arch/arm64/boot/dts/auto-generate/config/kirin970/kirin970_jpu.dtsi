@@ -1,0 +1,28 @@
+/*
+ * Hisilicon Ltd. hi3xxxASIC SoC
+ *
+ * Copyright (C) 2013 Hisilicon Technologies CO., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+/ {
+	jpu@E8301000 {
+		compatible = "hisilicon,hisijpu";
+		fpga_flag = <1>;
+		// JPU decoder Base; TOP base; CVDR base; smmu base;  media1 crg;PERI_CRG,PMCTRL,SCtrl
+		reg = <0x0 0xE8301000 0x0 0x1000>, <0x0 0xE8304000 0x0 0x1000>, <0x0 0xE8302000 0x0 0x1000>, <0x0 0xE8320000 0x0 0x20000>, <0x0 0xE87FF000 0x0 0x1000>, <0x0 0xFFF35000 0x0 0x1000>, <0x0 0xFFF31000 0x0 0x1000>,<0x0 0xFFF0A000 0x0 0x1000>;
+		// JPU irq
+		interrupts = <0 302 4>, <0 301 4>, <0 306 4>;
+		interrupt-names = "JPU_ERR", "JPU_DONE", "JPU_OTHER";
+		jpu-regulator-supply = <&ispsubsys>;
+		media1-regulator-supply = <&media_subsys>;
+		// jpg_func_clk, jpeg_axim_clk and jpg_axis_clk cann't set
+		clocks =  <&clk_gate_jpg_func>;
+		clock-names = "clk_jpg_func";
+		platform-names = "kirin_970";
+		status = "ok";
+	};
+};
+

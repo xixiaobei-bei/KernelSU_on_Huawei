@@ -1,0 +1,20 @@
+
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "kirin970_udp_cs_config.dtsi"
+/include/ "kirin970_udp_cs_EVB1_VB_pin.dtsi"
+/include/ "kirin970_udp_cs_EVB1_VB_modem_pin.dtsi"
+
+/ {
+	hisi,boardid = <6 0 1 4>;
+	hisi,boardname = "kirin970_udp_cs_EVB1_VB";
+	hisi,product_id = <0x39F5FC14>;
+};

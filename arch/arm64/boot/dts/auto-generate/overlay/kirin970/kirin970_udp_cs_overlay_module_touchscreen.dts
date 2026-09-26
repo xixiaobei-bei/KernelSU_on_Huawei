@@ -1,0 +1,283 @@
+&touchscreen {
+	bus_id = <7>;
+	status = "ok";
+	product = "manhattan";
+	has_virtualkey = <0>;
+	fpga_flag = <0>;
+	touchscreen@70 {
+		algo_id = <1>;
+		ic_type = <4>;
+		vci_gpio_type = <0>;
+		vci_regulator_type = <1>;
+		vddio_gpio_type = <0>;
+		vddio_regulator_type = <1>;
+		reset_gpio = <&gpio1 7 0>;
+		attn_gpio = <&gpio26 4 0>;
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio015_cfg_func>;
+		pinctrl-1 = <&gpio015_cfg_idle>;
+		synaptics-vdd-supply = <&ldo17>;
+		synaptics-io-supply = <&ldo4>;
+		delay_for_fw_update = <1>;
+		ghost_detect_support = <1>;
+		need_wd_check_status = <1>;
+		check_status_watchdog_timeout = <5000>;
+		irq_config = <0>;
+		flip_x = <1>;
+		flip_y = <1>;
+		x_max = <1080>;
+		y_max = <1920>;
+		x_max_mt = <1080>;
+		y_max_mt = <1920>;
+		raw_data_limit = "4600", /*rawdata-max*/
+			"2300", /*rawdata-min*/
+			"20", /*deltadata-max*/
+			"-20", /*deltadata-min*/
+			"390", /*rx-to-rx-diff-max*/
+			"-390", /*rx-to-rx-diff-min*/
+			"390", /*tx-to-tx-diff-max*/
+			"-390";/*tx-to-tx-diff-min*/
+
+		NEXT11080 {
+			holster_switch_addr = <0x0419>;
+			holster_switch_bit = <0>;
+			glove_switch_addr = <0x001F>;
+			glove_switch_bit = <0>;
+			roi_supported = <1>;
+			roi_control_addr = <0x041B>;
+			roi_control_bit = <0>;
+			roi_data_addr = <0x0418>;
+		};
+
+		NEXT18100 {
+			ic_type = <3>;
+			report_rate_test = <0>;
+			supported_func_indicater = <0x01>;
+			raw_data_limit = "450", "50", "40", "-40", "390", "-390", "390", "-390";
+			holster_switch_addr = <0x001C>;
+			holster_switch_bit = <1>;
+			glove_switch_addr = <0x001C>;
+			glove_switch_bit = <0>;
+			roi_supported = <1>;
+			roi_control_addr = <0x043A>;
+			roi_control_bit = <0>;
+			roi_data_addr = <0x0418>;
+		};
+
+		MAHA261001 {
+			producer = "lg";
+			roi_data_addr = <0x0418>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x041B>;
+			roi_supported = <0>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001F>;
+			holster_switch_bit = <0>;
+			holster_switch_addr = <0x0419>;
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			ic_type = <4>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA211000 {
+			roi_data_addr = <0x0418>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x041B>;
+			roi_supported = <0>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001F>;
+			holster_switch_bit = <0>;
+			holster_switch_addr = <0x0419>;
+			ic_type = <4>;
+			producer = "lg";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA261601 {
+			roi_data_addr = <0x0418>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x041B>;
+			roi_supported = <0>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001F>;
+			holster_switch_bit = <0>;
+			holster_switch_addr = <0x0419>;
+			ic_type = <4>;
+			producer = "sharp";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA211600 {
+			roi_data_addr = <0x0418>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x041B>;
+			roi_supported = <0>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001F>;
+			holster_switch_bit = <0>;
+			holster_switch_addr = <0x0419>;
+			ic_type = <4>;
+			producer = "sharp";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA261011 {
+			producer = "lg";
+			roi_data_addr = <0x040A>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x042D>;
+			roi_supported = <1>;
+			glove_switch_bit = <5>;
+			glove_switch_addr = <0x001B>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			ic_type = <4>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA211010 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x0412>;
+			roi_supported = <1>;
+			glove_switch_bit = <5>;
+			glove_switch_addr = <0x001A>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001C>;
+			ic_type = <4>;
+			producer = "lg";
+			raw_data_limit = "2150", "950", "20", "-20", "602", "-602", "602", "-602";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA261611 {
+			roi_data_addr = <0x040A>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x042D>;
+			roi_supported = <1>;
+			glove_switch_bit = <5>;
+			glove_switch_addr = <0x001B>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			ic_type = <4>;
+			producer = "sharp";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA211610 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x0412>;
+			roi_supported = <1>;
+			glove_switch_bit = <5>;
+			glove_switch_addr = <0x001A>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001C>;
+			ic_type = <4>;
+			producer = "sharp";
+			raw_data_limit = "2650", "1150", "20", "-20", "1087", "-1087", "1087", "-1087";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA240800 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x040D>;
+			roi_supported = <1>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001D>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			ic_type = <3>;
+			producer = "jdi";
+			raw_data_limit = "3000", "1050", "20", "-20", "1506", "-1506", "1506", "-1506";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA240810 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x040D>;
+			roi_supported = <1>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001D>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			ic_type = <3>;
+			producer = "jdi";
+			raw_data_limit = "2600", "1000", "25", "-25", "750", "-750", "750", "-750";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA250801 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x040D>;
+			roi_supported = <1>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001D>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			ic_type = <3>;
+			producer = "jdi";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+
+		MAHA250811 {
+			roi_data_addr = <0x0400>;
+			roi_control_bit = <0>;
+			roi_control_addr = <0x040D>;
+			roi_supported = <1>;
+			glove_switch_bit = <0>;
+			glove_switch_addr = <0x001D>;
+			holster_switch_bit = <1>;
+			holster_switch_addr = <0x001D>;
+			ic_type = <3>;
+			producer = "jdi";
+			raw_data_limit = "5000", "0", "5000", "-5000", "5000", "-5000", "5000", "-5000";
+			report_rate_test = <0>;
+			rawdata_arrange_type = <1>;
+			noise_state_reg = <0x0108>;
+			capacitance_test_config = <1>;
+		};
+	};
+};
