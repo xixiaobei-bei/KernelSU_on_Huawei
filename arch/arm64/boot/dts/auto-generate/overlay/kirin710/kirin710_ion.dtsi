@@ -1,0 +1,147 @@
+/* Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/ {
+	hisi,ion {
+		compatible = "hisilicon,hisi-ion";
+		cluster-0-resume = <0xfff0a42c>; /* SOC_SCTRL_SCBAKDATA8_ADDR */
+		cluster-1-resume = <0xfff0a430>; /* SOC_SCTRL_SCBAKDATA9_ADDR */
+
+		iommu_info {
+			start-addr = <0x40000>;
+			size = <0xbffc0000>;
+		};
+
+		linear {
+			start-addr = <0x40000>;
+			size = <0xbffc0000>;
+			page-size = <0x1000>;
+			page-align = <0x40000>;
+		};
+
+		heap_sys_user@0 {
+			heap-name = "sys_heap";
+			heap-id   = <0x0>;
+			heap-base = <0x0>;
+			heap-size = <0x0>;
+			heap-type = "ion_system";
+		};
+
+		heap_dss@2 {
+			heap-name = "dss_heap";
+			heap-id   = <0x2>;
+			heap-base = <0x0>;
+			heap-size = <0x4000000>;
+			heap-type = "ion_dma";
+		};
+
+		heap_daemon_camera@6 {
+			heap-name = "camera_daemonheap";
+			heap-id   = <0x6>;
+			heap-base = <0xffffffff>;
+			heap-size = <0xffffffff>;
+			heap-type = "ion_dma_pool";
+		};
+
+		heap_camera@19 {
+			heap-name = "camera_heap";
+			heap-id   = <0x13>;
+			heap-base = <0xffffffff>;
+			heap-size = <0xffffffff>;
+			heap-type = "ion_dma_pool";
+		};
+
+		normal_sync_heap@14 {
+			heap-name = "normal_sync_heap";
+			heap-type = "ion_sec";
+			heap-id   = <0xe>;
+			heap-base = <0x0>;
+
+			heap-size = <0x2C00000>;
+			heap-attr = <0>;
+			per-alloc-size = <0x0 0x2C00000>;
+			per-bit-size = <0x0 0x200000>;
+			water-mark = <0x0 0x1000000>;
+			status = "ok";
+		};
+
+		tui_normal_heap@17 {
+			heap-name = "tui_normal_heap";
+			heap-type = "ion_sec";
+			heap-id   = <0x11>;
+			heap-base = <0x0>;
+
+			heap-size = <0x8000000>;
+			heap-attr = <0>;
+			pool-shift = <21>;
+			per-alloc-size = <0x0 0x2000000>;
+			per-bit-size = <0x0 0x200000>;
+			water-mark = <0x0 0x400000>;
+			status = "ok";
+		};
+
+		sec_heap@5 {
+			heap-name = "sec_heap";
+			heap-type = "ion_sec";
+			heap-id   = <0x5>;
+			heap-base = <0x0>;
+
+			heap-size = <0x8000000>;
+			heap-attr = <2>;
+			pre-alloc-attr = <0>;
+			per-alloc-size = <0x0 0x4000000>;
+			per-bit-size = <0x0 0x200000>;
+			status = "ok";
+		};
+
+		protect_heap@20 {
+			heap-name = "protect_heap";
+			heap-type = "ion_sec";
+			heap-id   = <0x14>;
+			heap-base = <0x0>;
+
+			heap-size = <0x20000000>;
+			heap-attr = <1>;
+			per-alloc-size = <0x0 0x4000000>;
+			per-bit-size = <0x0 0x200000>;
+			memory-region = <&pgtable_mem>;
+			status = "ok";
+		};
+
+	};
+
+	reserved_memory:reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		camera_heap: camera-mem {
+			size  = <0x0 0x28000000>;
+			alignment = <0x0 0x400000>;
+			alloc-ranges = <0x1 0x0 0x1 0x0>;
+			compatible = "hisi-camera-pool";
+			reusable;
+			status = "disable";
+			visible_to_users;
+		};
+
+		hisi_cma {
+			reg = <0x0 0x40000000 0x0 0x20000000>;
+			compatible = "hisi-cma-pool";
+			sec-attr = <0x0 0x20>;
+			reusable;
+			status = "ok";
+			visible_to_users;
+		};
+	};
+};
+

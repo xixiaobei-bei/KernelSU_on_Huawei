@@ -1,0 +1,12 @@
+
+config PMIC_OCP
+	bool "balong pmic ocp"
+	default n
+	help
+	support for pmic ocp of balong
+	
+config PMIC_DCXO 
+	bool "balong pmic dcxo"
+	default n
+	help
+	support for pmic dcxo of balong

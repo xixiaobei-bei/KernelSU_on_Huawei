@@ -1,0 +1,12 @@
+/*
+ * Hisilicon Ltd Balong SW
+ */
+
+/ {
+	hisi,osa {
+		compatible = "hisilicon,hisi-osa";
+		dma_mask_bit = <64>;
+		status = "ok";
+	};
+};
+

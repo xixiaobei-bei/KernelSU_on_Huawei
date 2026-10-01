@@ -1,0 +1,5 @@
+config BALONG_ESPE
+	tristate "smart packet process module"
+	help
+	  If this option is enabled, the kernel will include support
+	  for soft fast forward.

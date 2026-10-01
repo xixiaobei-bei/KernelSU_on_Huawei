@@ -1,0 +1,9 @@
+#
+# Balong dump configuration
+#
+
+config DIAG_SYSTEM
+	tristate "hisi diag system"
+	default n
+	help
+		balong diag for kernel

@@ -1,0 +1,85 @@
+/{
+	aliases {
+		mshc1 = &dwmmc1;
+		mshc2 = &dwmmc2;
+	};
+
+	/* eMMC */
+	sdhci0: sdhci@FF3E1000 {
+		compatible = "mshc,sdhci";
+		reg = <0x0 0xff3e6000 0x0 0x1000>,	/* 0: HCI standard */
+			<0x0 0xff3e1000 0x0 0x1000>,	/* 1: EMMC PHY CTRL */
+			<0x0 0xff3e2000 0x0 0x1000>,	/* 2: EMMC SYS CTRL */
+			<0x0 0xff3e3000 0x0 0x1000>,	/* 3: EMMC GPIO1 CTRL */
+			<0x0 0xff3e4000 0x0 0x1000>,	/* 4: EMMC GPIO2 CTRL */
+			<0x0 0xff3e5000 0x0 0x1000>;	/* 5: EMMC IOC CTRL */
+		clock-names = "clk_xin";
+		clocks = <&clk_gate_emmc>;
+		interrupt-parent = <&gic>;
+		interrupts = <0 279 4>;
+		bus-width = <8>;
+		non-removable;
+		use-adma;//use-pio, use-dma, use-adma
+		sdhci-adma-64bit;
+		caps2-mmc-cache-ctrl;
+		caps2-mmc-HC-erase-size;
+		coldboot_on_reset_fail;
+		status = "ok";
+
+		mmccard: mmccard@0 {
+			reg = <0>;
+			compatible = "mmc-card";
+			broken-hpi;
+		};
+	};
+
+	/* SD */
+	dwmmc1: dwmmc1@FF37F000 {
+		compatible = "hisilicon,libra-dw-mshc";
+		reg = <0x0 0xff37f000 0x0 0x1000>;
+		interrupts = <0 139 4>;
+		num-slots = <1>;
+		clocks = <&clk_gate_sd>, <&hclk_gate_sd>, <&sd_volt_hold>;
+		clock-names = "ciu", "biu", "volt_hold";
+		fifo-depth = <0x100>;
+		card-detect-delay = <200>;
+		supports-highspeed;
+		pinctrl-names = "default","idle";
+		pinctrl-0 = <&gpio160_pmx_func &gpio161_pmx_func &gpio162_pmx_func
+				&gpio163_pmx_func &gpio164_pmx_func &gpio165_pmx_func
+				&gpio160_cfg_func &gpio161_cfg_func &gpio162_cfg_func
+				&gpio163_cfg_func &gpio164_cfg_func &gpio165_cfg_func>;
+		pinctrl-1 = <&gpio160_pmx_idle &gpio161_pmx_idle &gpio162_pmx_idle
+				&gpio163_pmx_idle &gpio164_pmx_idle &gpio165_pmx_idle
+				&gpio160_cfg_idle &gpio161_cfg_idle &gpio162_cfg_idle
+				&gpio163_cfg_idle &gpio164_cfg_idle &gpio165_cfg_idle>;
+		slot@0 {
+                       reg = <0>;
+                       bus-width = <4>;
+                       disable-wp;
+               };
+	};
+
+	/* wifi */
+
+	dwmmc2: dwmmc2@FC183000 {
+		compatible = "hisilicon,libra-dw-mshc";
+		reg = <0x0 0xfc183000 0x0 0x1000>;
+		interrupts = <0 140 4>;
+		num-slots = <1>;
+		clocks = <&clk_gate_sdio>, <&hclk_gate_sdio>, <&sdio_volt_hold>;
+		clock-names = "ciu", "biu", "volt_hold_sdio";
+		fifo-depth = <0x100>;
+		card-detect-delay = <200>;
+		caps2-support-wifi;
+		supports-highspeed;
+		keep-power-in-suspend;
+		pinctrl-names = "default","idle";
+		slot@0 {
+			reg = <0>;
+			bus-width = <4>;
+			disable-wp;
+		};
+	};
+
+};

@@ -1,0 +1,7 @@
+/ {
+	hisi_battery:hisi_battery {
+		compatible = "hisi_battery";
+		status = "disabled";
+	};
+};
+

@@ -1,0 +1,164 @@
+/*
+ *  Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "kirin710_vowifi_proxy.dtsi"
+/include/ "hisi_soundtrigger_event.dtsi"
+
+/{
+	slimbusmisc: slimbusmisc@0xe8050000 {
+		compatible = "candance,slimbus";
+		reg = <0x0 0xe8050000 0x0 0xb00>,
+			  <0x0 0xe804e000 0x0 0xa000>,
+			  <0x0 0xfff0a000 0x0 0x1000>;
+		slimbus-reg-supply = <&asp>;
+		status = "disabled";
+	};
+
+	slimbus_dai: slimbus_dai@0 {
+		compatible = "hisilicon,slimbus-dai";
+		status = "disabled";
+	};
+
+	sound_hi6555: sound_hi6555 {
+		compatible = "hi6250_hi6555c";
+		status = "disabled";
+	};
+
+	sound_hi6403: sound_hi6403 {
+		compatible = "hisilicon,hi3xxx-hi6403";
+		status = "disabled";
+	};
+
+	hi6210_hifi: hi6210_hifi {
+		compatible = "hi6210-hifi";
+		status = "ok";
+	};
+
+	codecssi: codecssi@0xe82b9000{
+		compatible = "hisilicon,codecssi";
+		reg = <0x0 0xe82b9000 0x0 0x800>;
+		status = "disabled";
+	};
+
+	codec_controller: codec_controller@e82b9000 {
+		compatible = "hisilicon,codec-controller";
+		codec_ldo8-supply = <&ldo8>; /* pmu codec ldo8 supply */
+		/* ssi base-addr & addr-range(0x200 << 2) */
+		reg = <0x0 0xe82b9000 0x0 0x800>;
+		status = "disabled";
+
+		hi64xx_irq@0 {
+			compatible = "hisilicon,hi64xx-irq";
+			status = "disabled";
+
+			hi6403_codec@0{
+				compatible = "hisilicon,hi6403-codec";
+				status = "disabled";
+			};
+
+			test_hi64xx_irq@0 {
+			    compatible = "hisilicon,test-hi64xx-irq";
+				status = "disabled";
+			};
+		};
+
+		test_codec_controller@0 {
+			compatible = "hisilicon,test-codec-controller";
+			status = "disabled";
+		};
+	};
+
+	codec_stub: codec {
+		compatible = "hisilicon,hi6555c-stub-codec";
+		codec_ldo8-supply = <&ldo8>;        /* pmu codec ldo8 supply */
+		reg = <0x0 0xE8052000 0x0 0x1000>,  /* soc codec */
+			<0x0 0xE804E000 0x0 0x400>,     /* asp_cfg */
+			<0x0 0xFFF11000 0x0 0x1000>,    /* ao ioc */
+			<0x0 0xFFF10000 0x0 0x1000>;    /* gpio */
+		status = "disabled";
+	};
+
+	codec_hi6555v2: codec {
+		compatible = "hisilicon,hi6555v2-codec";
+		codec_ldo8-supply = <&ldo8>;           /* pmu codec ldo8 supply */
+		reg = <0x0 0xE8052000 0x0 0x1000>,     /* soc codec */
+			  <0x0 0xE804E000 0x0 0x400>,      /* asp_cfg */
+			  <0x0 0xFFF11000 0x0 0x1000>;     /* ao ioc */
+		status = "disabled";
+	};
+
+	soundtrigger: soundtrigger@E804B000 {
+		compatible = "hisilicon,soundtrigger_dma_drv";
+		reg = <0x0 0xe804b000 0x0 0x1000>;
+		asp-dmac-supply = <&asp>;
+		status = "disabled";
+	};
+
+	hifi_cma: hifi-cma {
+		compatible = "hisilicon,hifi-cma";
+		memory-region = <&fastboot_cma>;
+		enable-status = "true";
+		hisi-align = <0x9>;
+		cma-sec-config = "secos";
+		status = "ok";
+	};
+
+	hifidsp: hifidsp {
+		compatible = "hisilicon,k3hifidsp";
+		status = "ok";
+	};
+
+	sochifi_watchdog: sochifi_watchdog {
+		compatible = "hisilicon,sochifi-watchdog";
+		interrupts = <0 213 4>;
+		status = "ok";
+	};
+
+	asp_dmac: asp_dmac@E804B000 {
+		compatible = "hisilicon,hi3xxx-pcm-asp-dma";
+		reg = <0x0 0xe804b000 0x0 0x1000>;
+		asp-dmac-supply = <&asp>;
+		status = "disabled";
+	};
+
+	hi64xx_asp_dmac: hi64xx_asp_dmac@E804B000 {
+		compatible = "hisilicon,hi64xx-asp-dma";
+		reg = <0x0 0xe804b000 0x0 0x1000>;
+		asp-dmac-supply = <&asp>;
+		status = "disabled";
+	};
+
+	audio_hw_config: audio_hw_config {
+		direct_devices = "0x20000000";
+		status = "disabled";
+	};
+
+	deviceboxID: deviceboxID@0 {
+		compatible = "huawei,deviceboxID";
+		status = "disabled";
+	};
+
+	smartpakit: smartpakit {
+		compatible = "huawei,smartpakit";
+		status = "disabled";
+	};
+
+	codec_i2s2: codec_i2s2 {
+		compatible = "hisilicon,codec-i2s2";
+		status = "disabled";
+	};
+
+	codec_3rd: codec_3rd {
+		status = "disabled";
+	};
+
+	usbaudio_dsp: usbaudio_dsp {
+		compatible = "hisilicon,usbaudiodsp";
+		status = "ok";
+	};
+};

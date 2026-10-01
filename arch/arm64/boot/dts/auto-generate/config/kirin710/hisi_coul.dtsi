@@ -1,0 +1,28 @@
+ / {
+    fastboot_coul:fastboot_core {
+        compatible = "fastboot,coul";
+        coul_type = <5>; /*hi6421v600*/
+        status = "ok";
+    };
+    coul_core:coul_core{
+        compatible = "hisi,coul_core";
+	    r_pcb = <26000>;	
+	    r_coul_mohm = <10>;
+	    current_offset_a = <1000000>;						
+	    status = "disabled";
+   };
+   pmic: pmic@0 {
+        hi6421v600_coul: hi6421v600_coul@1 {
+              compatible = "hisilicon,hi6421v600_coul";
+	          interrupt-parent = <&pmic>;
+              interrupts = <9 0>;
+              interrupt-names = "coulirq";						
+	          status = "disabled";
+        };
+   };
+   hisi_coul_drv_test:hisi_coul_test {
+   	    compatible = "hisi_coul_drv_test";
+	    status = "disabled";
+   };
+	
+};

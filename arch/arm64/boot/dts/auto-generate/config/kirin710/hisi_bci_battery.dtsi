@@ -1,0 +1,19 @@
+ / {
+    hisi_bci_battery:battery {
+        compatible = "huawei,hisi_bci_battery";
+        battery_is_removable = <0>; 
+        battery_board_type = <0>; /*0:sft 1:udp 2:asic*/
+	bci_work_interval_para =
+		"0","10","5000",
+		"10","90","10000",
+		"90","100","30000";
+	temp_throttling = <0>;
+	temp_shutdown = <68>;
+	temp_below_vr_min = <0>;
+	chg_full_rpt_thr = <95>;
+	/* Default 30s once, waiting 40 minutes is waiting 80 times */
+	chg_full_wait_times = <80>;
+	status = "disabled";
+	bci_soc_at_term = <100>;
+    }; 	
+};

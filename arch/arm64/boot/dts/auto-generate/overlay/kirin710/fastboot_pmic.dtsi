@@ -1,0 +1,20 @@
+/******************************************************************************
+
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+
+  This is an AUTO GENERATED file ! DON'T MODIFY MANUAL!
+  文 件 名   : %(filename)s
+  生成日期   : %(year)d年%(month)d月%(day)d日
+
+******************************************************************************/
+
+/ {
+	fastboot_pmic: fastboot_pmic {
+		compatible = "fastboot,hisi-pmic";
+		hisilicon,init-reg-num = <0>;
+		hisilicon,init-reg-addrs = <0>;
+		hisilicon,init-reg-vals  = <0>;
+	};
+};

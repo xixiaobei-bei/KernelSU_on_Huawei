@@ -1,0 +1,78 @@
+/*
+ *  Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+	&codec_controller {
+		/* irq & reset */
+		gpios = <&gpio26 1 0>, <&gpio8 4 0>;
+		gpio_reset = <31>; /* GPIO_031*/
+		/* ssi pinctrl */
+		/* select slimbus or ssi */
+		hisilicon,codec-sel = "hi6403";
+		hisilicon,bus-sel = "ssi";
+		hisilicon,reg-8bit-begin-addr = <0x20007000>;
+		hisilicon,reg-8bit-end-addr = <0x20007fff>;
+		hisilicon,ldo8_supply = <1>;
+		gpio_codec_ssi = <203>;
+		gpio_codec_ssi_func = <1>;
+		pmu_clkcodec_addr = <0x03c>;
+		pmu_clkcodec_addr_bit = <0>;
+		status = "disabled";
+
+		hi64xx_irq@0 {
+			#interrupt-cells = <2>;
+			interrupt-controller;
+			status = "disabled";
+
+			hi6403_codec@0{
+				hisilicon,classh_rcv_hp_switch = <0>;
+				hisilicon,hp_high_low_change_enable = <0>;
+				hisilicon,hp_res_detect_enable = <0>;
+				hisilicon,mic_num = <2>;
+				hisilicon,hs_det = <0>;
+				hisilicon,hs_ctrl = <0x31>;
+				hisilicon,hs_det_trigger = <0>;
+				hisilicon,coefficient = <2700>;
+				hisilicon,hs_3_pole_min_voltage = <0>;
+				hisilicon,hs_3_pole_max_voltage = <8>;
+				hisilicon,hs_4_pole_min_voltage = <900>;
+				hisilicon,hs_4_pole_max_voltage = <2650>;
+				hisilicon,btn_play_min_voltage = <0>;
+				hisilicon,btn_play_max_voltage = <100>;
+				hisilicon,btn_voice_assistant_min_voltage = <110>;
+				hisilicon,btn_voice_assistant_max_voltage = <180>;
+				hisilicon,btn_volume_up_min_voltage = <181>;
+				hisilicon,btn_volume_up_max_voltage = <320>;
+				hisilicon,btn_volume_down_min_voltage = <320>;
+				hisilicon,btn_volume_down_max_voltage = <700>;
+				status = "disabled";
+			};
+
+			test_hi64xx_irq@0 {
+                               status = "disabled";
+			};
+		};
+
+		test_codec_controller@0 {
+			status = "disabled";
+		};
+	};
+	&codecssi {
+		/* ssi pinctrl */
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio204_cfg_func &gpio204_pmx_func>;
+		pinctrl-1 = <&gpio204_cfg_idle &gpio204_pmx_idle>;
+		status = "disabled";
+	};
+	&slimbusmisc {
+		interrupts = <0x0 0x96 0x4>;
+		interrupt-names = "asp_irq_slimbus";
+		clk_asp_subsys = <540672>;
+		asp_power_state_offset = <0x06c>;
+		asp_clk_state_offset = < 0x16c>;
+		status = "disabled";
+	};

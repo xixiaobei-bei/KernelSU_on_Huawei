@@ -1,0 +1,24 @@
+/*
+ * Hisilicon Ltd. Kirin970 SoC
+ *
+ * Copyright (C) 2014- Hisilicon Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * publishhed by the Free Software Foundation.
+ */
+
+/ {
+	cambricon-ipu@ff400000{
+		vipu-supply = <&ics>;
+		compatible = "hisilicon,cambricon-ipu";
+		reg = <0x0 0xff400000 0x0 0x100000>,<0x0 0xff500000 0x0 0x100000>;
+		interrupts = <0 351 4>;
+		interrupt-names = "ipu_dma_irq";
+		status = "disabled";
+		iommu_info {
+			start-addr = <0x40000>;
+			size = <0xE0000000>;
+		};
+	};
+};

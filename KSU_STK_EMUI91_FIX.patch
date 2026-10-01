@@ -1,0 +1,4587 @@
+--- a/allowlist.c
++++ b/allowlist.c
+@@ -8,7 +8,6 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/version.h>
+-#include <linux/compiler_types.h>
+ 
+ #include "ksu.h"
+ #include "klog.h" // IWYU pragma: keep
+--- a/core_hook.c
++++ b/core_hook.c
+@@ -47,7 +47,6 @@
+ 
+ static bool ksu_module_mounted = false;
+ 
+-extern int handle_sepolicy(unsigned long arg3, void __user *arg4);
+ 
+ static bool ksu_su_compat_enabled = true;
+ extern void ksu_sucompat_init();
+@@ -182,7 +181,7 @@
+ 	disable_seccomp();
+ 	spin_unlock_irq(&current->sighand->siglock);
+ 
+-	setup_selinux(profile->selinux_domain);
++	setup_selinux(profile->selinux_domain, current_cred());
+ }
+ 
+ int ksu_handle_rename(struct dentry *old_dentry, struct dentry *new_dentry)
+@@ -351,7 +350,7 @@
+ 		if (!from_root) {
+ 			return 0;
+ 		}
+-		if (!handle_sepolicy(arg3, arg4)) {
++		if (!handle_sepolicy((void __user *)arg3, (u64)arg4)) {
+ 			if (copy_to_user(result, &reply_ok, sizeof(reply_ok))) {
+ 				pr_err("sepolicy: prctl reply error\n");
+ 			}
+--- a/kernel_compat.c
++++ b/kernel_compat.c
+@@ -1,7 +1,7 @@
+ #include <linux/version.h>
+ #include <linux/fs.h>
+ #include <linux/nsproxy.h>
+-#include <linux/sched/task.h>
++#include <linux/sched.h>
+ #include <linux/uaccess.h>
+ #include "klog.h" // IWYU pragma: keep
+ #include "kernel_compat.h"
+--- a/ksu.c
++++ b/ksu.c
+@@ -88,4 +88,6 @@
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("weishu");
+ MODULE_DESCRIPTION("Android KernelSU");
++#ifdef MODULE_IMPORT_NS
+ MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
++#endif
+--- a/Makefile
++++ b/Makefile
+@@ -52,3 +52,7 @@
+ ccflags-y += -Wno-declaration-after-statement -Wno-unused-function
+ 
+ # Keep a new line here!! Because someone may append config
++
++# symbol_resolver for selinux (Huawei 4.9 in-tree GKI-style symbol resolve)
++kernelsu-objs += symbol_resolver.o
++ccflags-y += -I$(src) -I$(src)/include
+--- a/selinux/Makefile
++++ b/selinux/Makefile
+@@ -2,15 +2,155 @@
+ obj-y += sepolicy.o
+ obj-y += rules.o
+ 
+-ifeq ($(shell grep -q " current_sid(void)" $(srctree)/security/selinux/include/objsec.h; echo $$?),0)
++ccflags-y += -I$(srctree)/security/selinux -I$(srctree)/security/selinux/include
++ccflags-y += -I$(src)/.. -I$(src)/../include
++ccflags-y += -I$(objtree)/security/selinux -include $(srctree)/include/uapi/asm-generic/errno.h
++
++ccflags-y += -Wno-implicit-function-declaration -Wno-strict-prototypes -Wno-int-conversion
++ccflags-y += -Wno-declaration-after-statement -Wno-unused-function
++
++# --- KSU_COMPAT detection (ported from reference kernel_compat.mk) ---
++ifeq ($(shell grep -q "current_sid(void)" $(srctree)/security/selinux/include/objsec.h; echo $$?),0)
+ ccflags-y += -DKSU_COMPAT_HAS_CURRENT_SID
+ endif
+-
+ ifeq ($(shell grep -q "struct selinux_state " $(srctree)/security/selinux/include/security.h; echo $$?),0)
+ ccflags-y += -DKSU_COMPAT_HAS_SELINUX_STATE
+ endif
+-
+-ccflags-y += -Wno-implicit-function-declaration -Wno-strict-prototypes -Wno-int-conversion
+-ccflags-y += -Wno-declaration-after-statement -Wno-unused-function
+-ccflags-y += -I$(srctree)/security/selinux -I$(srctree)/security/selinux/include
+-ccflags-y += -I$(objtree)/security/selinux -include $(srctree)/include/uapi/asm-generic/errno.h
++ifeq ($(shell grep -q "strncpy_from_user_nofault" $(srctree)/include/linux/uaccess.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_STRNCPY
++endif
++ifeq ($(shell grep -q "ssize_t kernel_read" $(srctree)/fs/read_write.c; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_KERNEL_READ
++endif
++ifeq ($(shell grep "ssize_t kernel_write" $(srctree)/fs/read_write.c | grep -q "const void" ; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_KERNEL_WRITE
++endif
++ifeq ($(shell grep -q "int\s\+path_umount" $(srctree)/fs/namespace.c; echo $$?),0)
++ccflags-y += -DKSU_HAS_PATH_UMOUNT
++endif
++ifeq ($(shell grep -q "inode_security_struct\s\+\*selinux_inode" $(srctree)/security/selinux/include/objsec.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_SELINUX_INODE
++endif
++ifeq ($(shell grep -q "task_security_struct\s\+\*selinux_cred" $(srctree)/security/selinux/include/objsec.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_SELINUX_CRED
++endif
++ifeq ($(shell grep -q "atomic_t\s\+filter_count" $(srctree)/include/linux/seccomp.h $(srctree)/include/linux/seccomp_types.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_SECCOMP_FILTER_CNT
++endif
++ifneq ($(shell grep -wq "put_seccomp_filter" $(srctree)/kernel/seccomp.c $(srctree)/include/linux/seccomp.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_SECCOMP_FILTER_RELEASE
++endif
++ifeq ($(shell grep -q "security_inode_init_security_anon" $(srctree)/include/linux/security.h; echo $$?),0)
++ccflags-y += -DKSU_OPTIONAL_HAS_INIT_SEC_ANON
++endif
++ifeq ($(shell grep -q "anon_inode_getfd_secure" $(srctree)/fs/anon_inodes.c; echo $$?),0)
++ccflags-y += -DKSU_HAS_GETFD_SECURE
++endif
++ifeq ($(shell grep -q "anon_inode_create_getfd" $(srctree)/fs/anon_inodes.c; echo $$?),0)
++ccflags-y += -DKSU_HAS_ANON_INODE_CREATE_FD
++endif
++ifeq ($(shell grep -q "static inline struct inode \*file_inode" $(srctree)/include/linux/fs.h; echo $$?),0)
++ccflags-y += -DKSU_UL_HAS_FILE_INODE
++endif
++ifneq ($(shell grep -q __flush_dcache_area $(srctree)/arch/arm64/include/asm/cacheflush.h; echo $$?),0)
++ccflags-y += -DKSU_HAS_NEW_DCACHE_FLUSH
++endif
++ifeq ($(shell grep -q "CONFIG_KDP_CRED" $(srctree)/kernel/cred.c; echo $$?),0)
++ccflags-y += -DSAMSUNG_UH_DRIVER_EXIST
++endif
++ifeq ($(shell grep -q "SEC_SELINUX_PORTING_COMMON" $(srctree)/security/selinux/avc.c; echo $$?),0)
++ccflags-y += -DSAMSUNG_SELINUX_PORTING
++endif
++ifeq ($(shell grep -q "CONFIG_HKIP_SELINUX_PROT" $(srctree)/security/selinux/ss/ebitmap.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_IS_HISI_HM2
++endif
++ifeq ($(shell grep -q "policy_mutex" $(srctree)/security/selinux/include/security.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_POLICY_MUTEX
++endif
++ifeq ($(shell grep -q "ns_get_path" $(srctree)/fs/nsfs.c; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_NS_GET_PATH
++endif
++ifeq ($(shell grep -q "dentry_open.const struct path" $(srctree)/include/linux/fs.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_MODERN_DENTRY_OPEN
++endif
++ifeq ($(shell grep -q "^extern void ext4_unregister_sysfs" $(srctree)/fs/ext4/ext4.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_MODERN_EXT4
++endif
++ifeq ($(shell grep -q "read_iter" $(srctree)/include/linux/fs.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_FOP_READ_ITER
++endif
++ifeq ($(shell grep -q "^int iterate_dir" $(srctree)/fs/readdir.c 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_ITERATE_DIR
++endif
++ifeq ($(shell grep -q "alloc_uid.kuid_t" $(srctree)/include/linux/sched.c 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_MODERN_ALLOC_UID
++endif
++ifeq ($(shell grep -q "DEFINE_STATIC_KEY_TRUE" $(srctree)/include/linux/jump_label.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_MODERN_STATIC_KEY_INTERFACE
++endif
++ifeq ($(shell grep -q "static inline struct inode..d_inode" $(srctree)/include/linux/dcache.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_D_INODE
++endif
++ifeq ($(shell grep -q "inode_lock.struct inode" $(srctree)/include/linux/fs.h 2>/dev/null; echo $$?),0)
++ccflags-y += -DKSU_HAS_INODE_LOCK_UNLOCK
++endif
++ifneq ($(wildcard $(srctree)/include/uapi/asm-generic/errno.h),)
++ccflags-y += -DKSU_COMPAT_HAS_MINMAX_H
++endif
++ifneq ($(wildcard $(srctree)/include/linux/minmax.h),)
++ccflags-y += -DKSU_COMPAT_HAS_MINMAX_H
++endif
++ifneq ($(wildcard $(srctree)/include/linux/overflow.h),)
++ccflags-y += -DKSU_COMPAT_HAS_OVERFLOW_H
++endif
++ifneq ($(wildcard $(srctree)/include/linux/proc_ns.h),)
++ccflags-y += -DKSU_HAS_MODERN_PROC_NS
++endif
++ifeq ($(shell grep -q "POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE
++endif
++ifeq ($(shell grep -q "POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH
++endif
++ifneq ($(shell grep -q "flex_array" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_MODERN_POLICYDB
++endif
++ifeq ($(shell grep -q "struct sidtab .sidtab" $(srctree)/security/selinux/ss/services.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_SIDTAB_AS_REFERENCE
++endif
++ifeq ($(shell grep -q "hlist_head" $(srctree)/include/linux/lsm_hooks.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HLIST_FOR_SECURITY_HOOK_LIST
++endif
++ifeq ($(shell grep -F -q "int (*setprocattr)(const char *name, void *value, size_t size);" $(srctree)/include/linux/lsm_hooks.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_SETPROCATTR_USE_NEW_PROTOTYPE
++endif
++ifeq ($(shell grep -F -q "char *lsm_names" $(srctree)/security/security.c; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_REQUIRE_PROVIDE_LSM_NAME
++endif
++ifeq ($(shell grep -q "struct mutex status_lock" $(srctree)/security/selinux/include/security.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_SELINUX_STATUS_VAR_IN_SELINUX_STATE
++endif
++ifeq ($(shell grep -q "struct selinux_policy" $(srctree)/security/selinux/ss/services.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_SELINUX_POLICY_STRUCT
++endif
++ifeq ($(shell grep -q "struct hashtab table" $(srctree)/security/selinux/ss/symtab.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_NON_POINTER_SYMTAB_STRUCT
++endif
++ifeq ($(shell grep -q "symtab_search" $(srctree)/security/selinux/ss/symtab.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_SYMTAB_SEARCH
++endif
++ifeq ($(shell grep -q "hashtab_key_params" $(srctree)/security/selinux/ss/hashtab.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_HASHTAB_KEY_PARAMS
++endif
++ifeq ($(shell grep -q "filename_trans_key" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_FILENAME_TRANS_KEY
++endif
++ifeq ($(shell grep -q "security_add_hooks" $(srctree)/include/linux/lsm_hooks.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_HAS_LIST_OF_LSM_HOOKS
++endif
++ifneq ($(shell grep -q "type_attr_map_array" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_TYPE_ATTR_MAP_ARRAY_NOT_FOUND
++endif
++ifneq ($(shell grep -q "sym_name" $(srctree)/security/selinux/ss/policydb.h; echo $$?),0)
++ccflags-y += -DKSU_COMPAT_SYM_NAME_NOT_FOUND
++endif
+--- a/selinux/rules.c
++++ b/selinux/rules.c
+@@ -1,463 +1,773 @@
+ #include <linux/uaccess.h>
+ #include <linux/types.h>
+ #include <linux/version.h>
++#include <linux/slab.h>
++#include <linux/vmalloc.h>
++#include <linux/string.h>
++#include <linux/rwlock.h>
++#include <linux/mount.h>
+ 
+-#include "../klog.h" // IWYU pragma: keep
++#include "uapi/selinux.h"
++#include "klog.h" // IWYU pragma: keep
+ #include "selinux.h"
+ #include "sepolicy.h"
+ #include "ss/services.h"
+-#include "linux/lsm_audit.h"
++#include "linux/lsm_audit.h" // IWYU pragma: keep
+ #include "xfrm.h"
++#include "infra/symbol_resolver.h"
++#include "sepolicy_cmd.h"
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
+ #define SELINUX_POLICY_INSTEAD_SELINUX_SS
+ 
+-#define KERNEL_SU_DOMAIN "su"
+-#define KERNEL_SU_FILE "ksu_file"
+-#define KERNEL_EXEC_TYPE "ksu_exec"
++struct selinux_policy *backup_sepolicy;
++#else
++struct policydb *backup_policydb;
++struct sidtab *backup_sidtab;
++#endif
++
+ #define ALL NULL
+ 
++#if ((!defined(KSU_COMPAT_USE_SELINUX_STATE)) || LINUX_VERSION_CODE >= KERNEL_VERSION(6, 4, 0))
++extern int avc_ss_reset(u32 seqno);
++#else
++extern int avc_ss_reset(struct selinux_avc *avc, u32 seqno);
++#endif
++// reset avc cache table, otherwise the new rules will not take effect if already denied
++static void reset_avc_cache()
++{
++#if ((!defined(KSU_COMPAT_USE_SELINUX_STATE)) || LINUX_VERSION_CODE >= KERNEL_VERSION(6, 4, 0))
++    avc_ss_reset(0);
++    selnl_notify_policyload(0);
++    selinux_status_update_policyload(0);
++#else
++    struct selinux_avc *avc = selinux_state.avc;
++    avc_ss_reset(avc, 0);
++    selnl_notify_policyload(0);
++    selinux_status_update_policyload(&selinux_state, 0);
++#endif
++    selinux_xfrm_notify_policyload();
++}
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0) && !defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++
+ static struct policydb *get_policydb(void)
+ {
+-	struct policydb *db;
+-	struct selinux_policy *policy = rcu_dereference(selinux_state.policy);
+-	db = &policy->policydb;
+-	return db;
++    struct policydb *db;
++// selinux_state does not exists before 4.19
++#ifdef KSU_COMPAT_USE_SELINUX_STATE
++#ifdef SELINUX_POLICY_INSTEAD_SELINUX_SS
++#error It should not happen!
++#else
++    struct selinux_ss *ss = selinux_state.ss;
++    db = &ss->policydb;
++#endif
++#else
++    db = &policydb;
++#endif
++    return db;
++}
++
++#if defined(KSU_COMPAT_USE_SELINUX_STATE) && !defined(SELINUX_POLICY_INSTEAD_SELINUX_SS)
++extern struct vfsmount *selinuxfs_mount;
++
++struct selinux_fs_info {
++    struct dentry *bool_dir;
++    unsigned int bool_num;
++    char **bool_pending_names;
++    unsigned int *bool_pending_values;
++    struct dentry *class_dir;
++    unsigned long last_class_ino;
++    bool policy_opened;
++    struct dentry *policycap_dir;
++    struct mutex mutex;
++    unsigned long last_ino;
++    struct selinux_state *state;
++    struct super_block *sb;
++};
++#endif
++
++#ifndef KSU_COMPAT_USE_SELINUX_STATE
++static struct mutex *ksu_sel_mutex_ptr = NULL;
++rwlock_t *ksu_policy_rwlock_ptr = NULL;
++#endif // #ifndef KSU_COMPAT_USE_SELINUX_STATE
++
++static inline void ksu_lock_sel_mutex_legacy(void)
++{
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE) && !defined(SELINUX_POLICY_INSTEAD_SELINUX_SS)
++    struct selinux_fs_info *fsi = selinuxfs_mount->mnt_sb->s_fs_info;
++    mutex_lock(&fsi->mutex);
++// 4.14-
++#else
++    mutex_lock(ksu_sel_mutex_ptr);
++#endif
++}
++
++static inline void ksu_unlock_sel_mutex_legacy(void)
++{
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE) && !defined(SELINUX_POLICY_INSTEAD_SELINUX_SS)
++    struct selinux_fs_info *fsi = selinuxfs_mount->mnt_sb->s_fs_info;
++    mutex_unlock(&fsi->mutex);
++// 4.14-
++#else
++    mutex_unlock(ksu_sel_mutex_ptr);
++#endif
++}
++
++static inline void ksu_lock_sepolicy_legacy(void)
++{
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE) && !defined(SELINUX_POLICY_INSTEAD_SELINUX_SS)
++    write_lock_irq(&selinux_state.ss->policy_rwlock);
++// 4.14-
++#else
++    write_lock_irq(ksu_policy_rwlock_ptr);
++#endif
++}
++
++static inline void ksu_unlock_sepolicy_legacy(void)
++{
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE) && !defined(SELINUX_POLICY_INSTEAD_SELINUX_SS)
++    write_unlock_irq(&selinux_state.ss->policy_rwlock);
++// 4.14-
++#else
++    write_unlock_irq(ksu_policy_rwlock_ptr);
++#endif
+ }
+ 
++#endif // KSU_COMPAT_HAS_POLICY_MUTEX
++
+ void apply_kernelsu_rules()
+ {
+-	if (!getenforce()) {
+-		pr_info("SELinux permissive or disabled, apply rules!\n");
+-	}
+-
+-	rcu_read_lock();
+-	struct policydb *db = get_policydb();
+-
+-	ksu_permissive(db, KERNEL_SU_DOMAIN);
+-	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "mlstrustedsubject");
+-	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "netdomain");
+-	ksu_typeattribute(db, KERNEL_SU_DOMAIN, "bluetoothdomain");
+-
+-	// Create unconstrained file type
+-	ksu_type(db, KERNEL_SU_FILE, "file_type");
+-	ksu_typeattribute(db, KERNEL_SU_FILE, "mlstrustedobject");
+-	ksu_allow(db, ALL, KERNEL_SU_FILE, ALL, ALL);
+-
+-	// allow all!
+-	ksu_allow(db, KERNEL_SU_DOMAIN, ALL, ALL, ALL);
+-
+-	// allow us do any ioctl
+-	if (db->policyvers >= POLICYDB_VERSION_XPERMS_IOCTL) {
+-		ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "blk_file", ALL);
+-		ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "fifo_file", ALL);
+-		ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "chr_file", ALL);
+-		ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "file", ALL);
+-	}
+-
+-	// we need to save allowlist in /data/adb/ksu
+-	ksu_allow(db, "kernel", "adb_data_file", "dir", ALL);
+-	ksu_allow(db, "kernel", "adb_data_file", "file", ALL);
+-	// we need to search /data/app
+-	ksu_allow(db, "kernel", "apk_data_file", "file", "open");
+-	ksu_allow(db, "kernel", "apk_data_file", "dir", "open");
+-	ksu_allow(db, "kernel", "apk_data_file", "dir", "read");
+-	ksu_allow(db, "kernel", "apk_data_file", "dir", "search");
+-	// we may need to do mount on shell
+-	ksu_allow(db, "kernel", "shell_data_file", "file", ALL);
+-	// we need to read /data/system/packages.list
+-	ksu_allow(db, "kernel", "kernel", "capability", "dac_override");
+-	// Android 10+:
+-	// http://aospxref.com/android-12.0.0_r3/xref/system/sepolicy/private/file_contexts#512
+-	ksu_allow(db, "kernel", "packages_list_file", "file", ALL);
+-	// Kernel 4.4
+-	ksu_allow(db, "kernel", "packages_list_file", "dir", ALL);
+-	// Android 9-:
+-	// http://aospxref.com/android-9.0.0_r61/xref/system/sepolicy/private/file_contexts#360
+-	ksu_allow(db, "kernel", "system_data_file", "file", ALL);
+-	ksu_allow(db, "kernel", "system_data_file", "dir", ALL);
+-	// our ksud triggered by init
+-	ksu_allow(db, "init", "adb_data_file", "file", ALL);
+-	ksu_allow(db, "init", "adb_data_file", "dir", ALL); // #1289
+-	ksu_allow(db, "init", KERNEL_SU_DOMAIN, ALL, ALL);
+-	// we need to umount modules in zygote
+-	ksu_allow(db, "zygote", "adb_data_file", "dir", "search");
+-
+-	// copied from Magisk rules
+-	// suRights
+-	ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "dir", "search");
+-	ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "dir", "read");
+-	ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "file", "open");
+-	ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "file", "read");
+-	ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "process", "getattr");
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "process", "sigchld");
+-
+-	// allowLog
+-	ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "dir", "search");
+-	ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "read");
+-	ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "open");
+-	ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "getattr");
+-
+-	// dumpsys
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "fd", "use");
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "fifo_file", "write");
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "fifo_file", "read");
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "fifo_file", "open");
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "fifo_file", "getattr");
+-
+-	// bootctl
+-	ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "dir", "search");
+-	ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "file", "read");
+-	ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "file", "open");
+-	ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "process",
+-		  "getattr");
+-
+-	// For mounting loop devices, mirrors, tmpfs
+-	ksu_allow(db, "kernel", ALL, "file", "read");
+-	ksu_allow(db, "kernel", ALL, "file", "write");
++    struct policydb *db;
++
++    if (!getenforce()) {
++        pr_info("SELinux permissive or disabled, apply rules!\n");
++    }
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++    struct selinux_policy *pol, *old_pol = selinux_state.policy;
++    mutex_lock(&selinux_state.policy_mutex);
++    backup_sepolicy =
++        ksu_dup_sepolicy(rcu_dereference_protected(old_pol, lockdep_is_held(&selinux_state.policy_mutex)));
++    if (IS_ERR(backup_sepolicy)) {
++        pr_err("failed to create backup sepolicy: %ld\n", PTR_ERR(backup_sepolicy));
++        backup_sepolicy = NULL;
++    } else {
++        backup_sepolicy->sidtab = kzalloc(sizeof(*backup_sepolicy->sidtab), GFP_KERNEL);
++        if (!backup_sepolicy->sidtab) {
++            pr_err("failed to alloc backup sidtab\n");
++            ksu_destroy_sepolicy(backup_sepolicy);
++            backup_sepolicy = NULL;
++        } else {
++            int ret = policydb_load_isids(&backup_sepolicy->policydb, backup_sepolicy->sidtab);
++            if (ret) {
++                pr_err("failed to load isids for backup sepolicy: %d!\n", ret);
++                kfree(backup_sepolicy->sidtab);
++                ksu_destroy_sepolicy(backup_sepolicy);
++                backup_sepolicy = NULL;
++            } else {
++                pr_info("backup sepolicy success! latest_granting=%d\n", backup_sepolicy->latest_granting);
++            }
++        }
++    }
++    pol = ksu_dup_sepolicy(rcu_dereference_protected(old_pol, lockdep_is_held(&selinux_state.policy_mutex)));
++    if (IS_ERR(pol)) {
++        pr_err("failed to dup selinux_policy: %ld\n", PTR_ERR(pol));
++        goto out_unlock;
++    }
++    db = &pol->policydb;
++#else
++    int len = 0;
++
++    struct policydb *policydb_ptr = get_policydb();
+ 
+-	// Allow all binder transactions
+-	ksu_allow(db, ALL, KERNEL_SU_DOMAIN, "binder", ALL);
++    struct policydb *oldpolicydb, *newpolicydb, *tmpdb;
++
++    oldpolicydb = kcalloc(2, sizeof(*oldpolicydb), GFP_KERNEL);
++    newpolicydb = oldpolicydb + 1;
++    db = newpolicydb;
++
++    backup_policydb = kzalloc(sizeof(*backup_policydb), GFP_KERNEL);
++
++    ksu_lock_sel_mutex_legacy();
++
++    len = ksu_dup_policydb(policydb_ptr, backup_policydb);
++    pr_info("len of ksu_dup_policydb (backup_db) output: %d", len);
++    if (len < 0) {
++        pr_err("failed to dup policydb");
++        kfree(backup_policydb);
++        backup_policydb = NULL;
++        backup_sidtab = NULL;
++    } else {
++        backup_sidtab = kzalloc(sizeof(*backup_sidtab), GFP_KERNEL);
++        if (!backup_sidtab) {
++            pr_err("failed to alloc backup sidtab\n");
++            ksu_destroy_policydb(backup_policydb);
++            kfree(backup_policydb);
++            backup_policydb = NULL;
++            backup_sidtab = NULL;
++        } else {
++            int ret = policydb_load_isids(backup_policydb, backup_sidtab);
++            if (ret) {
++                pr_err("failed to load isids for backup sepolicy: %d!\n", ret);
++                kfree(backup_sidtab);
++                ksu_destroy_policydb(backup_policydb);
++                kfree(backup_policydb);
++                backup_policydb = NULL;
++                backup_sidtab = NULL;
++            } else {
++                pr_info("backup sepolicy success!\n");
++            }
++        }
++    }
++
++    len = ksu_dup_policydb(policydb_ptr, db);
++    pr_info("len of ksu_dup_policydb output: %d", len);
++
++    if (len < 0) {
++        pr_err("failed to dup policydb\n");
++        goto out_free;
++    }
++#endif
++
++    ksu_type(db, KERNEL_SU_DOMAIN, "domain");
++    ksu_permissive(db, KERNEL_SU_DOMAIN);
++    ksu_typeattribute(db, KERNEL_SU_DOMAIN, "mlstrustedsubject");
++    ksu_typeattribute(db, KERNEL_SU_DOMAIN, "netdomain");
++    ksu_typeattribute(db, KERNEL_SU_DOMAIN, "bluetoothdomain");
++
++    // Create unconstrained file type
++    ksu_type(db, KERNEL_SU_FILE, "file_type");
++    ksu_typeattribute(db, KERNEL_SU_FILE, "mlstrustedobject");
++    ksu_allow(db, "domain", KERNEL_SU_FILE, ALL, ALL);
++
++    // allow all!
++    ksu_allow(db, KERNEL_SU_DOMAIN, ALL, ALL, ALL);
++
++    // allow us do any ioctl
++    if (db->policyvers >= POLICYDB_VERSION_XPERMS_IOCTL) {
++        ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "blk_file", ALL);
++        ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "fifo_file", ALL);
++        ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "chr_file", ALL);
++        ksu_allowxperm(db, KERNEL_SU_DOMAIN, ALL, "file", ALL);
++    }
++
++    // our ksud triggered by init
++    ksu_allow(db, "init", KERNEL_SU_DOMAIN, ALL, ALL);
++
++    // restored from https://github.com/tiann/KernelSU/pull/3031
++    ksu_allow(db, "init", "adb_data_file", "file", ALL);
++    ksu_allow(db, "init", "adb_data_file", "dir", ALL); // #1289
++
++    // copied from Magisk rules
++    // suRights
++    ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "dir", "search");
++    ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "dir", "read");
++    ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "file", "open");
++    ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "file", "read");
++    ksu_allow(db, "servicemanager", KERNEL_SU_DOMAIN, "process", "getattr");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "process", "sigchld");
++
++    // allowLog
++    ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "dir", "search");
++    ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "read");
++    ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "open");
++    ksu_allow(db, "logd", KERNEL_SU_DOMAIN, "file", "getattr");
++
++    // dumpsys, send fd
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "fd", "use");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "fifo_file", "write");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "fifo_file", "read");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "fifo_file", "open");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "fifo_file", "getattr");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "unix_stream_socket", "read");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "unix_stream_socket", "write");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "unix_stream_socket", "connectto");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "unix_stream_socket", "getopt");
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "unix_stream_socket", "getattr");
++
++    // bootctl
++    ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "dir", "search");
++    ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "file", "read");
++    ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "file", "open");
++    ksu_allow(db, "hwservicemanager", KERNEL_SU_DOMAIN, "process", "getattr");
++
++    // Allow all binder transactions
++    ksu_allow(db, "domain", KERNEL_SU_DOMAIN, "binder", ALL);
+ 
+     // Allow system server kill su process
+     ksu_allow(db, "system_server", KERNEL_SU_DOMAIN, "process", "getpgid");
+     ksu_allow(db, "system_server", KERNEL_SU_DOMAIN, "process", "sigkill");
+ 
+-	rcu_read_unlock();
+-}
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++    rcu_assign_pointer(selinux_state.policy, pol);
++    synchronize_rcu();
++    ksu_destroy_sepolicy(old_pol);
++
++    reset_avc_cache();
++out_unlock:
++    mutex_unlock(&selinux_state.policy_mutex);
++#else
++    /* Save the old policydb to free later. */
++    memcpy(oldpolicydb, policydb_ptr, sizeof(*policydb_ptr));
+ 
+-#define MAX_SEPOL_LEN 128
++    /* Install the new policydb. */
++    ksu_lock_sepolicy_legacy();
++    memcpy(policydb_ptr, newpolicydb, sizeof(*policydb_ptr));
++    ksu_unlock_sepolicy_legacy();
++
++    reset_avc_cache();
++
++    /* Free the old policydb. */
++    ksu_destroy_policydb(oldpolicydb);
++
++out_free:
++    /* Free buffer */
++    kfree(oldpolicydb);
++    ksu_unlock_sel_mutex_legacy();
++#endif
++}
+ 
+-#define CMD_NORMAL_PERM 1
+-#define CMD_XPERM 2
+-#define CMD_TYPE_STATE 3
+-#define CMD_TYPE 4
+-#define CMD_TYPE_ATTR 5
+-#define CMD_ATTR 6
+-#define CMD_TYPE_TRANSITION 7
+-#define CMD_TYPE_CHANGE 8
+-#define CMD_GENFSCON 9
++#define KSU_SEPOLICY_MAX_BATCH_SIZE (8U * 1024U * 1024U)
++#define KSU_SEPOLICY_MAX_ARGS 5
+ 
+ struct sepol_data {
+-	u32 cmd;
+-	u32 subcmd;
+-	char __user *sepol1;
+-	char __user *sepol2;
+-	char __user *sepol3;
+-	char __user *sepol4;
+-	char __user *sepol5;
+-	char __user *sepol6;
+-	char __user *sepol7;
++    u32 cmd;
++    u32 subcmd;
++};
++
++struct sepol_batch_cursor {
++    const u8 *cur;
++    const u8 *end;
+ };
+ 
+-static int get_object(char *buf, char __user *user_object, size_t buf_sz,
+-		      char **object)
++static size_t sepol_remaining(const struct sepol_batch_cursor *cursor)
+ {
+-	if (!user_object) {
+-		*object = ALL;
+-		return 0;
+-	}
++    return (size_t)(cursor->end - cursor->cur);
++}
+ 
+-	if (strncpy_from_user(buf, user_object, buf_sz) < 0) {
+-		return -1;
+-	}
++static int sepol_read_cmd_header(struct sepol_batch_cursor *cursor, struct sepol_data *header)
++{
++    if (sepol_remaining(cursor) < sizeof(*header)) {
++        return -EINVAL;
++    }
+ 
+-	*object = buf;
++    memcpy(header, cursor->cur, sizeof(*header));
++    cursor->cur += sizeof(*header);
+ 
+-	return 0;
++    return 0;
+ }
+ 
+-// reset avc cache table, otherwise the new rules will not take effect if already denied
+-static void reset_avc_cache()
++static int sepol_read_string(struct sepol_batch_cursor *cursor, const char **out)
++{
++    u32 len;
++    const char *str;
++
++    if (sepol_remaining(cursor) < sizeof(len)) {
++        return -EINVAL;
++    }
++
++    memcpy(&len, cursor->cur, sizeof(len));
++    cursor->cur += sizeof(len);
++
++    if (len >= sepol_remaining(cursor)) {
++        return -EINVAL;
++    }
++
++    str = (const char *)cursor->cur;
++    if (memchr(str, '\0', len) != NULL || str[len] != '\0') {
++        return -EINVAL;
++    }
++
++    cursor->cur += len + 1;
++    if (len == 0) {
++        *out = ALL;
++        return 0;
++    }
++
++    *out = str;
++    return 0;
++}
++
++static int sepol_require_not_all(const char *value, const char *name)
+ {
+-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 4, 0))
+-	avc_ss_reset(0);
+-	selnl_notify_policyload(0);
+-	selinux_status_update_policyload(0);
+-#else
+-	struct selinux_avc *avc = selinux_state.avc;
+-	avc_ss_reset(avc, 0);
+-	selnl_notify_policyload(0);
+-	selinux_status_update_policyload(&selinux_state, 0);
+-#endif
+-	selinux_xfrm_notify_policyload();
+-}
+-
+-int handle_sepolicy(unsigned long arg3, void __user *arg4)
+-{
+-	if (!arg4) {
+-		return -1;
+-	}
+-
+-	if (!getenforce()) {
+-		pr_info("SELinux permissive or disabled when handle policy!\n");
+-	}
+-
+-	struct sepol_data data;
+-	if (copy_from_user(&data, arg4, sizeof(struct sepol_data))) {
+-		pr_err("sepol: copy sepol_data failed.\n");
+-		return -1;
+-	}
+-
+-	u32 cmd = data.cmd;
+-	u32 subcmd = data.subcmd;
+-
+-	rcu_read_lock();
+-
+-	struct policydb *db = get_policydb();
+-
+-	int ret = -1;
+-	if (cmd == CMD_NORMAL_PERM) {
+-		char src_buf[MAX_SEPOL_LEN];
+-		char tgt_buf[MAX_SEPOL_LEN];
+-		char cls_buf[MAX_SEPOL_LEN];
+-		char perm_buf[MAX_SEPOL_LEN];
+-
+-		char *s, *t, *c, *p;
+-		if (get_object(src_buf, data.sepol1, sizeof(src_buf), &s) < 0) {
+-			pr_err("sepol: copy src failed.\n");
+-			goto exit;
+-		}
+-
+-		if (get_object(tgt_buf, data.sepol2, sizeof(tgt_buf), &t) < 0) {
+-			pr_err("sepol: copy tgt failed.\n");
+-			goto exit;
+-		}
+-
+-		if (get_object(cls_buf, data.sepol3, sizeof(cls_buf), &c) < 0) {
+-			pr_err("sepol: copy cls failed.\n");
+-			goto exit;
+-		}
+-
+-		if (get_object(perm_buf, data.sepol4, sizeof(perm_buf), &p) <
+-		    0) {
+-			pr_err("sepol: copy perm failed.\n");
+-			goto exit;
+-		}
+-
+-		bool success = false;
+-		if (subcmd == 1) {
+-			success = ksu_allow(db, s, t, c, p);
+-		} else if (subcmd == 2) {
+-			success = ksu_deny(db, s, t, c, p);
+-		} else if (subcmd == 3) {
+-			success = ksu_auditallow(db, s, t, c, p);
+-		} else if (subcmd == 4) {
+-			success = ksu_dontaudit(db, s, t, c, p);
+-		} else {
+-			pr_err("sepol: unknown subcmd: %d\n", subcmd);
+-		}
+-		ret = success ? 0 : -1;
+-
+-	} else if (cmd == CMD_XPERM) {
+-		char src_buf[MAX_SEPOL_LEN];
+-		char tgt_buf[MAX_SEPOL_LEN];
+-		char cls_buf[MAX_SEPOL_LEN];
+-
+-		char __maybe_unused
+-			operation[MAX_SEPOL_LEN]; // it is always ioctl now!
+-		char perm_set[MAX_SEPOL_LEN];
+-
+-		char *s, *t, *c;
+-		if (get_object(src_buf, data.sepol1, sizeof(src_buf), &s) < 0) {
+-			pr_err("sepol: copy src failed.\n");
+-			goto exit;
+-		}
+-		if (get_object(tgt_buf, data.sepol2, sizeof(tgt_buf), &t) < 0) {
+-			pr_err("sepol: copy tgt failed.\n");
+-			goto exit;
+-		}
+-		if (get_object(cls_buf, data.sepol3, sizeof(cls_buf), &c) < 0) {
+-			pr_err("sepol: copy cls failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(operation, data.sepol4,
+-				      sizeof(operation)) < 0) {
+-			pr_err("sepol: copy operation failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(perm_set, data.sepol5, sizeof(perm_set)) <
+-		    0) {
+-			pr_err("sepol: copy perm_set failed.\n");
+-			goto exit;
+-		}
+-
+-		bool success = false;
+-		if (subcmd == 1) {
+-			success = ksu_allowxperm(db, s, t, c, perm_set);
+-		} else if (subcmd == 2) {
+-			success = ksu_auditallowxperm(db, s, t, c, perm_set);
+-		} else if (subcmd == 3) {
+-			success = ksu_dontauditxperm(db, s, t, c, perm_set);
+-		} else {
+-			pr_err("sepol: unknown subcmd: %d\n", subcmd);
+-		}
+-		ret = success ? 0 : -1;
+-	} else if (cmd == CMD_TYPE_STATE) {
+-		char src[MAX_SEPOL_LEN];
+-
+-		if (strncpy_from_user(src, data.sepol1, sizeof(src)) < 0) {
+-			pr_err("sepol: copy src failed.\n");
+-			goto exit;
+-		}
+-
+-		bool success = false;
+-		if (subcmd == 1) {
+-			success = ksu_permissive(db, src);
+-		} else if (subcmd == 2) {
+-			success = ksu_enforce(db, src);
+-		} else {
+-			pr_err("sepol: unknown subcmd: %d\n", subcmd);
+-		}
+-		if (success)
+-			ret = 0;
+-
+-	} else if (cmd == CMD_TYPE || cmd == CMD_TYPE_ATTR) {
+-		char type[MAX_SEPOL_LEN];
+-		char attr[MAX_SEPOL_LEN];
+-
+-		if (strncpy_from_user(type, data.sepol1, sizeof(type)) < 0) {
+-			pr_err("sepol: copy type failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(attr, data.sepol2, sizeof(attr)) < 0) {
+-			pr_err("sepol: copy attr failed.\n");
+-			goto exit;
+-		}
+-
+-		bool success = false;
+-		if (cmd == CMD_TYPE) {
+-			success = ksu_type(db, type, attr);
+-		} else {
+-			success = ksu_typeattribute(db, type, attr);
+-		}
+-		if (!success) {
+-			pr_err("sepol: %d failed.\n", cmd);
+-			goto exit;
+-		}
+-		ret = 0;
+-
+-	} else if (cmd == CMD_ATTR) {
+-		char attr[MAX_SEPOL_LEN];
+-
+-		if (strncpy_from_user(attr, data.sepol1, sizeof(attr)) < 0) {
+-			pr_err("sepol: copy attr failed.\n");
+-			goto exit;
+-		}
+-		if (!ksu_attribute(db, attr)) {
+-			pr_err("sepol: %d failed.\n", cmd);
+-			goto exit;
+-		}
+-		ret = 0;
+-
+-	} else if (cmd == CMD_TYPE_TRANSITION) {
+-		char src[MAX_SEPOL_LEN];
+-		char tgt[MAX_SEPOL_LEN];
+-		char cls[MAX_SEPOL_LEN];
+-		char default_type[MAX_SEPOL_LEN];
+-		char object[MAX_SEPOL_LEN];
+-
+-		if (strncpy_from_user(src, data.sepol1, sizeof(src)) < 0) {
+-			pr_err("sepol: copy src failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(tgt, data.sepol2, sizeof(tgt)) < 0) {
+-			pr_err("sepol: copy tgt failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(cls, data.sepol3, sizeof(cls)) < 0) {
+-			pr_err("sepol: copy cls failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(default_type, data.sepol4,
+-				      sizeof(default_type)) < 0) {
+-			pr_err("sepol: copy default_type failed.\n");
+-			goto exit;
+-		}
+-		char *real_object;
+-		if (data.sepol5 == NULL) {
+-			real_object = NULL;
+-		} else {
+-			if (strncpy_from_user(object, data.sepol5,
+-					      sizeof(object)) < 0) {
+-				pr_err("sepol: copy object failed.\n");
+-				goto exit;
+-			}
+-			real_object = object;
+-		}
+-
+-		bool success = ksu_type_transition(db, src, tgt, cls,
+-						   default_type, real_object);
+-		if (success)
+-			ret = 0;
+-
+-	} else if (cmd == CMD_TYPE_CHANGE) {
+-		char src[MAX_SEPOL_LEN];
+-		char tgt[MAX_SEPOL_LEN];
+-		char cls[MAX_SEPOL_LEN];
+-		char default_type[MAX_SEPOL_LEN];
+-
+-		if (strncpy_from_user(src, data.sepol1, sizeof(src)) < 0) {
+-			pr_err("sepol: copy src failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(tgt, data.sepol2, sizeof(tgt)) < 0) {
+-			pr_err("sepol: copy tgt failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(cls, data.sepol3, sizeof(cls)) < 0) {
+-			pr_err("sepol: copy cls failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(default_type, data.sepol4,
+-				      sizeof(default_type)) < 0) {
+-			pr_err("sepol: copy default_type failed.\n");
+-			goto exit;
+-		}
+-		bool success = false;
+-		if (subcmd == 1) {
+-			success = ksu_type_change(db, src, tgt, cls,
+-						  default_type);
+-		} else if (subcmd == 2) {
+-			success = ksu_type_member(db, src, tgt, cls,
+-						  default_type);
+-		} else {
+-			pr_err("sepol: unknown subcmd: %d\n", subcmd);
+-		}
+-		if (success)
+-			ret = 0;
+-	} else if (cmd == CMD_GENFSCON) {
+-		char name[MAX_SEPOL_LEN];
+-		char path[MAX_SEPOL_LEN];
+-		char context[MAX_SEPOL_LEN];
+-		if (strncpy_from_user(name, data.sepol1, sizeof(name)) < 0) {
+-			pr_err("sepol: copy name failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(path, data.sepol2, sizeof(path)) < 0) {
+-			pr_err("sepol: copy path failed.\n");
+-			goto exit;
+-		}
+-		if (strncpy_from_user(context, data.sepol3, sizeof(context)) <
+-		    0) {
+-			pr_err("sepol: copy context failed.\n");
+-			goto exit;
+-		}
+-
+-		if (!ksu_genfscon(db, name, path, context)) {
+-			pr_err("sepol: %d failed.\n", cmd);
+-			goto exit;
+-		}
+-		ret = 0;
+-	} else {
+-		pr_err("sepol: unknown cmd: %d\n", cmd);
+-	}
+-
+-exit:
+-	rcu_read_unlock();
+-
+-	// only allow and xallow needs to reset avc cache, but we cannot do that because
+-	// we are in atomic context. so we just reset it every time.
+-	reset_avc_cache();
++    if (value != ALL) {
++        return 0;
++    }
+ 
+-	return ret;
++    pr_err("sepol: %s cannot be ALL.\n", name);
++    return -EINVAL;
+ }
++
++static int sepol_expected_argc(u32 cmd)
++{
++    switch (cmd) {
++    case KSU_SEPOLICY_CMD_NORMAL_PERM:
++        return 4;
++    case KSU_SEPOLICY_CMD_XPERM:
++        return 5;
++    case KSU_SEPOLICY_CMD_TYPE_STATE:
++        return 1;
++    case KSU_SEPOLICY_CMD_TYPE:
++    case KSU_SEPOLICY_CMD_TYPE_ATTR:
++        return 2;
++    case KSU_SEPOLICY_CMD_ATTR:
++        return 1;
++    case KSU_SEPOLICY_CMD_TYPE_TRANSITION:
++        return 5;
++    case KSU_SEPOLICY_CMD_TYPE_CHANGE:
++        return 4;
++    case KSU_SEPOLICY_CMD_GENFSCON:
++        return 3;
++    default:
++        return -EINVAL;
++    }
++}
++
++static int apply_one_sepolicy_cmd(struct policydb *db, const struct sepol_data *header, const char **args)
++{
++    bool success = false;
++    int ret;
++
++    switch (header->cmd) {
++    case KSU_SEPOLICY_CMD_NORMAL_PERM:
++        if (header->subcmd == KSU_SEPOLICY_SUBCMD_NORMAL_PERM_ALLOW) {
++            success = ksu_allow(db, args[0], args[1], args[2], args[3]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_NORMAL_PERM_DENY) {
++            success = ksu_deny(db, args[0], args[1], args[2], args[3]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_NORMAL_PERM_AUDITALLOW) {
++            success = ksu_auditallow(db, args[0], args[1], args[2], args[3]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_NORMAL_PERM_DONTAUDIT) {
++            success = ksu_dontaudit(db, args[0], args[1], args[2], args[3]);
++        } else {
++            pr_err("sepol: unknown subcmd: %d\n", header->subcmd);
++        }
++        return success ? 0 : -EINVAL;
++
++    case KSU_SEPOLICY_CMD_XPERM:
++        ret = sepol_require_not_all(args[3], "operation");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[4], "perm_set");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (header->subcmd == KSU_SEPOLICY_SUBCMD_XPERM_ALLOW) {
++            success = ksu_allowxperm(db, args[0], args[1], args[2], args[4]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_XPERM_AUDITALLOW) {
++            success = ksu_auditallowxperm(db, args[0], args[1], args[2], args[4]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_XPERM_DONTAUDIT) {
++            success = ksu_dontauditxperm(db, args[0], args[1], args[2], args[4]);
++        } else {
++            pr_err("sepol: unknown subcmd: %d\n", header->subcmd);
++        }
++        return success ? 0 : -EINVAL;
++
++    case KSU_SEPOLICY_CMD_TYPE_STATE:
++        ret = sepol_require_not_all(args[0], "type");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (header->subcmd == KSU_SEPOLICY_SUBCMD_TYPE_STATE_PERMISSIVE) {
++            success = ksu_permissive(db, args[0]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_TYPE_STATE_ENFORCE) {
++            success = ksu_enforce(db, args[0]);
++        } else {
++            pr_err("sepol: unknown subcmd: %d\n", header->subcmd);
++        }
++        return success ? 0 : -EINVAL;
++
++    case KSU_SEPOLICY_CMD_TYPE:
++    case KSU_SEPOLICY_CMD_TYPE_ATTR:
++        ret = sepol_require_not_all(args[0], "type");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[1], "attribute");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (header->cmd == KSU_SEPOLICY_CMD_TYPE) {
++            success = ksu_type(db, args[0], args[1]);
++        } else {
++            success = ksu_typeattribute(db, args[0], args[1]);
++        }
++        if (!success) {
++            pr_err("sepol: %d failed.\n", header->cmd);
++            return -EINVAL;
++        }
++        return 0;
++
++    case KSU_SEPOLICY_CMD_ATTR:
++        ret = sepol_require_not_all(args[0], "attribute");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (!ksu_attribute(db, args[0])) {
++            pr_err("sepol: %d failed.\n", header->cmd);
++            return -EINVAL;
++        }
++        return 0;
++
++    case KSU_SEPOLICY_CMD_TYPE_TRANSITION: {
++        const char *object = ALL;
++
++        ret = sepol_require_not_all(args[0], "src");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[1], "tgt");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[2], "cls");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[3], "default_type");
++        if (ret < 0) {
++            return ret;
++        }
++
++        object = args[4];
++
++        success = ksu_type_transition(db, args[0], args[1], args[2], args[3], object);
++        return success ? 0 : -EINVAL;
++    }
++
++    case KSU_SEPOLICY_CMD_TYPE_CHANGE:
++        ret = sepol_require_not_all(args[0], "src");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[1], "tgt");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[2], "cls");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[3], "default_type");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (header->subcmd == KSU_SEPOLICY_SUBCMD_TYPE_CHANGE_CHANGE) {
++            success = ksu_type_change(db, args[0], args[1], args[2], args[3]);
++        } else if (header->subcmd == KSU_SEPOLICY_SUBCMD_TYPE_CHANGE_MEMBER) {
++            success = ksu_type_member(db, args[0], args[1], args[2], args[3]);
++        } else {
++            pr_err("sepol: unknown subcmd: %d\n", header->subcmd);
++        }
++        return success ? 0 : -EINVAL;
++
++    case KSU_SEPOLICY_CMD_GENFSCON:
++        ret = sepol_require_not_all(args[0], "name");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[1], "path");
++        if (ret < 0) {
++            return ret;
++        }
++        ret = sepol_require_not_all(args[2], "context");
++        if (ret < 0) {
++            return ret;
++        }
++
++        if (!ksu_genfscon(db, args[0], args[1], args[2])) {
++            pr_err("sepol: %d failed.\n", header->cmd);
++            return -EINVAL;
++        }
++        return 0;
++
++    default:
++        pr_err("sepol: unknown cmd: %d\n", header->cmd);
++        return -EINVAL;
++    }
++}
++
++int handle_sepolicy(void __user *user_data, u64 data_len)
++{
++    struct policydb *db;
++    struct sepol_batch_cursor cursor;
++    u8 *payload;
++    int ret = 0;
++    int success_cmd_count = 0;
++    u32 cmd_index = 0;
++
++    if (!user_data || !data_len)
++        return -EINVAL;
++
++    if (data_len > KSU_SEPOLICY_MAX_BATCH_SIZE)
++        return -E2BIG;
++
++    payload = vmalloc((size_t)data_len);
++    if (!payload)
++        return -ENOMEM;
++
++    if (copy_from_user(payload, user_data, (size_t)data_len)) {
++        ret = -EFAULT;
++        goto out_free;
++    }
++
++    if (!getenforce()) {
++        pr_info("SELinux permissive or disabled when handle policy!\n");
++    }
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++    struct selinux_policy *pol, *old_pol;
++    // Starting from 5.10, selinux_state have __rcu "policy"
++    // It is _rcu, and have an policy mutex
++    // 	struct selinux_policy __rcu *policy;
++    // 	struct mutex policy_mutex;
++    //
++    // I think we can directly use this rcu to safety update selinux_policy
++    // this is also the upstream ksu way
++    mutex_lock(&selinux_state.policy_mutex);
++    old_pol = selinux_state.policy;
++    pol = ksu_dup_sepolicy(rcu_dereference_protected(old_pol, lockdep_is_held(&selinux_state.policy_mutex)));
++    if (IS_ERR(pol)) {
++        ret = PTR_ERR(pol);
++        pr_err("ksu_dup_sepolicy err: %d\n", ret);
++        goto out_unlock;
++    }
++    db = &pol->policydb;
++#else
++    int len = 0;
++
++    struct policydb *policydb_ptr = get_policydb();
++
++    struct policydb *oldpolicydb, *newpolicydb, *tmpdb;
++
++    oldpolicydb = kcalloc(2, sizeof(*oldpolicydb), GFP_KERNEL);
++    newpolicydb = oldpolicydb + 1;
++    db = newpolicydb;
++
++    ksu_lock_sel_mutex_legacy();
++
++    len = ksu_dup_policydb(policydb_ptr, db);
++
++    if (len < 0) {
++        kfree(oldpolicydb);
++        ret = len;
++        goto out_free;
++    }
++#endif
++
++    cursor.cur = payload;
++    cursor.end = payload + (size_t)data_len;
++
++    ret = 0;
++    success_cmd_count = 0;
++    cmd_index = 0;
++    while (cursor.cur < cursor.end) {
++        struct sepol_data header;
++        const char *args[KSU_SEPOLICY_MAX_ARGS] = { 0 };
++        int expected_argc;
++        u32 arg_index;
++
++        ret = sepol_read_cmd_header(&cursor, &header);
++        if (ret < 0) {
++            pr_err("sepol: failed to read cmd header #%u.\n", cmd_index);
++            goto out_drop_new_policy;
++        }
++
++        expected_argc = sepol_expected_argc(header.cmd);
++        if (expected_argc < 0 || expected_argc > KSU_SEPOLICY_MAX_ARGS) {
++            ret = -EINVAL;
++            pr_err("sepol: invalid cmd header #%u.\n", cmd_index);
++            goto out_drop_new_policy;
++        }
++
++        for (arg_index = 0; arg_index < (u32)expected_argc; arg_index++) {
++            ret = sepol_read_string(&cursor, &args[arg_index]);
++            if (ret < 0) {
++                pr_err("sepol: failed to read cmd #%u arg #%u.\n", cmd_index, arg_index);
++                goto out_drop_new_policy;
++            }
++        }
++
++        ret = apply_one_sepolicy_cmd(db, &header, args);
++        if (ret < 0) {
++            pr_err("sepol: cmd #%u failed, cmd=%u subcmd=%u.\n", cmd_index, header.cmd, header.subcmd);
++        } else {
++            success_cmd_count++;
++        }
++        cmd_index++;
++    }
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++    // 5.10+
++    rcu_assign_pointer(selinux_state.policy, pol);
++    synchronize_rcu();
++    ksu_destroy_sepolicy(old_pol);
++
++    reset_avc_cache();
++    ret = success_cmd_count;
++    goto out_unlock;
++
++out_drop_new_policy:
++    ksu_destroy_sepolicy(pol);
++out_unlock:
++    mutex_unlock(&selinux_state.policy_mutex);
++#else
++    /* Save the old policydb to free later. */
++    memcpy(oldpolicydb, policydb_ptr, sizeof(*policydb_ptr));
++
++    /* Install the new policydb. */
++    ksu_lock_sepolicy_legacy();
++    memcpy(policydb_ptr, newpolicydb, sizeof(*policydb_ptr));
++    ksu_unlock_sepolicy_legacy();
++
++    reset_avc_cache();
++
++    /* Free the old policydb. */
++    ksu_destroy_policydb(oldpolicydb);
++
++    /* Free buffer */
++    kfree(oldpolicydb);
++#endif
++out_free:
++    vfree(payload);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0) && !defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++    ksu_unlock_sel_mutex_legacy();
++#endif
++
++    return ret;
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0) && !defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++out_drop_new_policy:
++    ksu_destroy_policydb(newpolicydb);
++    kfree(oldpolicydb);
++    goto out_free;
++#endif
++}
++
++void __init ksu_selinux_init()
++{
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 17, 0) && !defined(KSU_COMPAT_USE_SELINUX_STATE)
++
++#ifdef CONFIG_KALLSYMS_ALL
++    ksu_sel_mutex_ptr = (struct mutex *)ksu_resolve_symbol_for_functable_hook("sel_mutex");
++    ksu_policy_rwlock_ptr = (rwlock_t *)ksu_resolve_symbol_for_functable_hook("policy_rwlock");
++#else
++    extern struct mutex sel_mutex;
++    extern rwlock_t policy_rwlock;
++
++    ksu_sel_mutex_ptr = &sel_mutex;
++    ksu_policy_rwlock_ptr = &policy_rwlock;
++#endif
++
++#endif
++}
+\ 文件末尾没有换行符
+--- a/selinux/selinux.c
++++ b/selinux/selinux.c
+@@ -1,130 +1,301 @@
+-#include "selinux.h"
+-#include "objsec.h"
++#include "linux/cred.h"
++#include "linux/sched.h"
++#include "linux/security.h"
+ #include "linux/version.h"
+-#include "../klog.h" // IWYU pragma: keep
++#include "selinux_defs.h"
++#include "klog.h" // IWYU pragma: keep
++#include "ksu.h"
++#include "compat/kernel_compat.h"
++struct cred *ksu_cred;
+ 
+-#define KERNEL_SU_DOMAIN "u:r:su:s0"
++/*
++ * Cached SID values for frequently checked contexts.
++ * These are resolved once at init and used for fast u32 comparison
++ * instead of expensive string operations on every check.
++ *
++ * A value of 0 means "no cached SID is available" for that context.
++ * This covers both the initial "not yet cached" state and any case
++ * where resolving the SID (e.g. via security_secctx_to_secid) failed.
++ * In all such cases we intentionally fall back to the slower
++ * string-based comparison path; this degrades performance only and
++ * does not cause a functional failure.
++ */
++static u32 cached_su_sid __read_mostly = 0;
++static u32 cached_zygote_sid __read_mostly = 0;
++static u32 cached_init_sid __read_mostly = 0;
++u32 ksu_file_sid __read_mostly = 0;
++
++static int transive_to_domain(const char *domain, struct cred *cred, bool clear_exec_sid)
++{
++    u32 sid;
++    int error;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 18, 0)
++    struct task_security_struct *tsec;
++#else
++    struct cred_security_struct *tsec;
++#endif
++    tsec = selinux_cred(cred);
++    if (!tsec) {
++        pr_err("tsec == NULL!\n");
++        return -1;
++    }
++    error = security_secctx_to_secid(domain, strlen(domain), &sid);
++    if (error) {
++        pr_info("security_secctx_to_secid %s -> sid: %d, error: %d\n", domain, sid, error);
++    }
++    if (!error) {
++        tsec->sid = sid;
++        tsec->create_sid = 0;
++        tsec->keycreate_sid = 0;
++        tsec->sockcreate_sid = 0;
++        if (clear_exec_sid) {
++            tsec->exec_sid = 0;
++        }
++    }
++    return error;
++}
++
++void setup_selinux(const char *domain, struct cred *cred)
++{
++    if (transive_to_domain(domain, cred, false)) {
++        pr_err("transive domain failed.\n");
++        return;
++    }
++}
+ 
+-static int transive_to_domain(const char *domain)
++void setup_ksu_cred_selinux(void)
+ {
+-	struct cred *cred;
+-	struct task_security_struct *tsec;
+-	u32 sid;
+-	int error;
+-
+-	cred = (struct cred *)__task_cred(current);
+-
+-	tsec = cred->security;
+-	if (!tsec) {
+-		pr_err("tsec == NULL!\n");
+-		return -1;
+-	}
+-
+-	error = security_secctx_to_secid(domain, strlen(domain), &sid);
+-	if (error) {
+-		pr_info("security_secctx_to_secid %s -> sid: %d, error: %d\n",
+-			domain, sid, error);
+-	}
+-	if (!error) {
+-		tsec->sid = sid;
+-		tsec->create_sid = 0;
+-		tsec->keycreate_sid = 0;
+-		tsec->sockcreate_sid = 0;
+-	}
+-	return error;
+-}
+-
+-void setup_selinux(const char *domain)
+-{
+-	if (transive_to_domain(domain)) {
+-		pr_err("transive domain failed.\n");
+-		return;
+-	}
+-
+-	/* we didn't need this now, we have change selinux rules when boot!
+-if (!is_domain_permissive) {
+-  if (set_domain_permissive() == 0) {
+-      is_domain_permissive = true;
+-  }
+-}*/
++    if (ksu_cred && transive_to_domain(KERNEL_SU_CONTEXT, ksu_cred, false)) {
++        pr_err("setup ksu cred selinux domain failed.\n");
++    }
+ }
+ 
+ void setenforce(bool enforce)
+ {
+-#ifdef CONFIG_SECURITY_SELINUX_DEVELOP
+-	selinux_state.enforcing = enforce;
++    __setenforce(enforce);
++}
++
++bool getenforce(void)
++{
++    if (is_selinux_disabled()) {
++        return false;
++    }
++
++    return __is_selinux_enforcing();
++}
++
++#if (LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0)) && !defined(KSU_COMPAT_HAS_CURRENT_SID)
++/*
++ * get the subjective security ID of the current task
++ */
++static inline u32 current_sid(void)
++{
++    const struct task_security_struct *tsec = current_security();
++
++    return tsec->sid;
++}
+ #endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 14, 0)
++struct lsm_context {
++    char *context;
++    u32 len;
++};
++
++static int __security_secid_to_secctx(u32 secid, struct lsm_context *cp)
++{
++    return security_secid_to_secctx(secid, &cp->context, &cp->len);
++}
++static void __security_release_secctx(struct lsm_context *cp)
++{
++    security_release_secctx(cp->context, cp->len);
+ }
++#else
++#define __security_secid_to_secctx security_secid_to_secctx
++#define __security_release_secctx security_release_secctx
++#endif
+ 
+-bool getenforce()
++#ifdef CONFIG_KSU_SUSFS
++#define KERNEL_PRIV_APP_DOMAIN "u:r:priv_app:s0:c512,c768"
++u32 susfs_priv_app_sid = 0; // compatible with simonpunk, why he don't use sid cache???
++u32 susfs_ksu_sid = 0;
++#endif
++
++/*
++ * Initialize cached SID values for frequently checked SELinux contexts.
++ * Called once after SELinux policy is loaded (post-fs-data).
++ * This eliminates expensive string comparisons in hot paths.
++ */
++void cache_sid(void)
+ {
+-#ifdef CONFIG_SECURITY_SELINUX_DISABLE
+-	if (selinux_state.disabled) {
+-		return false;
+-	}
++    int err;
++
++    err = security_secctx_to_secid(KERNEL_SU_CONTEXT, strlen(KERNEL_SU_CONTEXT), &cached_su_sid);
++    if (err) {
++        pr_warn("Failed to cache kernel su domain SID: %d\n", err);
++        cached_su_sid = 0;
++    } else {
++        pr_info("Cached su SID: %u\n", cached_su_sid);
++    }
++
++    err = security_secctx_to_secid(ZYGOTE_CONTEXT, strlen(ZYGOTE_CONTEXT), &cached_zygote_sid);
++    if (err) {
++        pr_warn("Failed to cache zygote SID: %d\n", err);
++        cached_zygote_sid = 0;
++    } else {
++        pr_info("Cached zygote SID: %u\n", cached_zygote_sid);
++    }
++
++    err = security_secctx_to_secid(INIT_CONTEXT, strlen(INIT_CONTEXT), &cached_init_sid);
++    if (err) {
++        pr_warn("Failed to cache init SID: %d\n", err);
++        cached_init_sid = 0;
++    } else {
++        pr_info("Cached init SID: %u\n", cached_init_sid);
++    }
++
++    err = security_secctx_to_secid(KSU_FILE_CONTEXT, strlen(KSU_FILE_CONTEXT), &ksu_file_sid);
++    if (err) {
++        pr_warn("Failed to cache ksu_file SID: %d\n", err);
++        ksu_file_sid = 0;
++    } else {
++        pr_info("Cached ksu_file SID: %u\n", ksu_file_sid);
++    }
++
++#ifdef CONFIG_KSU_SUSFS
++    // compatible with current susfs
++    err = security_secctx_to_secid(KERNEL_PRIV_APP_DOMAIN, strlen(KERNEL_PRIV_APP_DOMAIN), &susfs_priv_app_sid);
++    if (err) {
++        pr_warn("Failed to cache susfs_priv_app SID: %d\n", err);
++        susfs_priv_app_sid = 0;
++    } else {
++        pr_info("Cached susfs_priv_app SID: %u\n", susfs_priv_app_sid);
++    }
++
++    susfs_ksu_sid = cached_su_sid;
+ #endif
++}
+ 
+-#ifdef CONFIG_SECURITY_SELINUX_DEVELOP
+-	return selinux_state.enforcing;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 18, 0)
++static inline bool is_sid_match_tsec(const struct task_security_struct *tsec, u32 cached_sid,
++                                     const char *fallback_context)
+ #else
+-	return true;
++static inline bool is_sid_match_tsec(const struct cred_security_struct *tsec, u32 cached_sid,
++                                     const char *fallback_context)
+ #endif
++{
++    // Fast path: use cached SID if available
++    if (likely(cached_sid != 0)) {
++        return tsec->sid == cached_sid;
++    }
++
++    // Slow path fallback: string comparison (only before cache is initialized)
++    struct lsm_context ctx;
++    bool result;
++    if (__security_secid_to_secctx(tsec->sid, &ctx)) {
++        return false;
++    }
++    result = strncmp(fallback_context, ctx.context, ctx.len) == 0;
++    __security_release_secctx(&ctx);
++
++    return result;
+ }
+ 
+-#if (LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0)) &&                         \
+-	!defined(KSU_COMPAT_HAS_CURRENT_SID)
+ /*
+- * get the subjective security ID of the current task
++ * Fast path: compare task's SID directly against cached value.
++ * Falls back to string comparison if cache is not initialized.
+  */
+-static inline u32 current_sid(void)
++static inline bool is_sid_match(const struct cred *cred, u32 cached_sid, const char *fallback_context)
+ {
+-	const struct task_security_struct *tsec = current_security();
++    if (!cred) {
++        return false;
++    }
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 18, 0)
++    const struct task_security_struct *tsec;
++#else
++    const struct cred_security_struct *tsec;
++#endif
++    tsec = selinux_cred(cred);
++    if (!tsec) {
++        return false;
++    }
+ 
+-	return tsec->sid;
++    return is_sid_match_tsec(tsec, cached_sid, fallback_context);
+ }
+-#endif
+ 
+-bool is_ksu_domain()
++bool is_task_ksu_domain(const struct cred *cred)
++{
++    return is_sid_match(cred, cached_su_sid, KERNEL_SU_CONTEXT);
++}
++
++bool is_ksu_domain(void)
++{
++    return is_task_ksu_domain(current_cred());
++}
++
++bool is_zygote(const struct cred *cred)
++{
++    return is_sid_match(cred, cached_zygote_sid, ZYGOTE_CONTEXT);
++}
++
++bool is_init(const struct cred *cred)
++{
++    return is_sid_match(cred, cached_init_sid, INIT_CONTEXT);
++}
++
++#ifdef CONFIG_KSU_SUSFS
++#define KERNEL_PRIV_APP_DOMAIN "u:r:priv_app:s0:c512,c768"
++
++u32 susfs_get_sid_from_name(const char *secctx_name)
++{
++    u32 out_sid = 0;
++    int err;
++
++    if (!secctx_name) {
++        pr_err("secctx_name is NULL\n");
++        return 0;
++    }
++    err = security_secctx_to_secid(secctx_name, strlen(secctx_name), &out_sid);
++    if (err) {
++        pr_err("failed getting sid from secctx_name: %s, err: %d\n", secctx_name, err);
++        return 0;
++    }
++    return out_sid;
++}
++
++u32 susfs_get_current_sid(void)
++{
++    return current_sid();
++}
++
++bool susfs_is_current_zygote_domain(void)
++{
++    return is_zygote(current_cred());
++}
++
++bool susfs_is_current_ksu_domain(void)
++{
++    return is_ksu_domain();
++}
++
++bool susfs_is_current_init_domain(void)
++{
++    return is_init(current_cred());
++}
++#endif // #ifdef CONFIG_KSU_SUSFS
++
++void escape_to_root_for_adb_root(void)
+ {
+-	char *domain;
+-	u32 seclen;
+-	bool result;
+-	int err = security_secid_to_secctx(current_sid(), &domain, &seclen);
+-	if (err) {
+-		return false;
+-	}
+-	result = strncmp(KERNEL_SU_DOMAIN, domain, seclen) == 0;
+-	security_release_secctx(domain, seclen);
+-	return result;
+-}
+-
+-bool is_zygote(void *sec)
+-{
+-	struct task_security_struct *tsec = (struct task_security_struct *)sec;
+-	if (!tsec) {
+-		return false;
+-	}
+-	char *domain;
+-	u32 seclen;
+-	bool result;
+-	int err = security_secid_to_secctx(tsec->sid, &domain, &seclen);
+-	if (err) {
+-		return false;
+-	}
+-	result = strncmp("u:r:zygote:s0", domain, seclen) == 0;
+-	security_release_secctx(domain, seclen);
+-	return result;
+-}
+-
+-#define DEVPTS_DOMAIN "u:object_r:ksu_file:s0"
+-
+-u32 ksu_get_devpts_sid()
+-{
+-	u32 devpts_sid = 0;
+-	int err = security_secctx_to_secid(DEVPTS_DOMAIN, strlen(DEVPTS_DOMAIN),
+-					   &devpts_sid);
+-	if (err) {
+-		pr_info("get devpts sid err %d\n", err);
+-	}
+-	return devpts_sid;
++    struct cred *cred = prepare_creds();
++    if (!cred) {
++        pr_err("Failed to prepare adbd's creds!\n");
++        return;
++    }
++
++    if (transive_to_domain(KERNEL_SU_CONTEXT, cred, true)) {
++        pr_err("transive domain failed.\n");
++        abort_creds(cred);
++        return;
++    }
++    commit_creds(cred);
+ }
+--- a/selinux/selinux.h
++++ b/selinux/selinux.h
+@@ -3,19 +3,60 @@
+ 
+ #include "linux/types.h"
+ #include "linux/version.h"
++#include "linux/cred.h"
+ 
+-void setup_selinux(const char *);
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)) || defined(KSU_COMPAT_HAS_SELINUX_STATE)
++#define KSU_COMPAT_USE_SELINUX_STATE
++#endif
++
++#define KERNEL_SU_DOMAIN "ksu"
++#define KERNEL_SU_FILE "ksu_file"
++
++#define KERNEL_SU_CONTEXT "u:r:" KERNEL_SU_DOMAIN ":s0"
++#define KSU_FILE_CONTEXT "u:object_r:" KERNEL_SU_FILE ":s0"
++#define ZYGOTE_CONTEXT "u:r:zygote:s0"
++#define INIT_CONTEXT "u:r:init:s0"
++
++void setup_selinux(const char *, struct cred *);
+ 
+ void setenforce(bool);
+ 
+-bool getenforce();
++bool getenforce(void);
++
++void cache_sid(void);
++
++bool is_task_ksu_domain(const struct cred *cred);
++
++bool is_ksu_domain(void);
++
++bool is_zygote(const struct cred *cred);
++
++bool is_init(const struct cred *cred);
++
++void apply_kernelsu_rules(void);
++
++int handle_sepolicy(void __user *user_data, u64 data_len);
++
++void setup_ksu_cred_selinux(void);
++
++bool ksu_is_sid_equal(const struct cred *cred, u32 sid2);
++void ksu_set_zygote_sid(void);
+ 
+-bool is_ksu_domain();
++#ifdef CONFIG_KSU_SUSFS
++u32 susfs_get_sid_from_name(const char *secctx_name);
++u32 susfs_get_current_sid(void);
++bool susfs_is_current_zygote_domain(void);
++void susfs_set_ksu_sid(void);
++bool susfs_is_current_ksu_domain(void);
++void susfs_set_init_sid(void);
++bool susfs_is_current_init_domain(void);
++void susfs_set_priv_app_sid(void);
++#endif // #ifdef CONFIG_KSU_SUSFS
+ 
+-bool is_zygote(void *cred);
++void escape_to_root_for_adb_root();
+ 
+-void apply_kernelsu_rules();
++extern u32 ksu_file_sid;
+ 
+-u32 ksu_get_devpts_sid();
++void __init ksu_selinux_init();
+ 
+ #endif
+--- a/selinux/sepolicy.c
++++ b/selinux/sepolicy.c
+@@ -1,12 +1,20 @@
++#include "ss/avtab.h"
++#include "ss/constraint.h"
++#include "ss/ebitmap.h"
++#include "ss/hashtab.h"
++#include "ss/policydb.h"
++#include "ss/services.h"
+ #include <linux/gfp.h>
+ #include <linux/printk.h>
+ #include <linux/slab.h>
+ #include <linux/version.h>
++#include <linux/vmalloc.h>
+ 
++#include "selinux.h"
+ #include "sepolicy.h"
+-#include "../klog.h" // IWYU pragma: keep
++#include "klog.h" // IWYU pragma: keep
+ #include "ss/symtab.h"
+-#include "../kernel_compat.h" // Add check Huawei Device
++#include "compat/kernel_compat.h" // Add check Huawei Device
+ 
+ #define KSU_SUPPORT_ADD_TYPE
+ 
+@@ -14,45 +22,38 @@
+ // Declaration
+ //////////////////////////////////////////////////////
+ 
+-static struct avtab_node *get_avtab_node(struct policydb *db,
+-					 struct avtab_key *key,
+-					 struct avtab_extended_perms *xperms);
+-
+-static bool add_rule(struct policydb *db, const char *s, const char *t,
+-		     const char *c, const char *p, int effect, bool invert);
+-
+-static void add_rule_raw(struct policydb *db, struct type_datum *src,
+-			 struct type_datum *tgt, struct class_datum *cls,
+-			 struct perm_datum *perm, int effect, bool invert);
+-
+-static void add_xperm_rule_raw(struct policydb *db, struct type_datum *src,
+-			       struct type_datum *tgt, struct class_datum *cls,
+-			       uint16_t low, uint16_t high, int effect,
+-			       bool invert);
+-static bool add_xperm_rule(struct policydb *db, const char *s, const char *t,
+-			   const char *c, const char *range, int effect,
+-			   bool invert);
+-
+-static bool add_type_rule(struct policydb *db, const char *s, const char *t,
+-			  const char *c, const char *d, int effect);
+-
+-static bool add_filename_trans(struct policydb *db, const char *s,
+-			       const char *t, const char *c, const char *d,
+-			       const char *o);
++static struct avtab_node *get_avtab_node(struct policydb *db, struct avtab_key *key,
++                                         struct avtab_extended_perms *xperms);
+ 
+-static bool add_genfscon(struct policydb *db, const char *fs_name,
+-			 const char *path, const char *context);
++static bool is_redundant_avtab_node(struct avtab_node *node);
++
++static bool remove_avtab_node(struct policydb *db, struct avtab_node *node);
++
++static bool add_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *p, int effect,
++                     bool invert);
++
++static bool add_rule_raw(struct policydb *db, struct type_datum *src, struct type_datum *tgt, struct class_datum *cls,
++                         struct perm_datum *perm, int effect, bool invert);
++
++static void add_xperm_rule_raw(struct policydb *db, struct type_datum *src, struct type_datum *tgt,
++                               struct class_datum *cls, uint16_t low, uint16_t high, int effect, bool invert);
++static bool add_xperm_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *range,
++                           int effect, bool invert);
++
++static bool add_type_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *d, int effect);
++
++static bool add_filename_trans(struct policydb *db, const char *s, const char *t, const char *c, const char *d,
++                               const char *o);
++
++static bool add_genfscon(struct policydb *db, const char *fs_name, const char *path, const char *context);
+ 
+ static bool add_type(struct policydb *db, const char *type_name, bool attr);
+ 
+-static bool set_type_state(struct policydb *db, const char *type_name,
+-			   bool permissive);
++static bool set_type_state(struct policydb *db, const char *type_name, bool permissive);
+ 
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+-				  struct type_datum *attr);
++static void add_typeattribute_raw(struct policydb *db, struct type_datum *type, struct type_datum *attr);
+ 
+-static bool add_typeattribute(struct policydb *db, const char *type,
+-			      const char *attr);
++static bool add_typeattribute(struct policydb *db, const char *type, const char *attr);
+ 
+ //////////////////////////////////////////////////////
+ // Implementation
+@@ -62,19 +63,17 @@
+ // rules
+ #define strip_av(effect, invert) ((effect == AVTAB_AUDITDENY) == !invert)
+ 
+-#define ksu_hash_for_each(node_ptr, n_slot, cur)                               \
+-	int i;                                                                 \
+-	for (i = 0; i < n_slot; ++i)                                           \
+-		for (cur = node_ptr[i]; cur; cur = cur->next)
++#define ksu_hash_for_each(node_ptr, n_slot, cur)                                                                       \
++    int i;                                                                                                             \
++    for (i = 0; i < n_slot; ++i)                                                                                       \
++        for (cur = node_ptr[i]; cur; cur = cur->next)
+ 
+ // htable is a struct instead of pointer above 5.8.0:
+ // https://elixir.bootlin.com/linux/v5.8-rc1/source/security/selinux/ss/symtab.h
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 8, 0)
+-#define ksu_hashtab_for_each(htab, cur)                                        \
+-	ksu_hash_for_each(htab.htable, htab.size, cur)
++#define ksu_hashtab_for_each(htab, cur) ksu_hash_for_each(htab.htable, htab.size, cur)
+ #else
+-#define ksu_hashtab_for_each(htab, cur)                                        \
+-	ksu_hash_for_each(htab->htable, htab->size, cur)
++#define ksu_hashtab_for_each(htab, cur) ksu_hash_for_each(htab->htable, htab->size, cur)
+ #endif
+ 
+ // symtab_search is introduced on 5.9.0:
+@@ -84,187 +83,274 @@
+ #define symtab_insert(s, name, datum) hashtab_insert((s)->table, name, datum)
+ #endif
+ 
+-#define avtab_for_each(avtab, cur)                                             \
+-	ksu_hash_for_each(avtab.htable, avtab.nslot, cur);
++#define avtab_for_each(avtab, cur) ksu_hash_for_each(avtab.htable, avtab.nslot, cur);
++
++static struct avtab_node *get_avtab_node(struct policydb *db, struct avtab_key *key,
++                                         struct avtab_extended_perms *xperms)
++{
++    struct avtab_node *node;
++
++    /* AVTAB_XPERMS entries are not necessarily unique */
++    if (key->specified & AVTAB_XPERMS) {
++        bool match = false;
++        node = avtab_search_node(&db->te_avtab, key);
++        while (node) {
++            if ((node->datum.u.xperms->specified == xperms->specified) &&
++                (node->datum.u.xperms->driver == xperms->driver)) {
++                match = true;
++                break;
++            }
++            node = avtab_search_node_next(node, key->specified);
++        }
++        if (!match)
++            node = NULL;
++    } else {
++        node = avtab_search_node(&db->te_avtab, key);
++    }
++
++    if (!node) {
++        struct avtab_datum avdatum = {};
++        /*
++	 * AUDITDENY, aka DONTAUDIT, are &= assigned, versus |= for
++	 * others. Initialize the data accordingly.
++	 */
++        if (key->specified & AVTAB_XPERMS) {
++            avdatum.u.xperms = xperms;
++        } else {
++            avdatum.u.data = key->specified == AVTAB_AUDITDENY ? ~0U : 0U;
++        }
++        /* this is used to get the node - insertion is actually unique */
++        node = avtab_insert_nonunique(&db->te_avtab, key, &avdatum);
++        if (!node)
++            return NULL;
++
++        int grow_size = sizeof(struct avtab_key);
++        grow_size += sizeof(struct avtab_datum);
++        if (key->specified & AVTAB_XPERMS) {
++            grow_size += sizeof(u8);
++            grow_size += sizeof(u8);
++            grow_size += sizeof(u32) * ARRAY_SIZE(avdatum.u.xperms->perms.p);
++        }
++        db->len += grow_size;
++    }
++
++    return node;
++}
++
++static bool is_redundant_avtab_node(struct avtab_node *node)
++{
++    if (node->key.specified & AVTAB_XPERMS)
++        return node->datum.u.xperms == NULL;
++    if (!(node->key.specified & AVTAB_AV))
++        return false;
++    if (node->key.specified & AVTAB_AUDITDENY)
++        return node->datum.u.data == ~0U;
++    return node->datum.u.data == 0U;
++}
++
++static bool remove_avtab_node(struct policydb *db, struct avtab_node *node)
++{
++    int i;
++    int ret;
++    int shrink_size = sizeof(struct avtab_key) + sizeof(struct avtab_datum);
++    struct avtab removed = {};
++    struct avtab_node *n;
++    struct avtab_node *prev;
++
++    ret = avtab_alloc(&removed, 1);
++    if (ret < 0)
++        return false;
++
++    for (i = 0; i < db->te_avtab.nslot; i++) {
++        prev = NULL;
++        // https://github.com/torvalds/linux/commit/acdf52d97f824019888422842757013b37441dd1   <- 5.1
++        // https://github.com/torvalds/linux/commit/ba39db6e0519aa8362dbda6523ceb69349a18dc3   <- 4.1
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || LINUX_VERSION_CODE < KERNEL_VERSION(4, 1, 0) ||                   \
++    defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++        for (n = db->te_avtab.htable[i]; n; prev = n, n = n->next) {
++            if (n != node)
++                continue;
++
++            if (prev)
++                prev->next = n->next;
++            else
++                db->te_avtab.htable[i] = n->next;
++
++            if (db->te_avtab.nel > 0)
++                db->te_avtab.nel--;
++
++            if ((n->key.specified & AVTAB_XPERMS) && n->datum.u.xperms) {
++                shrink_size += sizeof(u8) + sizeof(u8) + sizeof(u32) * ARRAY_SIZE(n->datum.u.xperms->perms.p);
++            }
++            n->next = NULL;
++            removed.htable[0] = n;
++            removed.nel = 1;
++            avtab_destroy(&removed);
++            if (db->len >= shrink_size)
++                db->len -= shrink_size;
++            return true;
++        }
++#else
++        for (n = flex_array_get_ptr(db->te_avtab.htable, i); n; prev = n, n = n->next) {
++            if (n != node)
++                continue;
++
++            if (prev) {
++                prev->next = n->next;
++            } else {
++                flex_array_put_ptr(db->te_avtab.htable, i, n->next, GFP_KERNEL | __GFP_ZERO);
++            }
++
++            if (db->te_avtab.nel > 0)
++                db->te_avtab.nel--;
++
++            if ((n->key.specified & AVTAB_XPERMS) && n->datum.u.xperms) {
++                shrink_size += sizeof(u8) + sizeof(u8) + sizeof(u32) * ARRAY_SIZE(n->datum.u.xperms->perms.p);
++            }
++            n->next = NULL;
++
++            flex_array_put_ptr(removed.htable, 0, n, GFP_KERNEL | __GFP_ZERO);
++
++            removed.nel = 1;
++            avtab_destroy(&removed);
++            if (db->len >= shrink_size)
++                db->len -= shrink_size;
++            return true;
++        }
++#endif
++    }
+ 
+-static struct avtab_node *get_avtab_node(struct policydb *db,
+-					 struct avtab_key *key,
+-					 struct avtab_extended_perms *xperms)
+-{
+-	struct avtab_node *node;
+-
+-	/* AVTAB_XPERMS entries are not necessarily unique */
+-	if (key->specified & AVTAB_XPERMS) {
+-		bool match = false;
+-		node = avtab_search_node(&db->te_avtab, key);
+-		while (node) {
+-			if ((node->datum.u.xperms->specified ==
+-			     xperms->specified) &&
+-			    (node->datum.u.xperms->driver == xperms->driver)) {
+-				match = true;
+-				break;
+-			}
+-			node = avtab_search_node_next(node, key->specified);
+-		}
+-		if (!match)
+-			node = NULL;
+-	} else {
+-		node = avtab_search_node(&db->te_avtab, key);
+-	}
+-
+-	if (!node) {
+-		struct avtab_datum avdatum = {};
+-		/*
+-     * AUDITDENY, aka DONTAUDIT, are &= assigned, versus |= for
+-     * others. Initialize the data accordingly.
+-     */
+-		if (key->specified & AVTAB_XPERMS) {
+-			avdatum.u.xperms = xperms;
+-		} else {
+-			avdatum.u.data =
+-				key->specified == AVTAB_AUDITDENY ? ~0U : 0U;
+-		}
+-		/* this is used to get the node - insertion is actually unique */
+-		node = avtab_insert_nonunique(&db->te_avtab, key, &avdatum);
+-
+-		int grow_size = sizeof(struct avtab_key);
+-		grow_size += sizeof(struct avtab_datum);
+-		if (key->specified & AVTAB_XPERMS) {
+-			grow_size += sizeof(u8);
+-			grow_size += sizeof(u8);
+-			grow_size += sizeof(u32) *
+-				     ARRAY_SIZE(avdatum.u.xperms->perms.p);
+-		}
+-		db->len += grow_size;
+-	}
+-
+-	return node;
+-}
+-
+-static bool add_rule(struct policydb *db, const char *s, const char *t,
+-		     const char *c, const char *p, int effect, bool invert)
+-{
+-	struct type_datum *src = NULL, *tgt = NULL;
+-	struct class_datum *cls = NULL;
+-	struct perm_datum *perm = NULL;
+-
+-	if (s) {
+-		src = symtab_search(&db->p_types, s);
+-		if (src == NULL) {
+-			pr_info("source type %s does not exist\n", s);
+-			return false;
+-		}
+-	}
+-
+-	if (t) {
+-		tgt = symtab_search(&db->p_types, t);
+-		if (tgt == NULL) {
+-			pr_info("target type %s does not exist\n", t);
+-			return false;
+-		}
+-	}
+-
+-	if (c) {
+-		cls = symtab_search(&db->p_classes, c);
+-		if (cls == NULL) {
+-			pr_info("class %s does not exist\n", c);
+-			return false;
+-		}
+-	}
+-
+-	if (p) {
+-		if (c == NULL) {
+-			pr_info("No class is specified, cannot add perm [%s] \n",
+-				p);
+-			return false;
+-		}
+-
+-		perm = symtab_search(&cls->permissions, p);
+-		if (perm == NULL && cls->comdatum != NULL) {
+-			perm = symtab_search(&cls->comdatum->permissions, p);
+-		}
+-		if (perm == NULL) {
+-			pr_info("perm %s does not exist in class %s\n", p, c);
+-			return false;
+-		}
+-	}
+-	add_rule_raw(db, src, tgt, cls, perm, effect, invert);
+-	return true;
+-}
+-
+-static void add_rule_raw(struct policydb *db, struct type_datum *src,
+-			 struct type_datum *tgt, struct class_datum *cls,
+-			 struct perm_datum *perm, int effect, bool invert)
+-{
+-	if (src == NULL) {
+-		struct hashtab_node *node;
+-		if (strip_av(effect, invert)) {
+-			ksu_hashtab_for_each(db->p_types.table, node)
+-			{
+-				add_rule_raw(db,
+-					     (struct type_datum *)node->datum,
+-					     tgt, cls, perm, effect, invert);
+-			};
+-		} else {
+-			ksu_hashtab_for_each(db->p_types.table, node)
+-			{
+-				struct type_datum *type =
+-					(struct type_datum *)(node->datum);
+-				if (type->attribute) {
+-					add_rule_raw(db, type, tgt, cls, perm,
+-						     effect, invert);
+-				}
+-			};
+-		}
+-	} else if (tgt == NULL) {
+-		struct hashtab_node *node;
+-		if (strip_av(effect, invert)) {
+-			ksu_hashtab_for_each(db->p_types.table, node)
+-			{
+-				add_rule_raw(db, src,
+-					     (struct type_datum *)node->datum,
+-					     cls, perm, effect, invert);
+-			};
+-		} else {
+-			ksu_hashtab_for_each(db->p_types.table, node)
+-			{
+-				struct type_datum *type =
+-					(struct type_datum *)(node->datum);
+-				if (type->attribute) {
+-					add_rule_raw(db, src, type, cls, perm,
+-						     effect, invert);
+-				}
+-			};
+-		}
+-	} else if (cls == NULL) {
+-		struct hashtab_node *node;
+-		ksu_hashtab_for_each(db->p_classes.table, node)
+-		{
+-			add_rule_raw(db, src, tgt,
+-				     (struct class_datum *)node->datum, perm,
+-				     effect, invert);
+-		}
+-	} else {
+-		struct avtab_key key;
+-		key.source_type = src->value;
+-		key.target_type = tgt->value;
+-		key.target_class = cls->value;
+-		key.specified = effect;
+-
+-		struct avtab_node *node = get_avtab_node(db, &key, NULL);
+-		if (invert) {
+-			if (perm)
+-				node->datum.u.data &=
+-					~(1U << (perm->value - 1));
+-			else
+-				node->datum.u.data = 0U;
+-		} else {
+-			if (perm)
+-				node->datum.u.data |= 1U << (perm->value - 1);
+-			else
+-				node->datum.u.data = ~0U;
+-		}
+-	}
++    avtab_destroy(&removed);
++    return false;
++}
++
++static bool add_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *p, int effect,
++                     bool invert)
++{
++    struct type_datum *src = NULL, *tgt = NULL;
++    struct class_datum *cls = NULL;
++    struct perm_datum *perm = NULL;
++
++    if (s) {
++        src = symtab_search(&db->p_types, s);
++        if (src == NULL) {
++            pr_info("source type %s does not exist\n", s);
++            return false;
++        }
++    }
++
++    if (t) {
++        tgt = symtab_search(&db->p_types, t);
++        if (tgt == NULL) {
++            pr_info("target type %s does not exist\n", t);
++            return false;
++        }
++    }
++
++    if (c) {
++        cls = symtab_search(&db->p_classes, c);
++        if (cls == NULL) {
++            pr_info("class %s does not exist\n", c);
++            return false;
++        }
++    }
++
++    if (p) {
++        if (c == NULL) {
++            pr_info("No class is specified, cannot add perm [%s] \n", p);
++            return false;
++        }
++
++        perm = symtab_search(&cls->permissions, p);
++        if (perm == NULL && cls->comdatum != NULL) {
++            perm = symtab_search(&cls->comdatum->permissions, p);
++        }
++        if (perm == NULL) {
++            pr_info("perm %s does not exist in class %s\n", p, c);
++            return false;
++        }
++    }
++    return add_rule_raw(db, src, tgt, cls, perm, effect, invert);
++}
++
++static bool add_rule_raw(struct policydb *db, struct type_datum *src, struct type_datum *tgt, struct class_datum *cls,
++                         struct perm_datum *perm, int effect, bool invert)
++{
++    bool success = true;
++
++    if (src == NULL) {
++        struct hashtab_node *node;
++        if (strip_av(effect, invert)) {
++            ksu_hashtab_for_each(db->p_types.table, node)
++            {
++                success &= add_rule_raw(db, (struct type_datum *)node->datum, tgt, cls, perm, effect, invert);
++            };
++        } else {
++            ksu_hashtab_for_each(db->p_types.table, node)
++            {
++                struct type_datum *type = (struct type_datum *)(node->datum);
++                if (type->attribute) {
++                    success &= add_rule_raw(db, type, tgt, cls, perm, effect, invert);
++                }
++            };
++        }
++    } else if (tgt == NULL) {
++        struct hashtab_node *node;
++        if (strip_av(effect, invert)) {
++            ksu_hashtab_for_each(db->p_types.table, node)
++            {
++                success &= add_rule_raw(db, src, (struct type_datum *)node->datum, cls, perm, effect, invert);
++            };
++        } else {
++            ksu_hashtab_for_each(db->p_types.table, node)
++            {
++                struct type_datum *type = (struct type_datum *)(node->datum);
++                if (type->attribute) {
++                    success &= add_rule_raw(db, src, type, cls, perm, effect, invert);
++                }
++            };
++        }
++    } else if (cls == NULL) {
++        struct hashtab_node *node;
++        ksu_hashtab_for_each(db->p_classes.table, node)
++        {
++            success &= add_rule_raw(db, src, tgt, (struct class_datum *)node->datum, perm, effect, invert);
++        }
++    } else {
++        struct avtab_key key;
++        struct avtab_node *node;
++
++        key.source_type = src->value;
++        key.target_type = tgt->value;
++        key.target_class = cls->value;
++        key.specified = effect;
++
++        if (invert && effect != AVTAB_AUDITDENY) {
++            node = avtab_search_node(&db->te_avtab, &key);
++            if (!node)
++                return true;
++        } else {
++            node = get_avtab_node(db, &key, NULL);
++            if (!node)
++                return false;
++        }
++
++        if (invert) {
++            if (perm)
++                node->datum.u.data &= ~(1U << (perm->value - 1));
++            else
++                node->datum.u.data = 0U;
++        } else {
++            if (perm)
++                node->datum.u.data |= 1U << (perm->value - 1);
++            else
++                node->datum.u.data = ~0U;
++        }
++        if (is_redundant_avtab_node(node))
++            return remove_avtab_node(db, node);
++    }
++
++    return success;
+ }
+ 
+ #define ioctl_driver(x) (x >> 8 & 0xFF)
+@@ -274,184 +360,173 @@
+ #define xperm_set(x, p) (p[x >> 5] |= (1 << (x & 0x1f)))
+ #define xperm_clear(x, p) (p[x >> 5] &= ~(1 << (x & 0x1f)))
+ 
+-static void add_xperm_rule_raw(struct policydb *db, struct type_datum *src,
+-			       struct type_datum *tgt, struct class_datum *cls,
+-			       uint16_t low, uint16_t high, int effect,
+-			       bool invert)
+-{
+-	if (src == NULL) {
+-		struct hashtab_node *node;
+-		ksu_hashtab_for_each(db->p_types.table, node)
+-		{
+-			struct type_datum *type =
+-				(struct type_datum *)(node->datum);
+-			if (type->attribute) {
+-				add_xperm_rule_raw(db, type, tgt, cls, low,
+-						   high, effect, invert);
+-			}
+-		};
+-	} else if (tgt == NULL) {
+-		struct hashtab_node *node;
+-		ksu_hashtab_for_each(db->p_types.table, node)
+-		{
+-			struct type_datum *type =
+-				(struct type_datum *)(node->datum);
+-			if (type->attribute) {
+-				add_xperm_rule_raw(db, src, type, cls, low,
+-						   high, effect, invert);
+-			}
+-		};
+-	} else if (cls == NULL) {
+-		struct hashtab_node *node;
+-		ksu_hashtab_for_each(db->p_classes.table, node)
+-		{
+-			add_xperm_rule_raw(db, src, tgt,
+-					   (struct class_datum *)(node->datum),
+-					   low, high, effect, invert);
+-		};
+-	} else {
+-		struct avtab_key key;
+-		key.source_type = src->value;
+-		key.target_type = tgt->value;
+-		key.target_class = cls->value;
+-		key.specified = effect;
+-
+-		struct avtab_datum *datum;
+-		struct avtab_node *node;
+-		struct avtab_extended_perms xperms;
+-
+-		memset(&xperms, 0, sizeof(xperms));
+-		if (ioctl_driver(low) != ioctl_driver(high)) {
+-			xperms.specified = AVTAB_XPERMS_IOCTLDRIVER;
+-			xperms.driver = 0;
+-		} else {
+-			xperms.specified = AVTAB_XPERMS_IOCTLFUNCTION;
+-			xperms.driver = ioctl_driver(low);
+-		}
+-		int i;
+-		if (xperms.specified == AVTAB_XPERMS_IOCTLDRIVER) {
+-			for (i = ioctl_driver(low); i <= ioctl_driver(high);
+-			     ++i) {
+-				if (invert)
+-					xperm_clear(i, xperms.perms.p);
+-				else
+-					xperm_set(i, xperms.perms.p);
+-			}
+-		} else {
+-			for (i = ioctl_func(low); i <= ioctl_func(high); ++i) {
+-				if (invert)
+-					xperm_clear(i, xperms.perms.p);
+-				else
+-					xperm_set(i, xperms.perms.p);
+-			}
+-		}
+-
+-		node = get_avtab_node(db, &key, &xperms);
+-		if (!node) {
+-			pr_warn("add_xperm_rule_raw cannot found node!\n");
+-			return;
+-		}
+-		datum = &node->datum;
+-
+-		if (datum->u.xperms == NULL) {
+-			datum->u.xperms =
+-				(struct avtab_extended_perms *)(kmalloc(
+-					sizeof(xperms), GFP_KERNEL));
+-			if (!datum->u.xperms) {
+-				pr_err("alloc xperms failed\n");
+-				return;
+-			}
+-			memcpy(datum->u.xperms, &xperms, sizeof(xperms));
+-		}
+-	}
+-}
+-
+-static bool add_xperm_rule(struct policydb *db, const char *s, const char *t,
+-			   const char *c, const char *range, int effect,
+-			   bool invert)
+-{
+-	struct type_datum *src = NULL, *tgt = NULL;
+-	struct class_datum *cls = NULL;
+-
+-	if (s) {
+-		src = symtab_search(&db->p_types, s);
+-		if (src == NULL) {
+-			pr_info("source type %s does not exist\n", s);
+-			return false;
+-		}
+-	}
+-
+-	if (t) {
+-		tgt = symtab_search(&db->p_types, t);
+-		if (tgt == NULL) {
+-			pr_info("target type %s does not exist\n", t);
+-			return false;
+-		}
+-	}
+-
+-	if (c) {
+-		cls = symtab_search(&db->p_classes, c);
+-		if (cls == NULL) {
+-			pr_info("class %s does not exist\n", c);
+-			return false;
+-		}
+-	}
+-
+-	u16 low, high;
+-
+-	if (range) {
+-		if (strchr(range, '-')) {
+-			sscanf(range, "%hx-%hx", &low, &high);
+-		} else {
+-			sscanf(range, "%hx", &low);
+-			high = low;
+-		}
+-	} else {
+-		low = 0;
+-		high = 0xFFFF;
+-	}
+-
+-	add_xperm_rule_raw(db, src, tgt, cls, low, high, effect, invert);
+-	return true;
+-}
+-
+-static bool add_type_rule(struct policydb *db, const char *s, const char *t,
+-			  const char *c, const char *d, int effect)
+-{
+-	struct type_datum *src, *tgt, *def;
+-	struct class_datum *cls;
+-
+-	src = symtab_search(&db->p_types, s);
+-	if (src == NULL) {
+-		pr_info("source type %s does not exist\n", s);
+-		return false;
+-	}
+-	tgt = symtab_search(&db->p_types, t);
+-	if (tgt == NULL) {
+-		pr_info("target type %s does not exist\n", t);
+-		return false;
+-	}
+-	cls = symtab_search(&db->p_classes, c);
+-	if (cls == NULL) {
+-		pr_info("class %s does not exist\n", c);
+-		return false;
+-	}
+-	def = symtab_search(&db->p_types, d);
+-	if (def == NULL) {
+-		pr_info("default type %s does not exist\n", d);
+-		return false;
+-	}
+-
+-	struct avtab_key key;
+-	key.source_type = src->value;
+-	key.target_type = tgt->value;
+-	key.target_class = cls->value;
+-	key.specified = effect;
+-
+-	struct avtab_node *node = get_avtab_node(db, &key, NULL);
+-	node->datum.u.data = def->value;
++static void add_xperm_rule_raw(struct policydb *db, struct type_datum *src, struct type_datum *tgt,
++                               struct class_datum *cls, uint16_t low, uint16_t high, int effect, bool invert)
++{
++    if (src == NULL) {
++        struct hashtab_node *node;
++        ksu_hashtab_for_each(db->p_types.table, node)
++        {
++            struct type_datum *type = (struct type_datum *)(node->datum);
++            if (type->attribute) {
++                add_xperm_rule_raw(db, type, tgt, cls, low, high, effect, invert);
++            }
++        };
++    } else if (tgt == NULL) {
++        struct hashtab_node *node;
++        ksu_hashtab_for_each(db->p_types.table, node)
++        {
++            struct type_datum *type = (struct type_datum *)(node->datum);
++            if (type->attribute) {
++                add_xperm_rule_raw(db, src, type, cls, low, high, effect, invert);
++            }
++        };
++    } else if (cls == NULL) {
++        struct hashtab_node *node;
++        ksu_hashtab_for_each(db->p_classes.table, node)
++        {
++            add_xperm_rule_raw(db, src, tgt, (struct class_datum *)(node->datum), low, high, effect, invert);
++        };
++    } else {
++        struct avtab_key key;
++        key.source_type = src->value;
++        key.target_type = tgt->value;
++        key.target_class = cls->value;
++        key.specified = effect;
++
++        struct avtab_datum *datum;
++        struct avtab_node *node;
++        struct avtab_extended_perms xperms;
++
++        memset(&xperms, 0, sizeof(xperms));
++        if (ioctl_driver(low) != ioctl_driver(high)) {
++            xperms.specified = AVTAB_XPERMS_IOCTLDRIVER;
++            xperms.driver = 0;
++        } else {
++            xperms.specified = AVTAB_XPERMS_IOCTLFUNCTION;
++            xperms.driver = ioctl_driver(low);
++        }
++        int i;
++        if (xperms.specified == AVTAB_XPERMS_IOCTLDRIVER) {
++            for (i = ioctl_driver(low); i <= ioctl_driver(high); ++i) {
++                if (invert)
++                    xperm_clear(i, xperms.perms.p);
++                else
++                    xperm_set(i, xperms.perms.p);
++            }
++        } else {
++            for (i = ioctl_func(low); i <= ioctl_func(high); ++i) {
++                if (invert)
++                    xperm_clear(i, xperms.perms.p);
++                else
++                    xperm_set(i, xperms.perms.p);
++            }
++        }
++
++        node = get_avtab_node(db, &key, &xperms);
++        if (!node) {
++            pr_warn("add_xperm_rule_raw cannot found node!\n");
++            return;
++        }
++        datum = &node->datum;
++
++        if (datum->u.xperms == NULL) {
++            datum->u.xperms = (struct avtab_extended_perms *)(kzalloc(sizeof(xperms), GFP_KERNEL));
++            if (!datum->u.xperms) {
++                pr_err("alloc xperms failed\n");
++                return;
++            }
++            memcpy(datum->u.xperms, &xperms, sizeof(xperms));
++        }
++    }
++}
++
++static bool add_xperm_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *range,
++                           int effect, bool invert)
++{
++    struct type_datum *src = NULL, *tgt = NULL;
++    struct class_datum *cls = NULL;
++
++    if (s) {
++        src = symtab_search(&db->p_types, s);
++        if (src == NULL) {
++            pr_info("source type %s does not exist\n", s);
++            return false;
++        }
++    }
++
++    if (t) {
++        tgt = symtab_search(&db->p_types, t);
++        if (tgt == NULL) {
++            pr_info("target type %s does not exist\n", t);
++            return false;
++        }
++    }
++
++    if (c) {
++        cls = symtab_search(&db->p_classes, c);
++        if (cls == NULL) {
++            pr_info("class %s does not exist\n", c);
++            return false;
++        }
++    }
++
++    u16 low, high;
++
++    if (range) {
++        if (strchr(range, '-')) {
++            sscanf(range, "%hx-%hx", &low, &high);
++        } else {
++            sscanf(range, "%hx", &low);
++            high = low;
++        }
++    } else {
++        low = 0;
++        high = 0xFFFF;
++    }
++
++    add_xperm_rule_raw(db, src, tgt, cls, low, high, effect, invert);
++    return true;
++}
++
++static bool add_type_rule(struct policydb *db, const char *s, const char *t, const char *c, const char *d, int effect)
++{
++    struct type_datum *src, *tgt, *def;
++    struct class_datum *cls;
++
++    src = symtab_search(&db->p_types, s);
++    if (src == NULL) {
++        pr_info("source type %s does not exist\n", s);
++        return false;
++    }
++    tgt = symtab_search(&db->p_types, t);
++    if (tgt == NULL) {
++        pr_info("target type %s does not exist\n", t);
++        return false;
++    }
++    cls = symtab_search(&db->p_classes, c);
++    if (cls == NULL) {
++        pr_info("class %s does not exist\n", c);
++        return false;
++    }
++    def = symtab_search(&db->p_types, d);
++    if (def == NULL) {
++        pr_info("default type %s does not exist\n", d);
++        return false;
++    }
++
++    struct avtab_key key;
++    key.source_type = src->value;
++    key.target_type = tgt->value;
++    key.target_class = cls->value;
++    key.specified = effect;
++
++    struct avtab_node *node = get_avtab_node(db, &key, NULL);
++    if (!node)
++        return false;
++    node->datum.u.data = def->value;
+ 
+-	return true;
++    return true;
+ }
+ 
+ // 5.9.0 : static inline int hashtab_insert(struct hashtab *h, void *key, void
+@@ -460,287 +535,455 @@
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 9, 0)
+ static u32 filenametr_hash(const void *k)
+ {
+-	const struct filename_trans_key *ft = k;
+-	unsigned long hash;
+-	unsigned int byte_num;
+-	unsigned char focus;
+-
+-	hash = ft->ttype ^ ft->tclass;
+-
+-	byte_num = 0;
+-	while ((focus = ft->name[byte_num++]))
+-		hash = partial_name_hash(focus, hash);
+-	return hash;
++    const struct filename_trans_key *ft = k;
++    unsigned long hash;
++    unsigned int byte_num;
++    unsigned char focus;
++
++    hash = ft->ttype ^ ft->tclass;
++
++    byte_num = 0;
++    while ((focus = ft->name[byte_num++]))
++        hash = partial_name_hash(focus, hash);
++    return hash;
+ }
+ 
+ static int filenametr_cmp(const void *k1, const void *k2)
+ {
+-	const struct filename_trans_key *ft1 = k1;
+-	const struct filename_trans_key *ft2 = k2;
+-	int v;
+-
+-	v = ft1->ttype - ft2->ttype;
+-	if (v)
+-		return v;
+-
+-	v = ft1->tclass - ft2->tclass;
+-	if (v)
+-		return v;
++    const struct filename_trans_key *ft1 = k1;
++    const struct filename_trans_key *ft2 = k2;
++    int v;
++
++    v = ft1->ttype - ft2->ttype;
++    if (v)
++        return v;
++
++    v = ft1->tclass - ft2->tclass;
++    if (v)
++        return v;
+ 
+-	return strcmp(ft1->name, ft2->name);
++    return strcmp(ft1->name, ft2->name);
+ }
+ 
+ static const struct hashtab_key_params filenametr_key_params = {
+-	.hash = filenametr_hash,
+-	.cmp = filenametr_cmp,
++    .hash = filenametr_hash,
++    .cmp = filenametr_cmp,
+ };
+ #endif
+ 
+-static bool add_filename_trans(struct policydb *db, const char *s,
+-			       const char *t, const char *c, const char *d,
+-			       const char *o)
+-{
+-	struct type_datum *src, *tgt, *def;
+-	struct class_datum *cls;
+-
+-	src = symtab_search(&db->p_types, s);
+-	if (src == NULL) {
+-		pr_warn("source type %s does not exist\n", s);
+-		return false;
+-	}
+-	tgt = symtab_search(&db->p_types, t);
+-	if (tgt == NULL) {
+-		pr_warn("target type %s does not exist\n", t);
+-		return false;
+-	}
+-	cls = symtab_search(&db->p_classes, c);
+-	if (cls == NULL) {
+-		pr_warn("class %s does not exist\n", c);
+-		return false;
+-	}
+-	def = symtab_search(&db->p_types, d);
+-	if (def == NULL) {
+-		pr_warn("default type %s does not exist\n", d);
+-		return false;
+-	}
+-
+-	struct filename_trans_key key;
+-	key.ttype = tgt->value;
+-	key.tclass = cls->value;
+-	key.name = (char *)o;
+-
+-	struct filename_trans_datum *last = NULL;
+-
+-	struct filename_trans_datum *trans =
+-		policydb_filenametr_search(db, &key);
+-	while (trans) {
+-		if (ebitmap_get_bit(&trans->stypes, src->value - 1)) {
+-			// Duplicate, overwrite existing data and return
+-			trans->otype = def->value;
+-			return true;
+-		}
+-		if (trans->otype == def->value)
+-			break;
+-		last = trans;
+-		trans = trans->next;
+-	}
+-
+-	if (trans == NULL) {
+-		trans = (struct filename_trans_datum *)kcalloc(sizeof(*trans),
+-							       1, GFP_ATOMIC);
+-		struct filename_trans_key *new_key =
+-			(struct filename_trans_key *)kmalloc(sizeof(*new_key),
+-							     GFP_ATOMIC);
+-		*new_key = key;
+-		new_key->name = kstrdup(key.name, GFP_ATOMIC);
+-		trans->next = last;
+-		trans->otype = def->value;
+-		hashtab_insert(&db->filename_trans, new_key, trans,
+-			       filenametr_key_params);
+-	}
+-
+-	db->compat_filename_trans_count++;
+-	return ebitmap_set_bit(&trans->stypes, src->value - 1, 1) == 0;
+-}
+-
+-static bool add_genfscon(struct policydb *db, const char *fs_name,
+-			 const char *path, const char *context)
+-{
+-	return false;
+-}
+-
+-static void *ksu_realloc(void *old, size_t new_size, size_t old_size)
+-{
+-	// we can't use krealloc, because it may be read-only
+-	void *new = kzalloc(new_size, GFP_ATOMIC);
+-	if (!new) {
+-		return NULL;
+-	}
+-	if (old_size) {
+-		memcpy(new, old, old_size);
+-	}
+-	// we can't use kfree, because it may be read-only
+-	// there maybe some leaks, maybe we can check ptr_write, but it's not a big deal
+-	// kfree(old);
+-	return new;
++static bool add_filename_trans(struct policydb *db, const char *s, const char *t, const char *c, const char *d,
++                               const char *o)
++{
++    struct type_datum *src, *tgt, *def;
++    struct class_datum *cls;
++
++    src = symtab_search(&db->p_types, s);
++    if (src == NULL) {
++        pr_warn("source type %s does not exist\n", s);
++        return false;
++    }
++    tgt = symtab_search(&db->p_types, t);
++    if (tgt == NULL) {
++        pr_warn("target type %s does not exist\n", t);
++        return false;
++    }
++    cls = symtab_search(&db->p_classes, c);
++    if (cls == NULL) {
++        pr_warn("class %s does not exist\n", c);
++        return false;
++    }
++    def = symtab_search(&db->p_types, d);
++    if (def == NULL) {
++        pr_warn("default type %s does not exist\n", d);
++        return false;
++    }
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 7, 0)
++    struct filename_trans_key key;
++    key.ttype = tgt->value;
++    key.tclass = cls->value;
++    key.name = (char *)o;
++
++    struct filename_trans_datum *last = NULL;
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 9, 0)
++    struct filename_trans_datum *trans = policydb_filenametr_search(db, &key);
++#else
++    struct filename_trans_datum *trans = hashtab_search(&db->filename_trans, &key);
++#endif
++    while (trans) {
++        if (ebitmap_get_bit(&trans->stypes, src->value - 1)) {
++            // Duplicate, overwrite existing data and return
++            trans->otype = def->value;
++            return true;
++        }
++        if (trans->otype == def->value)
++            break;
++        last = trans;
++        trans = trans->next;
++    }
++
++    if (trans == NULL) {
++        trans = (struct filename_trans_datum *)kcalloc(1, sizeof(*trans), GFP_KERNEL);
++        struct filename_trans_key *new_key = (struct filename_trans_key *)kzalloc(sizeof(*new_key), GFP_KERNEL);
++        *new_key = key;
++        new_key->name = kstrdup(key.name, GFP_KERNEL);
++        trans->next = last;
++        trans->otype = def->value;
++        hashtab_insert(&db->filename_trans, new_key, trans, filenametr_key_params);
++    }
++
++    db->compat_filename_trans_count++;
++    return ebitmap_set_bit(&trans->stypes, src->value - 1, 1) == 0;
++#else // < 5.7.0, has no filename_trans_key, but struct filename_trans
++
++    struct filename_trans key;
++    key.ttype = tgt->value;
++    key.tclass = cls->value;
++    key.name = (char *)o;
++
++    struct filename_trans_datum *trans = hashtab_search(db->filename_trans, &key);
++
++    if (trans == NULL) {
++        trans = (struct filename_trans_datum *)kcalloc(sizeof(*trans), 1, GFP_KERNEL);
++        if (!trans) {
++            pr_err("add_filename_trans: Failed to alloc datum\n");
++            return false;
++        }
++        struct filename_trans *new_key = (struct filename_trans *)kzalloc(sizeof(*new_key), GFP_KERNEL);
++        if (!new_key) {
++            pr_err("add_filename_trans: Failed to alloc new_key\n");
++            return false;
++        }
++        *new_key = key;
++        new_key->name = kstrdup(key.name, GFP_KERNEL);
++        trans->otype = def->value;
++        hashtab_insert(db->filename_trans, new_key, trans);
++    }
++
++    return ebitmap_set_bit(&db->filename_trans_ttypes, src->value - 1, 1) == 0;
++#endif
+ }
+ 
++static bool add_genfscon(struct policydb *db, const char *fs_name, const char *path, const char *context)
++{
++    return false;
++}
++
++// https://github.com/torvalds/linux/commit/590b9d576caec6b4c46bba49ed36223a399c3fc5#diff-cc9aa90e094e6e0f47bd7300db4f33cf4366b98b55d8753744f31eb69c691016R844-R845
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
++#define ksu_kvrealloc(p, new_size, _old_size) kvrealloc(p, new_size, GFP_KERNEL)
++#else
++#define ksu_kvrealloc(p, new_size, old_size) ksu_compat_kvrealloc(p, old_size, new_size, GFP_KERNEL)
++#endif
++
+ static bool add_type(struct policydb *db, const char *type_name, bool attr)
+ {
+-	struct type_datum *type = symtab_search(&db->p_types, type_name);
+-	if (type) {
+-		pr_warn("Type %s already exists\n", type_name);
+-		return true;
+-	}
+-
+-	u32 value = ++db->p_types.nprim;
+-	type = (struct type_datum *)kzalloc(sizeof(struct type_datum),
+-					    GFP_ATOMIC);
+-	if (!type) {
+-		pr_err("add_type: alloc type_datum failed.\n");
+-		return false;
+-	}
+-
+-	type->primary = 1;
+-	type->value = value;
+-	type->attribute = attr;
+-
+-	char *key = kstrdup(type_name, GFP_ATOMIC);
+-	if (!key) {
+-		pr_err("add_type: alloc key failed.\n");
+-		return false;
+-	}
+-
+-	if (symtab_insert(&db->p_types, key, type)) {
+-		pr_err("add_type: insert symtab failed.\n");
+-		return false;
+-	}
+-
+-	struct ebitmap *new_type_attr_map_array =
+-		ksu_realloc(db->type_attr_map_array,
+-			    value * sizeof(struct ebitmap),
+-			    (value - 1) * sizeof(struct ebitmap));
+-
+-	if (!new_type_attr_map_array) {
+-		pr_err("add_type: alloc type_attr_map_array failed\n");
+-		return false;
+-	}
+-
+-	struct type_datum **new_type_val_to_struct =
+-		ksu_realloc(db->type_val_to_struct,
+-			    sizeof(*db->type_val_to_struct) * value,
+-			    sizeof(*db->type_val_to_struct) * (value - 1));
+-
+-	if (!new_type_val_to_struct) {
+-		pr_err("add_type: alloc type_val_to_struct failed\n");
+-		return false;
+-	}
+-
+-	char **new_val_to_name_types =
+-		ksu_realloc(db->sym_val_to_name[SYM_TYPES],
+-			    sizeof(char *) * value,
+-			    sizeof(char *) * (value - 1));
+-	if (!new_val_to_name_types) {
+-		pr_err("add_type: alloc val_to_name failed\n");
+-		return false;
+-	}
+-
+-	db->type_attr_map_array = new_type_attr_map_array;
+-	ebitmap_init(&db->type_attr_map_array[value - 1]);
+-	ebitmap_set_bit(&db->type_attr_map_array[value - 1], value - 1, 1);
+-
+-	db->type_val_to_struct = new_type_val_to_struct;
+-	db->type_val_to_struct[value - 1] = type;
+-
+-	db->sym_val_to_name[SYM_TYPES] = new_val_to_name_types;
+-	db->sym_val_to_name[SYM_TYPES][value - 1] = key;
+-
+-	int i;
+-	for (i = 0; i < db->p_roles.nprim; ++i) {
+-		ebitmap_set_bit(&db->role_val_to_struct[i]->types, value - 1,
+-				1);
+-	}
+-
+-	return true;
+-}
+-
+-static bool set_type_state(struct policydb *db, const char *type_name,
+-			   bool permissive)
+-{
+-	struct type_datum *type;
+-	if (type_name == NULL) {
+-		struct hashtab_node *node;
+-		ksu_hashtab_for_each(db->p_types.table, node)
+-		{
+-			type = (struct type_datum *)(node->datum);
+-			if (ebitmap_set_bit(&db->permissive_map, type->value,
+-					    permissive))
+-				pr_info("Could not set bit in permissive map\n");
+-		};
+-	} else {
+-		type = (struct type_datum *)symtab_search(&db->p_types,
+-							  type_name);
+-		if (type == NULL) {
+-			pr_info("type %s does not exist\n", type_name);
+-			return false;
+-		}
+-		if (ebitmap_set_bit(&db->permissive_map, type->value,
+-				    permissive)) {
+-			pr_info("Could not set bit in permissive map\n");
+-			return false;
+-		}
+-	}
+-	return true;
+-}
+-
+-static void add_typeattribute_raw(struct policydb *db, struct type_datum *type,
+-				  struct type_datum *attr)
+-{
+-	struct ebitmap *sattr = &db->type_attr_map_array[type->value - 1];
+-	ebitmap_set_bit(sattr, attr->value - 1, 1);
+-
+-	struct hashtab_node *node;
+-	struct constraint_node *n;
+-	struct constraint_expr *e;
+-	ksu_hashtab_for_each(db->p_classes.table, node)
+-	{
+-		struct class_datum *cls = (struct class_datum *)(node->datum);
+-		for (n = cls->constraints; n; n = n->next) {
+-			for (e = n->expr; e; e = e->next) {
+-				if (e->expr_type == CEXPR_NAMES &&
+-				    ebitmap_get_bit(&e->type_names->types,
+-						    attr->value - 1)) {
+-					ebitmap_set_bit(&e->names,
+-							type->value - 1, 1);
+-				}
+-			}
+-		}
+-	};
+-}
+-
+-static bool add_typeattribute(struct policydb *db, const char *type,
+-			      const char *attr)
+-{
+-	struct type_datum *type_d = symtab_search(&db->p_types, type);
+-	if (type_d == NULL) {
+-		pr_info("type %s does not exist\n", type);
+-		return false;
+-	} else if (type_d->attribute) {
+-		pr_info("type %s is an attribute\n", attr);
+-		return false;
+-	}
+-
+-	struct type_datum *attr_d = symtab_search(&db->p_types, attr);
+-	if (attr_d == NULL) {
+-		pr_info("attribute %s does not exist\n", type);
+-		return false;
+-	} else if (!attr_d->attribute) {
+-		pr_info("type %s is not an attribute \n", attr);
+-		return false;
+-	}
++#ifdef KSU_SUPPORT_ADD_TYPE
++    struct type_datum *type = symtab_search(&db->p_types, type_name);
++    if (type) {
++        pr_warn("Type %s already exists\n", type_name);
++        return true;
++    }
++
++    u32 value = ++db->p_types.nprim;
++    type = (struct type_datum *)kzalloc(sizeof(struct type_datum), GFP_KERNEL);
++    if (!type) {
++        pr_err("add_type: alloc type_datum failed.\n");
++        return false;
++    }
++
++    type->primary = 1;
++    type->value = value;
++    type->attribute = attr;
++
++    char *key = kstrdup(type_name, GFP_KERNEL);
++    if (!key) {
++        pr_err("add_type: alloc key failed.\n");
++        return false;
++    }
++
++    if (symtab_insert(&db->p_types, key, type)) {
++        pr_err("add_type: insert symtab failed.\n");
++        return false;
++    }
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) ||                                                                   \
++    (defined(KSU_COMPAT_HAS_MODERN_POLICYDB) && !defined(KSU_COMPAT_IS_HISI_LEGACY))
++    struct ebitmap *new_type_attr_map_array =
++        ksu_kvrealloc(db->type_attr_map_array, value * sizeof(struct ebitmap), (value - 1) * sizeof(struct ebitmap));
++
++    if (!new_type_attr_map_array) {
++        pr_err("add_type: alloc type_attr_map_array failed\n");
++        return false;
++    }
++
++    struct type_datum **new_type_val_to_struct = ksu_kvrealloc(
++        db->type_val_to_struct, sizeof(*db->type_val_to_struct) * value, sizeof(*db->type_val_to_struct) * (value - 1));
++
++    if (!new_type_val_to_struct) {
++        pr_err("add_type: alloc type_val_to_struct failed\n");
++        return false;
++    }
++
++    char **new_val_to_name_types =
++        ksu_kvrealloc(db->sym_val_to_name[SYM_TYPES], sizeof(char *) * value, sizeof(char *) * (value - 1));
++    if (!new_val_to_name_types) {
++        pr_err("add_type: alloc val_to_name failed\n");
++        return false;
++    }
++
++    db->type_attr_map_array = new_type_attr_map_array;
++    ebitmap_init(&db->type_attr_map_array[value - 1]);
++    ebitmap_set_bit(&db->type_attr_map_array[value - 1], value - 1, 1);
++
++    db->type_val_to_struct = new_type_val_to_struct;
++    db->type_val_to_struct[value - 1] = type;
++
++    db->sym_val_to_name[SYM_TYPES] = new_val_to_name_types;
++    db->sym_val_to_name[SYM_TYPES][value - 1] = key;
++
++    int i;
++    for (i = 0; i < db->p_roles.nprim; ++i) {
++        ebitmap_set_bit(&db->role_val_to_struct[i]->types, value - 1, 1);
++    }
++
++    return true;
++
++#elif defined(KSU_COMPAT_IS_HISI_LEGACY)
++    /*
++   * Huawei use type_attr_map and type_val_to_struct.
++   * And use ebitmap not flex_array.
++   */
++    size_t new_size = sizeof(struct ebitmap) * db->p_types.nprim;
++    struct ebitmap *new_type_attr_map = (krealloc(db->type_attr_map, new_size, GFP_KERNEL));
++
++    struct type_datum **new_type_val_to_struct =
++        krealloc(db->type_val_to_struct, sizeof(*db->type_val_to_struct) * db->p_types.nprim, GFP_KERNEL);
++
++    if (!new_type_attr_map) {
++        pr_err("add_type: alloc type_attr_map failed\n");
++        return false;
++    }
++
++    if (!new_type_val_to_struct) {
++        pr_err("add_type: alloc type_val_to_struct failed\n");
++        return false;
++    }
++
++    char **new_val_to_name_types =
++        krealloc(db->sym_val_to_name[SYM_TYPES], sizeof(char *) * db->symtab[SYM_TYPES].nprim, GFP_KERNEL);
++    if (!new_val_to_name_types) {
++        pr_err("add_type: alloc val_to_name failed\n");
++        return false;
++    }
++
++    db->type_attr_map = new_type_attr_map;
++    ebitmap_init(&db->type_attr_map[value - 1], HISI_SELINUX_EBITMAP_RO);
++    ebitmap_set_bit(&db->type_attr_map[value - 1], value - 1, 1);
++
++    db->type_val_to_struct = new_type_val_to_struct;
++    db->type_val_to_struct[value - 1] = type;
++
++    db->sym_val_to_name[SYM_TYPES] = new_val_to_name_types;
++    db->sym_val_to_name[SYM_TYPES][value - 1] = key;
++
++    int i;
++    for (i = 0; i < db->p_roles.nprim; ++i) {
++        ebitmap_set_bit(&db->role_val_to_struct[i]->types, value - 1, 1);
++    }
++
++    return true;
++#else
++    // flex_array is not extensible, we need to create a new bigger one instead
++    struct flex_array *new_type_attr_map_array =
++        flex_array_alloc(sizeof(struct ebitmap), db->p_types.nprim, GFP_KERNEL | __GFP_ZERO);
++
++    struct flex_array *new_type_val_to_struct =
++        flex_array_alloc(sizeof(struct type_datum *), db->p_types.nprim, GFP_KERNEL | __GFP_ZERO);
++
++    struct flex_array *new_val_to_name_types =
++        flex_array_alloc(sizeof(char *), db->symtab[SYM_TYPES].nprim, GFP_KERNEL | __GFP_ZERO);
++
++    if (!new_type_attr_map_array) {
++        pr_err("add_type: alloc type_attr_map_array failed\n");
++        return false;
++    }
++
++    if (!new_type_val_to_struct) {
++        pr_err("add_type: alloc type_val_to_struct failed\n");
++        return false;
++    }
++
++    if (!new_val_to_name_types) {
++        pr_err("add_type: alloc val_to_name failed\n");
++        return false;
++    }
++
++    // preallocate so we don't have to worry about the put ever failing
++    if (flex_array_prealloc(new_type_attr_map_array, 0, db->p_types.nprim, GFP_KERNEL | __GFP_ZERO)) {
++        pr_err("add_type: prealloc type_attr_map_array failed\n");
++        return false;
++    }
++
++    if (flex_array_prealloc(new_type_val_to_struct, 0, db->p_types.nprim, GFP_KERNEL | __GFP_ZERO)) {
++        pr_err("add_type: prealloc type_val_to_struct_array failed\n");
++        return false;
++    }
++
++    if (flex_array_prealloc(new_val_to_name_types, 0, db->symtab[SYM_TYPES].nprim, GFP_KERNEL | __GFP_ZERO)) {
++        pr_err("add_type: prealloc val_to_name_types failed\n");
++        return false;
++    }
++
++    int j;
++    void *old_elem;
++    // copy the old data or pointers to new flex arrays
++    for (j = 0; j < db->type_attr_map_array->total_nr_elements; j++) {
++        old_elem = flex_array_get(db->type_attr_map_array, j);
++        if (old_elem)
++            flex_array_put(new_type_attr_map_array, j, old_elem, GFP_KERNEL | __GFP_ZERO);
++    }
++
++    for (j = 0; j < db->type_val_to_struct_array->total_nr_elements; j++) {
++        old_elem = flex_array_get_ptr(db->type_val_to_struct_array, j);
++        if (old_elem)
++            flex_array_put_ptr(new_type_val_to_struct, j, old_elem, GFP_KERNEL | __GFP_ZERO);
++    }
++
++    for (j = 0; j < db->symtab[SYM_TYPES].nprim; j++) {
++        old_elem = flex_array_get_ptr(db->sym_val_to_name[SYM_TYPES], j);
++        if (old_elem)
++            flex_array_put_ptr(new_val_to_name_types, j, old_elem, GFP_KERNEL | __GFP_ZERO);
++    }
++
++    // store the pointer of old flex arrays first, when assigning new ones we
++    // should free it
++    struct flex_array *old_fa;
++
++    old_fa = db->type_attr_map_array;
++    db->type_attr_map_array = new_type_attr_map_array;
++    if (old_fa) {
++        flex_array_free(old_fa);
++    }
++
++// Huawei's EMUI 10+ / HM2 HKIP is closed, use the original flex_array_get and HISI_SELINUX_EBITMAP_RO(false)
++#if defined(KSU_COMPAT_IS_HISI_LEGACY_HM2)
++    ebitmap_init(flex_array_get(db->type_attr_map_array, value - 1), HISI_SELINUX_EBITMAP_RO);
++#else
++    ebitmap_init(flex_array_get(db->type_attr_map_array, value - 1));
++#endif
++    ebitmap_set_bit(flex_array_get(db->type_attr_map_array, value - 1), value - 1, 1);
++
++    old_fa = db->type_val_to_struct_array;
++    db->type_val_to_struct_array = new_type_val_to_struct;
++    if (old_fa) {
++        flex_array_free(old_fa);
++    }
++    flex_array_put_ptr(db->type_val_to_struct_array, value - 1, type, GFP_KERNEL | __GFP_ZERO);
++
++    old_fa = db->sym_val_to_name[SYM_TYPES];
++    db->sym_val_to_name[SYM_TYPES] = new_val_to_name_types;
++    if (old_fa) {
++        flex_array_free(old_fa);
++    }
++    flex_array_put_ptr(db->sym_val_to_name[SYM_TYPES], value - 1, key, GFP_KERNEL | __GFP_ZERO);
++
++    int i;
++    for (i = 0; i < db->p_roles.nprim; ++i) {
++        ebitmap_set_bit(&db->role_val_to_struct[i]->types, value - 1, 1);
++    }
++    return true;
++#endif
++
++#else
++    return false;
++#endif
++}
++
++static bool set_type_state(struct policydb *db, const char *type_name, bool permissive)
++{
++    struct type_datum *type;
++    if (type_name == NULL) {
++        struct hashtab_node *node;
++        ksu_hashtab_for_each(db->p_types.table, node)
++        {
++            type = (struct type_datum *)(node->datum);
++            if (ebitmap_set_bit(&db->permissive_map, type->value, permissive))
++                pr_info("Could not set bit in permissive map\n");
++        };
++    } else {
++        type = (struct type_datum *)symtab_search(&db->p_types, type_name);
++        if (type == NULL) {
++            pr_info("type %s does not exist\n", type_name);
++            return false;
++        }
++        if (ebitmap_set_bit(&db->permissive_map, type->value, permissive)) {
++            pr_info("Could not set bit in permissive map\n");
++            return false;
++        }
++    }
++    return true;
++}
++
++static void add_typeattribute_raw(struct policydb *db, struct type_datum *type, struct type_datum *attr)
++{
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) ||                                                                   \
++    (defined(KSU_COMPAT_HAS_MODERN_POLICYDB) && !defined(KSU_COMPAT_IS_HISI_LEGACY))
++    struct ebitmap *sattr = &db->type_attr_map_array[type->value - 1];
++
++#elif defined(KSU_COMPAT_IS_HISI_LEGACY_HM2)
++    /* EMUI 10+ / HM2 dedicated branch (HKIP is closed, use the original flex_array_get) */
++    struct ebitmap *sattr = flex_array_get(db->type_attr_map_array, type->value - 1);
++
++#elif defined(KSU_COMPAT_IS_HISI_LEGACY)
++    /*
++    *  HISI_SELINUX_EBITMAP_RO is Huawei's unique features.
++    */
++    struct ebitmap *sattr = &db->type_attr_map[type->value - 1], HISI_SELINUX_EBITMAP_RO;
++#else
++    struct ebitmap *sattr = flex_array_get(db->type_attr_map_array, type->value - 1);
++#endif
++    ebitmap_set_bit(sattr, attr->value - 1, 1);
++
++    struct hashtab_node *node;
++    struct constraint_node *n;
++    struct constraint_expr *e;
++    ksu_hashtab_for_each(db->p_classes.table, node)
++    {
++        struct class_datum *cls = (struct class_datum *)(node->datum);
++        for (n = cls->constraints; n; n = n->next) {
++            for (e = n->expr; e; e = e->next) {
++                if (e->expr_type == CEXPR_NAMES && ebitmap_get_bit(&e->type_names->types, attr->value - 1)) {
++                    ebitmap_set_bit(&e->names, type->value - 1, 1);
++                }
++            }
++        }
++    };
++}
++
++static bool add_typeattribute(struct policydb *db, const char *type, const char *attr)
++{
++    struct type_datum *type_d = symtab_search(&db->p_types, type);
++    if (type_d == NULL) {
++        pr_info("type %s does not exist\n", type);
++        return false;
++    } else if (type_d->attribute) {
++        pr_info("type %s is an attribute\n", attr);
++        return false;
++    }
++
++    struct type_datum *attr_d = symtab_search(&db->p_types, attr);
++    if (attr_d == NULL) {
++        pr_info("attribute %s does not exist\n", type);
++        return false;
++    } else if (!attr_d->attribute) {
++        pr_info("type %s is not an attribute \n", attr);
++        return false;
++    }
+ 
+-	add_typeattribute_raw(db, type_d, attr_d);
+-	return true;
++    add_typeattribute_raw(db, type_d, attr_d);
++    return true;
+ }
+ 
+ //////////////////////////////////////////////////////////////////////////
+@@ -748,106 +991,242 @@
+ // Operation on types
+ bool ksu_type(struct policydb *db, const char *name, const char *attr)
+ {
+-	return add_type(db, name, false) && add_typeattribute(db, name, attr);
++    return add_type(db, name, false) && add_typeattribute(db, name, attr);
+ }
+ 
+ bool ksu_attribute(struct policydb *db, const char *name)
+ {
+-	return add_type(db, name, true);
++    return add_type(db, name, true);
+ }
+ 
+ bool ksu_permissive(struct policydb *db, const char *type)
+ {
+-	return set_type_state(db, type, true);
++    return set_type_state(db, type, true);
+ }
+ 
+ bool ksu_enforce(struct policydb *db, const char *type)
+ {
+-	return set_type_state(db, type, false);
++    return set_type_state(db, type, false);
+ }
+ 
+ bool ksu_typeattribute(struct policydb *db, const char *type, const char *attr)
+ {
+-	return add_typeattribute(db, type, attr);
++    return add_typeattribute(db, type, attr);
+ }
+ 
+ bool ksu_exists(struct policydb *db, const char *type)
+ {
+-	return symtab_search(&db->p_types, type) != NULL;
++    return symtab_search(&db->p_types, type) != NULL;
+ }
+ 
+ // Access vector rules
+-bool ksu_allow(struct policydb *db, const char *src, const char *tgt,
+-	       const char *cls, const char *perm)
++bool ksu_allow(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm)
+ {
+-	return add_rule(db, src, tgt, cls, perm, AVTAB_ALLOWED, false);
++    return add_rule(db, src, tgt, cls, perm, AVTAB_ALLOWED, false);
+ }
+ 
+-bool ksu_deny(struct policydb *db, const char *src, const char *tgt,
+-	      const char *cls, const char *perm)
++bool ksu_deny(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm)
+ {
+-	return add_rule(db, src, tgt, cls, perm, AVTAB_ALLOWED, true);
++    return add_rule(db, src, tgt, cls, perm, AVTAB_ALLOWED, true);
+ }
+ 
+-bool ksu_auditallow(struct policydb *db, const char *src, const char *tgt,
+-		    const char *cls, const char *perm)
++bool ksu_auditallow(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm)
+ {
+-	return add_rule(db, src, tgt, cls, perm, AVTAB_AUDITALLOW, false);
++    return add_rule(db, src, tgt, cls, perm, AVTAB_AUDITALLOW, false);
+ }
+-bool ksu_dontaudit(struct policydb *db, const char *src, const char *tgt,
+-		   const char *cls, const char *perm)
++bool ksu_dontaudit(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm)
+ {
+-	return add_rule(db, src, tgt, cls, perm, AVTAB_AUDITDENY, true);
++    return add_rule(db, src, tgt, cls, perm, AVTAB_AUDITDENY, true);
+ }
+ 
+ // Extended permissions access vector rules
+-bool ksu_allowxperm(struct policydb *db, const char *src, const char *tgt,
+-		    const char *cls, const char *range)
++bool ksu_allowxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range)
+ {
+-	return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_ALLOWED,
+-			      false);
++    return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_ALLOWED, false);
+ }
+ 
+-bool ksu_auditallowxperm(struct policydb *db, const char *src, const char *tgt,
+-			 const char *cls, const char *range)
++bool ksu_auditallowxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range)
+ {
+-	return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_AUDITALLOW,
+-			      false);
++    return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_AUDITALLOW, false);
+ }
+ 
+-bool ksu_dontauditxperm(struct policydb *db, const char *src, const char *tgt,
+-			const char *cls, const char *range)
++bool ksu_dontauditxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range)
+ {
+-	return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_DONTAUDIT,
+-			      false);
++    return add_xperm_rule(db, src, tgt, cls, range, AVTAB_XPERMS_DONTAUDIT, false);
+ }
+ 
+ // Type rules
+-bool ksu_type_transition(struct policydb *db, const char *src, const char *tgt,
+-			 const char *cls, const char *def, const char *obj)
++bool ksu_type_transition(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def,
++                         const char *obj)
+ {
+-	if (obj) {
+-		return add_filename_trans(db, src, tgt, cls, def, obj);
+-	} else {
+-		return add_type_rule(db, src, tgt, cls, def, AVTAB_TRANSITION);
+-	}
++    if (obj) {
++        return add_filename_trans(db, src, tgt, cls, def, obj);
++    } else {
++        return add_type_rule(db, src, tgt, cls, def, AVTAB_TRANSITION);
++    }
+ }
+ 
+-bool ksu_type_change(struct policydb *db, const char *src, const char *tgt,
+-		     const char *cls, const char *def)
++bool ksu_type_change(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def)
+ {
+-	return add_type_rule(db, src, tgt, cls, def, AVTAB_CHANGE);
++    return add_type_rule(db, src, tgt, cls, def, AVTAB_CHANGE);
+ }
+ 
+-bool ksu_type_member(struct policydb *db, const char *src, const char *tgt,
+-		     const char *cls, const char *def)
++bool ksu_type_member(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def)
+ {
+-	return add_type_rule(db, src, tgt, cls, def, AVTAB_MEMBER);
++    return add_type_rule(db, src, tgt, cls, def, AVTAB_MEMBER);
+ }
+ 
+ // File system labeling
+-bool ksu_genfscon(struct policydb *db, const char *fs_name, const char *path,
+-		  const char *ctx)
++bool ksu_genfscon(struct policydb *db, const char *fs_name, const char *path, const char *ctx)
++{
++    return add_genfscon(db, fs_name, path, ctx);
++}
++
++void ksu_destroy_policydb(struct policydb *db)
+ {
+-	return add_genfscon(db, fs_name, path, ctx);
++    policydb_destroy(db);
+ }
++
++// handle backport
++extern rwlock_t *ksu_policy_rwlock_ptr;
++
++static inline void ksu_lock_sepolicy_legacy(void)
++{
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0) && !defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE)
++    read_lock(&selinux_state.ss->policy_rwlock);
++// 4.14-
++#else
++    read_lock(ksu_policy_rwlock_ptr);
++#endif
++#endif
++}
++
++static inline void ksu_unlock_sepolicy_legacy(void)
++{
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0) && !defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++// 4.14 - 5.10
++#if defined(KSU_COMPAT_USE_SELINUX_STATE)
++    read_unlock(&selinux_state.ss->policy_rwlock);
++// 4.14-
++#else
++    read_unlock(ksu_policy_rwlock_ptr);
++#endif
++#endif
++}
++
++// result is len or errno
++int ksu_dup_policydb(struct policydb *old_db, struct policydb *new_db)
++{
++    struct policy_file fp = { 0 };
++    void *data;
++    int ret = 0;
++    int len = 0;
++
++    ksu_lock_sepolicy_legacy();
++    len = old_db->len;
++    ksu_unlock_sepolicy_legacy();
++
++    data = vmalloc(len);
++    if (!data) {
++        pr_err("alloc policy len %d\n", len);
++        ret = -ENOMEM;
++        goto out_free_data;
++    }
++
++    fp.data = data;
++    fp.len = len;
++
++    ksu_lock_sepolicy_legacy();
++    ret = policydb_write(old_db, &fp);
++    if (ret) {
++        pr_err("sepolicy: policydb_write: %d\n", ret);
++        ksu_unlock_sepolicy_legacy();
++        goto out_free_data;
++    }
++    ksu_unlock_sepolicy_legacy();
++
++    // https://android-review.googlesource.com/c/kernel/common/+/3009995
++    // Android won't add these flags to policydb_write....
++    // fixup config
++    // 4*2+8+4
++    static const size_t kConfigOff = 20;
++    if (len >= kConfigOff + sizeof(u32)) {
++        u32 *config_ptr = data + kConfigOff;
++#ifdef KSU_COMPAT_HAS_POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE
++        if (old_db->android_netlink_route) {
++            pr_info("adding POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE\n");
++            *config_ptr |= POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE;
++        }
++#endif
++#ifdef KSU_COMPAT_HAS_POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH
++        if (old_db->android_netlink_getneigh) {
++            pr_info("adding POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH\n");
++            *config_ptr |= POLICYDB_CONFIG_ANDROID_NETLINK_GETNEIGH;
++        }
++#endif
++    }
++
++    // rewind fp
++    fp.data = data;
++    fp.len = len;
++
++    ret = policydb_read(new_db, &fp);
++    if (ret) {
++        pr_err("sepolicy: policydb_read: %d\n", ret);
++        goto out_free_data;
++    }
++
++    new_db->len = old_db->len;
++
++    vfree(data);
++    ret = len;
++
++    return ret;
++
++out_free_data:
++    vfree(data);
++    return ret;
++}
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++// 5.10+ using selinux_policy
++
++// ======== sepolicy ========
++
++void ksu_destroy_sepolicy(struct selinux_policy *pol)
++{
++    ksu_destroy_policydb(&pol->policydb);
++    kfree(pol);
++}
++
++struct selinux_policy *ksu_dup_sepolicy(struct selinux_policy *old_pol)
++{
++    int ret;
++    size_t len;
++    struct selinux_policy *new_pol;
++
++    new_pol = kmemdup(old_pol, sizeof(*old_pol), GFP_KERNEL);
++
++    if (!new_pol) {
++        ret = -ENOMEM;
++        pr_err("sepolicy: dup old pol\n");
++        goto out;
++    }
++    memset(&new_pol->policydb, 0, sizeof(new_pol->policydb));
++
++    ret = ksu_dup_policydb(&old_pol->policydb, &new_pol->policydb);
++
++    if (ret < 0) {
++        goto out_free_policydb;
++    }
++
++    return new_pol;
++
++out_free_policydb:
++    kfree(new_pol);
++out:
++    return ERR_PTR(ret);
++}
++#endif
+--- a/selinux/sepolicy.h
++++ b/selinux/sepolicy.h
+@@ -5,6 +5,15 @@
+ 
+ #include "ss/policydb.h"
+ 
++int ksu_dup_policydb(struct policydb *old_db, struct policydb *new_db);
++void ksu_destroy_policydb(struct policydb *db);
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(KSU_COMPAT_HAS_POLICY_MUTEX)
++struct selinux_policy *ksu_dup_sepolicy(struct selinux_policy *old_pol);
++
++void ksu_destroy_sepolicy(struct selinux_policy *orig);
++#endif
++
+ // Operation on types
+ bool ksu_type(struct policydb *db, const char *name, const char *attr);
+ bool ksu_attribute(struct policydb *db, const char *name);
+@@ -14,33 +23,23 @@
+ bool ksu_exists(struct policydb *db, const char *type);
+ 
+ // Access vector rules
+-bool ksu_allow(struct policydb *db, const char *src, const char *tgt,
+-	       const char *cls, const char *perm);
+-bool ksu_deny(struct policydb *db, const char *src, const char *tgt,
+-	      const char *cls, const char *perm);
+-bool ksu_auditallow(struct policydb *db, const char *src, const char *tgt,
+-		    const char *cls, const char *perm);
+-bool ksu_dontaudit(struct policydb *db, const char *src, const char *tgt,
+-		   const char *cls, const char *perm);
++bool ksu_allow(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm);
++bool ksu_deny(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm);
++bool ksu_auditallow(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm);
++bool ksu_dontaudit(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *perm);
+ 
+ // Extended permissions access vector rules
+-bool ksu_allowxperm(struct policydb *db, const char *src, const char *tgt,
+-		    const char *cls, const char *range);
+-bool ksu_auditallowxperm(struct policydb *db, const char *src, const char *tgt,
+-			 const char *cls, const char *range);
+-bool ksu_dontauditxperm(struct policydb *db, const char *src, const char *tgt,
+-			const char *cls, const char *range);
++bool ksu_allowxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range);
++bool ksu_auditallowxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range);
++bool ksu_dontauditxperm(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *range);
+ 
+ // Type rules
+-bool ksu_type_transition(struct policydb *db, const char *src, const char *tgt,
+-			 const char *cls, const char *def, const char *obj);
+-bool ksu_type_change(struct policydb *db, const char *src, const char *tgt,
+-		     const char *cls, const char *def);
+-bool ksu_type_member(struct policydb *db, const char *src, const char *tgt,
+-		     const char *cls, const char *def);
++bool ksu_type_transition(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def,
++                         const char *obj);
++bool ksu_type_change(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def);
++bool ksu_type_member(struct policydb *db, const char *src, const char *tgt, const char *cls, const char *def);
+ 
+ // File system labeling
+-bool ksu_genfscon(struct policydb *db, const char *fs_name, const char *path,
+-		  const char *ctx);
++bool ksu_genfscon(struct policydb *db, const char *fs_name, const char *path, const char *ctx);
+ 
+ #endif
+--- a/sucompat.c
++++ b/sucompat.c
+@@ -8,7 +8,9 @@
+ #include <linux/types.h>
+ #include <linux/uaccess.h>
+ #include <linux/version.h>
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 8, 0)
+ #include <linux/sched/task_stack.h>
++#endif
+ 
+ #include "objsec.h"
+ #include "allowlist.h"
+@@ -239,7 +241,8 @@
+ 
+ void ksu_sucompat_exit()
+ {
+-	for (int i = 0; i < ARRAY_SIZE(su_kps); i++) {
++	int i;
++	for (i = 0; i < ARRAY_SIZE(su_kps); i++) {
+ 		destroy_kprobe(&su_kps[i]);
+ 	}
+ }
+--- a/compat/kernel_compat.h
++++ b/compat/kernel_compat.h
+@@ -0,0 +1,362 @@
++#ifndef __KSU_H_KERNEL_COMPAT
++#define __KSU_H_KERNEL_COMPAT
++
++#include <linux/fs.h>
++#include <linux/version.h>
++#include <linux/fdtable.h>
++#include "ss/policydb.h"
++#include "linux/key.h"
++
++/*
++ * Leagcy Huawei Hisi Devices info Start
++ * For EMUI 9,9.1.0(Or HarmonyOS2 Based EMUI 9.1.0),10 Devices
++ * Adapt to Huawei HISI kernel without affecting other kernels ,
++ * Huawei Hisi Kernel EBITMAP Enable or Disable Flag ,
++ * From ss/ebitmap.h
++ */
++#if ((LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)) && (LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0))) ||            \
++    ((LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0)) && (LINUX_VERSION_CODE < KERNEL_VERSION(4, 15, 0)))
++#if defined(HISI_SELINUX_EBITMAP_RO) && !defined(KSU_COMPAT_IS_HISI_HM2)
++#define KSU_COMPAT_IS_HISI_LEGACY 1
++#endif
++#endif
++
++/* 
++* For EMUI 10+ or HarmonyOS2 Based EMUI10+ Devices
++*/
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0)) && (LINUX_VERSION_CODE < KERNEL_VERSION(4, 15, 0))
++#if defined(KSU_COMPAT_IS_HISI_HM2)
++#define KSU_COMPAT_IS_HISI_LEGACY_HM2 1
++#endif
++#endif
++
++/*
++* Leagcy Huawei Hisi Devices info End
++*/
++
++// Checks for UH, KDP and RKP
++#ifdef SAMSUNG_UH_DRIVER_EXIST
++#if defined(CONFIG_UH) || defined(CONFIG_KDP) || defined(CONFIG_RKP)
++#error                                                                                                                 \
++    "CONFIG_UH, CONFIG_KDP and CONFIG_RKP is enabled! Please disable or remove it before compile a kernel with KernelSU!"
++#endif
++#endif
++
++extern long ksu_strncpy_from_user_nofault(char *dst, const void __user *unsafe_addr, long count);
++
++extern ssize_t ksu_kernel_read_compat(struct file *p, void *buf, size_t count, loff_t *pos);
++extern ssize_t ksu_kernel_write_compat(struct file *p, const void *buf, size_t count, loff_t *pos);
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 0, 0)
++#define ksu_access_ok(addr, size) access_ok(addr, size)
++#else
++#define ksu_access_ok(addr, size) access_ok(VERIFY_READ, addr, size)
++#endif
++
++// https://elixir.bootlin.com/linux/v5.3-rc1/source/kernel/signal.c#L1613
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 3, 0)
++#define __force_sig(sig) force_sig(sig)
++#else
++#define __force_sig(sig) force_sig(sig, current)
++#endif
++
++// Linux >= 5.7
++// task_work_add (struct, struct, enum)
++// Linux pre-5.7
++// task_work_add (struct, struct, bool)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 7, 0)
++#ifndef TWA_RESUME
++#define TWA_RESUME true
++#endif
++#endif
++
++static inline int do_close_fd(unsigned int fd)
++{
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++    return close_fd(fd);
++#else
++    return __close_fd(current->files, fd);
++#endif
++}
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0) && !defined(KSU_UL_HAS_FILE_INODE)
++static inline struct inode *file_inode(struct file *f)
++{
++    return f->f_path.dentry->d_inode;
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 1, 0) && !defined(KSU_OPTIONAL_SELINUX_INODE)
++static inline struct inode_security_struct *selinux_inode(const struct inode *inode)
++{
++    return inode->i_security;
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 1, 0) && !defined(KSU_OPTIONAL_SELINUX_CRED)
++static inline struct task_security_struct *selinux_cred(const struct cred *cred)
++{
++    return cred->security;
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 12, 0)
++extern void *ksu_compat_kvrealloc(const void *p, size_t oldsize, size_t newsize, gfp_t flags);
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 19, 0)
++// kernel below 4.19 maybe not have 3 helper, but impl that is very easy
++// copy from https://github.com/torvalds/linux/commit/c42b65e363ce97a828f81b59033c3558f8fa7f70
++__weak unsigned long *bitmap_alloc(unsigned int nbits, gfp_t flags)
++{
++    return kmalloc_array(BITS_TO_LONGS(nbits), sizeof(unsigned long), flags);
++}
++
++__weak unsigned long *bitmap_zalloc(unsigned int nbits, gfp_t flags)
++{
++    return bitmap_alloc(nbits, flags | __GFP_ZERO);
++}
++
++__weak void bitmap_free(const unsigned long *bitmap)
++{
++    kfree(bitmap);
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 15, 0)
++__weak void groups_sort(struct group_info *group_info)
++{
++    return;
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 5, 0) && !defined(KSU_HAS_INODE_LOCK_UNLOCK)
++// https://github.com/torvalds/linux/commit/5955102c9984fa081b2d570cfac75c97eecf8f3b
++// for setuid_hooks only
++// it will remove when we impl dynamic-manager feature init out of replaceable ksud
++static inline void inode_lock(struct inode *inode)
++{
++    mutex_lock(&inode->i_mutex);
++}
++
++static inline void inode_unlock(struct inode *inode)
++{
++    mutex_unlock(&inode->i_mutex);
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)
++#define ksu_get_uid_t(x) *(unsigned int *)&(x)
++#else
++#define ksu_get_uid_t(x) (x.val)
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 18, 0)
++__weak char *bin2hex(char *dst, const void *src, size_t count)
++{
++    const unsigned char *_src = src;
++    while (count--)
++        dst = pack_hex_byte(dst, *_src++);
++    return dst;
++}
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)
++// https://github.com/torvalds/linux/commit/89a0714106aac7309c7dfa0f004b39e1e89d2942
++// app_profile require U16_MAX, define here
++#define U16_MAX ((u16)~0U)
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 11, 0) && !defined(KSU_HAS_ITERATE_DIR)
++struct dir_context {
++    const filldir_t actor;
++    loff_t pos;
++};
++
++static int iterate_dir(struct file *file, struct dir_context *ctx)
++{
++    return vfs_readdir(file, ctx->actor, ctx);
++}
++#endif // KSU_HAS_ITERATE_DIR
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 8, 0)
++__weak long vfs_truncate(struct path *path, loff_t length)
++{
++    struct inode *inode;
++    long error;
++
++    inode = path->dentry->d_inode;
++
++    /* For directories it's -EISDIR, for other non-regulars - -EINVAL */
++    if (S_ISDIR(inode->i_mode))
++        return -EISDIR;
++    if (!S_ISREG(inode->i_mode))
++        return -EINVAL;
++
++    error = mnt_want_write(path->mnt);
++    if (error)
++        goto out;
++
++    error = inode_permission(inode, MAY_WRITE);
++    if (error)
++        goto mnt_drop_write_and_out;
++
++    error = -EPERM;
++    if (IS_APPEND(inode))
++        goto mnt_drop_write_and_out;
++
++    error = get_write_access(inode);
++    if (error)
++        goto mnt_drop_write_and_out;
++
++    /*
++	 * Make sure that there are no leases.  get_write_access() protects
++	 * against the truncate racing with a lease-granting setlease().
++	 */
++    error = break_lease(inode, O_WRONLY);
++    if (error)
++        goto put_write_and_out;
++
++    error = locks_verify_truncate(inode, NULL, length);
++    if (!error)
++        error = security_path_truncate(path);
++    if (!error)
++        error = do_truncate(path->dentry, length, 0, NULL);
++
++put_write_and_out:
++    put_write_access(inode);
++mnt_drop_write_and_out:
++    mnt_drop_write(path->mnt);
++out:
++    return error;
++}
++#endif
++
++// linux kernel https://github.com/torvalds/linux/commit/7e040726850a106587485c21bdacc0bfc8a0cbed
++// kanged from xxksu lmao
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0) && !defined(EPOLLIN)
++#define EPOLLIN 0x00000001
++#define EPOLLPRI 0x00000002
++#define EPOLLOUT 0x00000004
++#define EPOLLERR 0x00000008
++#define EPOLLHUP 0x00000010
++#define EPOLLRDNORM 0x00000040
++#define EPOLLRDBAND 0x00000080
++#define EPOLLWRNORM 0x00000100
++#define EPOLLWRBAND 0x00000200
++#define EPOLLMSG 0x00000400
++#define EPOLLRDHUP 0x00002000
++#endif
++
++#ifndef READ_ONCE
++#define READ_ONCE(x) (*(const volatile typeof(x) *)&(x))
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 15, 0)
++#define task_ppid_nr(a) (pid_t) sys_getppid()
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 17, 0)
++static inline u64 ksu_ktime_get_ns(void)
++{
++    return ktime_to_ns(ktime_get());
++}
++#define ktime_get_ns ksu_ktime_get_ns
++#endif
++
++// WARNING: no overflow safety!
++#ifndef struct_size
++#define struct_size(p, member, n) (sizeof(*(p)) + (n) * sizeof(*(p)->member))
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 12, 0)
++#ifndef ALIGN_DOWN
++#define ALIGN_DOWN(x, a) __ALIGN_KERNEL((x) - ((a) - 1), (a))
++#endif
++#endif
++
++#ifndef untagged_addr
++#define untagged_addr(addr) (addr)
++#endif
++
++#ifndef in_compat_syscall
++#define in_compat_syscall() is_compat_task()
++#endif
++
++extern void ksu_run_in_init_if_possible(void (*callback)(void *), void *data);
++
++#if defined(CONFIG_KEYS) && (LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(KSU_COMPAT_IS_HISI_LEGACY) ||    \
++                             defined(KSU_COMPAT_IS_HISI_LEGACY_HM2))
++#define KSU_COMPAT_REQUIRE_SESSION_KEYRING
++extern void setup_ksu_cred_session_keyring(void);
++#endif
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 3, 0) || defined(KSU_HAS_MODERN_STATIC_KEY_INTERFACE)
++#define KSU_COMPAT_USE_STATIC_KEY
++#endif
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 8, 0)
++__weak long copy_from_kernel_nofault(void *dst, const void *src, size_t size)
++{
++    // https://elixir.bootlin.com/linux/v5.2.21/source/mm/maccess.c#L27
++    long ret;
++    mm_segment_t old_fs = get_fs();
++
++    set_fs(KERNEL_DS);
++    pagefault_disable();
++    ret = __copy_from_user_inatomic(dst, (__force const void __user *)src, size);
++    pagefault_enable();
++    set_fs(old_fs);
++
++    return ret ? -EFAULT : 0;
++}
++#endif
++
++#ifndef __nocfi
++#define __nocfi
++#endif
++
++// https://github.com/torvalds/linux/commit/294f69e662d1570703e9b56e95be37a9fd3afba5
++// f**k old compiler, thx for your notices, but better don't notice next time
++#ifndef __has_attribute
++#define __has_attribute(x) __GCC4_has_attribute_##x
++#define __GCC4_has_attribute___fallthrough__ 0
++#endif
++/*
++ * Add the pseudo keyword 'fallthrough' so case statement blocks
++ * must end with any of these keywords:
++ *   break;
++ *   fallthrough;
++ *   continue;
++ *   goto <label>;
++ *   return [expression];
++ *
++ *  gcc: https://gcc.gnu.org/onlinedocs/gcc/Statement-Attributes.html#Statement-Attributes
++ */
++#if __has_attribute(__fallthrough__)
++#define fallthrough __attribute__((__fallthrough__))
++#else
++#define fallthrough                                                                                                    \
++    do {                                                                                                               \
++    } while (0) /* fallthrough */
++#endif
++
++#ifdef KSU_COMPAT_SYM_NAME_NOT_FOUND
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 1, 0) && !defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++#include <linux/flex_array.h>
++#endif
++
++static inline char *sym_name(struct policydb *p, unsigned int sym_num, unsigned int element_nr)
++{
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0) || defined(KSU_COMPAT_HAS_MODERN_POLICYDB)
++    return p->sym_val_to_name[sym_num][element_nr];
++#else
++    struct flex_array *fa = p->sym_val_to_name[sym_num];
++
++    return flex_array_get_ptr(fa, element_nr);
++#endif
++}
++#endif
++
++#endif
+--- a/infra/symbol_resolver.h
++++ b/infra/symbol_resolver.h
+@@ -0,0 +1,8 @@
++#ifndef __KSU_SYMBOL_RESOLVER_H
++#define __KSU_SYMBOL_RESOLVER_H
++
++void *ksu_resolve_symbol_for_functable_hook(const char *symbol_name);
++unsigned long find_kernel_symbol_exact(const char *symbol_name);
++void ksu_init_symbol_resolver();
++
++#endif
+--- a/symbol_resolver.c
++++ b/symbol_resolver.c
+@@ -0,0 +1,191 @@
++#include <linux/kallsyms.h>
++#include <linux/module.h>
++#include <linux/string.h>
++#include <linux/version.h>
++
++#include "klog.h" // IWYU pragma: keep
++#include "infra/symbol_resolver.h"
++#include "compat/kernel_compat.h"
++
++// https://github.com/torvalds/linux/commit/89245600941e4e0f87d77f60ee269b5e61ef4e49
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
++#define USE_KCFI 1
++#else
++#define USE_KCFI 0
++#endif
++
++#if !USE_KCFI
++static const char cfi_suffix[] = ".cfi_jt";
++static const size_t cfi_suffix_len = sizeof(cfi_suffix) - 1;
++#endif
++
++// It's not guaranteed to have this symbol exist in 5.x kernel
++// https://github.com/torvalds/linux/commit/d721def7392a7348ffb9f3583b264239cbd3702c
++// https://github.com/gregkh/linux/commit/2aa861ec72908b4bdc20d74725dc1c8c71a8d214
++// https://github.com/gregkh/linux/commit/318a206633c248d876ea72f7133d2a2e50ad7e35
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 19, 0)
++#define ALWAYS_HAVE_ON_EACH_SYMBOL 1
++#else
++#define ALWAYS_HAVE_ON_EACH_SYMBOL 0
++#endif
++
++#if !ALWAYS_HAVE_ON_EACH_SYMBOL
++static int (*kallsyms_on_each_symbol_fn)(int (*fn)(void *, const char *, struct module *, unsigned long),
++                                         void *data) = NULL;
++#endif
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
++#define HAVE_ON_EACH_MATCH_SYMBOL 1
++#else
++#define HAVE_ON_EACH_MATCH_SYMBOL 0
++#endif
++
++// https://github.com/torvalds/linux/commit/4dc533e0f2c04174e1ae4aa98e7cffc1c04b9998
++#if HAVE_ON_EACH_MATCH_SYMBOL
++static int (*kallsyms_on_each_match_symbol_fn)(int (*fn)(void *, unsigned long), const char *name, void *data) = NULL;
++static int find_kernel_symbol_exact_cb(void *data, unsigned long addr)
++{
++    *(unsigned long *)data = addr;
++    return 0;
++}
++#endif
++
++struct ksu_lookup_symbol_ctx {
++    const char *symbol_name;
++    size_t symbol_len;
++    void *match;
++};
++
++unsigned long __nocfi find_kernel_symbol_exact(const char *symbol_name)
++{
++    unsigned long addr = 0;
++#if HAVE_ON_EACH_MATCH_SYMBOL
++    if (likely(kallsyms_on_each_match_symbol_fn)) {
++        kallsyms_on_each_match_symbol_fn(find_kernel_symbol_exact_cb, symbol_name, &addr);
++        return addr;
++    }
++#endif
++    char *module_name = NULL;
++    char buf[KSYM_SYMBOL_LEN];
++
++    addr = kallsyms_lookup_name(symbol_name);
++    // check if it is kernel symbol
++    kallsyms_lookup(addr, NULL, NULL, &module_name, buf);
++    if (unlikely(module_name)) {
++        pr_warn("ignore symbol %s of module %s\n", symbol_name, module_name);
++        return 0;
++    }
++    return addr;
++}
++
++static inline bool ksu_symbol_has_suffix(const char *name, size_t name_len, const char *suffix, size_t suffix_len)
++{
++    return name_len >= suffix_len && strcmp(name + name_len - suffix_len, suffix) == 0;
++}
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 6, 0)
++static int lookup_symbol_variant_cb(void *data, const char *name, unsigned long addr)
++#else
++static int lookup_symbol_variant_cb(void *data, const char *name, struct module *mod, unsigned long addr)
++#endif
++{
++    struct ksu_lookup_symbol_ctx *ctx = data;
++    size_t name_len;
++
++    if (!name || !addr)
++        return 0;
++
++    name_len = strlen(name);
++
++    if (strcmp(name, ctx->symbol_name) != 0) {
++        if (name_len <= ctx->symbol_len || strncmp(name, ctx->symbol_name, ctx->symbol_len) != 0 ||
++            (name[ctx->symbol_len] != '.' && name[ctx->symbol_len] != '$'))
++            return 0;
++    }
++
++#if !USE_KCFI
++    if (ksu_symbol_has_suffix(name, name_len, cfi_suffix, cfi_suffix_len)) {
++        ctx->match = (void *)addr;
++        pr_info("use .cfi_jt variant: %s\n", name);
++        return 1;
++    }
++#endif
++
++    if (!ctx->match) {
++        ctx->match = (void *)addr;
++        pr_info("found variant: %s\n", name);
++#if USE_KCFI
++        return 1;
++#endif
++    }
++
++    return 0;
++}
++
++static __nocfi void *resolve_symbol_variant(const char *symbol_name, size_t symbol_len)
++{
++    struct ksu_lookup_symbol_ctx ctx = {
++        .symbol_name = symbol_name,
++        .symbol_len = symbol_len,
++    };
++
++#if !ALWAYS_HAVE_ON_EACH_SYMBOL
++    if (kallsyms_on_each_symbol_fn) {
++        kallsyms_on_each_symbol_fn(lookup_symbol_variant_cb, &ctx);
++    }
++    // TODO: iterate kallsyms by sprint_symbol
++#else
++    kallsyms_on_each_symbol(lookup_symbol_variant_cb, &ctx);
++#endif
++    return ctx.match;
++}
++
++void *ksu_resolve_symbol_for_functable_hook(const char *symbol_name)
++{
++    void *addr;
++    size_t symbol_len;
++
++    if (!symbol_name || !symbol_name[0])
++        return NULL;
++
++    symbol_len = strlen(symbol_name);
++
++    // Prefer find_kernel_symbol_exact since it uses binary search in higher kernel version
++
++#if !USE_KCFI
++    // Try .cfi_jt suffix first
++    char cfi_name[KSYM_NAME_LEN];
++    snprintf(cfi_name, sizeof(cfi_name), "%s.cfi_jt", symbol_name);
++    addr = (void *)find_kernel_symbol_exact(cfi_name);
++    if (addr)
++        return addr;
++
++    addr = resolve_symbol_variant(symbol_name, symbol_len);
++    if (addr)
++        return addr;
++
++    return (void *)find_kernel_symbol_exact(symbol_name);
++#else
++    addr = (void *)find_kernel_symbol_exact(symbol_name);
++    if (addr)
++        return addr;
++
++    return resolve_symbol_variant(symbol_name, symbol_len);
++#endif
++}
++
++void __init ksu_init_symbol_resolver()
++{
++#if !ALWAYS_HAVE_ON_EACH_SYMBOL
++    kallsyms_on_each_symbol_fn = (void *)find_kernel_symbol_exact("kallsyms_on_each_symbol");
++    if (!kallsyms_on_each_symbol_fn) {
++        pr_warn("kallsyms_on_each_symbol not found!\n");
++    }
++#endif
++#if HAVE_ON_EACH_MATCH_SYMBOL
++    kallsyms_on_each_match_symbol_fn = find_kernel_symbol_exact("kallsyms_on_each_match_symbol");
++    if (!kallsyms_on_each_match_symbol_fn) {
++        pr_warn("kallsyms_on_each_match_symbol not found!\n");
++    }
++#endif
++}
+--- a/xfrm.h
++++ b/xfrm.h
+@@ -0,0 +1,6 @@
++#ifndef __KSU_LOCAL_XFRM_H
++#define __KSU_LOCAL_XFRM_H
++/* selinux_xfrm_notify_policyload is provided by the kernel (security/selinux/xfrm.c)
++   when CONFIG_SECURITY_SELINUX is enabled; local declaration so rules.c resolves include. */
++extern void selinux_xfrm_notify_policyload(void);
++#endif
+--- a/selinux/selinux_defs.h
++++ b/selinux/selinux_defs.h
+@@ -0,0 +1,36 @@
++#ifndef __KSU_H_SELINUX_DEFS
++#define __KSU_H_SELINUX_DEFS
++
++#include "selinux.h"
++#include "objsec.h"
++#ifdef SAMSUNG_SELINUX_PORTING
++#include "security.h" // Samsung SELinux Porting
++#endif
++#ifndef KSU_COMPAT_USE_SELINUX_STATE
++#include "avc.h"
++#endif
++
++#ifdef CONFIG_SECURITY_SELINUX_DISABLE
++#ifdef KSU_COMPAT_USE_SELINUX_STATE
++#define is_selinux_disabled() (selinux_state.disabled)
++#else
++#define is_selinux_disabled() (selinux_disabled)
++#endif
++#else
++#define is_selinux_disabled() (0)
++#endif
++
++#ifdef CONFIG_SECURITY_SELINUX_DEVELOP
++#ifdef KSU_COMPAT_USE_SELINUX_STATE
++#define __is_selinux_enforcing() (selinux_state.enforcing)
++#define __setenforce(val) selinux_state.enforcing = val
++#elif defined(SAMSUNG_SELINUX_PORTING) || !defined(KSU_COMPAT_USE_SELINUX_STATE)
++#define __is_selinux_enforcing() (selinux_enforcing)
++#define __setenforce(val) selinux_enforcing = val
++#endif
++#else
++#define __is_selinux_enforcing() (1)
++#define __setenforce(val)
++#endif
++
++#endif
+\ 文件末尾没有换行符
+--- a/selinux/sepolicy_cmd.h
++++ b/selinux/sepolicy_cmd.h
+@@ -0,0 +1,30 @@
++#ifndef KSU_SEPOLICY_CMD_H
++#define KSU_SEPOLICY_CMD_H
++
++/* Auto-provided sepolicy batch command protocol constants (KernelSU canonical).
++   Upstream generates this header from rules.c via gen_sepolicy_cmd; the values
++   are the canonical sequential numbering shared with the userspace manager. */
++
++#define KSU_SEPOLICY_CMD_NORMAL_PERM 1
++#define KSU_SEPOLICY_CMD_XPERM 2
++#define KSU_SEPOLICY_CMD_TYPE_STATE 3
++#define KSU_SEPOLICY_CMD_TYPE 4
++#define KSU_SEPOLICY_CMD_TYPE_ATTR 5
++#define KSU_SEPOLICY_CMD_ATTR 6
++#define KSU_SEPOLICY_CMD_TYPE_TRANSITION 7
++#define KSU_SEPOLICY_CMD_TYPE_CHANGE 8
++#define KSU_SEPOLICY_CMD_GENFSCON 9
++
++#define KSU_SEPOLICY_SUBCMD_NORMAL_PERM_ALLOW 1
++#define KSU_SEPOLICY_SUBCMD_NORMAL_PERM_DENY 2
++#define KSU_SEPOLICY_SUBCMD_NORMAL_PERM_AUDITALLOW 3
++#define KSU_SEPOLICY_SUBCMD_NORMAL_PERM_DONTAUDIT 4
++#define KSU_SEPOLICY_SUBCMD_XPERM_ALLOW 1
++#define KSU_SEPOLICY_SUBCMD_XPERM_AUDITALLOW 2
++#define KSU_SEPOLICY_SUBCMD_XPERM_DONTAUDIT 3
++#define KSU_SEPOLICY_SUBCMD_TYPE_STATE_PERMISSIVE 1
++#define KSU_SEPOLICY_SUBCMD_TYPE_STATE_ENFORCE 2
++#define KSU_SEPOLICY_SUBCMD_TYPE_CHANGE_CHANGE 1
++#define KSU_SEPOLICY_SUBCMD_TYPE_CHANGE_MEMBER 2
++
++#endif
