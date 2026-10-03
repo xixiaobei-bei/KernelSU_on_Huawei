@@ -11,24 +11,33 @@ First, you should read the list of supported devices:
 |Model Name|Model Code|Supported Systems|Support Status|Requirements|
 |:---:|:---:|:---:|:---:|:---:|
 |Mate9 Series|MHA|HarmonyOS 2.0, EMUI 9.0|KernelSU, RKSU, KernelSU-Next, SukiSU-Ultra, ReSukiSU|None|
-|Mate10 Pro (Under Testing)|BLA|EMUI 9.1|KernelSU|None|
-|Mate10 Series|ALP|EMUI 9.1|RKSU|None|
+|Mate10 Series|ALP|EMUI 9.1, EMUI 9.0|RKSU|None|
+|Mate10 Pro Series|BLA|EMUI 9.1|KernelSU|None|
 |Mate20 Pro Series|LYA|EMUI 9.0|RKSU|None|
-|P10 Series|VTR|EMUI 9.0, HarmonyOS 2.0|KernelSU|None|
-|P20 Series|EML|EMUI9.1|KernelSU|None|
+|Mate RS PORSCHE DESIGN|NEO|EMUI 9.0|RKSU|None|
+|P10 Series|VTR|EMUI 9.0, EMUI 9.1, HarmonyOS 2.0|KernelSU|None|
+|P10 Plus Series|VKY|EMUI 9.0, HarmonyOS 2.0|RKSU|None|
+|P20 Series|EML|EMUI 9.1|KernelSU|None|
+|P30 Series|ELE|EMUI 9.1|RKSU|None|
+|Honor 7X Series|BND|EMUI 9.1|RKSU|None|
 |Honor V9 Series|DUK|HarmonyOS 2.0|KernelSU|None|
 |Honor 9 Series|STF|EMUI 9.0|KernelSU|None|
+|Honor 9X Series|HLK|EMUI 10.1|RKSU|None|
 |Honor 10 Lite Series|HRY|EMUI 9.1|RKSU|None|
 |Honor Play Series|COR|EMUI 9.1|RKSU|None|
-|Nova 4 Series | VCE | EMUI 9.0 | KernelSU, SukiSU-Ultra |None|
-|Nova 3i Series | INE | EMUI 9.1 | RKSU |None|
-|Nova 5i Series|GLK|EMUI9.0|RKSU|None|
-|Nova 5 Series|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|None|
-|Nova 5 Pro Series|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU|None|
-|Nova 7 SE Series|CDY|HarmonyOS2.0|RKSU|None|
-|Nova Y 9 Plus Series | JKM | EMUI 9.1, HarmonyOS 2.0 | KernelSU |None|
-|Nova Y 10 Plus Series | STK | EMUI 9.1 | RKSU |None|
-|Huawei PadM3 Lite Series|CPN|LineageOS17.1|KernelSU-Next|[Require System](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
+|Nova 2s Series|HWI|HarmonyOS 2.0|RKSU|None|
+|Nova 3 Series|PAR|HarmonyOS 2.0|RKSU|None|
+|Nova 3i Series|INE|EMUI 9.1|RKSU|None|
+|Nova 4 Series|VCE|EMUI 9.0, HarmonyOS 3.0|KernelSU, SukiSU-Ultra, RKSU|None|
+|Nova 4e Series|MAR|EMUI 10.0|RKSU|None|
+|Nova 5i Series|GLK|EMUI 9.1|RKSU|None|
+|Nova 5 Series|SEA-AL00, SEA-TL00|EMUI 9.1|RKSU|None|
+|Nova 5 Pro Series|SEA-AL10, SEA-TL10, SEA-TL10HKA|EMUI 9.1|ReSukiSU|None|
+|Nova 7 SE Series|CDY|HarmonyOS 2.0, HarmonyOS 3.0|RKSU|None|
+|Enjoy 9 Plus Series|JKM|EMUI 9.1, HarmonyOS 2.0|KernelSU|None|
+|Enjoy 10 Plus Series|STK|EMUI 9.1|RKSU|None|
+|Huawei Enjoy 8 Plus Series|FLA|EMUI 9.1|RKSU|None|
+|Huawei MediaPad M3 Lite Series|CPN|LineageOS 17.1|KernelSU-Next|[Required base package](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ## Download Kernel Image File
 

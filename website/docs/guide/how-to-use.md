@@ -11,23 +11,32 @@ Root 您的设备可能会使保修失效，如果操作不当可能会造成永
 |机型名称|机型代码|支持系统|支持情况|所需要求|
 |:---:|:---:|:---:|:---:|:---:|
 |Mate9 系列|MHA|HarmonyOS2.0、EMUI9.0|KernelSU、RKSU、KernelSU-Next、SukiSU-Ultra、ReSukiSU|无|
-|Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|[android_kernel_huawei_blanc](无|
-|Mate10 系列|ALP|EMUI9.1|RKSU|无|
+|Mate10 系列|ALP|EMUI9.1、EMUI9.0|RKSU|无|
+|Mate10 Pro 系列|BLA|EMUI9.1|KernelSU|无|
 |Mate20 Pro 系列|LYA|EMUI9.0|RKSU|无|
-|P10 系列|VTR|EMUI9.0、HarmonyOS2.0|KernelSU|无|
+|MateRS 保时捷设计|NEO|EMUI9.0|RKSU|无|
+|P10 系列|VTR|EMUI9.0、EMUI9.1、HarmonyOS2.0|KernelSU|无|
+|P10 Plus 系列|VKY|EMUI9.0、HarmonyOS2.0|RKSU|无|
 |P20 系列|EML|EMUI9.1|KernelSU|无|
+|P30 系列|ELE|EMUI9.1|RKSU|无|
+|荣耀7X 系列|BND|EMUI9.1|RKSU|无|
 |荣耀V9 系列|DUK|HarmonyOS2.0|KernelSU|无|
 |荣耀9 系列|STF|EMUI9.0|KernelSU|无|
+|荣耀9X 系列|HLK|EMUI10.1|RKSU|无|
 |荣耀10 Lite 系列|HRY|EMUI9.1|RKSU|无|
 |荣耀Play 系列|COR|EMUI9.1|RKSU|无|
-|Nova4 系列|VCE|EMUI9.0|KernelSU、SukiSU-Ultra|无|
+|Nova 2s 系列|HWI|HarmonyOS2.0|RKSU|无|
+|Nova 3 系列|PAR|HarmonyOS2.0|RKSU|无|
 |Nova 3i 系列|INE|EMUI9.1|RKSU|无|
+|Nova4 系列|VCE|EMUI9.0、HarmonyOS3.0|KernelSU、SukiSU-Ultra、RKSU|无|
+|Nova4e 系列|MAR|EMUI10.0|RKSU|无|
 |Nova 5i 系列|GLK|EMUI9.1|RKSU|无|
 |Nova 5 系列|SEA-AL00、SEA-TL00|EMUI9.1|RKSU|无|
 |Nova 5 Pro 系列|SEA-AL10、SEA-TL10、SEA-TL10HKA|EMUI9.1|ReSukiSU|无|
-|Nova 7 SE 系列|CDY|HarmonyOS2.0|RKSU|无|
+|Nova 7 SE 系列|CDY|HarmonyOS2.0、HarmonyOS3.0|RKSU|无|
 |畅享9 Plus 系列|JKM|EMUI9.1、HarmonyOS2.0|KernelSU|无|
 |畅享10 Plus 系列|STK|EMUI9.1|RKSU|无|
+|华为畅享8 Plus 系列|FLA|EMUI9.1|RKSU|无|
 |华为平板M3青春版 系列|CPN|LineageOS17.1|KernelSU-Next|[所需底包](https://www.coolapk.com/feed/62006426?s=MTU5NjM4YzUxYmZkYjY0ZzZhMTZkYjM2ega1621)|
 
 ## 下载内核映像文件
