@@ -4,7 +4,7 @@
 
 [华为的官方源码](https://consumer.huawei.com/en/opensource/)
 
-在其中输入设备型号代码，下载后打开`Code_opensource\kernel`文件夹，这为你的内核源码，解压出来即可
+在其中输入设备型号代码，下载后打开`Code_Opensource\kernel`文件夹，这为你的内核源码，解压出来即可
 
 :::warning
 
@@ -88,7 +88,7 @@ sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 
 ### 可选部分： 
 
-把
+:::details 宽容SELinux
 
 ```text
 # CONFIG_SECURITY_SELINUX_DEVELOP is not set
@@ -99,9 +99,10 @@ sed -i '/^CONFIG_HISI_PMALLOC=y$/c\# CONFIG_HISI_PMALLOC is not set
 ```
 CONFIG_SECURITY_SELINUX_DEVELOP=y
 ```
-可以让开机的时候手机SELinux为Permissive状态。
 
-### 关闭AVB验证：
+:::
+
+:::details 关闭AVB验证：
 
 ```text
 CONFIG_DM_VERITY=y  
@@ -115,7 +116,13 @@ CONFIG_DM_VERITY_AVB=y
 # CONFIG_DM_VERITY_AVB is not set 
 ```
 
+:::
+
 ### 修改hook.c以修复无法获取root
+
+:::tip
+RKSU集成时已包含本补丁。
+:::
 
 ```diff
 diff -uNr a/security/selinux/hooks.c b/security/selinux/hooks.c
@@ -200,10 +207,6 @@ CONFIG_KSU_DEBUG=y
 
 :::
 
-### 4.修改hooks.c以启用模块
-
-参考[此GithubCommit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
-
 ## 集成KernelSU-Next
 
 ### 1.拉取源码
@@ -217,11 +220,11 @@ curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/ke
 在你的设备defconfig配置文件最后加入以下几行：
 
 ```text
-# KernelSU
+# KernelSU-Next
 CONFIG_KSU=y
 ```
 
-若要开启KernelSU的调试模式，还需要加入：
+若要开启KernelSU-Next的调试模式，还需要加入：
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -230,8 +233,6 @@ CONFIG_KSU_DEBUG=y
 ### 3.应用补丁
 
 参考[KernelSU-Next官网](https://kernelsu-next.github.io/webpage/pages/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)修改
-
-此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
 
 ## 集成RKSU
 
@@ -251,7 +252,7 @@ CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 ```
 
-若要开启KernelSU的调试模式，还需要加入：
+若要开启RKSU的调试模式，还需要加入：
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -558,18 +559,15 @@ diff -ruN a/security/Makefile b/security/Makefile
 
 :::
 
-此外，你还可以通过[KernelSU官网](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source)回溯`path_umount`以获得卸载模块功能
-
 ### 3.启用SukiSU-Ultra
 
 在你的设备defconfig配置文件最后加入以下几行：
 
 ```text
-# KernelSU
+# SukiSU-Ultra
 CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 CONFIG_KSU_MANUAL_SU=y
-# CONFIG_KSU_SUSFS is not set
 ```
 
 若要开启SukiSU-Ultra的调试模式，还需要加入：
@@ -577,12 +575,6 @@ CONFIG_KSU_MANUAL_SU=y
 ```text
 CONFIG_KSU_DEBUG=y
 ```
-
-:::tip
-
-SukiSU-Ultra在EMUI系统上无法获取root，你需要使用其他系统。
-
-:::
 
 ## 集成BakaSU
 
@@ -602,7 +594,7 @@ CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 ```
 
-若要开启KernelSU的调试模式，还需要加入：
+若要开启BakaSU的调试模式，还需要加入：
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -611,5 +603,3 @@ CONFIG_KSU_DEBUG=y
 ### 3.应用补丁
 
 参考[BakaSU官网](https://bakasu.org/guide/manual-integrate)修改
-
-即使你的内核版本小于4.19，但是sys_read钩子仍然要使用4.19+的版本。

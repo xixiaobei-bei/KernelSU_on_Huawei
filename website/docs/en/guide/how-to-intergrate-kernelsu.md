@@ -4,7 +4,7 @@
 
 [Huawei's Official Source Code](https://consumer.huawei.com/en/opensource/)
 
-Enter your device model code, download, and open the ```Code_opensource\kernel``` folder. This is your kernel source code; extract it.
+Enter your device model code, download, and open the ```Code_Opensource\kernel``` folder. This is your kernel source code; extract it.
 
 :::warning
 
@@ -90,21 +90,21 @@ Replace the last `merge_hi3660_defconfig` with your configuration file
 
 ### Optional Part:
 
-Change
+:::details Permissive SELinux
 
 ```text
 # CONFIG_SECURITY_SELINUX_DEVELOP is not set
 ```
 
-to
+Change to
 
 ```text
 CONFIG_SECURITY_SELINUX_DEVELOP=y
 ```
 
-This will enable SELinux on the phone to be in Permissive state upon boot.
+:::
 
-#### Disable AVB Verification:
+:::details Disable AVB Verification
 
 ```text
 CONFIG_DM_VERITY=y
@@ -119,7 +119,13 @@ Change to
 # CONFIG_DM_VERITY_AVB is not set
 ```
 
+:::
+
 ### Modify hook.c to fix the problem "Can't get root"
+
+:::tip
+This patch is already included when RKSU is integrated.
+:::
 
 ```diff
 diff -uNr a/security/selinux/hooks.c b/security/selinux/hooks.c
@@ -204,10 +210,6 @@ If your kernel does not have vfs_statx and do_faccessat, do not copy the general
 
 :::
 
-### 4. Modify hooks.c to enable the module
-
-Refer to [this Github Commit](https://github.com/sticpaper/android_kernel_xiaomi_msm8998-ksu/commit/09a4672c0f521bf6b05daf24b207b125830a6fc5)
-
 ## Integrating KernelSU-Next
 
 ### 1. Pull Source Code
@@ -221,11 +223,11 @@ curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/ke
 Add the following lines to the end of your device's defconfig configuration file:
 
 ```text
-# KernelSU
+# KernelSU-Next
 CONFIG_KSU=y
 ```
 
-To enable KernelSU's debug mode, you also need to add:
+To enable KernelSU-Next's debug mode, you also need to add:
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -234,8 +236,6 @@ CONFIG_KSU_DEBUG=y
 ### 3. Apply the Patch
 
 Refer to the [KernelSU-Next official website](https://kernelsu-next.github.io/webpage/pages/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) for modification.
-
-In addition, you can also backport path_umount via the [KernelSU offical webside](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) to enable the module unmount feature.
 
 ## Integrating RKSU
 
@@ -255,7 +255,7 @@ CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 ```
 
-To enable KernelSU debug mode, you also need to add:
+To enable RKSU's debug mode, you also need to add:
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -562,8 +562,6 @@ diff -ruN a/security/Makefile b/security/Makefile
 
 :::
 
-In addition, you can also backport path_umount via the [KernelSU offical webside](https://kernelsu.org/guide/how-to-integrate-for-non-gki.html#manually-modify-the-kernel-source) to enable the module unmount feature.
-
 ### 3.Enable SukiSU-Ultra
 
 Add the following lines to the end of your device's defconfig file:
@@ -573,24 +571,13 @@ Add the following lines to the end of your device's defconfig file:
 CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 CONFIG_KSU_MANUAL_SU=y
-# CONFIG_KSU_SUSFS is not set
 ```
 
-To enable SukiSU-Ultra debug mode, you also need to add:
+To enable SukiSU-Ultra's debug mode, you also need to add:
 
 ```text
 CONFIG_KSU_DEBUG=y
 ```
-
-```text
-CONFIG_KSU_DEBUG=y
-```
-
-:::tip
-
-SukiSU-Ultra cannot obtain root on EMUI systems, you need to use another system.
-
-:::
 
 ## Integrate BakaSU
 
@@ -605,12 +592,12 @@ curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh
 Add the following lines to the end of your device's defconfig file:
 
 ```text
-# KernelSU
+# BakaSU
 CONFIG_KSU=y
 CONFIG_KSU_MANUAL_HOOK=y
 ```
 
-To enable KernelSU debug mode, you also need to add:
+To enable BakaSU's debug mode, you also need to add:
 
 ```text
 CONFIG_KSU_DEBUG=y
@@ -619,5 +606,3 @@ CONFIG_KSU_DEBUG=y
 ### 3.Apply Patches
 
 Refer to the [BakaSU offical webside](https://bakasu.org/guide/manual-integrate) to modify.
-
-Even if your kernel version is lower than 4.19, you still need to use the version of the sys_read hook intended for 4.19+.
