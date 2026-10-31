@@ -524,6 +524,7 @@ jobs:
             git clone https://android.googlesource.com/platform/system/tools/mkbootimg/
             mkbootimg/mkbootimg.py "${cmdline[@]}"
           fi
+          ls
 
       - name: Upload Kernel Artifact
         if: steps.should_skip.outputs.skip != 'true'
