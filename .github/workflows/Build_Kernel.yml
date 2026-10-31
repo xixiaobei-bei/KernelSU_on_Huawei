@@ -134,14 +134,6 @@ jobs:
     - name: Set build vars
       if: steps.check_exclude.outputs.skip != 'true'
       run: |
-        if [ "${{ matrix.pm }}" = "true" ]; then
-          echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
-        else
-          echo "PM_SUFFIX=" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
-        fi
-
         BRANCH='${{ matrix.branch }}'
 
         DEVICE="${BRANCH%%_*}"
@@ -254,6 +246,21 @@ jobs:
           exit 1
         fi
 
+        if [ "${{ matrix.pm }}" = "true" ]; then
+          export "ARTIFACT_NAME=${{ matrix.branch }}_PM"
+        else
+          export "ARTIFACT_NAME=${{ matrix.branch }}"
+        fi
+
+        if [ "$ak3" = "true" ]; then
+          echo "ARTIFACT_NAME=${ARTIFACT_NAME}_AnyKernel3" >> $GITHUB_ENV
+          ARTIFACT_FILE="${ARTIFACT_NAME}_AnyKernel3.zip"
+        else
+          echo ARTIFACT_NAME="$ARTIFACT_NAME" >> $GITHUB_ENV
+          ARTIFACT_FILE="${ARTIFACT_NAME}.img"
+        fi
+
+        echo "ARTIFACT_FILE=${ARTIFACT_FILE}" >> $GITHUB_ENV
         echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
         echo "os_version=$os_version" >> $GITHUB_ENV
         echo "tool=$tool" >> $GITHUB_ENV
@@ -425,7 +432,7 @@ jobs:
 
         if [ -f "ksuhw_pack.sh" ]; then
           bash ./ksuhw_pack.sh
-        elif [ $ak3 = "true" ]; then
+        elif [ "$ak3" = "true" ]; then
           git clone https://github.com/xixiaobei-bei/AnyKernel3 AnyKernel3
           cp out/arch/arm64/boot/Image AnyKernel3/
           cd AnyKernel3
@@ -495,8 +502,9 @@ jobs:
       if: steps.check_exclude.outputs.skip != 'true'
       uses: actions/upload-artifact@v7
       with:
-        path: "${{ env.ARTIFACT_NAME }}.*"
+        path: "${{ env.ARTIFACT_FILE }}"
         archive: false
+        if-no-files-found: error
 
   release:
     name: Draft A New Release
@@ -516,7 +524,7 @@ jobs:
         with:
           name: ${{ github.event.inputs.version }}
           tag_name: ${{ github.event.inputs.version }}
-          files: ./all-artifacts/*.*
+          files: ./all-artifacts/*/*.*
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

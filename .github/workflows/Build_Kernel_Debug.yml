@@ -163,10 +163,10 @@ jobs:
         run: |
           if [ "${{ matrix.pm }}" = "true" ]; then
             echo "PM_SUFFIX=_PM" >> $GITHUB_ENV
-            echo "ARTIFACT_NAME=${{ matrix.branch }}_PM" >> $GITHUB_ENV
+            ARTIFACT_NAME="${{ matrix.branch }}_PM"
           else
             echo "PM_SUFFIX=" >> $GITHUB_ENV
-            echo "ARTIFACT_NAME=${{ matrix.branch }}" >> $GITHUB_ENV
+            ARTIFACT_NAME="${{ matrix.branch }}"
           fi
 
           BRANCH='${{ matrix.branch }}'
@@ -281,6 +281,15 @@ jobs:
             exit 1
           fi
 
+          if [ "$ak3" = "true" ]; then
+            ARTIFACT_NAME="${ARTIFACT_NAME}_AnyKernel3"
+            ARTIFACT_FILE="${ARTIFACT_NAME}.zip"
+          else
+            ARTIFACT_FILE="${ARTIFACT_NAME}.img"
+          fi
+
+          echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
+          echo "ARTIFACT_FILE=${ARTIFACT_FILE}" >> $GITHUB_ENV
           echo "DEFCONFIG=$DEFCONFIG" >> $GITHUB_ENV
           echo "os_version=$os_version" >> $GITHUB_ENV
           echo "tool=$tool" >> $GITHUB_ENV
@@ -458,7 +467,7 @@ jobs:
 
           if [ -f "ksuhw_pack.sh" ]; then
             bash ./ksuhw_pack.sh
-          elif [ $ak3 = "true" ]; then
+          elif [ "$ak3" = "true" ]; then
             git clone https://github.com/xixiaobei-bei/AnyKernel3 AnyKernel3
             cp out/arch/arm64/boot/Image AnyKernel3/
             cd AnyKernel3
@@ -529,5 +538,6 @@ jobs:
         if: steps.should_skip.outputs.skip != 'true'
         uses: actions/upload-artifact@v7
         with:
-          path: "${{ env.ARTIFACT_NAME }}.*"
+          path: "${{ env.ARTIFACT_FILE }}"
           archive: false
+          if-no-files-found: error
