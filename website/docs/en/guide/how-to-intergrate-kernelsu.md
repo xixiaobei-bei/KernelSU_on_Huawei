@@ -2,7 +2,8 @@
 
 ## Obtaining the Source Code
 
-[Huawei's Official Source Code](https://consumer.huawei.com/en/opensource/)
+[Huawei and Old HONOR's Official Source Code](https://consumer.huawei.com/en/opensource/)
+[New HONOR's Official Source Code](https://www.honor.com/global/opensource/)
 
 Enter your device model code, download, and open the ```Code_Opensource\kernel``` folder. This is your kernel source code; extract it.
 
