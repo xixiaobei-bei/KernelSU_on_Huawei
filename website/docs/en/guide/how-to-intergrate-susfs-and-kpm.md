@@ -1,5 +1,9 @@
 # Building a Kernel with SuSFS and KPM
 
+:::warning
+This page is not sure that can be booted on some devices.We don't suggest you to intergrate with this page.
+:::
+
 ## Modifying the Kernel
 
 :::tip
