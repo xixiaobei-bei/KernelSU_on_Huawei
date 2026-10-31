@@ -3,6 +3,7 @@
 ## 获取源码
 
 [华为&老荣耀的官方源码](https://consumer.huawei.com/en/opensource/)
+
 [新荣耀的官方源码](https://www.honor.com/global/opensource/)
 
 在其中输入设备型号代码，下载后打开`Code_Opensource\kernel`文件夹，这为你的内核源码，解压出来即可
