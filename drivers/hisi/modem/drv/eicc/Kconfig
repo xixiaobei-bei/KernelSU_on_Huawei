@@ -1,0 +1,18 @@
+#
+# eicc driver
+#
+comment "eicc driver"
+
+config EICC_DRIVER
+	tristate "EICC driver"
+	default n
+	help
+	  EICC interface
+
+config EICC_TEST
+	tristate "EICC test"
+	default n
+	help
+	  EICC test
+	  
+		

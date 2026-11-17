@@ -1,0 +1,1 @@
+obj-$(CONFIG_INPUTHUB_20) += cap_prox_detect.o

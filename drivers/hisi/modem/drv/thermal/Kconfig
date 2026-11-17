@@ -1,0 +1,10 @@
+#
+# thremal driver
+#
+
+comment "thermal driver"
+config THERMAL_BALONG
+	tristate "thermal OnOff"
+	default n
+
+	  

@@ -1,0 +1,9 @@
+#
+# huawei power isolation drivers
+#
+
+config HUAWEI_POWER_EMBEDDED_ISOLATION
+	bool "huawei power isolation module"
+	default n
+	help
+	  Say Y here to enable power isolation driver.

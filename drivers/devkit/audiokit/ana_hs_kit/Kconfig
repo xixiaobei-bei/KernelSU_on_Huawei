@@ -1,0 +1,23 @@
+menuconfig HUAWEI_ANA_HS_KIT_AUDIO
+	bool "analog headset drivers support"
+	default n
+	help
+	Say yes here to support the  analog headset module
+
+if HUAWEI_ANA_HS_KIT_AUDIO
+config ANA_HS
+	tristate "Support for analog headset"
+	default n
+	---help---
+	 Say Y here if you want to support analog headset
+config ANA_HS_CORE
+	tristate "Support for analog headset core"
+	default n
+	---help---
+	 Say Y here if you want to support analog headset core
+config INVERT_HS_CORE
+	tristate "Support for invert headset"
+	default n
+	---help---
+	 Say Y here if you want to support invert headset
+endif #HUAWEI_ANA_HS_KIT_AUDIO

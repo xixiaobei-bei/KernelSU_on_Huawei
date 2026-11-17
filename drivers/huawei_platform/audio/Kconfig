@@ -1,0 +1,26 @@
+menu "Audio configuration"
+config HUAWEI_AUDIO
+        bool "Audio support"
+        default n
+        select REGMAP_I2C
+        help
+          Enable support for audio
+if HUAWEI_AUDIO
+source "drivers/huawei_platform/audio/ana_hs_extern_ops/Kconfig"
+source "drivers/huawei_platform/audio/invert_hs/Kconfig"
+source "drivers/huawei_platform/audio/anc_hs_module/Kconfig"
+source "drivers/huawei_platform/audio/ak4376/Kconfig"
+source "drivers/huawei_platform/audio/hifi_vir_dai/Kconfig"
+source "drivers/huawei_platform/audio/usb_analog_hs_module/Kconfig"
+source "drivers/huawei_platform/audio/dig_hs_module/Kconfig"
+source "drivers/huawei_platform/audio/usb_audio_power/Kconfig"
+source "drivers/huawei_platform/audio/usb_audio_common/Kconfig"
+source "drivers/huawei_platform/audio/usb_audio_power_v600/Kconfig"
+source "drivers/huawei_platform/audio/usb_headset_core/Kconfig"
+source "drivers/huawei_platform/audio/high_resistance_hs_det/Kconfig"
+source "drivers/huawei_platform/audio/tf_agent/Kconfig"
+source "drivers/huawei_platform/audio/virtual_voice_proxy/Kconfig"
+source "drivers/huawei_platform/audio/codec_check/Kconfig"
+source "drivers/huawei_platform/audio/adc/Kconfig"
+endif # if HUAWEI_AUDIO
+endmenu

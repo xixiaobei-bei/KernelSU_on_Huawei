@@ -1,0 +1,297 @@
+config HISI_FB_MEDIACOMMON
+	tristate
+	depends on FB
+	default n
+	---help---
+	Enable mediacommon hardware support for hisilicon chipset
+
+	This will allow for allocating new framebuffer to provide more
+	interfaces such as ispif, precompose copybit etc.
+
+config HISI_FB_ALSC
+	tristate "alsc support"
+	depends on FB
+	default n
+	---help---
+	Enable ALSC hardware support
+
+config HISI_FB_FAKE
+	tristate "HISI Framebuffer Fake support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI FB Fake.
+
+config HISI_FB_970
+	tristate "HISI FB 970 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select HISI_FB_MEDIACOMMON
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI970 FB.
+
+config HISI_FB_V501
+	tristate "HISI FB V501 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select HISI_FB_MEDIACOMMON
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V501 FB.
+
+config HISI_FB_V510
+	tristate "HISI FB V510 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select HISI_DPP_CMDLIST
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V510 FB.
+
+config HISI_FB_V600
+	tristate "HISI FB V600 Framebuffer support"
+	depends on FB
+	depends on DMA_CMA
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select HISI_FB_MEDIACOMMON
+	select HISI_FB_ALSC
+	select HISI_DPP_CMDLIST
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V600 FB.
+
+config HISI_FB_V700
+	tristate "HISI FB V700 Framebuffer support"
+	depends on FB
+	depends on DMA_CMA
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select HISI_FB_MEDIACOMMON
+	select HISI_FB_ALSC
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V700 FB.
+
+config HISI_FB_V360
+	tristate "HISI FB V360 Framebuffer support"
+	depends on FB
+	depends on DMA_CMA
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V360 FB.
+
+config HISI_FB_V320
+	tristate "HISI FB V320 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V320 FB.
+
+config HISI_FB_AOD
+	tristate "HISI aod support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports hisi aod.
+
+config DPU_FB_AP_AOD
+	tristate "DPU ap aod support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports dpu ap aod.
+
+config HISI_FB_V330
+	tristate "HISI FB V330 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V330 FB.
+
+config HISI_FB_V350
+	tristate "HISI FB V350 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V350 FB.
+
+config HISI_FB_V345
+	tristate "HISI FB V345 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V345 FB.
+
+config HISI_FB_V346
+	tristate "HISI FB V346 Framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_SYS_FOPS
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	select REGMAP
+	help
+	  This framebuffer driver supports HISI V346 FB.
+
+config DSS_SMMU_V3
+	tristate "HISI FB smmu v3 support"
+	depends on ARM_SMMU_V3
+	help
+	  This framebuffer driver supports smmu v3.
+
+config HISI_FB_ENG_DBG
+	tristate "HISI FB ENG DEBUG support"
+	depends on FB
+	help
+	  This config only used in eng version.
+
+config FASTBOOT_DISP_ENABLE
+	tristate "HISI fastboot display enable support"
+	depends on FB
+	help
+	  Display system have already initialized in fastboot.
+
+config HISI_DISPLAY_DFR
+	tristate "HISI FB dynamic frame adaptation support"
+	depends on FB
+	help
+	  This framebuffer driver supports dynamic frame adaptation.
+
+config HISI_DSS_DPM
+	tristate "HISI DSS DPM(digital power monitor) support"
+	depends on FB
+	depends on DPM_HWMON
+	help
+	  This framebuffer driver supports dpm function.
+
+config HISI_DPP_CMDLIST
+	tristate "HISI DSS DPP cmdlist support"
+	depends on FB
+	help
+	  This framebuffer driver supports dpp cmdlist function.
+
+config EFFECT_HIACE
+	tristate "effect hiace support"
+	depends on FB
+	help
+	  This framebuffer driver supports effect hiace.
+
+config HISI_EFFECT_HIHDR
+	tristate "HISI DSS HiHDR support"
+	depends on FB
+	help
+	  This framebuffer driver supports HiHDR related functions.
+
+config EFFECT_TERMINAL_API
+	tristate "terminal API support"
+	depends on FB
+	help
+	  This framebuffer driver supports terminal APIs.
+
+config HW_DSS_BOOST
+	tristate "huawei dss boost support"
+	depends on HISI_FB_V501 || HISI_FB_V510 || HISI_FB_V350 || HISI_FB_V345 || HISI_FB_V346 || HISI_FB_V600
+	default y
+	help
+	  support boosting for the huawei dss.
+
+config DEVICE_ATTRS
+	tristate "device attrs support"
+	depends on FB
+	help
+	  This framebuffer driver supports device attrs function.
+
+config VIDEO_IDLE
+	tristate "video idle support"
+	depends on FB
+	help
+	  This framebuffer driver supports video idle function.
+
+config ASYNCHRONOUS_PLAY
+	tristate "asynchronous play support"
+	depends on FB
+	help
+	  This framebuffer driver supports asynchronous play function.
+
+config RCH_CLD
+	tristate "rch cld support"
+	depends on FB
+	help
+	  This framebuffer driver supports rch cld function.
+
+config DP_HDCP
+	tristate "dp hdcp support"
+	depends on FB
+	help
+	  This framebuffer driver supports dp hdcp function.
+
+config VR_DISPLAY
+	tristate "vr display support"
+	depends on FB
+	help
+	  This framebuffer driver supports vr display function.
+
+config CDC_MULTI_DISPLAY
+	tristate "CDC support multi-screen"
+	depends on HISI_FB_V510
+	select ASYNCHRONOUS_PLAY
+	default n
+	help
+	  This framebuffer driver supports CDC multi-screen.
+
+config DP_CDC
+	tristate "CDC support DP"
+	depends on HISI_FB_V510
+	default n
+	help
+	  This framebuffer driver supports CDC DP.
+
+source "drivers/video/fbdev/hisi/mdfx/Kconfig"
+source "drivers/video/fbdev/hisi/dpu/Kconfig"

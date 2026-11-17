@@ -1,0 +1,7 @@
+config CERTIFICATION_IC_RICHTEK
+	bool
+	prompt "Support richtek as certification IC."
+	depends on HUAWEI_BATTERY_INFORMATION
+	default n
+	help
+		It needs a onewire physical controller to work.

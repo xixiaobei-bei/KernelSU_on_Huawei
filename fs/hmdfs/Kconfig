@@ -1,0 +1,29 @@
+config HMDFS_FS
+	tristate "Hmdfs"
+	help
+	  hmdfs
+
+config HMDFS_ANDROID
+	bool "HMDFS ANDROID PLATFORM"
+	depends on HMDFS_FS && ANDROID
+	default n
+	help
+	  hmdfs for android platform
+
+config HMDFS_1_0
+	bool "HMDFS 1.0 VERSION COMPATIBILITY"
+	depends on HMDFS_ANDROID
+	default n
+	help
+	  Enable adapter for earlier version compatibility
+
+config HMDFS_CRYPTO
+	bool "HMDFS CRYPTO"
+	depends on HMDFS_FS && TLS
+	default n
+	help
+	  Crypto for hmdfs
+
+config HMDFS_FS_DEBUG
+	bool "HMDFS Debug log print"
+	default n

@@ -1,0 +1,9 @@
+#
+# huawei power common drivers
+#
+
+source "drivers/hwpower/cc_common_module/power_debug/Kconfig"
+source "drivers/hwpower/cc_common_module/power_devices_info/Kconfig"
+source "drivers/hwpower/cc_common_module/power_firmware/Kconfig"
+source "drivers/hwpower/cc_common_module/power_supply/Kconfig"
+source "drivers/hwpower/cc_common_module/power_thermalzone/Kconfig"

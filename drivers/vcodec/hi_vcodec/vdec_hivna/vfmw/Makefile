@@ -1,0 +1,4 @@
+ifeq ($(CONFIG_VCODEC_PLATFORM_HIVCODECV600), y)
+else
+obj-$(CONFIG_HI_VCODEC_VDEC_HIVNA)  += vfmw_v4.0/
+endif

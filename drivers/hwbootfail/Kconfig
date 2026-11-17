@@ -1,0 +1,52 @@
+#
+# huawei device state monitor configuration
+#
+
+config BOOT_DETECTOR
+	bool "Boot Detector"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution.
+
+config BOOT_DETECTOR_HISI
+	bool "Boot Detector for hisi"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution on hisi.
+
+config BOOT_DETECTOR_QCOM
+	bool "Boot Detector for qcom"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution on qcom.
+
+config BOOT_DETECTOR_MTK
+	bool "Boot Detector for mtk"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution on mtk.
+
+config BOOT_DETECTOR_MTK_4G
+	bool "Boot Detector for mtk-4g"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution on mtk-4g.
+
+config BOOT_DETECTOR_HONGHU
+	bool "Boot Detector for honghu"
+	default n
+	help
+	  If you say yes here you get support for huawei Boot Detector solution on honghu.
+
+config BOOT_RECOVERY
+    bool "use Boot Recovery"
+    default n
+    help
+      If you say yes here you get support for huawei Boot Recovery solution
+
+config BOOT_DETECTOR_DBG
+        bool "Boot Detector debug"
+        default n
+        help
+          If you say yes here you get support for huawei Boot Detector debug.
+

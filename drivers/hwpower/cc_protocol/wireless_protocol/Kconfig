@@ -1,0 +1,29 @@
+#
+# huawei wireless protocol drivers
+#
+
+config WIRELESS_PROTOCOL
+	bool "wireless protocol"
+	default n
+	help
+	  Say Y here to enable wireless protocol driver.
+	  This driver provides a unified interface to the wireless protocol.
+	  Currently supported wireless protocols as below:
+	  QI/WPC protocol.
+
+config WIRELESS_PROTOCOL_QI
+	bool "wireless protocol with qi"
+	depends on WIRELESS_PROTOCOL
+	default n
+	help
+	  Say Y here to enable wireless qi protocol driver.
+	  Qi (pronounced “chee”) is the world’s de facto wireless charging
+	  standard for providing 5-15 watts of power to small personal
+	  electronics. Though it is primarily used to charge smartphones,
+	  the standard can also apply and easily be used to provide power
+	  for a growing number of consumer devices.
+	  With more than 3,700 Qi-Certified products on the market today,
+	  Qi delivers a positive and safe wireless charging experience.
+	  The Wireless Power Consortium and its 650+ member companies are
+	  committed to continuing to grow this market by delivering
+	  differentiated and affordable products.

@@ -1,0 +1,5 @@
+config CMFUP_DEVFREQ
+	tristate "cmfup DEVFREQ Driver"
+	depends on PM_DEVFREQ
+	help
+	   This enables the cpu max freq using policy devfreq driver.

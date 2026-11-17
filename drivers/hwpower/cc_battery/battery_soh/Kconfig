@@ -1,0 +1,8 @@
+config HUAWEI_BATTERY_SOH
+	bool "huawei battery soh"
+	default n
+	help
+	  Say Y here to enable battery aging health driver.
+	  This driver is an adaptation layer. It provides
+	  channels for modules in the native layer to retrieve
+	  relevant data from kernel.

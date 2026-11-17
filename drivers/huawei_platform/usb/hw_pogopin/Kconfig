@@ -1,0 +1,9 @@
+#
+# huawei pogopin drivers
+#
+
+config POGO_PIN
+	bool "huawei pogopin support"
+	default n
+	help
+	  Say Y here to enable pogopin driver.

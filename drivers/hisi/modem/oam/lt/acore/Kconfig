@@ -1,0 +1,10 @@
+menu "Modem Drivers"
+
+source "chr/Kconfig"
+source "debug/Kconfig"
+source "diag/Kconfig"
+source "list/Kconfig"
+source "mode/Kconfig"
+source "service/Kconfig"
+
+endmenu

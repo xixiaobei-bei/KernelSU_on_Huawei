@@ -1,0 +1,43 @@
+#
+# fuel gauge ic drivers
+#
+
+config FUEL_GAUGE
+	bool "fuel gauge"
+	default n
+	help
+	  Say Y here to enable fuel gauge.
+	  This driver provides a unified interface to the coul.
+	  Currently supported coul as below.
+	  bq27z561
+	  rt9426
+
+config RT9426_FUEL_GAUGE
+	bool "rt9426 fuel gauge"
+	depends on FUEL_GAUGE
+	default n
+	help
+	  Say Y here to enable rt9426 fuel gauge driver.
+	  this driver provides some interfaces to the coul.
+	  also support a few high accuracy battery elements.
+	  for example current and voltage.
+
+config BQ27Z561_FUEL_GAUGE
+	bool "bq27z561 fuel gauge"
+	depends on FUEL_GAUGE
+	default n
+	help
+	  Say Y here to enable bq27z561 fuel gauge driver.
+	  this driver provides some interfaces to the coul.
+	  also support a few high accuracy battery elements.
+	  for example current and voltage.
+
+config BQ40Z50_FUEL_GAUGE
+	bool "bq40z50 fuel gauge"
+	depends on FUEL_GAUGE
+	default n
+	help
+	  Say Y here to enable bq40z50 fuel gauge driver.
+	  this driver provides some interfaces to the coul.
+	  also support a few high accuracy battery elements.
+	  for example current and voltage.

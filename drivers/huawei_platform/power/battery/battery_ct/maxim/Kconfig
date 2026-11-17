@@ -1,0 +1,21 @@
+config CERTIFICATION_IC_DS28EL15
+	bool
+	prompt "Support MAXIM ds28el15 as certification IC."
+	depends on HUAWEI_BATTERY_INFORMATION
+	default n
+	help
+	  It needs a onewire physical controller to work.
+	  Currently, only ONEWIRE_PHY_PL061_GPIO supports it.
+	  Now, if you open this, please open ONEWIRE_PHY_PL061_GPIO.
+	  Otherwise, this driver will be failed to probe.
+
+config CERTIFICATION_IC_DS28E16
+	bool
+	prompt "Support ds28e16 as certification IC."
+	depends on HUAWEI_BATTERY_INFORMATION
+	default n
+	help
+	  It needs a onewire physical controller to work.
+	  Currently, only ONEWIRE_PHY_PL061_GPIO supports it.
+	  Now, if you open this, please open ONEWIRE_PHY_PL061_GPIO.
+	  Otherwise, this driver will be failed to probe.

@@ -1,0 +1,7 @@
+if HISI_CAMERA_VCM
+
+menu "Hisilicon camera vcm driver support"
+
+endmenu
+
+endif

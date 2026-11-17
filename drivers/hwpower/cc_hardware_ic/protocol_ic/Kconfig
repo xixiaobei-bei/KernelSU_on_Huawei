@@ -1,0 +1,15 @@
+#
+# protocol ic drivers
+#
+
+config PROTOCOL_IC_SC200X
+	bool "sc200x protocol ic"
+	depends on ADAPTER_PROTOCOL
+	default n
+	help
+	  Say Y here to enable sc200x protocol ic driver.
+	  the sc200x protocol ic is used to communicate between a master device
+	  and a single device over a singe wire bus. it is support SCP/FCP
+	  fast charging protocol and type protocol.
+	  This driver is to be used to configure, contorl and read status of
+	  a slave device.

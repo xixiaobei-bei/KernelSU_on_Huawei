@@ -1,0 +1,5 @@
+config CODEC_CHECK
+	tristate "Support for codec reg check in call"
+	default n
+	---help---
+	 Say Y here if you want to support codec reg check in call

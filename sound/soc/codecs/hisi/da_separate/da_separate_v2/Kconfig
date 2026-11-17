@@ -1,0 +1,2 @@
+config SND_SOC_CODEC_DA_SEPARATE_V2
+	tristate "Soc Smartstar Codec da separate v2 support"

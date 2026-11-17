@@ -1,0 +1,10 @@
+#
+# huawei watch charger drivers
+#
+
+config HUAWEI_WATCH_CHARGER
+	bool "watch charger"
+	default n
+	help
+	  Say Y here to enable watch charger driver.
+	  This driver works only on smartwatch.

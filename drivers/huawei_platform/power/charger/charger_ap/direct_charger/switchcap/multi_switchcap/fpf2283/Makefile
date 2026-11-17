@@ -1,0 +1,1 @@
+obj-$(CONFIG_OVP_FOR_SWITCHCAP) += fpf2283.o

@@ -1,0 +1,52 @@
+config HW_BOOSTER
+    tristate "Network-related optimization acceleration features."
+    default n
+    help
+      Provide network acceleration, business quality assessment
+      and other functions.
+config HW_PACKET_FILTER_BYPASS
+    tristate "huawei iptables and bpf interception detection and bypass module"
+    default n
+    help
+      Detect whether the network packet of foreground uid is dropped by netfilter
+      or bpf, and then try to recovery it.
+config HW_NETWORK_QOE
+    tristate "Network-Qoe optimization features."
+    default n
+    help
+      Provide network Qoe feature.
+config HW_NETWORK_SLICE
+    tristate "network slice management features."
+    default n
+    help
+      Provide ip report and route selection feature.
+config HW_ICMP_PING_DETECT
+    tristate "icmp ping detect features."
+    default n
+    help
+      Provide icmp ping detect feature.
+config TCP_CONG_ALGO_CTRL
+    tristate "Dynamic control tcp congestion algorithms"
+    default n
+    help
+      Detect network state and uid state to change tcp congestion algorithm
+config HW_PACKET_TRACKER
+    tristate "CONFIG HW PACKET TRACKER."
+    default n
+    help
+      Tracking data transport time in kernel and report chr if detect slow.
+config APP_ACCELERATOR
+    tristate "app accelertor"
+    default n
+    help
+      app accelertor
+config HW_STEADY_SPEED_STATS
+    tristate "steady speed statistics"
+    default n
+    help
+      count the steady speed for specific uid.
+config STREAM_DETECT
+    tristate "stream detect features."
+    default n
+    help
+      Provide stream anomaly detection feature.

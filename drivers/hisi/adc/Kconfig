@@ -1,0 +1,11 @@
+config LPM_HKADC
+	bool "LPM ADC support"
+	depends on HISI_MAILBOX
+	default n
+	help
+	  Say yes here to support the LPM ADC device
+
+config HKADC_DEBUG
+	tristate "ADC DEBUG"
+	help
+	  Say yes here to support this lock

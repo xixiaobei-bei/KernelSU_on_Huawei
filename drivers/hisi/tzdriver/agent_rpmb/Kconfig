@@ -1,0 +1,6 @@
+config RPMB_AGENT
+	bool "Tzdriver Rpmb Agent"
+	default n
+	depends on TZDRIVER
+	help
+	  Tzdriver Rpmb Agent

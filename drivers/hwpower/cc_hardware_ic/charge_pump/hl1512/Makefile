@@ -1,0 +1,1 @@
+obj-$(CONFIG_CHARGE_PUMP_HL1512) += hl1512.o

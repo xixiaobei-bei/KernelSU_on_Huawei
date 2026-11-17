@@ -1,0 +1,12 @@
+obj-$(CONFIG_INPUTHUB_20) += als_detect.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_debug.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_ams.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_ams_tmd3702.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_ams_tmd3725.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_ams_tsl2591.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_avago.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_liteon.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_rohm.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_sensortek.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_silergy.o
+obj-$(CONFIG_INPUTHUB_20) += als_para_table_vishay.o

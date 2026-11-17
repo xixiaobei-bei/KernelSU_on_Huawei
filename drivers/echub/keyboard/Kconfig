@@ -1,0 +1,11 @@
+#
+# Keyboard F7 hotkey mute led
+#
+
+config HUAWEI_ECHUB_MUTELED
+	bool "Keyboard mute led"
+	depends on HUAWEI_ECHUB
+	default n
+	help
+	  This driver provides support for Keyboard F7 hotkey mute led
+	  via I2c. This driver only used by OS.

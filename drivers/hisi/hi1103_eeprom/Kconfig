@@ -1,0 +1,5 @@
+config HISI1103_EEPROM
+	bool "HISI1103 Eeprom"
+	default Y
+	help
+		This Options Enable the Eeprom Function

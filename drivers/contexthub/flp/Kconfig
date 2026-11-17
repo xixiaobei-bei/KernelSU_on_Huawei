@@ -1,0 +1,70 @@
+#
+# FLP driver configuration
+#
+
+menu "SMART FLP configuration"
+
+config SMART_SOFTTIMER
+	bool "SMART SOFTTIMER support"
+	depends on CONTEXTHUB
+	default n
+	---help---
+	  Enable support for softtimer driver
+
+config SMART_FLP
+	bool "SMART FLP support"
+	depends on SMART_SOFTTIMER
+	default n
+	---help---
+	  Enable support for FLP driver
+
+config SMART_FLP_GEOFENCE
+	bool "SMART FLP GEOFENCE support"
+	depends on SMART_FLP
+	default n
+	---help---
+	  Enable support for GEOFENCE driver
+
+config SMART_FLP_CELLFENCE
+	bool "SMART FLP CELLFENCE support"
+	depends on SMART_FLP
+	default n
+	---help---
+	  Enable support for CELLFENCE driver
+
+config SMART_FLP_WIFIFENCE
+	bool "SMART_FLP_WIFIFENCE support"
+	depends on SMART_FLP
+	default n
+	---help---
+	  Enable support for WIFIFENCE driver
+
+config SMART_FLP_BATCHING
+	bool "SMART_FLP_BATCHING support"
+	depends on SMART_FLP
+	default n
+	---help---
+	  Enable support for BATCHING driver
+
+config SMART_FLP_DIAG
+	bool "SMART_FLP_DIAG support"
+	depends on SMART_FLP
+	default n
+	---help---
+	  Enable support for DIAG driver
+
+config SMART_AR
+	bool "SMART AR support"
+	depends on SMART_SOFTTIMER
+	default n
+	---help---
+	  Enable support for AR driver
+
+config CONTEXTHUB_UNIFORM_INTERVAL
+	bool "SMART CONTEXTHUB_UNIFORM_INTERVAL support"
+	depends on SMART_AR
+	default n
+	---help---
+	  Enable support for CONTEXTHUB_UNIFORM_INTERVAL driver
+
+endmenu

@@ -1,0 +1,23 @@
+config ONEWIRE_PHY_PL061_GPIO
+	bool
+	prompt "MAXIM onewire physical controller: pl061(GPIO)."
+	depends on HUAWEI_BATTERY_INFORMATION
+	depends on GPIO_PL061
+	default n
+	help
+	  It's an onewire physical controller.
+	  It supports ds28el15 & ds28el16.
+	  ALL physical controller will be add to a list.
+	  IC will go through the list and find its own physical controller.
+
+config ONEWIRE_PHY_PL061_GPIO_V2
+	bool
+	prompt "NXP onewire physical controller : pl061(GPIO)."
+	depends on HUAWEI_BATTERY_INFORMATION
+	depends on GPIO_PL061
+	default n
+	help
+	  It's an onewire physical controller.
+	  It supports A1007 now.
+	  ALL physical controller will be add to a list.
+	  IC will go through the list and find its own physical controller.

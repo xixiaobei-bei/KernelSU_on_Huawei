@@ -1,0 +1,6 @@
+config HWSDP
+	bool "HWSDP System"
+	default y
+	help
+	Huawei Sensitive Data Protection Module
+

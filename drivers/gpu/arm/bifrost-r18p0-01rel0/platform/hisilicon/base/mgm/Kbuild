@@ -1,0 +1,29 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2014-2019. All rights reserved.
+# Description: This file describe HISI GPU related init
+# Author: Huawei Technologies Co., Ltd.
+# Create: 2014-2-24
+#
+# This program is free software and is provided to you under the terms of the
+# GNU General Public License version 2 as published by the Free Software
+# Foundation, and any use by you of this program is subject to the terms
+# of such GNU licence.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# A copy of the licence is included with the program, and can also be obtained
+# from Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301, USA.
+#
+
+MGM_SRC += \
+    $(MALI_PLATFORM_DIR)/base/mgm/memory_group_manager.c
+
+# Tell the Linux build system from which .o file to create the kernel module
+obj-$(CONFIG_MALI_MIDGARD) += hisi_gpu_mgm.o
+
+# Tell the Linux build system to enable building of our .c files
+hisi_gpu_mgm-y := $(MGM_SRC:.c=.o)
