@@ -209,7 +209,7 @@ jobs:
               ak3="false" ;;
 
             # ---------- kirin980 / os 10 /clang ----------
-            ELE_EMUI9.1)
+            ELE_HarmonyOS2.0)
               DEFCONFIG="merge_kirin980_defconfig"
               os_version="10"
               tool="clang"
