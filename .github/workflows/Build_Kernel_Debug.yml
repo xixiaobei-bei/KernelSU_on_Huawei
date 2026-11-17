@@ -102,6 +102,7 @@ jobs:
           - ELS-AL00_EMUI10.1_RKSU
           - LDN_EMUI8.0_BakaSU
           - ELE_HarmonyOS2.0_RKSU
+          - AGS2_EMUI9.1_RKSU
         pm: [false, true]
 
     steps:
@@ -214,7 +215,7 @@ jobs:
               ak3="false" ;;
 
             # ---------- hi6250 / os 9 / gcc ----------
-            BND_EMUI9.1|FLA_EMUI9.1)
+            BND_EMUI9.1|FLA_EMUI9.1|AGS2_EMUI9.1)
               DEFCONFIG="merge_hi6250_defconfig"
               os_version="9"
               tool="gcc"
