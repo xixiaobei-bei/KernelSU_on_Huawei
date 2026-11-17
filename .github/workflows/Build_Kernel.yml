@@ -98,6 +98,7 @@ jobs:
           - POT_EMUI9.0_RKSU
           - ELS-AL00_EMUI10.1_RKSU
           - LDN_EMUI8.0_BakaSU
+          - ELE_HarmonyOS2.0_RKSU
         pm: [false, true]
 
     steps:
@@ -168,6 +169,13 @@ jobs:
             DEFCONFIG="merge_kirin980_defconfig"
             os_version="9"
             tool="gcc"
+            ak3="false" ;;
+
+          # ---------- kirin980 / os 10 / clang ----------
+          ELE_EMUI9.1)
+            DEFCONFIG="merge_kirin980_defconfig"
+            os_version="10"
+            tool="clang"
             ak3="false" ;;
 
           # ---------- hi6250 / os 9 / gcc ----------
