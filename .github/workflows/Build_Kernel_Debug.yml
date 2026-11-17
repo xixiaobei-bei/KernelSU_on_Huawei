@@ -103,6 +103,7 @@ jobs:
           - LDN_EMUI8.0_BakaSU
           - ELE_HarmonyOS2.0_RKSU
           - AGS2_EMUI9.1_RKSU
+          - SHT_EMUI9.1_RKSU
         pm: [false, true]
 
     steps:
@@ -180,7 +181,7 @@ jobs:
 
           case "$KEY" in
             # ---------- hi3660 / os 9 / gcc ----------
-            MHA_EMUI9.0|MHA_HarmonyOS2.0|DUK_HarmonyOS2.0|VTR_EMUI9.0|VTR_EMUI9.1|VTR_HarmonyOS2.0|VKY_EMUI9.0|VKY_HarmonyOS2.0|STF_EMUI9.0|HWI_HarmonyOS2.0)
+            MHA_EMUI9.0|MHA_HarmonyOS2.0|DUK_HarmonyOS2.0|VTR_EMUI9.0|VTR_EMUI9.1|VTR_HarmonyOS2.0|VKY_EMUI9.0|VKY_HarmonyOS2.0|STF_EMUI9.0|HWI_HarmonyOS2.0|SHT_EMUI9.1)
               DEFCONFIG="merge_hi3660_defconfig"
               os_version="9"
               tool="gcc"
