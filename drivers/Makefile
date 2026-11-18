@@ -191,7 +191,7 @@ obj-$(CONFIG_HI_VCODEC_VDEC_HIVNA) += vcodec/hi_vcodec/vdec_hivna/
 ifeq ($(BOARD_CHARGER_ENABLE_DRM),true)
 obj-$(CONFIG_IMAGINATION_D5500_DRM_VCODEC)  += vcodec/imagination/D5500_DRM/
 else
-obj-$(CONFIG_IMAGINATION_D5500_VCODEC)  += vcodec/imagination/D5500/
+# obj-$(CONFIG_IMAGINATION_D5500_VCODEC)  += vcodec/imagination/D5500/
 endif
 obj-$(CONFIG_HISILICON_PLATFORM)+= hisi/
 obj-$(CONFIG_HUAWEI_PLATFORM) += huawei_platform/

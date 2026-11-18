@@ -1480,3 +1480,12 @@ static int encrypt_login_info(uint8_t flags, uint32_t cmd_id, int32_t index,
 	return do_encryption(buffer, total_size, payload_size);
 }
 
+
+/* D5500 vcodec excluded from build; weak fallback for link */
+__weak int img_vdec_get_ion_phys(struct ion_client *ionClient,
+                                 struct ion_handle *ionHandle,
+                                 ion_phys_addr_t *addr,
+                                 size_t *len)
+{
+    return -ENODEV;
+}
