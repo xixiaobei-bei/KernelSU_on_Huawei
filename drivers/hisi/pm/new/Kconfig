@@ -1,0 +1,31 @@
+menu "S/R options for new architecture"
+
+config SR
+	bool "SR adaptation"
+	depends on SUSPEND
+	default n
+	help
+	   Support suspend and resume for
+if SR
+	source "drivers/hisi/pm/new/main/Kconfig"
+endif
+
+config SR_DEBUG
+	bool "SR debug"
+	depends on SR
+	default n
+	help
+	   debug for SR
+
+config SR_MNTN
+	bool "SR maintenance"
+	depends on SR
+	default n
+	help
+	   Support maintenance for SR
+
+if SR_MNTN
+	source "drivers/hisi/pm/new/mntn/Kconfig"
+endif
+
+endmenu

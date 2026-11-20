@@ -1,0 +1,1 @@
+obj-$(CONFIG_HUAWEI_WATER_DETECT) += water_detect.o

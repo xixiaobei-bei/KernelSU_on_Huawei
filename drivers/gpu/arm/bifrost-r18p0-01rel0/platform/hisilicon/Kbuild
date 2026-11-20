@@ -1,0 +1,30 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2014-2019. All rights reserved.
+# Description: This file describe HISI GPU hardware related features
+# Author: Huawei Technologies Co., Ltd.
+# Create: 2014-2-24
+#
+# This program is free software and is provided to you under the terms of the
+# GNU General Public License version 2 as published by the Free Software
+# Foundation, and any use by you of this program is subject to the terms
+# of such GNU licence.
+#
+# A copy of the licence is included with the program, and can also be obtained
+# from Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301, USA.
+#
+#
+ifeq ($(CONFIG_DEVFREQ_THERMAL),y)
+include $(src)/$(MALI_PLATFORM_DIR)/hisi_ipa/Kbuild
+endif
+
+ifeq ($(CONFIG_GPU_GMC_GENERIC),y)
+include $(src)/$(MALI_PLATFORM_DIR)/gmc/Kbuild
+endif
+
+mali_kbase-y += \
+        $(MALI_PLATFORM_DIR)/mali_kbase_config_hisilicon.o \
+        $(MALI_PLATFORM_DIR)/mali_kbase_hisi_callback.o
+
+# Compile the hisilicon base drivers.
+include $(src)/$(MALI_PLATFORM_DIR)/base/Kbuild

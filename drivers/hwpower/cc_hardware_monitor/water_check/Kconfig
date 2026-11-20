@@ -1,0 +1,13 @@
+#
+# water check monitor drivers
+#
+
+config HUAWEI_WATER_CHECK
+	bool "huawei water check"
+	default n
+	help
+	  Say Y here to enable water check monitor driver.
+	  Currently supported monitor position as below:
+	  The position of sim card
+	  The position of ear hole
+	  The position of key button

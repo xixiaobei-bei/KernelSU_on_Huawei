@@ -1,0 +1,11 @@
+#
+# usb port short circuit monitor drivers
+#
+
+config HUAWEI_USB_SHORT_CIRCUIT_PROTECT
+	bool "huawei usb short circuit protect"
+	default n
+	help
+	  Say Y here to enable usb port short circuit monitor driver.
+	  We will cutoff charging path by set charger into hiz mode and
+	  open mos switch when usb port short circuit happend.

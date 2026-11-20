@@ -1,0 +1,9 @@
+#
+# huawei gpio switch for otgid drivers
+#
+
+config SWITCH_OTGID_GPIO
+	bool "SWITCH_OTGID_GPIO support"
+	default n
+	help
+	  Say Y here to enable gpio switch for otgid driver.

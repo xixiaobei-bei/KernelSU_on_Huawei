@@ -1,0 +1,95 @@
+
+config DRM_HISI
+	tristate "HISI DRM"
+	depends on DRM
+	depends on OF && COMMON_CLK
+	depends on MMU
+	select REGULATOR
+	select DRM_KMS_HELPER
+	select DRM_GEM_CMA_HELPER
+	select DRM_KMS_CMA_HELPER
+	select DRM_PANEL
+	select SHMEM
+	select TMPFS
+	select SYNC_FILE
+	select PM_OPP
+	default n
+	help
+	  DRM/KMS driver for hisi/kirin.
+
+config DRM_HISI_DPE
+	bool "Enable dss dpe support in HISI DRM driver"
+	depends on DRM_HISI
+	select DRM_PANEL
+	select DRM_MIPI_DSI
+	default n
+	help
+	  Choose this option if you have a need for dpe support.
+
+config DRM_HISI_DSI
+	bool "Enable mipi dsi support in HISI DRM driver"
+	depends on DRM_HISI_DPE
+	default n
+	help
+	  Choose this option if you have a need for dsi encoder support.
+
+config DRM_HISI_DP
+	bool "Enable display port support in HISI DRM driver"
+	depends on DRM_HISI_DPE
+	default n
+	help
+	  Choose this option if you have a need for display port connector
+	  support.
+
+config DRM_HISI_LCD
+	bool "Enable lcd support in HISI DRM driver"
+	depends on DRM_HISI
+	depends on DRM_HISI_DSI
+	default n
+	help
+	  Choose this option if you have a need for lcd support.
+
+config DRM_HISI_BL
+	bool "Enable backlight support in HISI DRM driver"
+	depends on DRM_HISI_LCD
+	default n
+	help
+	  Choose this option if you have a need for backlight support.
+
+config DRM_DSS_IOMMU
+	bool "Enable dss iommu"
+	depends on DRM_HISI_DPE
+	default n
+	help
+      Choose this option if you have a need dss iommu support.
+
+config HISI_DSS_V510
+	bool "dss v510"
+	depends on DRM_HISI_DPE
+	default n
+	help
+	  This driver supports HISI V510 dss
+
+config HISI_DSS_V600
+	bool "dss v600"
+	depends on DRM_HISI_DPE
+	default n
+	help
+	  This driver supports HISI V600 dss
+
+config DRM_HISI_DEBUG
+	bool "Enable debug in HISI DRM driver"
+	depends on DRM_HISI
+	default n
+	help
+      Choose the option if you have a need debugfs support
+
+config DRM_SMMU_V3
+	tristate "HISI DRM smmu v3 support"
+	depends on DRM
+	default n
+	help
+	  This framebuffer driver supports smmu v3.
+
+source "drivers/gpu/drm/hisi/heap/Kconfig"
+

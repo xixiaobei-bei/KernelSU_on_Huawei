@@ -1,0 +1,28 @@
+menuconfig HWEVEXT_CODEC_MODULE
+	bool "hwevext codec drivers support"
+	default n
+	help
+	Say yes here to support the hwevext codec module
+
+if HWEVEXT_CODEC_MODULE
+config HWEVEXT_CODEC_INTERFACE
+	tristate "Support for HWEVEXT_CODEC_INTERFACE"
+	default n
+	---help---
+	 Say Y here if you want to support HWEVEXT_CODEC_INTERFACE
+config HWEVEXT_CODEC_V1
+	tristate "Support for hwevext codec v1"
+	default n
+	---help---
+	 Say Y here if you want to support hwevext codec v1
+config HWEVEXT_MBHC
+	tristate "Support for hwevext mbhc"
+	default n
+	---help---
+	 Say Y here if you want to support hwevext mbhc
+config HWEVEXT_I2C_OPS
+	tristate "Support for hwevext i2c ops"
+	default n
+	---help---
+	 Say Y here if you want to support hwevext i2c ops
+endif #HWEVEXT_CODEC_MODULE

@@ -1,0 +1,40 @@
+#
+# USB drivers for platforms
+#
+config CHIP_USB_REG_CFG
+	tristate "Register config for USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select MFD_SYSCON
+	help
+	  Enable this to support the register config for HISILICON USB.
+
+	  To compile this driver as a module, choose M here.
+
+config CHIP_USB_HELPER
+	tristate "Helper functions for USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	help
+	  Enable this to support the helper functions for HISILICON USB.
+
+	  To compile this driver as a module, choose M here.
+
+config CHIP_USB_MISC_CTRL
+	tristate "Misc Ctrl for USB module"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select CHIP_USB_REG_CFG
+	select CHIP_USB_HELPER
+	help
+	  Enable this to support the misc ctrl for  USB.
+
+	  To compile this driver as a module, choose M here.
+
+config CHIP_USB_LOG
+	bool "Chip USB Log"
+	depends on ARCH_HISI
+	---help---
+	  This option adds support for USB Log.
+
+config CHIP_USB_DEBUG_MODULE
+	bool "USB Debug MODULE"
+	---help---
+	This option adds support for Usb Driver Debug MODULE.

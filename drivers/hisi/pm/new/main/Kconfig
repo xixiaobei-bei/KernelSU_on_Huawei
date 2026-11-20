@@ -1,0 +1,23 @@
+menu "S/R options for main function"
+
+config SR_SYNC
+	bool "The optimizes file synchronization in the SR process"
+	depends on SR
+	default n
+	help
+	  Optimizes file synchronization in the SR process
+
+config PM_LPCTRL
+	bool "ap kernel can control functions of sr in lpm3"
+	depends on SR
+	default n
+	help
+	  The ap kernel controls the sr function of lpm3
+
+config SR_SWITCH_32K
+	bool "Switch 32K clock source when the system is suspend or resume for more power saving"
+	depends on PM_LPCTRL
+	default n
+	help
+	  Switch 32K clock source
+endmenu

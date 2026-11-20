@@ -1,0 +1,1 @@
+obj-$(CONFIG_HW_XCOLLIE) += hw_xcollie.o

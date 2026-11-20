@@ -1,0 +1,12 @@
+#
+# huawei uvdm charger drivers
+#
+
+config UVDM_CHARGER
+	bool "uvdm charger"
+	default n
+	help
+	  Say Y here to enable uvdm charger driver.
+	  This driver works with switchcap.
+	  This driver works after the cover connect.
+	  This driver communicates with uvdm protocol.

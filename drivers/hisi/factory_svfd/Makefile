@@ -1,0 +1,1 @@
+obj-$(CONFIG_FACTORY_SVFD) += factory_svfd_data.o

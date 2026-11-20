@@ -1,0 +1,20 @@
+config CONTEXTHUB_DEVICE_DEMO
+        bool "CONTEXTHUB_DEVICE_DEMO"
+        depends on INPUTHUB_AS
+        default n
+        help
+        support CONTEXTHUB_DEVICE_DEMO.
+
+config CONTEXTHUB_DEVICE_CONNECTIVITY
+        bool "CONTEXTHUB_DEVICE_CONNECTIVITY"
+        depends on INPUTHUB_AS
+        default n
+        help
+          support connectivity kernel driver
+
+config CONTEXTHUB_DEVICE_GYRO
+        bool "CONTEXTHUB_DEVICE_GYRO"
+        depends on CONTEXTHUB_DEVICE_DEMO
+        default n
+        help
+        Say yes here if you want to enable gyro

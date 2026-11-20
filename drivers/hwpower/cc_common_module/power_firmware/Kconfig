@@ -1,0 +1,9 @@
+#
+# huawei power firmware drivers
+#
+
+config HUAWEI_POWER_FIRMWARE
+	bool "huawei power firmware module"
+	default n
+	help
+	  Say Y here to enable power firmware driver.

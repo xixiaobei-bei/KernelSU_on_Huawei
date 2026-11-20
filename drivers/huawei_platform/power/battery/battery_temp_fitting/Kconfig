@@ -1,0 +1,12 @@
+#
+# battery temperature fitting drivers
+#
+
+config HUAWEI_BATTERY_TEMP_FITTING
+	bool "huawei battery temperature fitting"
+	default n
+	help
+	  Say Y here to enable battery temperature fitting feature.
+	  battery_temperature_fitting gives another optional battery
+	  temperature value as an alternative in case the one from
+	  sensor measurement not available.

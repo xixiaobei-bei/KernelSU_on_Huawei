@@ -1,0 +1,5 @@
+config ANA_HS_EXTERN_OPS
+	tristate "Support for ana hs extern ops"
+	default n
+	---help---
+	 Say Y here if you want to support invert headset

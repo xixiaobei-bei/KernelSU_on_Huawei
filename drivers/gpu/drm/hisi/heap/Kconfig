@@ -1,0 +1,14 @@
+
+config DRM_GEM_HEAP
+	bool "Enable heap memory manager feature"
+	depends on DRM_DSS_IOMMU
+	default n
+	help
+	  DRM GEM Heap feature
+
+config DRM_GEM_TRACE
+        bool "Enable DRM Heap GEM trace"
+        depends on DRM_GEM_HEAP
+        default n
+        help
+          DRM GEM Tracer

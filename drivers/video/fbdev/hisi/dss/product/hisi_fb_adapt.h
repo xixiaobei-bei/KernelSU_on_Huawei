@@ -1,0 +1,41 @@
+/* Copyright (c) 2015-2021, All rights reserved.
+ * Description: fastboot display
+ * Create: 2021
+ */
+
+#ifndef HISI_FB_ADAPT_H
+#define HISI_FB_ADAPT_H
+
+/*#include "dpu_fb.h"*/
+
+#define hisi_panel_info dpu_panel_info
+#define hisi_fb_panel_data dpu_fb_panel_data
+#define hisi_fb_data_type dpu_fb_data_type
+#define hisifd_list dpufd_list
+
+#define HISI_FB_INFO DPU_FB_INFO
+#define HISI_FB_ERR DPU_FB_ERR
+#define HISI_FB_DEBUG DPU_FB_DEBUG
+#define hisifb_activate_vsync dpufb_activate_vsync
+#define hisifb_deactivate_vsync dpufb_deactivate_vsync
+#define hisifb_vsync_disable_enter_idle dpufb_vsync_disable_enter_idle
+#define hisifb_set_backlight dpufb_set_backlight
+#define hisifb_display_effect_fine_tune_backlight dpufb_display_effect_fine_tune_backlight
+#define hisifb_update_gm_from_reserved_mem dpufb_update_gm_from_reserved_mem
+#define hisifb_update_dynamic_gamma dpufb_update_dynamic_gamma
+#define hisifb_set_vsync_activate_state dpufb_set_vsync_activate_state
+#define hisifb_display_effect_al_ctrl_show dpufb_display_effect_al_ctrl_show
+#define hisifb_display_effect_al_ctrl_store dpufb_display_effect_al_ctrl_store
+#define hisifb_display_effect_bl_ctrl_show dpufb_display_effect_bl_ctrl_show
+#define hisifb_display_effect_bl_ctrl_store dpufb_display_effect_bl_ctrl_store
+#define hisifb_display_effect_ce_ctrl_show dpufb_display_effect_ce_ctrl_show
+#define hisifb_display_effect_ce_ctrl_store dpufb_display_effect_ce_ctrl_store
+#define hisifb_display_effect_sre_ctrl_show dpufb_display_effect_sre_ctrl_show
+#define hisifb_display_effect_sre_ctrl_store dpufb_display_effect_sre_ctrl_store
+#define hisifb_display_effect_bl_enable_ctrl_show dpufb_display_effect_bl_enable_ctrl_show
+#define hisifb_display_effect_bl_enable_ctrl_store dpufb_display_effect_bl_enable_ctrl_store
+#define hisifb_display_effect_check_bl_value dpufb_display_effect_check_bl_value
+#define hisifb_display_effect_func_switch dpufb_display_effect_func_switch
+// #define hisifb_esd_recover_disable dpufb_esd_recover_disable
+
+#endif /* HISI_FB_ADAPT_H */

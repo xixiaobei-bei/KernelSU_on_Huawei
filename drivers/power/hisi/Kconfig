@@ -1,0 +1,20 @@
+config BATTERY_DATA
+	bool "battery data"
+	default n
+
+config BCI_BATTERY
+        bool "bci battery"
+        default n
+
+config CHARGE_TIME
+        bool "Calculate the remaining time of charging"
+        default n
+
+config BATTERY_ISCD
+        bool "battery iscd module"
+        default n
+
+source "drivers/power/hisi/charger/Kconfig"
+source "drivers/power/hisi/coul/Kconfig"
+source "drivers/power/hisi/soh/Kconfig"
+source "drivers/power/hisi/eis/Kconfig"

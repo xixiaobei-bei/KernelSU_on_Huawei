@@ -1,0 +1,15 @@
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_ic_intf.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_dts.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_status.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_pctrl.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_alarm.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_alignment.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_ui.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_dc_ic.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_dc_cp.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_acc.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_plim.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_interfere.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_auth.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_fod.o
+obj-$(CONFIG_WIRELESS_CHARGER) += wireless_rx_common.o

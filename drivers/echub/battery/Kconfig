@@ -1,0 +1,10 @@
+#
+# echub battery moudule
+#
+
+config HUAWEI_ECHUB_BATTERY
+        bool "echub battery"
+        depends on HUAWEI_ECHUB
+        default n
+        help
+          This driver provides support for echub battery

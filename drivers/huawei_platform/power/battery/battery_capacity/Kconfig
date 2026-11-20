@@ -1,0 +1,21 @@
+#
+# Huawei battery capacity configuration
+#
+
+config HUAWEI_BATTERY_CAPACITY
+	bool "huawei battery capacity"
+	default n
+	help
+	  Say Y here to enable huawei battery capacity support.
+	  Support series battery capacity.
+	  Compatible with hisi coul driver.
+	  Depend on "huawei-battery" power supply.
+
+config HUAWEI_SERIES_BATT_CAP
+	bool "huawei series battery capacity"
+	default n
+	help
+	  Say Y here to enable series battery capacity module.
+	  This module monitor dual battery capacity,
+	  and mixed two battery SOC to huawei battery module.
+	  Should register "huawei-battery" power supply.

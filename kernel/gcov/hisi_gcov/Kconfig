@@ -1,0 +1,5 @@
+config HISI_KERNEL_GCOV
+	bool "config hisi kernel gcov"
+	depends on GCOV_KERNEL
+	---help---
+	This option enables hisi kernel gcov.

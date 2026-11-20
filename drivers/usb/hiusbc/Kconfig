@@ -1,0 +1,4 @@
+config USB_HIUSBC
+	bool "Hisilicon USB Controller Driver"
+	help
+	  Say Y to enable Hisilicon USB Controller Driver

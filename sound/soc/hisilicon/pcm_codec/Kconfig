@@ -1,0 +1,3 @@
+config SND_SOC_PCM_CODECS
+	tristate "SoC Audio support for pcm codec"
+	default n

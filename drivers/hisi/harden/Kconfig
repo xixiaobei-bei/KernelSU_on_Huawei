@@ -1,0 +1,14 @@
+menu "Kernel Harden"
+
+config KERNEL_REGION_PROTECT
+	bool "Secure region protect for ACPU access of kernel region"
+	depends on !HISI_DDRC_KERNEL_CODE_PROTECTION
+	default n
+	help
+	  This module is for kernel code protection within ddrc mechanism.
+	  Include:
+	  kernel code,
+	  kernel ro data,
+	  etc ...
+
+endmenu

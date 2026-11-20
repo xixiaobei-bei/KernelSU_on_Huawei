@@ -1,0 +1,50 @@
+#
+# Phy drivers for Hisilicon platforms
+#
+config PHY_HI6220_USB
+	tristate "hi6220 USB PHY support"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Enable this to support the HISILICON HI6220 USB PHY.
+
+	  To compile this driver as a module, choose M here.
+
+config PHY_HIX5HD2_SATA
+	tristate "HIX5HD2 SATA PHY Driver"
+	depends on ARCH_HIX5HD2 && OF && HAS_IOMEM
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Support for SATA PHY on Hisilicon hix5hd2 Soc.
+
+config PHY_HISI_USB2_ULPI
+	tristate "Hisilicon USB2 PHY ULPI support"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Enable this to support the HISILICON USB2 ULPI PHY.
+
+	  To compile this driver as a module, choose M here.
+
+config PHY_HISI_COMBOPHY
+	tristate "Hisilicon ComboPHY support"
+	depends on (ARCH_HISI && ARM64 && CHIP_COMBOPHY) || COMPILE_TEST
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Enable this to support the HISILICON ComboPHY.
+
+	  To compile this driver as a module, choose M here.
+
+config PHY_HISI_USB2_T5
+	tristate "Hisilicon USB2 PHY T5 support"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Enable this to support the HISILICON USB2 T5 PHY.
+
+	  To compile this driver as a module, choose M here.

@@ -1,0 +1,5 @@
+config ANA_HS_CORE
+	tristate "Support for analog headset core"
+	default n
+	---help---
+	 Say Y here if you want to support analog headset core

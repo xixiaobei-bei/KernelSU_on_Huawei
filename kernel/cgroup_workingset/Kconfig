@@ -1,0 +1,8 @@
+config HW_CGROUP_WORKINGSET
+        bool "workingset cgroup subsystem"
+        depends on CRYPTO_CRC32C
+        depends on TASK_DELAY_ACCT
+        help
+          Provides a cgroup implementing filepage collector and prereader of workingset.
+          This cgroup workingset for application, collect it touched filepages and
+          preread those filepages.

@@ -1,0 +1,17 @@
+config DUAL_LOADSWITCH
+	bool "dual_load_switch"
+	depends on DIRECT_CHARGER
+	default n
+	help
+	  Say Y here to enable dual load switch driver.
+	  This driver provides a unified interface for dual load swtich.
+	  Support device:
+	  dual_rt9748
+	  dual_fpf2283
+
+config DUAL_LOADSWITCH_FPF2283
+	bool "dual_loadwitch_fpf2283"
+	depends on DUAL_LOADSWITCH
+	default n
+	help
+	  Say Y here to enable dual fpf2283 driver.

@@ -1,0 +1,6 @@
+#sensor unification for differ platform
+menuconfig HUAWEI_ARMPC_PCIE_MISC
+	bool "huawei armpc PCIE device misc control"
+	default n
+	help
+	Say yes here to support pcie device misc control for huawei arm PC.

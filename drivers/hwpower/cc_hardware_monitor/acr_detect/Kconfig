@@ -1,0 +1,9 @@
+#
+# acr abnormal monitor drivers
+#
+
+config HUAWEI_BATT_ACR_DETECT
+	bool "huawei batt acr detect"
+	default n
+	help
+	  Say Y here to enable acr abnormal monitor driver.

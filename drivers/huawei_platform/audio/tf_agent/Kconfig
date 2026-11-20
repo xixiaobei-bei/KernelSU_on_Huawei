@@ -1,0 +1,7 @@
+# tfagent driver configuration
+
+config TF_AGENT
+	tristate "tfagent driver"
+	default n
+	help
+		Say Y to enable tfagent driver support

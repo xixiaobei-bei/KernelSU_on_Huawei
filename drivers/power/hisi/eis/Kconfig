@@ -1,0 +1,33 @@
+config BATT_EIS
+	bool "batt eis"
+	default n
+	help
+	  Electrochemical Impedance Spectroscopy.
+
+if BATT_EIS
+config BATT_EIS_FREQ
+	bool "batt eis freq"
+	default n
+	help
+	  batt eis frequency domain method.
+
+config BATT_EIS_TIME
+	bool "batt eis time"
+	default n
+	help
+	   batt eis time domain method.
+
+config BATT_EIS_WAVELET
+	bool "batt eis wavelet"
+	default n
+	help
+	  batt eis wavelet method.
+
+config BATT_EIS_VERBOSE_DEBUG
+	bool "batt eis verbose debug"
+	default n
+	help
+	  batt eis verbose debug
+endif
+
+source drivers/power/hisi/eis/pmic/Kconfig

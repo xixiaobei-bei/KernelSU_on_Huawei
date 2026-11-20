@@ -1,0 +1,58 @@
+config HISI_DDR_DEVFREQ
+	tristate "Hisilicon DDR DEVFREQ Driver"
+	depends on ARCH_HISI && PM_DEVFREQ
+	select PM_OPP
+	select DEVFREQ_GOV_PM_QOS
+	select DEVFREQ
+	help
+	  This enables the hisilicon DDRfreq driver.
+
+config DEVFREQ_GOV_PM_QOS
+	bool "PM QOS"
+	help
+	  Sets the frequency based on pm_qos throughput constraints.
+
+config DEVFREQ_DMSS_LATENCY
+	bool "PM QOS DMSS"
+	depends on DEVFREQ_GOV_PM_QOS
+	help
+	  Sets the dmss frequency based on pm_qos throughput constraints.
+
+config HISI_DDR_CHINTLV
+	bool "Hisilicon ddr devfreq chintlv"
+	default n
+	help
+	  Deliver register address of GLB_ADDR_INTLV to ATF.
+
+config HISI_DDR_DEVFREQ_DEBUGFS
+	bool "Hisilicon ddr devfreq debugfs"
+	depends on HI3650_DDR_DEVFREQ && DEBUG_FS
+	default n
+	help
+	  This is a testing driver for HISI ddr devfreq function.
+
+config DDR_HW_VOTE_15BITS
+	bool "Hisilicon ddr dfs hardware vote 15 bits"
+	depends on HISI_DDR_DEVFREQ
+	default n
+	help
+	  Hisilicon ddr dfs "hardware vote 15 bits" enbale.
+
+config DDR_FREQ_BACKUP
+        bool "Hisilicon ddr freq buckup vote for s4"
+        depends on HISI_DDR_DEVFREQ
+        default n
+        help
+          Hisilicon ddr dfs "ddr freq buckup vote for s4" enbale.
+
+config HISI_MEM_PERF_SCENE_AWARE
+	bool "Hisilicon memory perf scene aware"
+	help
+	  Provide interface to select multiple perf scenes
+
+config DDR_DEVFREQ_DFX
+	bool "DDR devfreq dfx info"
+	depends on HISI_DDR_DEVFREQ
+	default n
+	help
+	  Record and print ddr devfreq dfx info record and print.

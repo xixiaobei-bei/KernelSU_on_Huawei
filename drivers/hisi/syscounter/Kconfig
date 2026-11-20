@@ -1,0 +1,6 @@
+config BSP_SYSCOUNTER
+	bool "BSP SysCounter driver"
+	depends on INPUTHUB || INPUTHUB_20 || INPUTHUB_30
+	default n
+	help
+	Say yes here if you want to use bsp syscounter

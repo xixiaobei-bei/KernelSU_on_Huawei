@@ -1,0 +1,56 @@
+# Framework Configuration
+config CPU_AFF_NR
+	int "Default Cpu Affinity"
+	default 0
+	depends on TZDRIVER
+	help
+	  Default Cpu Affinity
+
+config DRM_ADAPT
+	bool "Drm Feature Adapt"
+	default n
+	depends on TZDRIVER
+	help
+	  Drm Feature Adapt
+
+config TA_AFFINITY
+	bool "TA affinity"
+	default n
+	depends on TZDRIVER
+	help
+	  TA Cpu Affinity bind range, consistent with CONFIG_MAX_NUM_NODES in TEE
+
+config TA_AFFINITY_CPU_NUMS
+	int "TA affinity max support cpus"
+	default 8
+	depends on TA_AFFINITY
+	help
+	  consistent with CONFIG_MAX_NUM_NODES in TEE
+
+config TEECD_AUTH
+	bool "Teec Daemon Path Hash Auth"
+	default n
+	depends on TZDRIVER
+	help
+	  TEEOS TEECD path hash auth
+
+config TEE_AUDIT
+	bool "Audit TA"
+	default n
+	depends on AUTH_ENHANCE
+	help
+	  Audit TA in case of evil TA
+
+config KERNEL_CLIENT
+	bool "Kernel Client Interface"
+	default n
+	depends on TZDRIVER
+	help
+	  Kernel Client Interface
+
+config BIG_SESSION
+	bool "open more sessions"
+	default n
+	depends on TZDRIVER
+	help
+	  TEEOS open more sessions

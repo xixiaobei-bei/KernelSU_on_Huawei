@@ -1,0 +1,6 @@
+config HW_XCOLLIE
+	depends on HW_LOGGER
+	bool "Huawei kernel xcollie driver"
+	default n
+	---help---
+	  This feature support to kernel xcollie

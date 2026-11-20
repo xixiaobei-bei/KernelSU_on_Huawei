@@ -1,0 +1,10 @@
+config D2D_PROTOCOL
+	tristate "D2D Protocol"
+	depends on INET
+	help
+	  This enables building D2D-over-UDP Protocol. D2DP/UDP is a new fast
+	  transport protocol designed for local WiFi networks with low drop
+	  rate (WiFi-Direct or Soft-AP with no intermediate hops)
+
+	  This protocol now works only in kernel space so if your application
+	  does not run in kernelspace, say N here.

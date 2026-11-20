@@ -1,0 +1,11 @@
+#
+# ccore image load
+#
+
+comment "ccore image load driver"
+
+config MLOADER
+	tristate "ccore image load"
+	default n
+	help
+	  ccore image load driver

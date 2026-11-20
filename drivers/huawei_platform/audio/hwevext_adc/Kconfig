@@ -1,0 +1,5 @@
+config HWEVEXT_EXTERN_ADC
+	tristate "hwevext adc driver"
+	default n
+	help
+		Say Y to enable hwevext adc driver support

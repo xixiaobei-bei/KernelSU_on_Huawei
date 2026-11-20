@@ -1,0 +1,125 @@
+config HISILICON_PLATFORM_MAINTAIN
+	bool "platform maintain module support"
+	default n
+	help
+	  Say yes here to support the platform maintain module
+
+config HISI_MNTN_PC
+	bool "pc platform"
+	default n
+	help
+	  Say yes here to support the pc platform
+
+config HISILICON_PLATFORM_HISI_EASYSHELL
+	bool "Support Easy Shell"
+	default n
+	help
+	  This driver supports XXX SOC,
+	  including easy shell, etc.
+source "drivers/hisi/mntn/blackbox/Kconfig"
+source "drivers/hisi/mntn/hisee/Kconfig"
+source "drivers/hisi/mntn/bl31/Kconfig"
+source "drivers/hisi/mntn/subpmu/Kconfig"
+
+
+config HISI_VIRT_TO_PHYS
+	bool "support converting virtual address to physical address"
+	default n
+	help
+	  Say 'Y' here if you want to support virtual address to physical address enable.
+
+config HISI_BOOT_TIME
+	bool "support print all boot slice"
+	default n
+	help
+	  Say 'Y' here if you want to print all boot slice.
+
+config HISI_BB_SYSCALL
+	bool "support print system call trace "
+	default n
+	help
+	  Say 'Y' here if you want to print system call trace.
+
+config HISI_POWER_OFF
+	bool "platform power off and reset driver"
+	default n
+	help
+	  Power off and reset support for the boards.
+
+config HISI_FIQ
+	bool "platform fiq dump driver"
+	default n
+	help
+	   Say 'Y' here if you want to support fiq dump.
+
+config HISI_MNTNDUMP
+        bool "platform mntn dump driver"
+        default n
+        help
+           Say 'Y' here if you want to support mntn dump.
+
+config HISI_DEBUG_FS
+	bool "platform debugfs"
+	depends on DEBUG_FS
+	help
+		debugfs disable by self
+
+config HISI_RECORD_SP
+        bool "platform mntn record sp"
+		depends on FUNCTION_TRACER
+		default n
+        help
+           Say 'Y' here if you want to support record sp.
+
+config HISI_HW_SP
+        bool "platform hw sp"
+        default n
+        help
+           Say 'Y' here if you want to support hw sp.
+
+config HISI_L3CACHE_ECC
+        bool "platform l3cache ecc driver"
+        depends on !CPU_EDAC_ARM64
+        default n
+        help
+           Say 'Y' here if you want to support l3cache ecc.
+
+config HISI_L3CACHE_ECC_DEBUG
+        bool "platform l3cache ecc debug"
+        depends on HISI_L3CACHE_ECC
+        default n
+        help
+           Say 'Y' here if you want to support l3cache ecc debug.
+
+config HISI_CLANG
+        bool "clang compiler auxiliary for kernel"
+        default n
+        help
+           Say 'Y' here if you want to support clang.
+
+config HISI_MNTN_FACTORY
+        bool "debug mntn for factory test"
+        depends on HISI_BB
+        default n
+        help
+           Say 'Y' here if you want to use enable mntn factory debug
+
+config HISI_HEALTH_GRADE
+        bool "health grade driver"
+        default n
+        help
+           Say 'Y' here if you want to use enable health grade
+
+config HISI_MNTN_SWITCH
+        bool "mntn switch debug driver"
+        depends on HISI_BB
+        default n
+        help
+           Say 'Y' here if you want to use himntn switch debug
+config HISI_EARLY_PANIC
+        bool "early ap panic save log buf"
+        depends on HISI_BB
+        default n
+        help
+           Say 'Y' here if you want to use enable early log buf
+

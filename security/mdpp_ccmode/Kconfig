@@ -1,0 +1,16 @@
+#
+# Copyright (c) Huawei Technologies Co., Ltd. 2019-2019. All rights reserved.
+# Description: Get ccMode from CommandLine
+# Author: yangzhenyuan <yangzhenyuan@huawei.com>
+# Create: 2019-11-07
+#
+
+menu "Huawei kernel mdpp ccmode"
+
+config HUAWEI_MDPP_CCMODE
+	bool "cmdline parse for ccmode"
+	default y
+
+endmenu
+#a blank line must be existed
+

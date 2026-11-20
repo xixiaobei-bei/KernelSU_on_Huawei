@@ -1,0 +1,4 @@
+config BATTERY_ISCD
+        bool "battery iscd"
+        default n
+
