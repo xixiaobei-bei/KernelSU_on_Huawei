@@ -13,7 +13,7 @@ HEADER="${HEADER:-${PWD}/stock/header.bin}"
 TAIL="${TAIL:-${PWD}/stock/tail.bin}"
 DTB_BLOB="${DTB_BLOB:-${PWD}/stock/dtb_blob.bin}"
 GZ="${GZ:-${PWD}/kernel-source/out/arch/arm64/boot/Image.gz}"
-OUT="${OUT:-${PWD}/kernel.img}"
+OUT="${OUT:-${PWD}/${ARTIFACT_NAME}.img}"
 EXTRA_CMDLINE="${1:-}"
 
 HEADER_SIZE=2048
