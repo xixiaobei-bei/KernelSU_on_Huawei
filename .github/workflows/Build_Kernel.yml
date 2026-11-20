@@ -101,6 +101,7 @@ jobs:
           - ELE_HarmonyOS2.0_RKSU
           - AGS2_EMUI9.1_RKSU
           - SHT_EMUI9.1_RKSU
+          - CLT_HarmonyOS3.0_RKSU
         pm: [false, true]
 
     steps:
@@ -160,7 +161,7 @@ jobs:
             ak3="false" ;;
 
           # ---------- kirin970 / os 9 / gcc ----------
-          VCE_EMUI9.0|ALP_EMUI9.1|ALP_EMUI9.0|EML_EMUI9.1|BLA_EMUI9.1|PAR_HarmonyOS2.0|NEO_EMUI9.0)
+          VCE_EMUI9.0|ALP_EMUI9.1|ALP_EMUI9.0|EML_EMUI9.1|BLA_EMUI9.1|PAR_HarmonyOS2.0|NEO_EMUI9.0|COR_EMUI9.1)
             DEFCONFIG="merge_kirin970_defconfig"
             os_version="9"
             tool="gcc"
@@ -214,15 +215,10 @@ jobs:
             ak3="false" ;;
 
           # ---------- kirin970 / os 10 ----------
-          VCE_HarmonyOS3.0)
+          VCE_HarmonyOS3.0|CLT_HarmonyOS3.0)
             DEFCONFIG="merge_kirin970_defconfig"
             os_version="10"
             tool="clang"
-            ak3="false" ;;
-          COR_EMUI9.1)
-            DEFCONFIG="merge_kirin970_defconfig"
-            os_version="10"
-            tool="gcc"
             ak3="false" ;;
 
           # ---------- kirin990 / os 10 / clang ----------
